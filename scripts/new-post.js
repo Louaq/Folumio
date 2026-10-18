@@ -1,5 +1,3 @@
-/* This is a script to create a new post markdown file with front-matter */
-
 import fs from "fs"
 import path from "path"
 
@@ -17,12 +15,11 @@ const args = process.argv.slice(2)
 if (args.length === 0) {
   console.error(`Error: No filename argument provided
 Usage: npm run new-post -- <filename>`)
-  process.exit(1) // Terminate the script and return error code 1
+  process.exit(1)
 }
 
 let fileName = args[0]
 
-// Add .md extension if not present
 const fileExtensionRegex = /\.(md|mdx)$/i
 if (!fileExtensionRegex.test(fileName)) {
   fileName += ".md"
@@ -36,7 +33,6 @@ if (fs.existsSync(fullPath)) {
   process.exit(1)
 }
 
-// recursive mode creates multi-level directories
 const dirPath = path.dirname(fullPath)
 if (!fs.existsSync(dirPath)) {
     fs.mkdirSync(dirPath, { recursive: true })

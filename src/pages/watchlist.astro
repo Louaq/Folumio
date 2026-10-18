@@ -8,18 +8,14 @@ import I18nKey from "@/i18n/i18nKey";
 import { i18n } from "@/i18n/translation";
 import MainGridLayout from "@/layouts/MainGridLayout.astro";
 
-// 检查页面是否启用
 if (!siteConfig.pages.watchlist) {
 	return Astro.redirect("/404/");
 }
 
-// 获取启用的观影项目
 const enabledItems = watchlistConfig.items.filter((item) => item.enabled);
 
-// 分页与排序均取自 watchlistConfig.display，改配置即生效
 const { itemsPerPage, sortBy, sortOrder } = watchlistConfig.display;
 
-// 取出参与比较的字段：date 用开始时间（缺失则退回完成时间）
 const sortKey = (item: WatchlistItem): string | number => {
 	switch (sortBy) {
 		case "rating":
@@ -31,7 +27,6 @@ const sortKey = (item: WatchlistItem): string | number => {
 	}
 };
 
-// 置顶项恒在最前，不受 sortBy / sortOrder 影响
 const compareItems = (a: WatchlistItem, b: WatchlistItem) => {
 	if (!!a.pinned !== !!b.pinned) {
 		return a.pinned ? -1 : 1;
@@ -45,7 +40,6 @@ const compareItems = (a: WatchlistItem, b: WatchlistItem) => {
 	return sortOrder === "asc" ? diff : -diff;
 };
 
-// 按类型分类并排序
 const categorizedItems = {
 	anime: enabledItems
 		.filter((item) => item.type === "anime")
@@ -62,7 +56,6 @@ const categorizedItems = {
 		.sort(compareItems),
 };
 
-// 分类配置（按照指定顺序）
 const categories = [
 	{
 		key: "anime",
@@ -96,7 +89,6 @@ const categories = [
 	},
 ].filter((category) => category.items.length > 0); // 只显示有内容的分类
 
-// 准备标签页数据
 const tabs = categories.map((category) => ({
 	id: category.key,
 	name: category.name,
@@ -105,7 +97,6 @@ const tabs = categories.map((category) => ({
 
 const activeTab = tabs[0]?.id || "anime";
 
-// 根据 URL hash 在首屏绘制前修正栏目（内联 CSS + script），避免先闪默认 tab 再跳转
 const watchlistTabIds = tabs.map((t) => t.id);
 const watchlistTabIdsJson = JSON.stringify(watchlistTabIds);
 const watchlistRestoreCss =
@@ -135,7 +126,6 @@ html.dark[data-watchlist-restore="${id}"] .watchlist-tabs-root nav button[data-t
 				.join("\n")
 		: "";
 
-// 生成稳定的锚点 id，供全站搜索跳转定位
 const makeWatchAnchorId = (item: WatchlistItem) => {
 	const raw = `${item.type} ${item.title}`.trim();
 	const base = encodeURIComponent(raw).replace(/%/g, "").replace(/[()]/g, "");
@@ -143,14 +133,12 @@ const makeWatchAnchorId = (item: WatchlistItem) => {
 	return `watch-${short}` || "watch";
 };
 
-// 状态文本映射
 const statusText = {
 	watching: "在看",
 	completed: "已看",
 	plan_to_watch: "想看",
 };
 
-// 状态颜色映射
 const statusColor = {
 	watching: "text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-blue-900/20",
 	completed:
@@ -170,7 +158,6 @@ const statusColor = {
 		<div class="watchlist-shell">
 			<div class="relative w-full mb-8">
 
-			<!-- Tab 导航和内容 -->
 			{
 				tabs.length > 0 ? (
 					<>
@@ -200,7 +187,6 @@ const statusColor = {
 							restoreAttr="data-watchlist-restore"
 						/>
 
-						<!-- 内容区域 -->
 						{categories.map((category) => (
 
 							<div

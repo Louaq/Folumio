@@ -1,5 +1,4 @@
-/* 明暗模式切换开关（#scheme-switch）。由 Layout.astro 单独引入，在源文件内显式包入 @layer utilities，
-   保持与拆分前（main.css 的 @layer utilities 块）相同的层级。 */
+
 @layer utilities {
   #scheme-switch.theme-switch {
     width: 52px;

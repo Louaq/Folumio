@@ -1,4 +1,4 @@
-/* 导航栏与下拉菜单的掘金风格覆盖（无层级，优先于 navbar.css 的 base 层） */
+
 #navbar > div {
   background: transparent !important;
   border-radius: 0 !important;
@@ -6,7 +6,6 @@
   backdrop-filter: none !important;
 }
 
-/* 导航栏菜单项：字号 16px（搜索触发器单独用组件类，不受此条影响） */
 #navbar .btn-plain {
   border-radius: 6px !important;
   color: #000000 !important;
@@ -89,7 +88,6 @@
   background: none !important;
 }
 
-/* 选中态菜单：主色，悬浮/点击时不改变背景（:root.dark 版本用于压过上面深色的 .btn-plain:hover/:active） */
 #navbar .navbar-link-active {
   color: var(--primary) !important;
 }
@@ -106,7 +104,6 @@
   padding: 0 0.75rem !important;
 }
 
-/* 下拉菜单项：掘金风格小圆角 */
 .dropdown-item {
   border-radius: 4px !important;
   margin: 0 4px;

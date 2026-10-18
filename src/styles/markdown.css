@@ -190,7 +190,6 @@
   display: block !important;
 }
 
-/* 元数据到达前不知道真实比例，按最常见的 16:9 先撑出框，16:9 视频就绪时尺寸不变 */
 .custom-md .video-embed[data-loading] {
   position: relative;
   aspect-ratio: 16 / 9;

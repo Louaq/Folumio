@@ -1,12 +1,3 @@
-/* 图片点击放大（medium-zoom）
- *
- * medium-zoom 自带的 dist/style.css 直接抄进来，不再由 JS 动态 import：
- * 动态 import 的 CSS 是运行时注入到 <head> 的 <style>，而 swup 的 head-plugin
- * 会在每次导航时把「新页面 head 里没有的标签」删掉，注入的样式活不过一次导航，
- * 结果就是 swup 换页后遮罩层没有样式（看起来像遮罩消失了）。
- * 放进随 main.css 一起下发的静态样式表里，每个页面 head 都有且完全一致，
- * swup 比对后会原样保留。
- */
 
 .medium-zoom-overlay {
 	position: fixed;
@@ -44,8 +35,6 @@
 	z-index: 99999;
 }
 
-/* 正文图加载完成前的模糊占位（参考 ThriveX-Blog）。
- * 类由 markdown-image-init.ts 在运行时添加，加载完成/失败即移除。 */
 .custom-md img.markdown-img--loading {
 	filter: blur(20px);
 }

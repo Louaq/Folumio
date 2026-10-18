@@ -1,5 +1,4 @@
-/* Tailwind v4：本文件被 Vite 拆分为独立样式表时会丢失 @import 的 layer() 修饰；
-   在源文件内显式包入 @layer base，确保始终位于 base 层（低于 utilities、低于无层级的 juejin-theme）。 */
+
 @layer base {
 
 /* 移动端无侧边栏布局优化 */
@@ -24,11 +23,6 @@
     }
 }
 
-/*
- * 主内容区位置：站点已无背景壁纸 / 横幅，主内容恒从导航栏下方开始。
- * 此前这里按「小屏手机 / 大屏手机 / 平板 / 桌面」分了四套断点，
- * 分别处理 banner 模式下主内容上移遮挡横幅的距离，现在统一为一个值。
- */
 .no-banner-layout {
     top: 5.5rem !important;
     min-height: calc(100vh - 5.5rem) !important;
@@ -37,32 +31,26 @@
 /* 移动端文章封面图（.banner-container）性能优化 */
 @media (max-width: 1023px) {
     .banner-container {
-        /* 启用硬件加速 */
         transform: translateZ(0);
         -webkit-transform: translateZ(0);
         will-change: transform, opacity;
 
-        /* 优化渲染性能 */
         contain: layout style paint;
 
-        /* 减少重绘 */
         backface-visibility: hidden;
         -webkit-backface-visibility: hidden;
     }
 
     /* 移动端图片优化 - 只针对装饰性图片 */
     .banner-container img:not(.interactive):not([onclick]):not([data-clickable]) {
-        /* 图片渲染优化 */
         image-rendering: -webkit-optimize-contrast;
         image-rendering: crisp-edges;
 
-        /* 防止图片拖拽 */
         -webkit-user-drag: none;
         -khtml-user-drag: none;
         -moz-user-drag: none;
         -o-user-drag: none;
 
-        /* 触摸优化 - 只针对装饰性图片 */
         pointer-events: none;
     }
 

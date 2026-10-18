@@ -1,6 +1,3 @@
-/* 文章正文（.custom-md）的掘金风格覆盖：剧透、图片、链接、标题、引用块、行内代码、表格。
-   无层级，优先于 markdown.css 的 base 层。本文件由 Layout.astro 单独引入、作为独立 CSS 模块编译，
-   @apply 需先 @reference 取得 utilities 上下文。 */
 @reference "tailwindcss";
 
 /*剧透效果*/

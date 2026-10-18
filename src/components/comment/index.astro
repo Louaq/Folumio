@@ -4,14 +4,12 @@ import Key from "@/i18n/i18nKey";
 import { i18n } from "@/i18n/translation";
 import Twikoo from "./Twikoo.astro";
 
-// 强制commentService类型为string，避免类型不兼容警告
 let commentService: string = commentConfig?.type || "none";
 ---
 
 {
   commentService !== "none" && (
     <div id="post-comments" class="card-base card-plain p-8 mb-6 relative overflow-hidden">
-      <!-- 评论区标题 -->
       <div class="relative z-10 mb-6">
         <div class="flex items-center gap-3 mb-2">
           <div class="w-1 h-6 bg-linear-to-b from-(--primary) to-transparent rounded-full"></div>
@@ -19,7 +17,6 @@ let commentService: string = commentConfig?.type || "none";
         </div>
         <p class="text-sm text-(--content-meta) ml-4">{i18n(Key.commentSubtitle)}</p>
       </div>
-      <!-- 评论内容区域 -->
       <div class="relative z-10">
         {commentService === "twikoo" && <Twikoo />}
       </div>

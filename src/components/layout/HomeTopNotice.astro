@@ -154,8 +154,6 @@ const switchInterval =
 
 	// 本脚本被 Astro 打包为 type="module"（defer），执行时 DOM 已解析完毕，
 	// 首屏直接调用即可；swup 导航不会重新执行脚本，靠 astro:page-load 续上。
-	// 原先监听的 swup:contentReplaced 是 swup 3 的事件名，本项目是 swup 4
-	// （hook 名为 content:replace），该监听从不触发，导航后公告轮播不会重启。
 	setupHomeTopNotice();
 	document.addEventListener("astro:page-load", setupHomeTopNotice);
 </script>

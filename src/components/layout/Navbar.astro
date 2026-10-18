@@ -11,7 +11,6 @@ import NavMenuPanel from "./NavMenuPanel.astro";
 
 const className = Astro.props.class;
 
-// 检查是否为首页
 const isHomePageCheck = isHomePage(Astro.url.pathname);
 
 let links: NavBarLink[] = navBarConfig.links.map(
@@ -166,12 +165,6 @@ function setupNavbarActiveSync() {
 
     // 导航结束后按真实 URL 校正一次。@swup/astro 在 page:view 钩子上派发
     // astro:page-load，swup 接管的前进/后退同样走这条路径，所以这一个监听就够。
-    //
-    // 这里原先并排挂着七条路径：swup:contentReplaced（swup 3 的事件名，本项目是
-    // swup 4，从不触发）、swup:content:replace、astro:page-load、popstate，外加
-    // hooks 上的 visit:start / page:view / visit:end，且在 swup:enable 分支里把后
-    // 三条又注册一遍——page:view 本身就是 astro:page-load 的来源，一次导航要重算
-    // 五六遍高亮。上面的点击委托已经负责"点下去立刻亮"，剩下只需一次事后校正。
     document.addEventListener("astro:page-load", updateNavbarActiveLinks);
 }
 

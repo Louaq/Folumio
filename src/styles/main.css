@@ -32,16 +32,13 @@
 
 @utility card-base {
   @apply rounded-(--radius-large) overflow-hidden bg-(--card-bg);
-  /* `.enable-card-border .card-base` 的边框只在 @utility enable-card-border 里定义一次 */
 }
 
 @utility enable-card-border {
-  /* 开启边框和阴影效果时的样式 */
   & .card-base {
     @apply border border-(--line-divider) shadow-xs;
   }
 
-  /* 导航栏样式适配 */
   & #navbar > div:not(.absolute) {
     @apply border;
     border-color: var(--line-divider) !important;
@@ -54,15 +51,12 @@
 }
 
 @utility link {
-  /* 只过渡点击背景；文字颜色随主题即时翻转 */
   @apply transition-[background-color] duration-150 rounded-md p-1 -m-1 expand-animation;
-  /* 多行链接的点击背景需完整覆盖每行，用元素自身背景替代 ::before */
   box-decoration-break: clone;
   -webkit-box-decoration-break: clone;
   &:active {
     background-color: var(--btn-plain-bg-active);
   }
-  /* 禁用 expand-animation 的 ::before 背景，避免多行时覆盖不完整 */
   &:hover::before,
   &:active::before {
     background: none !important;
@@ -101,7 +95,6 @@
 }
 
 @utility archive-row-link {
-  /* 归档时间轴行：禁用 hover 时 transform/缩放（避免与 expand-animation 或浏览器默认感混淆） */
   &:hover,
   &:active,
   &:focus-visible {
@@ -119,9 +112,6 @@
 }
 
 @utility hide-scrollbar {
-  /* #toc-inner-wrapper {
-        mask-image: linear-gradient(to bottom, transparent 0%, black 2rem, black calc(100% - 2rem), transparent 100%);
-    } */
   scrollbar-width: none;
   -ms-overflow-style: none;
   &::-webkit-scrollbar {
@@ -146,10 +136,8 @@
 }
 
 @utility dropdown-container {
-  /* 下拉菜单样式 */
   @apply relative;
 
-  /* 响应式隐藏 */
   @media (max-width: 768px) {
     @apply hidden;
   }
@@ -158,7 +146,6 @@
 @utility dropdown-menu {
   @apply absolute top-full left-0 pt-2 opacity-0 invisible pointer-events-none transition-[opacity,transform,visibility] duration-200 ease-out transform translate-y-[-8px] z-50;
 
-  /* :focus-within 一并覆盖键盘导航（无障碍） */
   .dropdown-container:hover &,
   .dropdown-container:focus-within & {
     @apply opacity-100 visible pointer-events-auto translate-y-0;
@@ -189,7 +176,6 @@
 }
 
 @utility mobile-submenu {
-  /* 移动端菜单样式 */
   @apply max-h-0 overflow-hidden transition-[max-height] duration-300 ease-in-out;
 
   .mobile-dropdown[data-expanded='true'] & {
@@ -198,7 +184,6 @@
 }
 
 @utility mobile-dropdown {
-  /* 展开态由 mobile-submenu / mobile-dropdown-arrow 各自定义，这里不再重复 */
   & button:focus {
     @apply outline-hidden;
   }
@@ -211,10 +196,8 @@
 }
 
 @utility meta-icon {
-  /* 无 hover 态，不加 transition-colors：颜色过渡只会在主题翻转时拖出不同步的尾巴 */
   @apply w-8 h-8 rounded-md flex items-center justify-center bg-(--btn-regular-bg)
         text-(--btn-content) mr-2;
-  /* 原有的 `.post-meta &` 嵌套规则已随 .post-meta 整体移除，见下方 juejin-theme 段说明 */
 }
 
 @utility with-divider {
@@ -223,9 +206,6 @@
 }
 
 @layer utilities {
-  /* 其他组件样式 */
-
-  /* 侧边栏标题图标缩放动画 */
   .icon-scale {
     transform-origin: center;
     animation: icon-scale 1s infinite;
@@ -240,10 +220,8 @@
     }
   }
 
-  /* 确保平滑滚动 */
   html {
     scroll-behavior: smooth;
-    /* 避免弹窗锁滚动时滚动条消失导致页面左右抖动 */
     scrollbar-gutter: stable;
   }
 
@@ -278,7 +256,6 @@ body {
   color: rgba(255, 255, 255, 0.85);
 }
 
-/* 选择高亮：掘金风格的浅蓝 */
 ::selection {
   background-color: color-mix(in oklch, var(--primary) 20%, transparent) !important;
   color: var(--juejin-primary);
@@ -334,7 +311,6 @@ a {
   border-radius: var(--radius-large) !important;
 }
 
-/* widget 内的标题（h2/h3）变成掘金黑色 */
 .widget h1,
 .widget h2,
 .widget h3,
@@ -347,12 +323,11 @@ a {
 :root.dark .widget h4 {
   color: rgba(255, 255, 255, 0.92);
 }
-/* 头像区域：圆形 + 居中 */
+
 .card-base.p-3 > a:first-child {
   border-radius: var(--radius-large) !important;
 }
 
-/* 个人资料下的"分隔线"色调用蓝 */
 .card-base .h-1.w-5 {
   background-color: var(--juejin-primary) !important;
 }

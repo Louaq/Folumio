@@ -1,12 +1,9 @@
 @layer base {
 #navbar>div {
-    /* 使用contain优化渲染性能 */
     contain: layout style;
-    /* 使用transform替代top/left等属性，利用GPU加速 */
     will-change: transform;
 }
 
-/* Swup 导航期间统一关掉导航栏过渡（含 border），避免回顶/回首页时黑边一闪 */
 .is-page-transitioning #navbar>div {
     transition: none !important;
 }

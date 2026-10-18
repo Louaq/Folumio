@@ -57,7 +57,6 @@ const collapsiblePlugin =
 		configDigest: collapsibleOptions,
 	});
 
-// https://astro.build/config
 export default defineConfig({
 	site: siteConfig.site_url,
 
@@ -115,7 +114,6 @@ export default defineConfig({
 					return false;
 				}
 			},
-			// 滚动相关配置优化
 			resolveUrl: (url) => url,
 			animateHistoryBrowsing: false,
 			skipPopStateHandling: (event) => {
@@ -155,7 +153,6 @@ export default defineConfig({
 			},
 			plugins: [
 				pluginLineNumbers(),
-				// pluginCollapsible 配置 - 从expressiveCodeConfig读取设置，使用i18n文本
 				...(collapsiblePlugin ? [collapsiblePlugin] : []),
 				// 必须排在 collapsiblePlugin 之后：把复制/折叠按钮挪进标题栏
 				pluginHeaderToolbar(),
@@ -187,7 +184,6 @@ export default defineConfig({
 		svelte(),
 		sitemap({
 			filter: (page) => {
-				// 根据页面开关配置过滤sitemap
 				const url = new URL(page);
 				const pathname = url.pathname;
 				if (pathname === "/friends/" && !siteConfig.pages.friends) {
@@ -254,7 +250,6 @@ export default defineConfig({
 		}),
 	},
 	vite: {
-		// Tailwind CSS v4 通过官方 Vite 插件接入
 		plugins: [
 			tailwindcss(),
 			// 音乐播放器的 /ncm 同源反代只在线上 openresty 里，dev 下转发过去。
@@ -304,7 +299,6 @@ export default defineConfig({
 		build: {
 			rollupOptions: {
 				onwarn(warning, warn) {
-					// temporarily suppress this warning
 					if (
 						warning.message.includes("is dynamically imported by") &&
 						warning.message.includes("but also statically imported by")

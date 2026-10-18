@@ -17,15 +17,12 @@ interface Props {
 
 const { class: className, style } = Astro.props;
 
-// 从配置中获取站点开始日期
 const siteStartDate = siteConfig.siteStartDate || "2025-01-01";
 
-// 获取所有文章
 const posts = await getSortedPosts();
 const categories = await getCategoryList();
 const tags = await getTagList();
 
-// 计算总字数
 let totalWords = 0;
 for (const post of posts) {
 	if (post.body) {
@@ -42,7 +39,6 @@ for (const post of posts) {
 	}
 }
 
-// 格式化数字（添加千位分隔符）
 function formatNumber(num: number): string {
 	return num.toLocaleString();
 }
@@ -134,7 +130,6 @@ const stats = [
   function updateDynamicStats() {
     const today = new Date();
     
-    // 更新运行天数
     const startDate = new Date(siteStartDate);
     const diffTime = Math.abs(today.getTime() - startDate.getTime());
     const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
@@ -144,7 +139,6 @@ const stats = [
       runningDaysElement.textContent = diffDays.toString();
     }
     
-    // 更新最后活动时间
     if (lastPostDate) {
       const lastPost = new Date(lastPostDate);
       const timeSinceLastPost = Math.abs(today.getTime() - lastPost.getTime());
@@ -167,7 +161,6 @@ const stats = [
     }
   }
 
-  // 页面加载时更新
   updateDynamicStats();
   
   // 每小时更新一次（可选，因为天数变化较慢）

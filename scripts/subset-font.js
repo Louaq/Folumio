@@ -1,17 +1,3 @@
-/* Extracts every character actually used across content/source, then shells out
- * to `pyftsubset` (Python fonttools) to cut the body CJK font down to that set
- * and re-encode it as woff2. Re-run this after adding posts with new characters:
- *   pnpm subset-font
- *
- * NOTE: SRC_FONT (the full ~8MB HarmonyOS Sans SC TTF) is intentionally NOT
- * committed — only the generated subset woff2 is. Download the TTF into
- * font-src/ before running this script, otherwise it exits with
- * "source font not found".
- *
- * Both live in font-src/, NOT public/ — this subset is only an intermediate fed
- * to `pnpm split-font`; the browser never fetches it. Anything under public/ is
- * copied verbatim into dist/, so keeping it there shipped a dead 465KB.
- */
 
 import fs from "fs"
 import path from "path"
@@ -24,11 +10,9 @@ const root = path.resolve(__dirname, "..")
 const SRC_FONT = path.join(root, "font-src/HarmonyOS_Sans_SC_Regular.ttf")
 const OUT_FONT = path.join(root, "font-src/HarmonyOS_Sans_SC-subset.woff2")
 
-// Directories/extensions to scan for characters that must render in the body font.
 const SCAN_DIRS = ["src/content", "src/config", "src/i18n", "src/components", "src/layouts", "src/pages"]
 const SCAN_EXTS = new Set([".md", ".mdx", ".astro", ".ts", ".tsx", ".svelte", ".json"])
 
-// ASCII + common CJK/full-width punctuation always kept regardless of scan results.
 const BASE_CHARS =
   " \t\r\n" +
   Array.from({ length: 95 }, (_, i) => String.fromCharCode(32 + i)).join("") +

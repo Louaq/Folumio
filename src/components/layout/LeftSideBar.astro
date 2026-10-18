@@ -24,7 +24,6 @@ const { class: className, headings: _headings } = Astro.props;
 const topComponents = getComponentsByPosition("top");
 const stickyComponents = getComponentsByPosition("sticky");
 
-// 组件映射表
 const componentMap = {
 	profile: Profile,
 	announcement: Announcement,
@@ -36,7 +35,6 @@ const componentMap = {
 	music: Music,
 };
 
-// 渲染组件的辅助函数
 function renderComponent(
 	component: WidgetComponentConfig,
 	index: number,

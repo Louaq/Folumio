@@ -6,7 +6,6 @@
 let bodyObserver: MutationObserver | null = null;
 
 export function initIconLoader() {
-	// 初始化单个图标容器
 	function initContainer(container: Element) {
 		if (container.hasAttribute("data-icon-initialized")) return;
 		container.setAttribute("data-icon-initialized", "true");
@@ -20,7 +19,6 @@ export function initIconLoader() {
 
 		if (!loadingIndicator || !iconElement) return;
 
-		// 显示图标，隐藏加载指示器
 		function showIcon() {
 			loadingIndicator.style.display = "none";
 			iconElement.classList.remove("opacity-0");
@@ -40,10 +38,8 @@ export function initIconLoader() {
 		iconElement.addEventListener("load", showIcon, { once: true });
 	}
 
-	// 初始化页面上现有的图标
 	document.querySelectorAll("[data-icon-container]").forEach(initContainer);
 
-	// 监听新添加的图标
 	if (window.MutationObserver && !bodyObserver) {
 		bodyObserver = new MutationObserver((mutations) => {
 			mutations.forEach((mutation) => {

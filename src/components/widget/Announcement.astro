@@ -18,7 +18,6 @@ const style = Astro.props.style;
 <!-- 组件显示现在由sidebarLayoutConfig统一控制，无需检查config.enable -->
 <WidgetLayout id="announcement" class={className} style={style}>
   <div>
-    <!-- 标题行：图标 + 标题 -->
     <div class="flex items-center gap-1.5 mb-2 text-lg">
       <Icon
         name="announcement"
@@ -30,7 +29,6 @@ const style = Astro.props.style;
       </span>
     </div>
 
-    <!-- 公告栏内容 -->
     <div class="text-neutral-600 dark:text-neutral-300 leading-relaxed" set:html={config.content} />
   </div>
 </WidgetLayout>

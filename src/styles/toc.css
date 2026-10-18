@@ -1,6 +1,3 @@
-/* TOC 共享样式 */
-
-/* TOC 滚动容器 */
 .toc-scroll-container {
 	overflow-y: auto;
 	overflow-x: hidden;
@@ -18,7 +15,6 @@
 	display: none;
 }
 
-/* TOC 内容容器 */
 .toc-content {
 	display: flex;
 	flex-direction: column;
@@ -34,7 +30,6 @@
 	isolation: isolate;
 }
 
-/* TOC 链接样式 */
 .toc-item {
 	display: flex;
 	align-items: center;

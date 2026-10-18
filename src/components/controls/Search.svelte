@@ -161,7 +161,6 @@ const closeModal = () => {
 	nbPages = 0;
 	hasMore = false;
 	isLoadingMore = false;
-	// 恢复背景滚动
 	unlockScroll();
 };
 
@@ -441,7 +440,6 @@ onDestroy(() => {
 	</svg>
 {/snippet}
 
-<!-- 触发器：参考 Ruyu-Blog 的搜索按钮实现——纯 SVG 图标 + 悬浮缩放，不再套用输入框外壳 -->
 <button
 	type="button"
 	aria-label="Open search"
@@ -452,7 +450,6 @@ onDestroy(() => {
 	{@render searchIcon(24)}
 </button>
 
-<!-- 触发器：移动端保留搜索按钮 -->
 <button
 	type="button"
 	onclick={openModal}

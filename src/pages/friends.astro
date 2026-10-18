@@ -14,26 +14,20 @@ import I18nKey from "@/i18n/i18nKey";
 import { i18n } from "@/i18n/translation";
 import MainGridLayout from "@/layouts/MainGridLayout.astro";
 
-// 检查页面是否启用
 if (!siteConfig.pages.friends) {
 	return Astro.redirect("/404/");
 }
 
-// 检查评论系统是否启用
 const isCommentEnabled =
 	commentConfig?.type &&
 	commentConfig.type !== "none" &&
 	friendsPageConfig.showComment !== false;
 
-// 使用配置文件中的友链分组数据（分组名、分组内友链均在 friendsConfig.ts 中配置）
 const friendGroupList = getEnabledFriendGroups();
 
-// 页面标题和描述
 const title = friendsPageConfig.title || i18n(I18nKey.friends);
 const description =
 	friendsPageConfig.description || i18n(I18nKey.friendsDescription);
-
-// 顶部"本站信息"卡片中可复制的字段
 const copyFields = [
 	{
 		label: "SITE TITLE",
@@ -67,7 +61,6 @@ const copyFields = [
   <!-- 本站信息 + 全站置顶 -->
   <div class="card-base card-plain z-10 relative w-full overflow-hidden mb-4">
     <div class="friend-hero relative px-5 py-7 sm:px-8 sm:py-9">
-      <!-- 站长介绍卡片 -->
       <div class="friend-hero-card relative">
         <div class="relative flex flex-col lg:flex-row items-center lg:items-stretch gap-6 lg:gap-8 px-5 py-7 sm:px-8 sm:py-9">
           <!-- 头像 + 站点标识 -->
@@ -128,7 +121,6 @@ const copyFields = [
         </div>
       </div>
 
-      <!-- 友链分组（分组名与分组内容在 friendsConfig.ts 中配置） -->
       {friendGroupList.map((group, index) => (
         <GroupSection
           group={group}
@@ -141,7 +133,6 @@ const copyFields = [
 
   {friendsPageConfig.showCustomContent !== false && <ApplyDialog />}
 
-  <!-- 评论区 -->
   {isCommentEnabled && (
     <div class="mt-4">
       <Comment />
@@ -149,8 +140,6 @@ const copyFields = [
   )}
 
   <script slot="head" is:inline>
-    // 注意：本脚本在 <head> 中执行，自定义元素的 connectedCallback 会在其子节点
-    // 解析完成前触发，因此一律用事件委托（监听元素自身）而不是 querySelector 子节点
     if (!customElements.get("friend-copy-field")) {
       class FriendCopyField extends HTMLElement {
         constructor() {
@@ -259,7 +248,6 @@ const copyFields = [
 
     /* 可复制字段 */
     .friend-copy-field {
-      /* 只过渡 hover 反馈属性；边框色随主题即时翻转 */
       transition:
         transform 0.2s,
         box-shadow 0.2s;

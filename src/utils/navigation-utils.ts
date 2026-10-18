@@ -1,25 +1,13 @@
-/**
- * 导航工具函数
- * 提供统一的页面导航功能，支持 Swup 无刷新跳转
- */
-
-/**
- * 导航到指定页面
- * @param url 目标页面URL
- * @param options 导航选项
- */
 export function navigateToPage(
 	url: string,
 	options?: {
 		replace?: boolean;
 	},
 ): void {
-	// 检查 URL 是否有效
 	if (!url || typeof url !== "string") {
 		return;
 	}
 
-	// 如果是外部链接，直接跳转
 	if (
 		url.startsWith("http://") ||
 		url.startsWith("https://") ||
@@ -29,7 +17,6 @@ export function navigateToPage(
 		return;
 	}
 
-	// 如果是锚点链接，滚动到对应位置
 	if (url.startsWith("#")) {
 		const element = document.getElementById(url.slice(1));
 		if (element) {
@@ -38,29 +25,21 @@ export function navigateToPage(
 		return;
 	}
 
-	// 检查 Swup 是否可用
 	if (typeof window !== "undefined" && window.swup) {
 		try {
-			// 使用 Swup 进行无刷新跳转
 			if (options?.replace) {
 				window.swup.navigate(url, { history: false });
 			} else {
 				window.swup.navigate(url);
 			}
 		} catch {
-			// 降级到普通跳转
 			fallbackNavigation(url, options);
 		}
 	} else {
-		// Swup 不可用时的降级处理
 		fallbackNavigation(url, options);
 	}
 }
 
-/**
- * 降级导航函数
- * 当 Swup 不可用时使用普通的页面跳转
- */
 function fallbackNavigation(
 	url: string,
 	options?: {

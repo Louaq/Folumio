@@ -18,7 +18,6 @@ const [posts, categories, tags] = await Promise.all([
 	getTagList(),
 ]);
 
-// 站点页面：受 siteConfig.pages 开关控制的三个跟着开关走，其余恒在
 const pages = [
 	{ name: i18n(I18nKey.home), href: url("/"), icon: "fluent-emoji-flat:house" },
 	{

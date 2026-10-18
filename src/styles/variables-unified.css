@@ -18,7 +18,6 @@
   --juejin-tag-bg: #f4f5f5;
 }
 
-/* ===== 主题相关变量 ===== */
 :root {
   --primary: var(--juejin-primary);
   --page-bg: var(--juejin-bg-page);
@@ -49,9 +48,7 @@
   --link-hover: color-mix(in oklch, var(--primary) 12%, white);
 }
 
-/* 暗色主题变量 - 稀土掘金暗色风格 */
 :root.dark {
-  /* 亮色 :root 的掘金字色未随暗色覆盖，会与 --card-bg 冲突（如分页数字几乎不可见） */
   --juejin-text-primary: rgba(255, 255, 255, 0.92);
   --juejin-text-secondary: rgba(255, 255, 255, 0.72);
   --juejin-text-tertiary: rgba(255, 255, 255, 0.5);

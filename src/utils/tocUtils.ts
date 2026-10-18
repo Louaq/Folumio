@@ -40,9 +40,6 @@ export class TOCManager {
 		this.maxLevel = config.maxLevel || 3;
 	}
 
-	/**
-	 * 查找文章内容容器
-	 */
 	private getContentContainer(): Element | null {
 		return (
 			document.querySelector(".custom-md") ||
@@ -51,9 +48,6 @@ export class TOCManager {
 		);
 	}
 
-	/**
-	 * 查找所有标题
-	 */
 	private getAllHeadings(): HTMLElement[] {
 		const contentContainer = this.getContentContainer();
 		if (!contentContainer) {
@@ -64,9 +58,6 @@ export class TOCManager {
 		);
 	}
 
-	/**
-	 * 计算最小深度
-	 */
 	private calculateMinDepth(headings: HTMLElement[]): number {
 		let minDepth = 10;
 		headings.forEach((heading) => {
@@ -76,9 +67,6 @@ export class TOCManager {
 		return minDepth;
 	}
 
-	/**
-	 * 过滤标题
-	 */
 	private filterHeadings(headings: HTMLElement[]): HTMLElement[] {
 		return headings.filter((heading) => {
 			const depth = Number.parseInt(heading.tagName.charAt(1), 10);
@@ -109,16 +97,10 @@ export class TOCManager {
 			.replace(/>/g, "&gt;");
 	}
 
-	/**
-	 * 空状态文案
-	 */
 	private getEmptyStateHTML(): string {
 		return `<div class="text-center py-8 text-gray-500 dark:text-gray-400"><p>${getTocEmptyLabel()}</p></div>`;
 	}
 
-	/**
-	 * 生成TOC HTML
-	 */
 	public generateTOCHTML(): string {
 		const headings = this.getAllHeadings();
 
@@ -186,9 +168,6 @@ export class TOCManager {
 		return tocHTML;
 	}
 
-	/**
-	 * 更新TOC内容
-	 */
 	public updateTOCContent(): void {
 		const tocContent = document.getElementById(this.contentId);
 		if (!tocContent) return;
@@ -199,9 +178,6 @@ export class TOCManager {
 		);
 	}
 
-	/**
-	 * 获取可见的标题ID
-	 */
 	private getVisibleHeadingIds(): string[] {
 		const headings = this.getAllHeadings();
 		const visibleHeadingIds: string[] = [];
@@ -242,39 +218,29 @@ export class TOCManager {
 		return visibleHeadingIds;
 	}
 
-	/**
-	 * 更新活动状态
-	 */
 	public updateActiveState(): void {
 		if (this.tocItems.length === 0) return;
 
-		// 移除所有活动状态
 		this.tocItems.forEach((item) => {
 			item.classList.remove("visible", "active");
 		});
 
 		const visibleHeadingIds = this.getVisibleHeadingIds();
 
-		// 找到对应的TOC项并添加活动状态
 		const activeItems = this.tocItems.filter((item) => {
 			const headingId = item.dataset.headingId;
 			return headingId && visibleHeadingIds.includes(headingId);
 		});
 
-		// 添加活动状态
 		activeItems.forEach((item) => {
 			item.classList.add("visible");
 		});
 		// 当前所在章节：视口内第一个标题
 		activeItems[0]?.classList.add("active");
 
-		// 更新活动指示器
 		this.updateActiveIndicator(activeItems);
 	}
 
-	/**
-	 * 更新活动指示器
-	 */
 	private updateActiveIndicator(activeItems: HTMLElement[]): void {
 		const indicator = document.getElementById(this.indicatorId);
 		if (!indicator || !this.tocItems.length) return;
@@ -304,9 +270,6 @@ export class TOCManager {
 		this.followItem = firstActive;
 	}
 
-	/**
-	 * 滚动到活动项
-	 */
 	private scrollToActiveItem = (): void => {
 		const activeItem = this.followItem;
 		if (!activeItem) return;
@@ -329,7 +292,6 @@ export class TOCManager {
 			const containerHeight = tocContainer.clientHeight;
 			const itemHeight = activeItem.clientHeight;
 
-			// 计算目标滚动位置，将元素居中显示
 			const targetScroll = itemOffsetTop - containerHeight / 2 + itemHeight / 2;
 
 			tocContainer.scrollTo({
@@ -339,9 +301,6 @@ export class TOCManager {
 		}
 	};
 
-	/**
-	 * 处理点击事件
-	 */
 	public handleClick(event: Event): void {
 		event.preventDefault();
 		const target = event.currentTarget as HTMLAnchorElement;
@@ -367,9 +326,6 @@ export class TOCManager {
 		}
 	}
 
-	/**
-	 * 设置IntersectionObserver
-	 */
 	public setupObserver(): void {
 		const headings = this.getAllHeadings();
 
@@ -394,18 +350,12 @@ export class TOCManager {
 		});
 	}
 
-	/**
-	 * 绑定点击事件
-	 */
 	public bindClickEvents(): void {
 		this.tocItems.forEach((item) => {
 			item.addEventListener("click", this.handleClick.bind(this));
 		});
 	}
 
-	/**
-	 * 清理
-	 */
 	public cleanup(): void {
 		if (this.observer) {
 			this.observer.disconnect();
@@ -414,9 +364,6 @@ export class TOCManager {
 		window.removeEventListener("scrollend", this.scrollToActiveItem);
 	}
 
-	/**
-	 * 初始化
-	 */
 	public init(): void {
 		this.updateTOCContent();
 		this.bindClickEvents();
@@ -427,9 +374,6 @@ export class TOCManager {
 	}
 }
 
-/**
- * 检查是否为文章页面
- */
 export function isPostPage(): boolean {
 	return window.location.pathname.includes("/posts/");
 }

@@ -1,4 +1,3 @@
-/* 代码块（Expressive Code）：mac 风格标题栏、复制/全屏按钮、铺满视口，以及语言徽章 */
 .custom-md .expressive-code {
   & .frame {
     overflow: hidden;
@@ -167,14 +166,6 @@
   scrollbar-gutter: auto;
 }
 
-/* =============================================================
- * 语言徽章
- * data-language 由 Expressive Code 原生输出在 <pre> 上，徽标直接用伪元素绘制，
- * 不依赖第三方插件（expressive-code-language-badge 的 peer 停留在 core 0.41，
- * 在本项目的 0.43 下 baseStyles 不生效）。
- * 开关来自 <html data-language-badge-enabled>，源头是 expressiveCodeConfig。
- * 视觉上居中显示在标题栏中央（用 top 对齐到 --ec-header-h 的一半）。
- * ============================================================= */
 html[data-language-badge-enabled="true"] .custom-md .expressive-code {
   & pre[data-language]::before {
     /* 未在下方枚举的语言回退为语言标识本身 */

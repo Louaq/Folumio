@@ -32,43 +32,23 @@ export const adConfig: AdConfig = {
 				label: "广告",
 			},
 			{
-				// 唯一标识；顶部与底部配成同一个 id 时，关掉一处另一处也一起消失
 				id: "banner-2",
-				// 是否启用该条
 				enable: true,
-				// 横幅图片：/ 开头为 public 下的站内资源，也可直接填外链
 				image: "https://pic1.imgdb.cn/i/034FQGE2wHXXEYRCq3SghB.gif",
-				// 图片描述（无障碍与图片加载失败时显示）
 				alt: "广告横幅",
-				// 点击跳转地址
 				link: "https://linkstatic.com",
-				// 没有 image 时占位块上的文字，留空用「广告」；填了 image 则不生效
-				// placeholderText: "广告位",
-				// 是否在新标签页打开
 				external: true,
-				// 左上角是否显示「关闭」按钮
 				closable: true,
-				// 右上角标记文案，留空用「广告」
 				label: "广告",
 			},
 			{
-				// 唯一标识；顶部与底部配成同一个 id 时，关掉一处另一处也一起消失
 				id: "banner-3",
-				// 是否启用该条
 				enable: true,
-				// 横幅图片：/ 开头为 public 下的站内资源，也可直接填外链
 				image: "https://pic1.imgdb.cn/i/034FQGqal51eVmyA4QHaCS.gif",
-				// 图片描述（无障碍与图片加载失败时显示）
 				alt: "广告横幅",
-				// 点击跳转地址
 				link: "https://www.proxy-cheap.com/",
-				// 没有 image 时占位块上的文字，留空用「广告」；填了 image 则不生效
-				// placeholderText: "广告位",
-				// 是否在新标签页打开
 				external: true,
-				// 左上角是否显示「关闭」按钮
 				closable: true,
-				// 右上角标记文案，留空用「广告」
 				label: "广告",
 			},
 		],
@@ -82,63 +62,33 @@ export const adConfig: AdConfig = {
 		// aspectRatio: "728 / 90",
 		items: [
 			{
-				// 唯一标识；顶部与底部配成同一个 id 时，关掉一处另一处也一起消失
 				id: "bottom-1",
-				// 是否启用该条
 				enable: true,
-				// 横幅图片：/ 开头为 public 下的站内资源，也可直接填外链
 				image: "https://pic1.imgdb.cn/i/034FQIgm9akNXeWogg97gw.gif",
-				// 图片描述（无障碍与图片加载失败时显示）
 				alt: "广告横幅",
-				// 点击跳转地址
 				link: "https://bestproxy.com",
-				// 没有 image 时占位块上的文字，留空用「广告」；填了 image 则不生效
-				// placeholderText: "广告位",
-				// 是否在新标签页打开
 				external: true,
-				// 左上角是否显示「关闭」按钮
 				closable: true,
-				// 右上角标记文案，留空用「广告」
 				label: "广告",
 			},
 			{
-				// 唯一标识；顶部与底部配成同一个 id 时，关掉一处另一处也一起消失
 				id: "bottom-2",
-				// 是否启用该条
 				enable: true,
-				// 横幅图片：/ 开头为 public 下的站内资源，也可直接填外链
 				image: "https://pic1.imgdb.cn/i/034fmi3cO1iNmk0ENwCrJI.gif",
-				// 图片描述（无障碍与图片加载失败时显示）
 				alt: "广告横幅",
-				// 点击跳转地址
 				link: "https://accszone.com/",
-				// 没有 image 时占位块上的文字，留空用「广告」；填了 image 则不生效
-				// placeholderText: "广告位",
-				// 是否在新标签页打开
 				external: true,
-				// 左上角是否显示「关闭」按钮
 				closable: true,
-				// 右上角标记文案，留空用「广告」
 				label: "广告",
 			},
 			{
-				// 唯一标识；顶部与底部配成同一个 id 时，关掉一处另一处也一起消失
 				id: "bottom-3",
-				// 是否启用该条
 				enable: true,
-				// 横幅图片：/ 开头为 public 下的站内资源，也可直接填外链
 				image: "https://pic1.imgdb.cn/i/034FQJifkC3XyLdsWSsiZm.gif",
-				// 图片描述（无障碍与图片加载失败时显示）
 				alt: "广告横幅",
-				// 点击跳转地址
 				link: "https://www.nsocks.com",
-				// 没有 image 时占位块上的文字，留空用「广告」；填了 image 则不生效
-				// placeholderText: "广告位",
-				// 是否在新标签页打开
 				external: true,
-				// 左上角是否显示「关闭」按钮
 				closable: true,
-				// 右上角标记文案，留空用「广告」
 				label: "广告",
 			},
 		],

@@ -1,6 +1,3 @@
-// 配置索引文件 - 统一导出所有配置
-// 这样组件可以一次性导入多个相关配置，减少重复的导入语句
-
 // 功能配置
 export { commentConfig } from "./commentConfig"; // 评论系统配置
 export { expressiveCodeConfig } from "./expressiveCodeConfig"; // 代码高亮配置

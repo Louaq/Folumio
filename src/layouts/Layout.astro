@@ -13,8 +13,6 @@ import { isHomePage } from "@/utils/layout-utils";
 import { url } from "@/utils/url-utils";
 
 import "@/styles/main.css";
-// 以下均为无层级（theme-switch 除外）的主题覆盖，必须排在 main.css 之后；不走 main.css 的 @import：
-// dev 下 Astro 会把被 @import 的文件再单独输出一份 <style>，造成重复且顺序与 build 不一致
 import "@/styles/theme-switch.css";
 import "@/styles/navbar-theme.css";
 import "@/styles/post-list.css";
@@ -27,18 +25,14 @@ interface Props {
 	lang?: string;
 	setOGTypeArticle?: boolean;
 	postSlug?: string;
-	/** 页面背景强制改为纯白（仅浅色模式生效，深色模式维持原配色），用于归档/友链/观影/关于等单栏居中页面 */
 	whiteBackground?: boolean;
 }
 
 let { title, description, lang, setOGTypeArticle, postSlug, whiteBackground } =
 	Astro.props;
 
-// so use Swup hooks instead to change the height immediately when a link is clicked
 const isHomePageCheck = isHomePage(Astro.url.pathname);
 
-// defines global css variables
-// why doing this in Layout instead of GlobalStyles: https://github.com/withastro/astro/issues/6728#issuecomment-1502203757
 const themeColor = siteConfig.themeColor.color;
 
 
@@ -59,10 +53,6 @@ if (!lang) {
 const siteLang = lang.replace("_", "-");
 
 
-
-// 折叠代码块预览高度：在首屏绘制时即应用与 previewLines 匹配的 max-height，
-// 避免插件 CSS 默认 280px 与 JS 在 DOMContentLoaded 后重新计算之间出现的高度跳变。
-// 计算口径需要与 expressive-code 的 codeLineHeight (1.5rem) 与 pre padding (上下各 1rem) 一致。
 const collapsibleEnabled =
 	expressiveCodeConfig.pluginCollapsible?.enable === true;
 const collapsiblePreviewLines =
@@ -75,11 +65,8 @@ const collapsiblePreviewLines =
     <title>{pageTitle}</title>
 
     <meta charset="UTF-8" />
-    <!-- 固定 cascade layer 顺序：正文样式（Markdown.astro）只在部分页面下发且可能先于 main.css 出现，
-         layer 顺序按首次出现决定，不在此声明就会被它打乱 -->
     <style is:inline>@layer properties, theme, base, components, utilities;</style>
 
-    <!-- 图片外链 CDN 预连接：提前完成 DNS/TCP/TLS 握手，减少首次图片请求延迟 -->
     <link rel="preconnect" href="https://pic1.imgdb.cn" crossorigin />
     <link rel="dns-prefetch" href="https://pic1.imgdb.cn" />
     <link
@@ -155,7 +142,6 @@ const collapsiblePreviewLines =
         document.documentElement.classList.remove("dark");
       }
 
-      // Set the theme for Expressive Code
       document.documentElement.setAttribute(
         "data-theme",
         isDark ? darkTheme : lightTheme
@@ -164,7 +150,6 @@ const collapsiblePreviewLines =
       document.documentElement.dataset.expressiveDarkTheme = darkTheme;
       document.documentElement.dataset.expressiveLightTheme = lightTheme;
 
-      // 主题色由 siteConfig.themeColor.color 固定，不再有访客侧选择器
       document.documentElement.style.setProperty("--theme-color", themeColor);
 
     </script>
@@ -176,7 +161,6 @@ const collapsiblePreviewLines =
     {collapsibleEnabled && (
       <style is:global set:html={`.ec-collapse{--ec-collapse-preview-height:calc(${collapsiblePreviewLines} * 1.5rem + 2rem);}`} />
     )}
-    <!-- defines global css variables. This will be applied to <html> <body> and some other elements idk why -->
 
     <slot name="head" />
 
@@ -187,7 +171,6 @@ const collapsiblePreviewLines =
       href={`${Astro.site}rss.xml`}
     />
 
-    <!-- Font Setup（Astro Font API + 正文 CDN 字体） -->
     <FontSetup />
 
   </head>
@@ -218,9 +201,6 @@ const collapsiblePreviewLines =
   import { pathsEqual, url } from "@/utils/url-utils";
   import { expressiveCodeConfig, siteConfig } from "@/config";
   import { initArchivePage } from "@/utils/archive-init";
-  // 以下三处逻辑原本内联在只于部分页面渲染的组件里，它们的 <script> 也就只出现在那些页面。
-  // swup 导航不会执行新页面的脚本，导致「从别的页面点进来」时这些功能整块失效
-  // （必须手动刷新才好）。统一挪到这个每页都在的常驻脚本里调用。
   import { initPostCardDelegation } from "@/utils/post-card-init";
   import { initMarkdownImages } from "@/utils/markdown-image-init";
   import { initPostPageTOC } from "@/utils/post-page-toc-init";
@@ -229,15 +209,12 @@ const collapsiblePreviewLines =
   import { warmUpDeferredBlocks } from "@/utils/deferred-block-warmup";
   import { initPromoStrip } from "@/utils/promo-init";
 
-  // 均为文档级单例：卡片点击走 document 委托，各自内部幂等，首次加载调用一次即可。
   initPostCardDelegation();
   initPostPageTOC();
   initMarkdownImages();
   initCodeCopyFeedback();
   initCodeFullscreen();
   initPromoStrip();
-  // 异步让 content-visibility: auto 的重型块各渲染一次，记住真实尺寸，
-  // 消除目录点击/hash 跳转的落点估值误差（见模块头注释）
   warmUpDeferredBlocks();
 
   let copyResetTimer: ReturnType<typeof setTimeout>;
@@ -312,7 +289,6 @@ const collapsiblePreviewLines =
   }
 
 
-  /** 全局 `html { scroll-behavior: smooth }` 会让 `scrollTo(0,0)` 也变成动画，此处强制瞬时置顶 */
   function scrollWindowTopInstant() {
     const root = document.documentElement;
     const prev = root.style.scrollBehavior;
@@ -327,11 +303,6 @@ const collapsiblePreviewLines =
 
   const setup = () => {
     const MAX_SWUP_CACHE_PAGES = 6;
-
-    // 换页后执行新页面的脚本（替代 @swup/astro 的 reloadScripts，已在 astro.config 关闭）：
-    // is:inline 脚本每次换页都重跑；模块（Astro 打包后内联的或外链的）只在首次出现时执行一次，
-    // 与浏览器对外链模块的语义一致，之后由各自的 astro:page-load 监听负责重新初始化。
-    // 外链经典脚本只有全站常驻的 iconify-icon，不重跑。
     const moduleKey = (s: HTMLScriptElement) => s.src || s.textContent;
     const executedModules = new Set(
       Array.from(document.querySelectorAll<HTMLScriptElement>('script[type="module"]'), moduleKey),
@@ -343,7 +314,7 @@ const collapsiblePreviewLines =
           if (executedModules.has(key)) continue;
           executedModules.add(key);
         } else if (old.type || old.src) {
-          continue; // application/ld+json 等数据块，以及外链经典脚本
+          continue;
         }
         const script = document.createElement("script");
         for (const { name, value } of Array.from(old.attributes)) {
@@ -361,7 +332,6 @@ const collapsiblePreviewLines =
       }
     });
     window.swup.hooks.on("link:click", (_visit: any, { el }: { el: HTMLAnchorElement }) => {
-      // Remove the delay for the first time page load
       document.documentElement.style.setProperty("--content-delay", "0ms");
 
       const targetHref = el?.getAttribute("href") || "";
@@ -382,17 +352,9 @@ const collapsiblePreviewLines =
     window.swup.hooks.on("content:replace", () => {
       (window as any).__swupScrollLockY = null;
 
-      // 归档页自身的 <script> 换入后不会自动执行（DOMParser + cloneNode 的浏览器限制），
-      // 必须由这里持续存在的钩子代为触发；此调用内部会检查 #archive-list 是否存在，
-      // 非归档页时立即返回，可安全地在每次导航后都调用。必须早于下面 page:view 的
-      // 滚动恢复，二者都注册在 swup 钩子系统上，顺序天然保证。
       initArchivePage();
-
-      // 目录内容要按新文章的标题重建；容器不存在时内部直接返回，非文章页调用无副作用
       initPostPageTOC();
-      // 换页后是一批新的正文图，重新挂一次模糊占位
       initMarkdownImages();
-      // 新文章的重型块要重新预热一遍真实尺寸（无匹配块时空转）
       warmUpDeferredBlocks();
 
       const gridClassCarrier = document.getElementById("grid-class-carrier");
@@ -408,7 +370,6 @@ const collapsiblePreviewLines =
           mainGrid.className = [...newClasses, ...gridClasses].join(" ");
         }
 
-        // 归档/友链/观影/关于等单栏居中页面的纯白背景标记随 swup 换页同步（body 元素本身不会被 swup 替换）
         document.body.dataset.whiteBg = gridClassCarrier.dataset.whiteBg;
       }
 
@@ -452,7 +413,6 @@ const collapsiblePreviewLines =
         }
       }
 
-      // 立即同步 data-page-type，页面样式（如文章页纯白背景）无需等到内容替换
       const bodyElement = document.querySelector("body");
       const isHomePage = pathsEqual(visit.to.url, url("/"));
       const toPathname = new URL(visit.to.url, window.location.href).pathname;
@@ -468,7 +428,7 @@ const collapsiblePreviewLines =
         bodyElement!.classList.remove("lg:is-home");
       }
 
-      // 导航栏首页标记随导航同步（部分样式按是否首页区分）
+
       document
         .getElementById("navbar")
         ?.setAttribute("data-is-home", isHomePage.toString());
@@ -491,7 +451,6 @@ const collapsiblePreviewLines =
     window.swup.hooks.on("page:view", (visit?: {
       history?: { popstate?: boolean };
     }) => {
-      // hide the temp high element when the transition is done
       const heightExtend = document.getElementById("page-height-extend");
       if (heightExtend) {
         heightExtend.classList.remove("hidden");

@@ -26,7 +26,6 @@ try {
 	// public/font/harmony 未生成（例如尚未跑 pnpm split-font）时不阻塞构建
 }
 
-// font-family 字符串
 const bodyFamilyCss = `"${body.family}"`;
 const fallbackCss = (fontConfig.fallback || []).join(", ");
 // 代码字体回退：Font API 注入的变量优先，禁用字体时退回此列表

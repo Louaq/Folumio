@@ -51,7 +51,6 @@ const minuteLabel =
     className,
   ]}
 >
-  <!-- pinned -->
   {
     pinned && (
       <div class="pinned-btn flex items-center gap-1 rounded-md px-2 py-1.5 font-bold bg-gradient-to-r from-orange-500 to-red-500 shadow-sm shadow-orange-500/30">
@@ -61,7 +60,6 @@ const minuteLabel =
     )
   }
 
-  <!-- publish date -->
   <div class="flex items-center">
     <div class="meta-icon meta-icon--date">
       <Icon
@@ -74,7 +72,6 @@ const minuteLabel =
     >
   </div>
 
-  <!-- update date -->
   {
     !hideUpdateDate && updated && updated.getTime() !== published.getTime() && (
       <div class="flex items-center">
@@ -91,7 +88,6 @@ const minuteLabel =
     )
   }
 
-  <!-- categories -->
   <div class="flex items-center">
     <div class="meta-icon meta-icon--category">
       <Icon name="material-symbols:book-2-outline-rounded" class="text-xl" />
@@ -107,7 +103,6 @@ const minuteLabel =
       </a>
     </div>
   </div>
-   <!-- tags (only for post detail page) -->
    {
      !showWordCount && (
        <div class:list={["items-center", {"flex": !hideTagsForMobile, "hidden md:flex": hideTagsForMobile}]}>
@@ -129,7 +124,6 @@ const minuteLabel =
      )
    }
 
-  <!-- word count / reading time (post cards) -->
   {
     showWordCount && (
       <div class="flex items-center">

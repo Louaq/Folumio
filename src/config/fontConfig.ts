@@ -1,13 +1,10 @@
-// 字体配置
 export const fontConfig = {
-	// 是否启用自定义字体功能
 	enable: true,
 	// 是否预加载代码字体（正文字体已切片，整包预加载无意义，见 body）
 	preload: false,
 	body: {
 		name: "HarmonyOS Sans SC",
 		family: "HarmonyOS Sans SC",
-		/** cn-font-split 生成的分片样式表，含全部 @font-face + unicode-range */
 		css: "/font/harmony/result.css",
 	},
 

@@ -11,7 +11,6 @@ import FloatingButton from "@/components/common/FloatingButton.astro";
     onclick="backToTop()"
     class=""
   />
-  <!-- 阅读进度环 -->
   <svg class="back-to-top-progress" viewBox="0 0 52 52" aria-hidden="true">
     <circle id="back-to-top-progress-bar" cx="26" cy="26" r="24" pathLength="100" />
   </svg>
@@ -23,7 +22,6 @@ import FloatingButton from "@/components/common/FloatingButton.astro";
     window.scroll({ top: 0, behavior: "smooth" });
   };
 
-  // 响应式返回顶部按钮管理器
   class BackToTopManager {
     wrapper = document.getElementById("back-to-top-wrapper")!;
     button = document.getElementById("back-to-top-btn")!;
@@ -51,7 +49,6 @@ import FloatingButton from "@/components/common/FloatingButton.astro";
         const progress = Math.min(scrollTop / maxScroll, 1);
         this.progressBar.style.strokeDashoffset = String(100 - progress * 100);
 
-        // 当滚动超过200px时显示按钮
         const nextVisible = scrollTop > 200;
         if (nextVisible === visible) return;
         visible = nextVisible;

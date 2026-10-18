@@ -119,17 +119,6 @@ const labelPlural = i18n(I18nKey.postsCount);
 	}
 </style>
 <script>
-	/**
-	 * 年份分组的展开状态必须跨导航保留：swup 返回归档页时会用缓存的 HTML 重建 DOM，
-	 * 若展开的年份重新折叠，页面高度会缩短到装不下原来的滚动位置，浏览器便把滚动
-	 * 位置钳制回顶部，用户就回不到刚才浏览的文章处了。
-	 *
-	 * 这段脚本本身渲染在 swup 的 #swup-container 内，swup 用 DOMParser 解析目标页
-	 * 再 cloneNode 换入 DOM，换入的 <script> 永远不会自动执行——所以这里的调用只覆盖
-	 * “整页直接加载 /archive/”这一种情况；swup 单页导航后的重新初始化由
-	 * Layout.astro 里持续存在的 content:replace 钩子调用同一个函数完成，
-	 * 详见 src/utils/archive-init.ts 顶部注释。
-	 */
 	import { initArchivePage } from "@/utils/archive-init";
 	initArchivePage();
 </script>

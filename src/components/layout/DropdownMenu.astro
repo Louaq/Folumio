@@ -13,32 +13,26 @@ interface Props {
 
 const { link, class: className } = Astro.props;
 
-// 检查 link 是否存在
 if (!link) {
 	return null;
 }
 
-// 转换子菜单中的LinkPreset为NavBarLink
 const processedLink = {
 	...link,
 	children: link.children
 		?.map((child: NavBarLink | LinkPreset): NavBarLink | null => {
-			// 确保 child 不为 undefined 或 null
 			if (child === undefined || child === null) {
 				return null;
 			}
 			if (typeof child === "number") {
-				// 检查 LinkPreset 是否存在于 LinkPresets 中
 				if (child in LinkPresets) {
 					const preset = LinkPresets[child as LinkPreset];
-					// 确保 preset 有效
 					if (preset?.url) {
 						return preset;
 					}
 				}
 				return null;
 			}
-			// 确保 NavBarLink 对象有效
 			if (child && typeof child === "object" && child.url) {
 				return child;
 			}
@@ -79,7 +73,6 @@ const hasActiveChild =
 		<div class="dropdown-menu" data-dropdown-menu>
 			<DropdownPanel class="dropdown-content">
 				{processedLink.children?.map((child, index) => {
-					// 额外的安全检查
 					if (!child || !child.url) {
 						return null;
 					}
@@ -157,7 +150,6 @@ const hasActiveChild =
 </style>
 
 <script>
-	// 键盘导航支持
 	document.addEventListener('DOMContentLoaded', function() {
 		const dropdowns = document.querySelectorAll('[data-dropdown]');
 		
@@ -168,7 +160,6 @@ const hasActiveChild =
 			
 			if (!trigger || !menu) return;
 			
-			// 键盘事件处理
 			trigger.addEventListener('keydown', function(e: KeyboardEvent) {
 				if (e.key === 'Enter' || e.key === ' ') {
 					e.preventDefault();
@@ -184,7 +175,6 @@ const hasActiveChild =
 				}
 			});
 			
-			// 菜单项键盘导航
 			items.forEach((item, index) => {
 				item.addEventListener('keydown', function(e: KeyboardEvent) {
 					if (e.key === 'ArrowDown') {

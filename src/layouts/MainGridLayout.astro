@@ -32,7 +32,6 @@ const {
 	wideContent = false,
 } = Astro.props;
 
-// 检查是否为首页
 const isHomePageCheck = isHomePage(Astro.url.pathname);
 const isPostPageCheck = postSlug !== undefined;
 
@@ -51,11 +50,9 @@ const mainPanelTop = "5.5rem";
 <Layout title={title} description={description} lang={lang} setOGTypeArticle={setOGTypeArticle} postSlug={postSlug} whiteBackground={hideSidebar}>
 
 
-<!-- 全局图标加载器 -->
 <IconifyLoader />
 
 
-<!-- Navbar -->
 <slot slot="head" name="head"></slot>
 <div id="top-row" class="z-50 pointer-events-none absolute top-0 left-0 right-0 transition-[opacity,transform] duration-700">
     <div id="navbar-wrapper" class="pointer-events-auto transition-[opacity,transform] duration-700">
@@ -64,7 +61,6 @@ const mainPanelTop = "5.5rem";
 </div>
 
 
-<!-- Main content -->
 <div class="absolute w-full z-30 pointer-events-none no-banner-layout" style={`top: ${mainPanelTop}`}>
     <!-- The pointer-events-none here prevent blocking the click event of the TOC -->
     <div class="relative max-w-(--page-width) mx-auto pointer-events-auto">
@@ -119,9 +115,6 @@ const mainPanelTop = "5.5rem";
     </div>
 </div>
 
-{/* fuwari 风格的悬浮目录 - 文章页且足够宽屏时显示在主内容区右侧外部
-   注意：所有页面都必须渲染 #post-toc-floating-layer 容器，因为它已注册为 swup container；
-   非文章页渲染为空占位即可。 */}
 <div
     id="post-toc-floating-layer"
     class:list={[
@@ -189,7 +182,5 @@ const mainPanelTop = "5.5rem";
     }
   }
 
-  /* `.hide-scrollbar` 不在这里重复定义：main.css 已有 `@utility hide-scrollbar`
-     且声明完全相同，本文件上方的 .post-toc-inner-wrapper 直接用那个工具类即可。 */
 </style>
 

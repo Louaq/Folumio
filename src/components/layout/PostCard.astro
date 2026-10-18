@@ -64,7 +64,6 @@ const wordLabel =
   role="link"
   tabindex="0"
 >
-  <!-- content -->
   <div class="hero-card-content relative z-20 w-full flex flex-col justify-between h-full pt-9 pb-5 px-5 sm:px-8">
     <a
       href={url}
@@ -121,7 +120,6 @@ const wordLabel =
     )}
   </div>
 
-  <!-- 右侧封面图 -->
   {
     image && (
       <div class="hero-card-side hidden sm:block relative w-[30%] shrink-0 my-3 mr-3 rounded-(--radius-large) overflow-hidden z-10">
@@ -137,7 +135,6 @@ const wordLabel =
     )
   }
 
-  <!-- 无封面时右侧的进入指示 -->
   {
     !image && (
       <div class="hidden sm:flex items-center justify-center w-14 shrink-0 my-3 mr-3 rounded-(--radius-large) bg-(--btn-regular-bg) hover:bg-(--btn-regular-bg-hover) text-(--primary)" aria-hidden="true">
@@ -146,7 +143,6 @@ const wordLabel =
     )
   }
 
-  <!-- pinned ribbon -->
   {
     pinned && (
       <div class="hero-card-pin absolute top-2 left-2 z-30 flex items-center gap-1 rounded-md px-2 py-0.5 font-bold bg-gradient-to-r from-orange-500 to-red-500 text-white shadow-sm shadow-orange-500/30">
@@ -156,7 +152,6 @@ const wordLabel =
     )
   }
 
-  <!-- password lock -->
   {
     entry.data.password && (
       <div

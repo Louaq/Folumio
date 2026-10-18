@@ -8,7 +8,6 @@ import { navigateToPage } from "@/utils/navigation-utils";
  * 「先落地文章页 → 再点首页」时卡片会完全点不动。改由 Layout 常驻脚本调用。
  * 监听器挂在 document 上，重复调用会先移除再绑定，是幂等的。
  */
-// 使用事件委托优化性能，而不是为每个卡片绑定事件
 let mouseDownData: { x: number; y: number; target: HTMLElement | null } = {
 	x: 0,
 	y: 0,
@@ -83,12 +82,10 @@ function handlePostCardKeydown(e: KeyboardEvent) {
 }
 
 export function initPostCardDelegation(): void {
-	// 移除旧的委托监听器（如果存在）
 	document.removeEventListener("mousedown", handlePostCardMouseDown);
 	document.removeEventListener("click", handlePostCardClick);
 	document.removeEventListener("keydown", handlePostCardKeydown);
 
-	// 使用事件委托在document级别监听，减少事件监听器数量
 	document.addEventListener("mousedown", handlePostCardMouseDown, {
 		passive: true,
 	});

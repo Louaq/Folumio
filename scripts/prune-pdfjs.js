@@ -1,19 +1,3 @@
-#!/usr/bin/env node
-
-/**
- * 裁剪 public/pdfjs/ 里用不到的 pdf.js viewer 资源。
- *
- * 背景：全站只有一篇文章用 `::pdf{...}` 内嵌 viewer，但 pdf.js 官方发行包自带
- * 111 种界面语言、169 个 CJK CMap、以及只有「PDF 内嵌 JavaScript 表单」才会
- * 用到的 sandbox bundle。这些都是纯部署体积（运行时按需请求，用不到就不下载），
- * 但会让仓库和部署包白白多出好几 MB。
- *
- * 这个脚本是**幂等**的：已经删掉的会被跳过，可以在升级 pdf.js 后重复运行。
- * 用法：node scripts/prune-pdfjs.js  [--dry-run]
- *
- * 注意：升级 pdf.js 后除了重跑本脚本，还要重新把 viewer.mjs 里
- * `enableScripting` 的默认值改回 false（见下方 SCRIPTING 说明）。
- */
 
 import { existsSync } from "node:fs";
 import { readdir, readFile, rm, stat, writeFile } from "node:fs/promises";
@@ -24,18 +8,8 @@ const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const PDFJS = path.join(ROOT, "public", "pdfjs");
 const DRY_RUN = process.argv.includes("--dry-run");
 
-/** 保留的 viewer 界面语言（其余语言会回退到 en-US） */
 const KEEP_LOCALES = new Set(["en-US", "zh-CN", "zh-TW"]);
 
-/**
- * 保留的 CMap 前缀：只留中文（GB = 简体，CNS/B5/ETen/HK = 繁体）。
- * 日文（Adobe-Japan1 / RKSJ / UniJIS / EUC / Ext / 78* / 83* / 90* / Add / NWP /
- * Hiragana / Katakana / Hankaku / Roman / H / V）与韩文（Adobe-Korea1 / KSC /
- * UniKS）在本站不可能出现，删掉。
- *
- * CMap 只有在 PDF 使用「预定义 CMap 的 CID 字体」时才会被请求；即便真的碰上
- * 日韩 PDF，也只影响该 PDF 的字形映射，不会让 viewer 崩溃。
- */
 const KEEP_CMAP_PREFIXES = [
 	"Adobe-CNS1-",
 	"Adobe-GB1-",
@@ -51,11 +25,6 @@ const KEEP_CMAP_PREFIXES = [
 ];
 const KEEP_CMAP_EXACT = new Set(["LICENSE"]);
 
-/**
- * SCRIPTING：pdf.sandbox.mjs 只服务于 PDF 内嵌 JavaScript（AcroForm 脚本）。
- * 博客里内嵌的是静态论文 PDF，永远用不到。删掉文件的同时必须把 viewer 的
- * `enableScripting` 默认值改成 false，否则遇到带脚本的 PDF 会去请求一个 404。
- */
 const SANDBOX_FILE = path.join(PDFJS, "build", "pdf.sandbox.mjs");
 const VIEWER_MJS = path.join(PDFJS, "web", "viewer.mjs");
 
@@ -98,9 +67,6 @@ async function pruneLocales() {
 		await remove(path.join(localeDir, entry.name), `locale/${entry.name}`);
 	}
 
-	// locale.json 是 viewer 的语言清单，必须与实际保留的目录一致。
-	// 注意它的 key 是小写 BCP-47（"zh-cn"），而 value/目录名保留原始大小写
-	// （"zh-CN/viewer.ftl"），所以这里按 value 指向的目录来判断保留与否。
 	const manifest = path.join(localeDir, "locale.json");
 	if (!existsSync(manifest)) return;
 	const current = JSON.parse(await readFile(manifest, "utf-8"));

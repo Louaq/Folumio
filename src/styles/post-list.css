@@ -1,6 +1,4 @@
-/* =============================================================
- * 文章卡片（PostCard）：紧凑型 + 蓝色标题 hover
- * ============================================================= */
+
 .post-card-wrapper {
   border-radius: var(--radius-large) !important;
 }
@@ -9,12 +7,10 @@
   margin-bottom: 1rem !important;
 }
 
-/* 卡片之间的间距更紧凑（≥768px 时列表合并成单一白卡，gap 由下方列表外壳规则置 0） */
 #post-list-container.list-mode {
   gap: 0.5rem !important;
 }
 
-/* 移动端置顶卡：仅左侧强调条用主色，其余三边与普通卡片同色 */
 @media (max-width: 767px) {
   #post-list-container .post-card-wrapper.pinned.card-base {
     border-top-color: var(--juejin-border) !important;
@@ -30,7 +26,6 @@
 }
 
 @media (min-width: 768px) {
-  /* 列表外壳：单一白卡，无边框改用柔和阴影 */
   #post-list-container.list-mode {
     background: var(--card-bg) !important;
     border: 1px solid transparent;
@@ -44,7 +39,6 @@
     box-shadow: none !important;
   }
 
-  /* 每条卡片：去边框 + 行分割线 */
   #post-list-container.list-mode .post-card-wrapper {
     background: transparent !important;
     border: none !important;
@@ -63,7 +57,6 @@
 
 }
 
-/* 移动端：保留竖排但缩小行高，封面图更窄 */
 @media (max-width: 767px) {
   #post-list-container.list-mode .post-card-wrapper {
     border-radius: var(--radius-large) !important;

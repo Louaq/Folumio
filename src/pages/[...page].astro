@@ -16,7 +16,6 @@ import { getSortedPosts } from "@/utils/content-utils";
 import { getFileDirFromPath, getPostUrlForEntry } from "@/utils/url-utils";
 export const getStaticPaths = (async ({ paginate }) => {
 	const allBlogPosts = await getSortedPosts();
-	// 使用配置中的文章数量
 	const pageSize = siteConfig.pagination.postsPerPage;
 	return paginate(allBlogPosts, { pageSize });
 }) satisfies GetStaticPaths;
@@ -27,7 +26,6 @@ const { page } = Astro.props;
 const len = page.data.length;
 const allPosts = await getSortedPosts();
 
-// 1) 手动配置的轮播项（优先级最高，按数组定义顺序展示）
 const manualSlides: CarouselSlide[] = homeCarouselConfig.manualItems.map(
 	(item) => {
 		return {
@@ -48,7 +46,6 @@ const manualSlides: CarouselSlide[] = homeCarouselConfig.manualItems.map(
 	},
 );
 
-// 2) 文章项（按 homeCarouselOrder 升序，发布时间降序作为次级排序）
 const postSlides: CarouselSlide[] = allPosts
 	.filter((post) => post.data.homeCarousel)
 	.sort((a, b) => {
@@ -74,12 +71,11 @@ const postSlides: CarouselSlide[] = allPosts
 		};
 	});
 
-// 手动项始终排在前面，文章项紧随其后
+
 const featuredSlides: CarouselSlide[] = [...manualSlides, ...postSlides];
-// 所有分页共用同一轮播区块，避免翻页后轮播消失导致版心跳动
 const showCarousel = homeCarouselConfig.enable;
 const homeTopNoticeItems = getNormalizedHomeTopNoticeItems();
-// 与轮播一致：各分页均显示，避免翻页后通告消失
+
 const showHomeTopNotice = homeTopNoticeItems.length > 0;
 ---
 
@@ -104,15 +100,12 @@ const showHomeTopNotice = homeTopNoticeItems.length > 0;
 </MainGridLayout>
 
 <script>
-  // 响应式分页处理脚本
   document.addEventListener("DOMContentLoaded", function () {
-    // 如果启用了响应式分页，添加相应的CSS类
     const responsiveEnabled = true; // ${siteConfig.pagination.responsive}
     if (responsiveEnabled) {
       const deviceType = getDeviceType();
       document.body.classList.add(`device-${deviceType}`);
 
-      // 监听窗口大小变化
       let resizeTimeout: any;
       window.addEventListener("resize", function () {
         clearTimeout(resizeTimeout);

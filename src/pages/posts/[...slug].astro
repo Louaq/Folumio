@@ -82,7 +82,6 @@ const jsonLd = {
 	inLanguage: entry.data.lang
 		? entry.data.lang.replace("_", "-")
 		: siteConfig.lang.replace("_", "-"),
-	// TODO include cover image here
 };
 ---
 
@@ -110,10 +109,8 @@ const jsonLd = {
         {},
       ]}
     >
-      {/* 顶部推广位（由 config/adConfig.ts 控制，未启用时不渲染） */}
       <PromoStrip placement="top" class="onload-animation" />
 
-      <!-- title -->
       <div class="relative onload-animation">
         <h1
           class="w-full flex items-center gap-2 flex-wrap font-bold mb-3
@@ -134,7 +131,6 @@ const jsonLd = {
         </h1>
       </div>
 
-      <!-- metadata -->
       <div class="onload-animation">
         <PostMetadata
           className="mb-5"
@@ -152,7 +148,6 @@ const jsonLd = {
         }
       </div>
 
-      <!-- 过期/过时提醒：置于正文前（非加密文章直接显示；加密文章移至解锁后显示） -->
       {!entry.data.password && shouldShowOutdatedNotice && (
         <PostStaleNoticeBanner
           title={i18n(I18nKey.lastModifiedNoticeTitle)}
@@ -160,7 +155,6 @@ const jsonLd = {
         />
       )}
 
-      <!-- always show cover as long as it has one -->
 
       {
         processedImage && siteConfig.coverImage.enableInPost && (
@@ -176,7 +170,6 @@ const jsonLd = {
         )
       }
 
-      {/* 密码保护：正文在构建期加密，页面源码中不含明文密码与明文正文 */}
       {entry.data.password ? (
         <div id="password-protection-wrapper">
           <PasswordProtection
@@ -186,7 +179,6 @@ const jsonLd = {
           <EncryptedContent
             password={typeof entry.data.password === 'boolean' ? import.meta.env.PASSWORD : entry.data.password}
           >
-            {/* 加密文章：过期提示仅解锁后显示 */}
             {shouldShowOutdatedNotice && (
               <PostStaleNoticeBanner
                 title={i18n(I18nKey.lastModifiedNoticeTitle)}
@@ -220,7 +212,6 @@ const jsonLd = {
         )
       }
 
-      {/* 底部推广位（由 config/adConfig.ts 控制，未启用时不渲染） */}
       <PromoStrip placement="bottom" class="onload-animation" />
 
       <div class="flex items-start justify-center gap-6 mt-8 pt-7 pb-3 border-t border-(--line-divider) onload-animation">
@@ -283,6 +274,5 @@ const jsonLd = {
     </div>
   </div>
 
-  <!-- 评论 -->
   {entry.data.comment && <Comment />}
 </MainGridLayout>

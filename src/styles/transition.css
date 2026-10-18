@@ -1,9 +1,7 @@
-/* Tailwind v4：本文件被 Vite 拆分为独立样式表时会丢失 @import 的 layer() 修饰；
-   在源文件内显式包入 @layer base，确保始终位于 base 层（低于 utilities、低于无层级的 juejin-theme）。 */
+
 @layer base {
 
 :root {
-    /* Page switches: soft enough to be visible, short enough to stay responsive. */
     --swup-fade-duration: 100ms;
     --swup-fade-easing: cubic-bezier(0.22, 1, 0.36, 1);
     --swup-enter-y: 0.75rem;
@@ -20,7 +18,6 @@
     }
 }
 
-/* Main Content Transition */
 .transition-main {
     transform: translate3d(0, 0, 0) scale(1);
     transform-origin: 50% 0;
@@ -31,14 +28,12 @@
     will-change: opacity, transform;
 }
 
-/* Leaving Animation（内层包装，与主栏同步淡出） */
 .transition-leaving {
     transition:
         opacity var(--swup-fade-duration) var(--swup-fade-easing),
         transform var(--swup-fade-duration) var(--swup-fade-easing);
 }
 
-/* State: Animating（旧内容淡出） */
 html.is-animating:not(.is-leaving) .transition-main {
     opacity: 0;
     transform: translate3d(0, var(--swup-enter-y), 0) scale(var(--swup-scale));
@@ -57,10 +52,6 @@ html.is-animating.is-leaving .transition-leaving {
     transform: translate3d(0, -0.15rem, 0);
 }
 
-/* --------------------------------------------------------------------------
-   2. Keyframes
-   -------------------------------------------------------------------------- */
-
 @keyframes fade-in-up {
     from {
         opacity: 0;
@@ -69,10 +60,6 @@ html.is-animating.is-leaving .transition-leaving {
         opacity: 1;
     }
 }
-
-/* --------------------------------------------------------------------------
-   3. Onload Animations
-   -------------------------------------------------------------------------- */
 
 .onload-animation {
     opacity: 0;

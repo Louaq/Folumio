@@ -8,27 +8,22 @@ interface Props {
 	links: NavBarLink[];
 }
 
-// 处理links中的LinkPreset转换
 const processedLinks = Astro.props.links.map((link: NavBarLink) => ({
 	...link,
 	children: link.children
 		?.map((child: NavBarLink | LinkPreset): NavBarLink | null => {
-			// 确保 child 不为 undefined 或 null
 			if (child === undefined || child === null) {
 				return null;
 			}
 			if (typeof child === "number") {
-				// 检查 LinkPreset 是否存在于 LinkPresets 中
 				if (child in LinkPresets) {
 					const preset = LinkPresets[child as LinkPreset];
-					// 确保 preset 有效
 					if (preset?.url) {
 						return preset;
 					}
 				}
 				return null;
 			}
-			// 确保 NavBarLink 对象有效
 			if (child && typeof child === "object" && child.url) {
 				return child;
 			}
@@ -73,7 +68,6 @@ const currentPath = Astro.url.pathname;
                     </button>
                     <div class="mobile-submenu" data-mobile-submenu>
                         {link.children?.map((child) => {
-                            // 额外的安全检查
                             if (!child || !child.url) {
                                 return null;
                             }
@@ -212,7 +206,6 @@ const currentPath = Astro.url.pathname;
                 e.preventDefault();
                 const isExpanded = dropdown.getAttribute('data-expanded') === 'true';
                 
-                // 关闭其他打开的下拉菜单
                 mobileDropdowns.forEach(otherDropdown => {
                     if (otherDropdown !== dropdown) {
                         otherDropdown.setAttribute('data-expanded', 'false');
@@ -223,7 +216,6 @@ const currentPath = Astro.url.pathname;
                     }
                 });
                 
-                // 切换当前下拉菜单
                 const newState = !isExpanded;
                 dropdown.setAttribute('data-expanded', newState.toString());
                 trigger.setAttribute('aria-expanded', newState.toString());

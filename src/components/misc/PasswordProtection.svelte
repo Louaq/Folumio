@@ -15,7 +15,6 @@ const MAX_ATTEMPTS = 3; // 最大尝试次数
 const BASE_FREEZE_TIME = 5 * 60 * 1000; // 基础冻结时间：5分钟（毫秒）
 const STORAGE_KEY = `password_freeze_${postId}`;
 
-// 获取冻结状态
 function getFreezeState() {
 	try {
 		const stored = localStorage.getItem(STORAGE_KEY);
@@ -28,7 +27,6 @@ function getFreezeState() {
 	return { attempts: 0, freezeCount: 0, freezeUntil: 0 };
 }
 
-// 保存冻结状态
 function saveFreezeState(state: {
 	attempts: number;
 	freezeCount: number;
@@ -41,7 +39,6 @@ function saveFreezeState(state: {
 	}
 }
 
-// 检查是否处于冻结状态
 function checkFrozen() {
 	const state = getFreezeState();
 	const now = Date.now();
@@ -63,7 +60,6 @@ function checkFrozen() {
 	return false;
 }
 
-// 开始倒计时
 function startCountdown() {
 	if (countdownInterval) {
 		clearInterval(countdownInterval);
@@ -84,7 +80,6 @@ function startCountdown() {
 	}, 1000);
 }
 
-// 更新错误消息
 function updateErrorMessage() {
 	if (isFrozen && remainingTime > 0) {
 		const minutes = Math.floor(remainingTime / 60);
@@ -93,14 +88,12 @@ function updateErrorMessage() {
 	}
 }
 
-// 格式化时间显示
 function formatTime(seconds: number): string {
 	const minutes = Math.floor(seconds / 60);
 	const secs = seconds % 60;
 	return `${minutes}分${secs}秒`;
 }
 
-// base64 -> Uint8Array
 function base64ToBytes(base64: string): Uint8Array {
 	const binary = atob(base64);
 	const bytes = new Uint8Array(binary.length);
@@ -162,9 +155,7 @@ function reviveScripts(container: HTMLElement) {
 	}
 }
 
-// 验证密码
 async function verifyPassword() {
-	// 检查是否处于冻结状态
 	if (checkFrozen()) {
 		updateErrorMessage();
 		isShaking = true;
@@ -182,7 +173,6 @@ async function verifyPassword() {
 	}
 
 	if (decryptedHtml !== null) {
-		// 密码正确，清除冻结状态
 		localStorage.removeItem(STORAGE_KEY);
 		errorMessage = "";
 		isUnlocked = true;
@@ -198,12 +188,10 @@ async function verifyPassword() {
 		// 初始化逻辑（表格滚动包裹、TOC、代码块复制按钮等）
 		document.dispatchEvent(new Event("astro:page-load"));
 	} else {
-		// 密码错误
 		const state = getFreezeState();
 		state.attempts++;
 
 		if (state.attempts >= MAX_ATTEMPTS) {
-			// 达到最大尝试次数，进入冻结
 			state.freezeCount++;
 			const freezeDuration = BASE_FREEZE_TIME * state.freezeCount;
 			state.freezeUntil = Date.now() + freezeDuration;
@@ -216,7 +204,6 @@ async function verifyPassword() {
 			updateErrorMessage();
 			startCountdown();
 		} else {
-			// 显示剩余尝试次数
 			const remainingAttempts = MAX_ATTEMPTS - state.attempts;
 			errorMessage = `密码错误，还剩 ${remainingAttempts} 次尝试机会`;
 			saveFreezeState(state);
@@ -224,29 +211,24 @@ async function verifyPassword() {
 
 		isShaking = true;
 
-		// 清空输入框
 		inputPassword = "";
 
-		// 移除抖动效果
 		setTimeout(() => {
 			isShaking = false;
 		}, 500);
 	}
 }
 
-// 处理键盘事件
 function handleKeyPress(event: KeyboardEvent) {
 	if (event.key === "Enter" && !isFrozen) {
 		verifyPassword();
 	}
 }
 
-// 组件挂载时检查冻结状态
 onMount(() => {
 	checkFrozen();
 });
 
-// 组件销毁时清理定时器
 onDestroy(() => {
 	if (countdownInterval) {
 		clearInterval(countdownInterval);
@@ -455,7 +437,6 @@ onDestroy(() => {
     to { opacity: 1; transform: translateY(0); }
   }
   
-  /* 响应式设计 */
   @media (max-width: 640px) {
     .password-protection-card {
       padding: 1.5rem 1.25rem;
