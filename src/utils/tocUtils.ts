@@ -1,6 +1,5 @@
 /**
  * TOC (Table of Contents) 工具类
- * 用于 SidebarTOC 和 FloatingTOC 的共享逻辑
  */
 
 import { warmBlocksBeforeElement } from "@/utils/deferred-block-warmup";
@@ -372,8 +371,4 @@ export class TOCManager {
 		this.scrollToActiveItem();
 		window.addEventListener("scrollend", this.scrollToActiveItem);
 	}
-}
-
-export function isPostPage(): boolean {
-	return window.location.pathname.includes("/posts/");
 }

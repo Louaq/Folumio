@@ -10,12 +10,10 @@ declare global {
 	interface Window {
 		// biome-ignore lint/suspicious/noExplicitAny: External library
 		swup: any;
-		floatingTOCListenersInitialized?: boolean;
 		fireflyCachedSubtitle?: string;
 		PostPageTOC?: {
 			manager: TOCManager | null;
 		};
-		tocInternalNavigation?: boolean;
 	}
 
 	interface MediaQueryList {

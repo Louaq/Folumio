@@ -1,25 +1,8 @@
 ---
-import type { MarkdownHeading } from "astro";
 import BackToTop from "./BackToTop.astro";
-import FloatingTOC from "./FloatingTOC.astro";
-
-interface Props {
-	headings?: MarkdownHeading[];
-	// 仅保留给调用方表达语义；TOC 组件本身始终渲染，是否显示按钮由运行时脚本判断
-	showToc?: boolean;
-}
-
-const { headings } = Astro.props;
 ---
 
-{/*
-  FloatingTOC 必须在所有页面渲染：它的 <script> 标签落在 #floating-toc-wrapper
-  （swup 容器）之外，swup 导航既不会替换也不会重新执行它。只在文章页渲染的话，
-  从首页/归档点进文章时脚本从未加载，目录按钮就一直不出现，必须手动刷新。
-  非文章页由脚本里的 shouldShowFloatingTOC() 判断后保持隐藏。
-*/}
 <div class="floating-controls-container">
-  <FloatingTOC headings={headings ?? []} />
   <BackToTop />
 </div>
 

@@ -36,7 +36,6 @@ import meilisearch from "./src/utils/meilisearch.ts";
 const isDev = process.env.NODE_ENV === "development";
 const swupContainers = [
 	"#swup-container",
-	"#floating-toc-wrapper",
 	"#post-toc-floating-layer",
 	"#left-sidebar-wrapper",
 ];
