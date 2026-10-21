@@ -310,16 +310,6 @@ export const animeItems: WatchlistItem[] = [
 		enabled: true,
 	},
 	{
-		title: "搜神记",
-		cover: "https://pic1.imgdb.cn/i/0346uxpmSWHJ1tPevFDHUc.webp",
-		type: "anime",
-		status: "watching",
-		rating: 0.0,
-		startDate: "2026-03-25",
-		tags: ["动作", "动画", "奇幻"],
-		enabled: true,
-	},
-	{
 		title: "完美世界剧场版 九劫焚天",
 		cover: "https://pic1.imgdb.cn/i/0346v2DQaA7Cl7KaoX4i9l.webp",
 		type: "anime",
