@@ -60,7 +60,7 @@
 
 ## 快速开始
 
-环境要求：Node.js ≥ 22，pnpm（`preinstall` 已强制要求使用 pnpm，版本见 `package.json` 的 `packageManager` 字段）。
+环境要求：Node.js 24.x（LTS），pnpm（`preinstall` 已强制要求使用 pnpm，版本见 `package.json` 的 `packageManager` 字段）。
 
 ```bash
 pnpm install   # 安装依赖

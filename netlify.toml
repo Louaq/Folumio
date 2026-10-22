@@ -3,7 +3,7 @@
   publish = "dist"
 
 [build.environment]
-  NODE_VERSION = "22"
+  NODE_VERSION = "24"
   PNPM_VERSION = "9.14.4"
   # 站点公开使用的 Meilisearch 地址（非密钥，可以留在仓库里）
   PUBLIC_MEILISEARCH_HOST = "https://search.louaq.com"
