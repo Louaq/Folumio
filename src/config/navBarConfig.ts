@@ -26,6 +26,12 @@ const getDynamicNavBarConfig = (): NavBarConfig => {
 		links.push(LinkPreset.Watchlist);
 	}
 
+	links.push({
+		name: "配色",
+		url: "/colors/",
+		icon: "fluent-emoji-flat:artist-palette",
+	});
+
 	links.push(LinkPreset.About);
 
 	// 监控（服务状态监控 + 探针监控）
@@ -36,13 +42,6 @@ const getDynamicNavBarConfig = (): NavBarConfig => {
 		icon: "fluent-emoji-flat:satellite-antenna",
 	});
 
-	// 支持自定义导航栏链接,并且支持多级菜单
-	// links.push({
-	// 	name: "状态",
-	// 	url: "https:/xxxxxxxxxx.com",
-	// 	external: true,
-	// 	icon: "material-symbols:cloud-done-rounded",
-	//   });
 
 	// 构建子菜单，确保所有项都是有效的
 	// const aboutChildren: (NavBarLink | LinkPreset)[] = [

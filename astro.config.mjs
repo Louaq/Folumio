@@ -108,7 +108,7 @@ export default defineConfig({
 			ignore: (url) => {
 				try {
 					const pathname = new URL(url, "https://swup-ignore.local").pathname;
-					return pathname.toLowerCase().endsWith(".xml");
+					return pathname === "/colors" || pathname === "/colors/" || pathname.toLowerCase().endsWith(".xml");
 				} catch {
 					return false;
 				}
