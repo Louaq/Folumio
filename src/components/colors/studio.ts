@@ -1,4 +1,4 @@
-import { hexToRgb, hexToHsl, hslToHex, contrast } from "./color";
+import { hexToRgb, contrast } from "./color";
 
 export interface StudioRow {
 	color: string;
@@ -8,81 +8,142 @@ export interface StudioRow {
 	alpha: number;
 }
 
-export function hexToOklch(hex: string): number[] {
-	const [r, g, b] = hexToRgb(hex).map(v => v / 255).map(v => v <= .04045 ? v / 12.92 : ((v + .055) / 1.055) ** 2.4);
+function rgbToOklab(rgb: number[]): number[] {
+	const [r, g, b] = rgb.map(v => v / 255).map(v => v <= .04045 ? v / 12.92 : ((v + .055) / 1.055) ** 2.4);
 	const l = Math.cbrt(.4122214708 * r + .5363325363 * g + .0514459929 * b);
 	const m = Math.cbrt(.2119034982 * r + .6806995451 * g + .1073969566 * b);
 	const s = Math.cbrt(.0883024619 * r + .2817188376 * g + .6299787005 * b);
-	const L = .2104542553 * l + .793617785 * m - .0040720468 * s;
-	const a = 1.9779984951 * l - 2.428592205 * m + .4505937099 * s;
-	const B = .0259040371 * l + .7827717662 * m - .808675766 * s;
-	return [L, Math.hypot(a, B), (Math.atan2(B, a) * 180 / Math.PI + 360) % 360];
+	return [.2104542553 * l + .793617785 * m - .0040720468 * s, 1.9779984951 * l - 2.428592205 * m + .4505937099 * s, .0259040371 * l + .7827717662 * m - .808675766 * s];
 }
 
-function linearRgb(L: number, C: number, h: number): number[] {
-	const a = C * Math.cos(h * Math.PI / 180), b = C * Math.sin(h * Math.PI / 180);
-	const l = (L + .3963377774 * a + .2158037573 * b) ** 3;
-	const m = (L - .1055613458 * a - .0638541728 * b) ** 3;
-	const s = (L - .0894841775 * a - 1.291485548 * b) ** 3;
-	return [4.0767416621 * l - 3.3077115913 * m + .2309699292 * s, -1.2684380046 * l + 2.6097574011 * m - .3413193965 * s, -.0041960863 * l - .7034186147 * m + 1.707614701 * s];
+function rgbToOklch(rgb: number[]): number[] {
+	const [L, a, b] = rgbToOklab(rgb);
+	const hue = 180 / Math.PI * Math.atan2(b, a);
+	return [L, Math.sqrt(a * a + b * b), hue < 0 ? hue + 360 : hue];
 }
 
-export function oklchToHex(L: number, C: number, h: number): { color: string; clipped: boolean } {
-	let rgb = linearRgb(L, C, h);
-	const inGamut = (values: number[]) => values.every(v => v >= -.000001 && v <= 1.000001);
+export function hexToOklch(hex: string): number[] {
+	return rgbToOklch(hexToRgb(hex));
+}
+
+function rgbToHex(rgb: number[]): string {
+	return `#${rgb.map(v => Math.round(v).toString(16).padStart(2, "0")).join("")}`;
+}
+
+function hslToRgb(hue: number, saturation: number, lightness: number): number[] {
+	const degrees = hue % 360, h = (degrees < 0 ? degrees + 360 : degrees) / 60;
+	const c = (1 - Math.abs(2 * lightness - 1)) * saturation;
+	const x = c * (1 - Math.abs(h % 2 - 1)), m = lightness - c / 2;
+	const rgb = h < 1 ? [c, x, 0] : h < 2 ? [x, c, 0] : h < 3 ? [0, c, x] : h < 4 ? [0, x, c] : h < 5 ? [x, 0, c] : [c, 0, x];
+	return rgb.map(v => (v + m) * 255);
+}
+
+function rgbToHsl(rgb: number[]): number[] {
+	const [r, g, b] = rgb.map(v => v / 255);
+	const maximum = Math.max(r, g, b), delta = maximum - Math.min(r, g, b);
+	const lightness = maximum - delta / 2;
+	const hue = delta === 0 ? 0 : 60 * (maximum === r ? (g - b) / delta : maximum === g ? 2 + (b - r) / delta : 4 + (r - g) / delta);
+	const saturation = lightness === 0 || lightness === 1 ? 0 : (maximum - lightness) / Math.min(lightness, 1 - lightness);
+	return [hue < 0 ? hue + 360 : hue, saturation, lightness];
+}
+
+function oklchToRgb(L: number, C: number, h: number): { rgb: number[]; clipped: boolean } {
+	const convert = (chroma: number) => {
+		const radians = h / (180 / Math.PI), a = chroma * Math.cos(radians), b = chroma * Math.sin(radians);
+		const rootL = L + .3963377774 * a + .2158037573 * b;
+		const rootM = L - .1055613458 * a - .0638541728 * b;
+		const rootS = L - .0894841775 * a - 1.291485548 * b;
+		const l = rootL * rootL * rootL, m = rootM * rootM * rootM, s = rootS * rootS * rootS;
+		return [4.0767416621 * l - 3.3077115913 * m + .2309699292 * s, -1.2684380046 * l + 2.6097574011 * m - .3413193965 * s, -.0041960863 * l - .7034186147 * m + 1.707614701 * s]
+			.map(v => (v <= .0031308 ? 12.92 * v : 1.055 * v ** (1 / 2.4) - .055) * 255);
+	};
+	const inGamut = (rgb: number[]) => rgb.every(v => v >= 0 && v <= 255);
+	let rgb = convert(C);
 	const clipped = !inGamut(rgb);
 	if (clipped) {
 		let low = 0, high = C;
-		for (let i = 0; i < 20; i++) {
+		while (true) {
 			const middle = (low + high) / 2;
-			if (inGamut(linearRgb(L, middle, h))) low = middle;
+			rgb = convert(middle);
+			if ((high - low) / 2 < .001) break;
+			if (inGamut(rgb)) low = middle;
 			else high = middle;
 		}
-		rgb = linearRgb(L, low, h);
 	}
-	const color = `#${rgb.map(v => {
-		const encoded = v <= .0031308 ? 12.92 * v : 1.055 * v ** (1 / 2.4) - .055;
-		return Math.max(0, Math.min(255, Math.round(encoded * 255))).toString(16).padStart(2, "0");
-	}).join("")}`;
-	return { color, clipped };
+	return { rgb: rgb.map(v => Math.max(0, Math.min(255, v))), clipped };
 }
 
-// Visible color values transcribed from the supplied 1663 × 901 reference.
-const reference = [
-	"05a2b6 02a4ab 03a69f 06a793 00a987 05aa7a 05ab6c 04ac5d 00ad4d 00ae39 1aae17 45ab00 5ca700 6da300 7c9f00 899b04 959703 a09200 ab8e00 b58900 be8303".split(" "),
-	"00af00 1aae17 34ac2f 44a93f 51a74b 5ca456 65a260 6e9f6a 769c73 7e997b 859683 8c928b".split(" "),
-	"6ef066 67ea5f 5fe358 58dc52 51d54a 49cf43 41c83c 39c234 30bb2b 26b422 1aae17 08a806 00a100 009a00 009301 018d01 028602 028002 007900 007300 006d00".split(" "),
-];
+export function oklchToHex(L: number, C: number, h: number): { color: string; clipped: boolean } {
+	const { rgb, clipped } = oklchToRgb(L, C, h);
+	return { color: rgbToHex(rgb), clipped };
+}
 
 export function studioSteps(hex: string, step: number, space: string): StudioRow[][] {
-	const [L, C, h] = hexToOklch(hex), [H, S, light] = hexToHsl(hex);
-	let maxChroma = 0, upper = .4;
-	for (let i = 0; i < 20; i++) {
-		const middle = (maxChroma + upper) / 2;
-		if (linearRgb(L, middle, h).every(v => v >= 0 && v <= 1)) maxChroma = middle;
-		else upper = middle;
-	}
-	const row = (color: string, base: boolean, clipped: boolean, alpha = 1): StudioRow => ({ color, base, clipped, ink: contrast(color) < 4.5 ? "#fff" : "#000", alpha });
+	const perceptual = space === "OKLCh";
+	let components = perceptual ? hexToOklch(hex) : rgbToHsl(hexToRgb(hex));
+	const original = perceptual ? oklchToRgb(components[0], components[1], components[2]) : { rgb: hexToRgb(hex), clipped: false };
+	if (perceptual && original.clipped) components = original.rgb.every(v => Math.round(v) === 0) ? [0, 0, 0] : original.rgb.every(v => Math.round(v) === 255) ? [1, 0, 0] : rgbToOklch(original.rgb);
+	type Stop = StudioRow & { position: number; lab: number[]; key: string };
 	return [0, 1, 2, 3].map(column => {
-		if (column === 3) return Array.from({ length: 21 }, (_, i) => row(hex, i === 0, false, 1 - i / 20));
-		const offsets = Array.from({ length: column === 0 ? 61 : 101 }, (_, i) => i - (column === 0 ? 30 : 50));
-		return offsets.filter(offset => {
-			if (column === 0) return true;
-			if (column === 1 && space === "OKLCh" && offset < -Math.max(1, Math.ceil((maxChroma - C) / (step / 100)))) return false;
-			const v = space === "OKLCh" ? (column === 1 ? C - offset * step / 100 : L - offset * step / 100) : (column === 1 ? S - offset * step : light - offset * step);
-			return v >= 0 && v <= (space === "OKLCh" ? column === 1 ? .4 : 1 : 100);
-		}).map(offset => {
-			let result = space === "OKLCh"
-				? oklchToHex(column === 2 ? L - offset * step / 100 : L, column === 1 ? C - offset * step / 100 : C, column === 0 ? h - offset * step * 3 : h)
-				: { color: hslToHex(column === 0 ? H - offset * step * 3 : H, column === 1 ? S - offset * step : S, column === 2 ? light - offset * step : light), clipped: false };
-			if (hex === "#1aae17" && step === 2 && space === "OKLCh") {
-				const sample = reference[column][offset + (column === 1 ? 1 : 10)];
-				if (sample) result = { color: `#${sample}`, clipped: column === 0 ? offset !== 0 : column === 1 ? offset < 0 : offset >= 2 };
+		const channel = perceptual ? [2, 1, 0, 3][column] : column;
+		const start = column === 3 ? 1 : components[channel];
+		const sample = (position: number, base = false): Stop => {
+			const coordinates = [...components];
+			if (column !== 3) coordinates[channel] = position;
+			const alpha = column === 3 ? position : 1;
+			let mapped = original;
+			if (!base) {
+				if (perceptual) mapped = oklchToRgb(coordinates[0], coordinates[1], coordinates[2]);
+				else {
+					const rgb = hslToRgb(coordinates[0], coordinates[1], coordinates[2]);
+					mapped = { rgb: rgb.map(v => Math.max(0, Math.min(255, v))), clipped: rgb.some(v => v < 0 || v > 255) };
+				}
 			}
-			return row(offset === 0 ? hex : result.color, offset === 0, result.clipped);
-		});
+			const color = rgbToHex(mapped.rgb);
+			// 0to255 measures translucent colors after compositing over #e6e6e6.
+			const lab = rgbToOklab(mapped.rgb.map(v => alpha * v + (1 - alpha) * 230));
+			const suffix = alpha < 1 ? Math.round(alpha * 255).toString(16).padStart(2, "0") : "";
+			return { color, base, clipped: mapped.clipped, ink: contrast(color) < 4.5 ? "#fff" : "#000", alpha, position, lab, key: color + suffix };
+		};
+		const advance = (position: number, endpoint: number): Stop => {
+			const origin = sample(position), end = sample(endpoint);
+			const distance = (stop: Stop) => 100 * Math.sqrt(stop.lab.reduce((sum, v, i) => sum + (v - origin.lab[i]) ** 2, 0));
+			const increasing = endpoint > position;
+			let low = increasing ? origin : end, high = increasing ? end : origin;
+			let lowDistance = distance(low), highDistance = distance(high);
+			while (low.position <= high.position) {
+				const middle = sample((low.position + high.position) / 2), delta = distance(middle);
+				if (delta === lowDistance || delta === highDistance) break;
+				if (delta === step) return middle;
+				if (increasing ? delta < step : delta > step) { low = middle; lowDistance = delta; }
+				else { high = middle; highDistance = delta; }
+			}
+			if (lowDistance === 0 && highDistance === 0) return end;
+			const closest = lowDistance === 0 ? high : highDistance === 0 ? low : Math.abs(lowDistance - step) > Math.abs(highDistance - step) ? high : low;
+			return closest.key === end.key ? end : closest;
+		};
+		const side = (endpoint: number): Stop[] => {
+			const stops: Stop[] = [];
+			let position = start;
+			while (position !== endpoint) {
+				const next = advance(position, endpoint);
+				stops.push(next);
+				position = next.position;
+			}
+			return stops;
+		};
+		const before = side(column === 0 ? start + 180 : perceptual && column === 1 ? .4 : 1).reverse();
+		const after = side(column === 0 ? start - 180 : 0);
+		const stops = [...before, sample(start, true), ...after];
+		let baseIndex = before.length;
+		// Preserve the terminal colors while removing duplicate boundary swatches.
+		while (stops.length >= 2 && stops[0].key === stops[1].key) { stops.splice(1, 1); baseIndex = Math.max(0, baseIndex - 1); }
+		while (stops.length >= 2 && stops.at(-1)!.key === stops.at(-2)!.key) stops.splice(-2, 1);
+		stops[Math.min(baseIndex, stops.length - 1)] = sample(start, true);
+		return stops.map(({ position, lab, key, ...row }) => row);
 	});
 }
+
 
 export const mosaic = `
 c17598 8f7cba a56eaf 7cb0af 9daeac 6ec9da

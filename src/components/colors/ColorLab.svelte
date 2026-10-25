@@ -1,14 +1,15 @@
 <script lang="ts">
 	import { onMount, tick } from "svelte";
-	import { hexToHsl, contrast, createColorFormatter } from "./color";
+	import { hexToHsl, contrast, ink, createColorFormatter } from "./color";
 	import { studioSteps, mosaic, hexToOklch, type StudioRow } from "./studio";
 	import StudioIcon from "./StudioIcon.svelte";
 	import StudioDropdown from "./StudioDropdown.svelte";
 	let base = "#eea8d9";
 	let input = "eea8d9";
-	let space = "OKLCh";
+	let editingInput = false;
+	let space = "HSL";
 	let format = "Auto";
-	let step = 2;
+	let step = 1;
 	let recentColors = [base];
 	let channels = [true, true, true, false];
 	let settings = false;
@@ -44,6 +45,10 @@
 		y: number;
 		key: string;
 	} | null = null;
+	$: inputHex = input.trim().replace(/^#/, "");
+	$: inputColor = editingInput && /^(?:[\da-f]{3}|[\da-f]{6})$/i.test(inputHex)
+		? `#${inputHex.length === 3 ? [...inputHex].map(c => c + c).join("") : inputHex}`
+		: "";
 	$: columns = studioSteps(base, step, space);
 	$: value = createColorFormatter({
 		format,
@@ -103,6 +108,7 @@
 		});
 	}
 	function restoreColor(color: string) {
+		editingInput = false;
 		tooltip = null;
 		base = color;
 		input = color.slice(1);
@@ -167,6 +173,7 @@
 		};
 	}
 	function apply() {
+		editingInput = false;
 		const v = input.trim().replace(/^#/, "");
 		if (!/^(?:[\da-f]{3}|[\da-f]{6})$/i.test(v)) {
 			notify("请输入 3 位或 6 位 HEX 色值");
@@ -279,13 +286,21 @@
 			>
 			<input
 				class="hex-input"
+				style:background={inputColor}
+				style:color={inputColor ? ink(inputColor) : ""}
 				aria-label="基色 HEX"
 				bind:value={input}
+				on:input={() => (editingInput = true)}
+				on:blur={() => (editingInput = false)}
 				on:change={apply}
 				maxlength="7"
 				spellcheck="false"
 			/>
-			<span class="picker-icon" aria-hidden="true"
+			<span
+				class="picker-icon"
+				style:background={inputColor}
+				style:color={inputColor ? ink(inputColor) : ""}
+				aria-hidden="true"
 				><StudioIcon name="target" /></span
 			>
 		</form>
@@ -693,16 +708,9 @@
 		padding: 6px 17px;
 		gap: 23px;
 		border-bottom: 1px solid #d9dddebd;
-		background: linear-gradient(
-			105deg,
-			#eef1e8b8 4%,
-			#c2e3eac2 23%,
-			#e4eddfb8 51%,
-			#cff3c9b5 76%,
-			#e7efedb8
-		);
-		backdrop-filter: blur(24px) saturate(125%);
-		-webkit-backdrop-filter: blur(24px) saturate(125%);
+		background: #f3f4f580;
+		backdrop-filter: blur(24px);
+		-webkit-backdrop-filter: blur(24px);
 	}
 	.color-entry {
 		display: flex;
@@ -751,6 +759,7 @@
 		height: 19px;
 	}
 	.hex-input {
+		align-self: stretch;
 		background: transparent;
 		border: 0;
 		width: 66px;
@@ -761,10 +770,12 @@
 		outline: none;
 	}
 	.picker-icon {
+		align-self: stretch;
+		flex-grow: 1;
 		display: grid;
 		place-items: center;
 		width: 30px;
-		height: 30px;
+		border-radius: 0 6px 6px 0;
 		color: #9baaa4;
 	}
 	.picker-icon :global(svg) {
@@ -860,9 +871,6 @@
 	.step-control button {
 		display: grid;
 		place-items: center;
-	}
-	.channels button:last-child {
-		border-left: 1px solid #a7b5b5;
 	}
 	.step-control button:first-child {
 		border-right: 1px solid #a7b5b5;
@@ -1007,7 +1015,7 @@
 		position: fixed;
 		left: var(--rail);
 		right: 0;
-		top: 50px;
+		top: 0;
 		bottom: 0;
 		display: grid;
 		grid-template-columns: repeat(var(--column-count), minmax(0, 1fr));
@@ -1030,7 +1038,10 @@
 		border-right: 0;
 	}
 	h1 {
-		position: relative;
+		position: absolute;
+		top: 50px;
+		left: 0;
+		right: 0;
 		z-index: 3;
 		margin: 0;
 		height: 34px;
@@ -1040,7 +1051,6 @@
 		padding: 0 16px;
 		font-size: 14px;
 		font-weight: 600;
-		background: #f3f4f5b8;
 		backdrop-filter: blur(18px);
 		box-shadow: 0 7px 14px #00000018;
 	}
@@ -1050,6 +1060,8 @@
 	.stage {
 		flex: 1;
 		min-height: 0;
+		box-sizing: border-box;
+		padding-top: 84px;
 		overflow-y: auto;
 		overflow-x: hidden;
 		scrollbar-width: none;
@@ -1118,12 +1130,12 @@
 	}
 	.hover-copy {
 		display: none;
-		width: 17px;
-		height: 22px;
+		width: 23px;
+		height: 23px;
 	}
 	.hover-copy :global(svg) {
-		width: 17px;
-		height: 22px;
+		width: 23px;
+		height: 23px;
 	}
 	.set-base {
 		display: none;
