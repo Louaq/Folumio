@@ -31,6 +31,7 @@
 	let message = "";
 	let copiedRows = new Set<string>();
 	let mounted = false;
+	let centered = false;
 	let stages: HTMLDivElement[] = [];
 	let rail: HTMLDivElement;
 	let viewportHeight = 0;
@@ -106,12 +107,24 @@
 					before * 40 - (window.innerHeight / 2 - 64),
 				);
 		});
+		centered = true;
 	}
 	function restoreColor(color: string) {
 		editingInput = false;
 		tooltip = null;
 		base = color;
 		input = color.slice(1);
+	}
+	function replayEntry(event: PageTransitionEvent) {
+		if (event.persisted) {
+			visibleColumns.forEach(({ index }) => {
+				if (index === 1)
+					stages[index].getAnimations({ subtree: true }).forEach((animation) => {
+						animation.currentTime = 0;
+						animation.play();
+					});
+			});
+		}
 	}
 	function choose(color: string) {
 		restoreColor(color);
@@ -228,6 +241,7 @@
 <svelte:window
 	bind:innerHeight={viewportHeight}
 	on:click={closePanelsOutside}
+	on:pageshow={replayEntry}
 />
 
 <div class="studio" class:no-sidebar={!sidebar}>
@@ -259,6 +273,7 @@
 			<div class="panel-sliver-mask" aria-hidden="true"></div>
 		</aside>{/if}
 	<header class="toolbar" aria-label="配色工具栏">
+		<a class="home-link joined" href="/" data-no-swup title="返回首页">返回首页</a>
 		<form
 			class="color-entry"
 			style:--history-count={recentColors.length}
@@ -491,6 +506,8 @@
 				>
 					<div
 						class="color-strip"
+						class:centered
+						class:entering={index === 1 && centered}
 						style:--before={rows.findIndex((row) => row.base)}
 					>
 						{#each rows as row, position}<div
@@ -722,6 +739,19 @@
 		border-radius: 7px;
 		box-shadow: inset 0 0 0 1px #fff9;
 		background: #f9faf65c;
+	}
+	.home-link.joined {
+		display: flex;
+		align-items: center;
+		flex-shrink: 0;
+		height: 34px;
+		padding: 0 10px;
+		color: inherit;
+		font-size: 13px;
+		text-decoration: none;
+	}
+	.home-link:hover {
+		background: #ffffffa6;
 	}
 	.base-marker {
 		align-self: stretch;
@@ -1070,6 +1100,27 @@
 	}
 	.stage::-webkit-scrollbar {
 		display: none;
+	}
+	.color-strip:not(.centered) {
+		visibility: hidden;
+	}
+	.color-strip.entering {
+		animation: strip-enter 360ms ease-out both;
+	}
+	@keyframes strip-enter {
+		from {
+			opacity: 0;
+			transform: translateY(8px);
+		}
+		to {
+			opacity: 1;
+			transform: translateY(0);
+		}
+	}
+	@media (prefers-reduced-motion: reduce) {
+		.color-strip.entering {
+			animation: none;
+		}
 	}
 	.color-strip {
 		width: 300px;
