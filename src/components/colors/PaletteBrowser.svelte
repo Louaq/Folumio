@@ -102,7 +102,7 @@
 								style:color={ink(color)}
 								aria-label={`将 ${color} 设为基色`}
 								title={`使用 ${color}`}
-								on:click={() => onselect(color)}
+								on:click={() => { onselect(color); dialog.close(); }}
 							><span>{color.toUpperCase()}</span></button>
 						{/each}
 					</div>

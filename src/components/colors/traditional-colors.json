@@ -1,0 +1,3074 @@
+[
+	{
+		"id": 1,
+		"name": "黄白游",
+		"pinyin": "Huáng Bái Yóu",
+		"hex": "#FFF799",
+		"category": "yellow",
+		"solarTerm": "立春"
+	},
+	{
+		"id": 2,
+		"name": "松花",
+		"pinyin": "Sōng Huā",
+		"hex": "#FFEE6F",
+		"category": "yellow",
+		"solarTerm": "立春"
+	},
+	{
+		"id": 3,
+		"name": "缃叶",
+		"pinyin": "Xiāng Yè",
+		"hex": "#ECD452",
+		"category": "yellow",
+		"solarTerm": "立春"
+	},
+	{
+		"id": 4,
+		"name": "苍黄",
+		"pinyin": "Cāng Huáng",
+		"hex": "#B6A014",
+		"category": "yellow",
+		"solarTerm": "立春"
+	},
+	{
+		"id": 5,
+		"name": "天缥",
+		"pinyin": "Tiān Piǎo",
+		"hex": "#D5EBE1",
+		"category": "green",
+		"solarTerm": "立春"
+	},
+	{
+		"id": 6,
+		"name": "沧浪",
+		"pinyin": "Cāng Làng",
+		"hex": "#B1D5C8",
+		"category": "green",
+		"solarTerm": "立春"
+	},
+	{
+		"id": 7,
+		"name": "苍筤",
+		"pinyin": "Cāng Láng",
+		"hex": "#99BCAC",
+		"category": "green",
+		"solarTerm": "立春"
+	},
+	{
+		"id": 8,
+		"name": "缥碧",
+		"pinyin": "Piǎo Bì",
+		"hex": "#80A492",
+		"category": "green",
+		"solarTerm": "立春"
+	},
+	{
+		"id": 9,
+		"name": "流黄",
+		"pinyin": "Liú Huáng",
+		"hex": "#8B7042",
+		"category": "brown",
+		"solarTerm": "立春"
+	},
+	{
+		"id": 10,
+		"name": "栗壳",
+		"pinyin": "Lì Ké",
+		"hex": "#775039",
+		"category": "brown",
+		"solarTerm": "立春"
+	},
+	{
+		"id": 11,
+		"name": "龙战",
+		"pinyin": "Lóng Zhàn",
+		"hex": "#5F4321",
+		"category": "brown",
+		"solarTerm": "立春"
+	},
+	{
+		"id": 12,
+		"name": "青骊",
+		"pinyin": "Qīng Lí",
+		"hex": "#422517",
+		"category": "black",
+		"solarTerm": "立春"
+	},
+	{
+		"id": 13,
+		"name": "海天霞",
+		"pinyin": "Hǎi Tiān Xiá",
+		"hex": "#F3A694",
+		"category": "red",
+		"solarTerm": "立春"
+	},
+	{
+		"id": 14,
+		"name": "缙云",
+		"pinyin": "Jìn Yún",
+		"hex": "#EE7959",
+		"category": "red",
+		"solarTerm": "立春"
+	},
+	{
+		"id": 15,
+		"name": "纁黄",
+		"pinyin": "Xūn Huáng",
+		"hex": "#BA5140",
+		"category": "red",
+		"solarTerm": "立春"
+	},
+	{
+		"id": 16,
+		"name": "珊瑚赫",
+		"pinyin": "Shān Hú Hè",
+		"hex": "#C12C1F",
+		"category": "red",
+		"solarTerm": "立春"
+	},
+	{
+		"id": 17,
+		"name": "盈盈",
+		"pinyin": "Yíng Yíng",
+		"hex": "#F9D3E3",
+		"category": "white",
+		"solarTerm": "雨水"
+	},
+	{
+		"id": 18,
+		"name": "水红",
+		"pinyin": "Shuǐ Hóng",
+		"hex": "#ECB0C1",
+		"category": "red",
+		"solarTerm": "雨水"
+	},
+	{
+		"id": 19,
+		"name": "苏梅",
+		"pinyin": "Sū Méi",
+		"hex": "#DD7694",
+		"category": "red",
+		"solarTerm": "雨水"
+	},
+	{
+		"id": 20,
+		"name": "紫茎屏风",
+		"pinyin": "Zǐ Jīng Píng Fēng",
+		"hex": "#A76283",
+		"category": "purple",
+		"solarTerm": "雨水"
+	},
+	{
+		"id": 21,
+		"name": "葭灰",
+		"pinyin": "Jiā Huī",
+		"hex": "#BEB1AA",
+		"category": "brown",
+		"solarTerm": "雨水"
+	},
+	{
+		"id": 22,
+		"name": "黄埃",
+		"pinyin": "Huáng Āi",
+		"hex": "#B49273",
+		"category": "brown",
+		"solarTerm": "雨水"
+	},
+	{
+		"id": 23,
+		"name": "老僧衣",
+		"pinyin": "Lǎo Sēng Yī",
+		"hex": "#A46244",
+		"category": "brown",
+		"solarTerm": "雨水"
+	},
+	{
+		"id": 24,
+		"name": "玄天",
+		"pinyin": "Xuán Tiān",
+		"hex": "#6B5458",
+		"category": "brown",
+		"solarTerm": "雨水"
+	},
+	{
+		"id": 25,
+		"name": "黄河琉璃",
+		"pinyin": "Huáng Hé Liú Lí",
+		"hex": "#E5A84B",
+		"category": "yellow",
+		"solarTerm": "雨水"
+	},
+	{
+		"id": 26,
+		"name": "库金",
+		"pinyin": "Kù Jīn",
+		"hex": "#E18A3B",
+		"category": "yellow",
+		"solarTerm": "雨水"
+	},
+	{
+		"id": 27,
+		"name": "缊韨",
+		"pinyin": "Yūn Fú",
+		"hex": "#984F31",
+		"category": "brown",
+		"solarTerm": "雨水"
+	},
+	{
+		"id": 28,
+		"name": "紫瓯",
+		"pinyin": "Zǐ Ōu",
+		"hex": "#7C461E",
+		"category": "brown",
+		"solarTerm": "雨水"
+	},
+	{
+		"id": 29,
+		"name": "欧碧",
+		"pinyin": "Ōu Bì",
+		"hex": "#C0D695",
+		"category": "green",
+		"solarTerm": "雨水"
+	},
+	{
+		"id": 30,
+		"name": "春辰",
+		"pinyin": "Chūn Chén",
+		"hex": "#A9BE7B",
+		"category": "green",
+		"solarTerm": "雨水"
+	},
+	{
+		"id": 31,
+		"name": "碧山",
+		"pinyin": "Bì Shān",
+		"hex": "#779649",
+		"category": "green",
+		"solarTerm": "雨水"
+	},
+	{
+		"id": 32,
+		"name": "青青",
+		"pinyin": "Qīng Qīng",
+		"hex": "#4F6F46",
+		"category": "green",
+		"solarTerm": "雨水"
+	},
+	{
+		"id": 33,
+		"name": "赤缇",
+		"pinyin": "Chì Tí",
+		"hex": "#BA5B49",
+		"category": "red",
+		"solarTerm": "惊蛰"
+	},
+	{
+		"id": 34,
+		"name": "朱草",
+		"pinyin": "Zhū Cǎo",
+		"hex": "#A64036",
+		"category": "red",
+		"solarTerm": "惊蛰"
+	},
+	{
+		"id": 35,
+		"name": "綪茷",
+		"pinyin": "Qiàn Fá",
+		"hex": "#9E2A22",
+		"category": "red",
+		"solarTerm": "惊蛰"
+	},
+	{
+		"id": 36,
+		"name": "顺圣",
+		"pinyin": "Shùn Shèng",
+		"hex": "#7C191E",
+		"category": "red",
+		"solarTerm": "惊蛰"
+	},
+	{
+		"id": 37,
+		"name": "桃夭",
+		"pinyin": "Táo Yāo",
+		"hex": "#F6BEC8",
+		"category": "red",
+		"solarTerm": "惊蛰"
+	},
+	{
+		"id": 38,
+		"name": "杨妃",
+		"pinyin": "Yáng Fēi",
+		"hex": "#F091A0",
+		"category": "red",
+		"solarTerm": "惊蛰"
+	},
+	{
+		"id": 39,
+		"name": "长春",
+		"pinyin": "Cháng Chūn",
+		"hex": "#DC6B82",
+		"category": "red",
+		"solarTerm": "惊蛰"
+	},
+	{
+		"id": 40,
+		"name": "牙绯",
+		"pinyin": "Yá Fēi",
+		"hex": "#C35C5D",
+		"category": "red",
+		"solarTerm": "惊蛰"
+	},
+	{
+		"id": 41,
+		"name": "黄栗留",
+		"pinyin": "Huáng Lì Liú",
+		"hex": "#FEDC5E",
+		"category": "yellow",
+		"solarTerm": "惊蛰"
+	},
+	{
+		"id": 42,
+		"name": "栀子",
+		"pinyin": "Zhī Zǐ",
+		"hex": "#FAC03D",
+		"category": "yellow",
+		"solarTerm": "惊蛰"
+	},
+	{
+		"id": 43,
+		"name": "黄不老",
+		"pinyin": "Huáng Bù Lǎo",
+		"hex": "#DB9B34",
+		"category": "yellow",
+		"solarTerm": "惊蛰"
+	},
+	{
+		"id": 44,
+		"name": "柘黄",
+		"pinyin": "Zhè Huáng",
+		"hex": "#C67915",
+		"category": "yellow",
+		"solarTerm": "惊蛰"
+	},
+	{
+		"id": 45,
+		"name": "青鸾",
+		"pinyin": "Qīng Luán",
+		"hex": "#9AA7B1",
+		"category": "blue",
+		"solarTerm": "惊蛰"
+	},
+	{
+		"id": 46,
+		"name": "菘蓝",
+		"pinyin": "Sōng Lán",
+		"hex": "#6B798E",
+		"category": "blue",
+		"solarTerm": "惊蛰"
+	},
+	{
+		"id": 47,
+		"name": "青黛",
+		"pinyin": "Qīng Dài",
+		"hex": "#45465E",
+		"category": "blue",
+		"solarTerm": "惊蛰"
+	},
+	{
+		"id": 48,
+		"name": "绀蝶",
+		"pinyin": "Gàn Dié",
+		"hex": "#2C2F3B",
+		"category": "black",
+		"solarTerm": "惊蛰"
+	},
+	{
+		"id": 49,
+		"name": "皦玉",
+		"pinyin": "Jiǎo Yù",
+		"hex": "#EBEEE8",
+		"category": "white",
+		"solarTerm": "春分"
+	},
+	{
+		"id": 50,
+		"name": "吉量",
+		"pinyin": "Jí Liàng",
+		"hex": "#EBEDDF",
+		"category": "white",
+		"solarTerm": "春分"
+	},
+	{
+		"id": 51,
+		"name": "韶粉",
+		"pinyin": "Sháo Fěn",
+		"hex": "#E0E0D0",
+		"category": "white",
+		"solarTerm": "春分"
+	},
+	{
+		"id": 52,
+		"name": "霜地",
+		"pinyin": "Shuāng Dì",
+		"hex": "#C7C6B6",
+		"category": "white",
+		"solarTerm": "春分"
+	},
+	{
+		"id": 53,
+		"name": "夏籥",
+		"pinyin": "Xià Yuè",
+		"hex": "#D2AF9D",
+		"category": "brown",
+		"solarTerm": "春分"
+	},
+	{
+		"id": 54,
+		"name": "紫磨金",
+		"pinyin": "Zǐ Mó Jīn",
+		"hex": "#BC836B",
+		"category": "brown",
+		"solarTerm": "春分"
+	},
+	{
+		"id": 55,
+		"name": "檀色",
+		"pinyin": "Tán Sè",
+		"hex": "#B26D5D",
+		"category": "brown",
+		"solarTerm": "春分"
+	},
+	{
+		"id": 56,
+		"name": "赭罗",
+		"pinyin": "Zhě Luó",
+		"hex": "#9A6655",
+		"category": "brown",
+		"solarTerm": "春分"
+	},
+	{
+		"id": 57,
+		"name": "黄丹",
+		"pinyin": "Huáng Dān",
+		"hex": "#EA5514",
+		"category": "red",
+		"solarTerm": "春分"
+	},
+	{
+		"id": 58,
+		"name": "洛神珠",
+		"pinyin": "Luò Shén Zhū",
+		"hex": "#D23918",
+		"category": "red",
+		"solarTerm": "春分"
+	},
+	{
+		"id": 59,
+		"name": "丹雘",
+		"pinyin": "Dān Huò",
+		"hex": "#C8161D",
+		"category": "red",
+		"solarTerm": "春分"
+	},
+	{
+		"id": 60,
+		"name": "水华朱",
+		"pinyin": "Shuǐ Huá Zhū",
+		"hex": "#A72126",
+		"category": "red",
+		"solarTerm": "春分"
+	},
+	{
+		"id": 61,
+		"name": "青冥",
+		"pinyin": "Qīng Míng",
+		"hex": "#3271AE",
+		"category": "blue",
+		"solarTerm": "春分"
+	},
+	{
+		"id": 62,
+		"name": "青雘",
+		"pinyin": "Qīng Huò",
+		"hex": "#007175",
+		"category": "green",
+		"solarTerm": "春分"
+	},
+	{
+		"id": 63,
+		"name": "青緺",
+		"pinyin": "Qīng Guā",
+		"hex": "#284852",
+		"category": "green",
+		"solarTerm": "春分"
+	},
+	{
+		"id": 64,
+		"name": "骐驎",
+		"pinyin": "Qí Lín",
+		"hex": "#12264F",
+		"category": "blue",
+		"solarTerm": "春分"
+	},
+	{
+		"id": 65,
+		"name": "紫蒲",
+		"pinyin": "Zǐ Pú",
+		"hex": "#A6559D",
+		"category": "purple",
+		"solarTerm": "清明"
+	},
+	{
+		"id": 66,
+		"name": "赪紫",
+		"pinyin": "Chēng Zǐ",
+		"hex": "#8A1874",
+		"category": "purple",
+		"solarTerm": "清明"
+	},
+	{
+		"id": 67,
+		"name": "齐紫",
+		"pinyin": "Qí Zǐ",
+		"hex": "#6C216D",
+		"category": "purple",
+		"solarTerm": "清明"
+	},
+	{
+		"id": 68,
+		"name": "凝夜紫",
+		"pinyin": "Níng Yè Zǐ",
+		"hex": "#422256",
+		"category": "purple",
+		"solarTerm": "清明"
+	},
+	{
+		"id": 69,
+		"name": "冻缥",
+		"pinyin": "Dòng Piǎo",
+		"hex": "#BEC2B3",
+		"category": "green",
+		"solarTerm": "清明"
+	},
+	{
+		"id": 70,
+		"name": "春碧",
+		"pinyin": "Chūn Bì",
+		"hex": "#9D9D82",
+		"category": "green",
+		"solarTerm": "清明"
+	},
+	{
+		"id": 71,
+		"name": "执大象",
+		"pinyin": "Zhí Dà Xiàng",
+		"hex": "#919177",
+		"category": "green",
+		"solarTerm": "清明"
+	},
+	{
+		"id": 72,
+		"name": "苔古",
+		"pinyin": "Tái Gǔ",
+		"hex": "#79836C",
+		"category": "green",
+		"solarTerm": "清明"
+	},
+	{
+		"id": 73,
+		"name": "香炉紫烟",
+		"pinyin": "Xiāng Lú Zǐ Yān",
+		"hex": "#D3CCD6",
+		"category": "purple",
+		"solarTerm": "清明"
+	},
+	{
+		"id": 74,
+		"name": "紫菂",
+		"pinyin": "Zǐ Dì",
+		"hex": "#9B8EA9",
+		"category": "purple",
+		"solarTerm": "清明"
+	},
+	{
+		"id": 75,
+		"name": "拂紫绵",
+		"pinyin": "Fú Zǐ Mián",
+		"hex": "#7E527F",
+		"category": "purple",
+		"solarTerm": "清明"
+	},
+	{
+		"id": 76,
+		"name": "三公子",
+		"pinyin": "Sān Gōng Zǐ",
+		"hex": "#663D74",
+		"category": "purple",
+		"solarTerm": "清明"
+	},
+	{
+		"id": 77,
+		"name": "琅玕紫",
+		"pinyin": "Láng Gān Zǐ",
+		"hex": "#CB5C83",
+		"category": "purple",
+		"solarTerm": "清明"
+	},
+	{
+		"id": 78,
+		"name": "红踯躅",
+		"pinyin": "Hóng Zhí Zhú",
+		"hex": "#B83570",
+		"category": "purple",
+		"solarTerm": "清明"
+	},
+	{
+		"id": 79,
+		"name": "魏红",
+		"pinyin": "Wèi Hóng",
+		"hex": "#A73766",
+		"category": "purple",
+		"solarTerm": "清明"
+	},
+	{
+		"id": 80,
+		"name": "魏紫",
+		"pinyin": "Wèi Zǐ",
+		"hex": "#903754",
+		"category": "purple",
+		"solarTerm": "清明"
+	},
+	{
+		"id": 81,
+		"name": "昌荣",
+		"pinyin": "Chāng Róng",
+		"hex": "#DCC7E1",
+		"category": "purple",
+		"solarTerm": "谷雨"
+	},
+	{
+		"id": 82,
+		"name": "紫薄汗",
+		"pinyin": "Zǐ Bó Hàn",
+		"hex": "#BBA1CB",
+		"category": "purple",
+		"solarTerm": "谷雨"
+	},
+	{
+		"id": 83,
+		"name": "茈藐",
+		"pinyin": "Zǐ Miǎo",
+		"hex": "#A67EB7",
+		"category": "purple",
+		"solarTerm": "谷雨"
+	},
+	{
+		"id": 84,
+		"name": "紫紶",
+		"pinyin": "Zǐ Qū",
+		"hex": "#7D5284",
+		"category": "purple",
+		"solarTerm": "谷雨"
+	},
+	{
+		"id": 85,
+		"name": "苍葭",
+		"pinyin": "Cāng Jiā",
+		"hex": "#A8BF8F",
+		"category": "green",
+		"solarTerm": "谷雨"
+	},
+	{
+		"id": 86,
+		"name": "庭芜绿",
+		"pinyin": "Tíng Wú Lǜ",
+		"hex": "#68945C",
+		"category": "green",
+		"solarTerm": "谷雨"
+	},
+	{
+		"id": 87,
+		"name": "翠微",
+		"pinyin": "Cuì Wēi",
+		"hex": "#4C8045",
+		"category": "green",
+		"solarTerm": "谷雨"
+	},
+	{
+		"id": 88,
+		"name": "翠虬",
+		"pinyin": "Cuì Qiú",
+		"hex": "#446A37",
+		"category": "green",
+		"solarTerm": "谷雨"
+	},
+	{
+		"id": 89,
+		"name": "碧落",
+		"pinyin": "Bì Luò",
+		"hex": "#AED0EE",
+		"category": "blue",
+		"solarTerm": "谷雨"
+	},
+	{
+		"id": 90,
+		"name": "挼蓝",
+		"pinyin": "Ruó Lán",
+		"hex": "#6E9BC5",
+		"category": "blue",
+		"solarTerm": "谷雨"
+	},
+	{
+		"id": 91,
+		"name": "青雀头黛",
+		"pinyin": "Qīng Què Tóu Dài",
+		"hex": "#354E6B",
+		"category": "blue",
+		"solarTerm": "谷雨"
+	},
+	{
+		"id": 92,
+		"name": "螺子黛",
+		"pinyin": "Luó Zǐ Dài",
+		"hex": "#13393E",
+		"category": "green",
+		"solarTerm": "谷雨"
+	},
+	{
+		"id": 93,
+		"name": "露褐",
+		"pinyin": "Lù Hè",
+		"hex": "#BD8253",
+		"category": "brown",
+		"solarTerm": "谷雨"
+	},
+	{
+		"id": 94,
+		"name": "檀褐",
+		"pinyin": "Tán Hè",
+		"hex": "#945635",
+		"category": "brown",
+		"solarTerm": "谷雨"
+	},
+	{
+		"id": 95,
+		"name": "緅絺",
+		"pinyin": "Zōu Chī",
+		"hex": "#804C2E",
+		"category": "brown",
+		"solarTerm": "谷雨"
+	},
+	{
+		"id": 96,
+		"name": "目童子",
+		"pinyin": "Mù Tóng Zǐ",
+		"hex": "#5B3222",
+		"category": "brown",
+		"solarTerm": "谷雨"
+	},
+	{
+		"id": 97,
+		"name": "青粲",
+		"pinyin": "Qīng Càn",
+		"hex": "#C3D94E",
+		"category": "green",
+		"solarTerm": "立夏"
+	},
+	{
+		"id": 98,
+		"name": "翠缥",
+		"pinyin": "Cuì Piǎo",
+		"hex": "#B7D332",
+		"category": "green",
+		"solarTerm": "立夏"
+	},
+	{
+		"id": 99,
+		"name": "人籁",
+		"pinyin": "Rén Lài",
+		"hex": "#9EBC19",
+		"category": "green",
+		"solarTerm": "立夏"
+	},
+	{
+		"id": 100,
+		"name": "水龙吟",
+		"pinyin": "Shuǐ Lóng Yín",
+		"hex": "#84A729",
+		"category": "green",
+		"solarTerm": "立夏"
+	},
+	{
+		"id": 101,
+		"name": "地籁",
+		"pinyin": "Dì Lài",
+		"hex": "#DFCEB4",
+		"category": "brown",
+		"solarTerm": "立夏"
+	},
+	{
+		"id": 102,
+		"name": "大块",
+		"pinyin": "Dà Kuài",
+		"hex": "#BFA782",
+		"category": "brown",
+		"solarTerm": "立夏"
+	},
+	{
+		"id": 103,
+		"name": "养生主",
+		"pinyin": "Yǎng Shēng Zhǔ",
+		"hex": "#B49B7F",
+		"category": "brown",
+		"solarTerm": "立夏"
+	},
+	{
+		"id": 104,
+		"name": "大云",
+		"pinyin": "Dà Yún",
+		"hex": "#94784F",
+		"category": "brown",
+		"solarTerm": "立夏"
+	},
+	{
+		"id": 105,
+		"name": "溶溶月",
+		"pinyin": "Róng Róng Yuè",
+		"hex": "#BEC2BC",
+		"category": "green",
+		"solarTerm": "立夏"
+	},
+	{
+		"id": 106,
+		"name": "绍衣",
+		"pinyin": "Shào Yī",
+		"hex": "#A8A19C",
+		"category": "brown",
+		"solarTerm": "立夏"
+	},
+	{
+		"id": 107,
+		"name": "石莲褐",
+		"pinyin": "Shí Lián Hè",
+		"hex": "#92897B",
+		"category": "brown",
+		"solarTerm": "立夏"
+	},
+	{
+		"id": 108,
+		"name": "黑朱",
+		"pinyin": "Hēi Zhū",
+		"hex": "#70695D",
+		"category": "brown",
+		"solarTerm": "立夏"
+	},
+	{
+		"id": 109,
+		"name": "朱颜酡",
+		"pinyin": "Zhū Yán Tuó",
+		"hex": "#F29A76",
+		"category": "red",
+		"solarTerm": "立夏"
+	},
+	{
+		"id": 110,
+		"name": "苕荣",
+		"pinyin": "Tiáo Róng",
+		"hex": "#ED6D3D",
+		"category": "red",
+		"solarTerm": "立夏"
+	},
+	{
+		"id": 111,
+		"name": "檎丹",
+		"pinyin": "Qín Dān",
+		"hex": "#E94829",
+		"category": "red",
+		"solarTerm": "立夏"
+	},
+	{
+		"id": 112,
+		"name": "丹罽",
+		"pinyin": "Dān Jì",
+		"hex": "#E60012",
+		"category": "red",
+		"solarTerm": "立夏"
+	},
+	{
+		"id": 113,
+		"name": "彤管",
+		"pinyin": "Tóng Guǎn",
+		"hex": "#E2A2AC",
+		"category": "red",
+		"solarTerm": "小满"
+	},
+	{
+		"id": 114,
+		"name": "渥赭",
+		"pinyin": "Wò Zhě",
+		"hex": "#DD6B7B",
+		"category": "red",
+		"solarTerm": "小满"
+	},
+	{
+		"id": 115,
+		"name": "唇脂",
+		"pinyin": "Chún Zhī",
+		"hex": "#C25160",
+		"category": "red",
+		"solarTerm": "小满"
+	},
+	{
+		"id": 116,
+		"name": "朱孔阳",
+		"pinyin": "Zhū Kǒng Yáng",
+		"hex": "#B81A35",
+		"category": "red",
+		"solarTerm": "小满"
+	},
+	{
+		"id": 117,
+		"name": "石发",
+		"pinyin": "Shí Fā",
+		"hex": "#6A8D52",
+		"category": "green",
+		"solarTerm": "小满"
+	},
+	{
+		"id": 118,
+		"name": "漆姑",
+		"pinyin": "Qī Gū",
+		"hex": "#5D8351",
+		"category": "green",
+		"solarTerm": "小满"
+	},
+	{
+		"id": 119,
+		"name": "芰荷",
+		"pinyin": "Jì Hé",
+		"hex": "#4F794A",
+		"category": "green",
+		"solarTerm": "小满"
+	},
+	{
+		"id": 120,
+		"name": "官绿",
+		"pinyin": "Guān Lǜ",
+		"hex": "#2A6E3F",
+		"category": "green",
+		"solarTerm": "小满"
+	},
+	{
+		"id": 121,
+		"name": "仙米",
+		"pinyin": "Xiān Mǐ",
+		"hex": "#D4C9AA",
+		"category": "brown",
+		"solarTerm": "小满"
+	},
+	{
+		"id": 122,
+		"name": "黄螺",
+		"pinyin": "Huáng Luó",
+		"hex": "#B4A379",
+		"category": "brown",
+		"solarTerm": "小满"
+	},
+	{
+		"id": 123,
+		"name": "降真香",
+		"pinyin": "Jiàng Zhēn Xiāng",
+		"hex": "#9E8358",
+		"category": "brown",
+		"solarTerm": "小满"
+	},
+	{
+		"id": 124,
+		"name": "远志",
+		"pinyin": "Yuǎn Zhì",
+		"hex": "#81663B",
+		"category": "brown",
+		"solarTerm": "小满"
+	},
+	{
+		"id": 125,
+		"name": "嫩鹅黄",
+		"pinyin": "Nèn É Huáng",
+		"hex": "#F2C867",
+		"category": "yellow",
+		"solarTerm": "小满"
+	},
+	{
+		"id": 126,
+		"name": "鞠衣",
+		"pinyin": "Jū Yī",
+		"hex": "#D3A237",
+		"category": "yellow",
+		"solarTerm": "小满"
+	},
+	{
+		"id": 127,
+		"name": "郁金裙",
+		"pinyin": "Yù Jīn Qún",
+		"hex": "#D08635",
+		"category": "yellow",
+		"solarTerm": "小满"
+	},
+	{
+		"id": 128,
+		"name": "黄流",
+		"pinyin": "Huáng Liú",
+		"hex": "#9F6027",
+		"category": "brown",
+		"solarTerm": "小满"
+	},
+	{
+		"id": 129,
+		"name": "筠雾",
+		"pinyin": "Jūn Wù",
+		"hex": "#D5D1AE",
+		"category": "green",
+		"solarTerm": "芒种"
+	},
+	{
+		"id": 130,
+		"name": "瓷秘",
+		"pinyin": "Cí Mì",
+		"hex": "#BFC096",
+		"category": "green",
+		"solarTerm": "芒种"
+	},
+	{
+		"id": 131,
+		"name": "琬琰",
+		"pinyin": "Wǎn Yǎn",
+		"hex": "#A9A886",
+		"category": "green",
+		"solarTerm": "芒种"
+	},
+	{
+		"id": 132,
+		"name": "青圭",
+		"pinyin": "Qīng Guī",
+		"hex": "#92905D",
+		"category": "green",
+		"solarTerm": "芒种"
+	},
+	{
+		"id": 133,
+		"name": "鸣珂",
+		"pinyin": "Míng Kē",
+		"hex": "#B3B59C",
+		"category": "green",
+		"solarTerm": "芒种"
+	},
+	{
+		"id": 134,
+		"name": "青玉案",
+		"pinyin": "Qīng Yù Àn",
+		"hex": "#A8B092",
+		"category": "green",
+		"solarTerm": "芒种"
+	},
+	{
+		"id": 135,
+		"name": "出岫",
+		"pinyin": "Chū Xiù",
+		"hex": "#A9A773",
+		"category": "green",
+		"solarTerm": "芒种"
+	},
+	{
+		"id": 136,
+		"name": "风入松",
+		"pinyin": "Fēng Rù Sōng",
+		"hex": "#868C4E",
+		"category": "green",
+		"solarTerm": "芒种"
+	},
+	{
+		"id": 137,
+		"name": "如梦令",
+		"pinyin": "Rú Mèng Lìng",
+		"hex": "#DDBB99",
+		"category": "brown",
+		"solarTerm": "芒种"
+	},
+	{
+		"id": 138,
+		"name": "芸黄",
+		"pinyin": "Yún Huáng",
+		"hex": "#D2A36C",
+		"category": "brown",
+		"solarTerm": "芒种"
+	},
+	{
+		"id": 139,
+		"name": "金埒",
+		"pinyin": "Jīn Liè",
+		"hex": "#BE9457",
+		"category": "brown",
+		"solarTerm": "芒种"
+	},
+	{
+		"id": 140,
+		"name": "雌黄",
+		"pinyin": "Cí Huáng",
+		"hex": "#B4884D",
+		"category": "brown",
+		"solarTerm": "芒种"
+	},
+	{
+		"id": 141,
+		"name": "曾青",
+		"pinyin": "Zēng Qīng",
+		"hex": "#535164",
+		"category": "blue",
+		"solarTerm": "芒种"
+	},
+	{
+		"id": 142,
+		"name": "䒌靘",
+		"pinyin": "Mìng Qìng",
+		"hex": "#454659",
+		"category": "blue",
+		"solarTerm": "芒种"
+	},
+	{
+		"id": 143,
+		"name": "璆琳",
+		"pinyin": "Qiú Lín",
+		"hex": "#343041",
+		"category": "black",
+		"solarTerm": "芒种"
+	},
+	{
+		"id": 144,
+		"name": "瑾瑜",
+		"pinyin": "Jǐn Yú",
+		"hex": "#1E2732",
+		"category": "black",
+		"solarTerm": "芒种"
+	},
+	{
+		"id": 145,
+		"name": "赩炽",
+		"pinyin": "Xì Chì",
+		"hex": "#CB523E",
+		"category": "red",
+		"solarTerm": "夏至"
+	},
+	{
+		"id": 146,
+		"name": "石榴裙",
+		"pinyin": "Shí Liu Qún",
+		"hex": "#B13B2E",
+		"category": "red",
+		"solarTerm": "夏至"
+	},
+	{
+		"id": 147,
+		"name": "朱湛",
+		"pinyin": "Zhū Zhàn",
+		"hex": "#95302E",
+		"category": "red",
+		"solarTerm": "夏至"
+	},
+	{
+		"id": 148,
+		"name": "大繎",
+		"pinyin": "Dà Rán",
+		"hex": "#822327",
+		"category": "red",
+		"solarTerm": "夏至"
+	},
+	{
+		"id": 149,
+		"name": "月魄",
+		"pinyin": "Yuè Pò",
+		"hex": "#B2B6B6",
+		"category": "white",
+		"solarTerm": "夏至"
+	},
+	{
+		"id": 150,
+		"name": "不皂",
+		"pinyin": "Bù Zào",
+		"hex": "#A7AAA1",
+		"category": "white",
+		"solarTerm": "夏至"
+	},
+	{
+		"id": 151,
+		"name": "雷雨垂",
+		"pinyin": "Léi Yǔ Chuí",
+		"hex": "#7A7B78",
+		"category": "green",
+		"solarTerm": "夏至"
+	},
+	{
+		"id": 152,
+		"name": "石涅",
+		"pinyin": "Shí Niè",
+		"hex": "#686A67",
+		"category": "green",
+		"solarTerm": "夏至"
+	},
+	{
+		"id": 153,
+		"name": "扶光",
+		"pinyin": "Fú Guāng",
+		"hex": "#F0C2A2",
+		"category": "brown",
+		"solarTerm": "夏至"
+	},
+	{
+		"id": 154,
+		"name": "椒房",
+		"pinyin": "Jiāo Fáng",
+		"hex": "#DB9C5E",
+		"category": "yellow",
+		"solarTerm": "夏至"
+	},
+	{
+		"id": 155,
+		"name": "红友",
+		"pinyin": "Hóng Yǒu",
+		"hex": "#D9883D",
+		"category": "yellow",
+		"solarTerm": "夏至"
+	},
+	{
+		"id": 156,
+		"name": "光明砂",
+		"pinyin": "Guāng Míng Shā",
+		"hex": "#CC5D20",
+		"category": "yellow",
+		"solarTerm": "夏至"
+	},
+	{
+		"id": 157,
+		"name": "山矾",
+		"pinyin": "Shān Fán",
+		"hex": "#F5F3F2",
+		"category": "white",
+		"solarTerm": "夏至"
+	},
+	{
+		"id": 158,
+		"name": "玉頩",
+		"pinyin": "Yù Pīng",
+		"hex": "#EAE5E3",
+		"category": "white",
+		"solarTerm": "夏至"
+	},
+	{
+		"id": 159,
+		"name": "二目鱼",
+		"pinyin": "Èr Mù Yú",
+		"hex": "#DFE0D9",
+		"category": "white",
+		"solarTerm": "夏至"
+	},
+	{
+		"id": 160,
+		"name": "明月珰",
+		"pinyin": "Míng Yuè Dāng",
+		"hex": "#D4D3CA",
+		"category": "white",
+		"solarTerm": "夏至"
+	},
+	{
+		"id": 161,
+		"name": "骍刚",
+		"pinyin": "Xīng Gāng",
+		"hex": "#F5B087",
+		"category": "brown",
+		"solarTerm": "小暑"
+	},
+	{
+		"id": 162,
+		"name": "赪霞",
+		"pinyin": "Chēng Xiá",
+		"hex": "#F18F60",
+		"category": "red",
+		"solarTerm": "小暑"
+	},
+	{
+		"id": 163,
+		"name": "赪尾",
+		"pinyin": "Chēng Wěi",
+		"hex": "#EF845D",
+		"category": "red",
+		"solarTerm": "小暑"
+	},
+	{
+		"id": 164,
+		"name": "朱柿",
+		"pinyin": "Zhū Shì",
+		"hex": "#ED6D46",
+		"category": "red",
+		"solarTerm": "小暑"
+	},
+	{
+		"id": 165,
+		"name": "天球",
+		"pinyin": "Tiān Qiú",
+		"hex": "#E0DFC6",
+		"category": "yellow",
+		"solarTerm": "小暑"
+	},
+	{
+		"id": 166,
+		"name": "行香子",
+		"pinyin": "Xíng Xiāng Zǐ",
+		"hex": "#BFB99C",
+		"category": "yellow",
+		"solarTerm": "小暑"
+	},
+	{
+		"id": 167,
+		"name": "王刍",
+		"pinyin": "Wáng Chú",
+		"hex": "#A99F70",
+		"category": "yellow",
+		"solarTerm": "小暑"
+	},
+	{
+		"id": 168,
+		"name": "荩箧",
+		"pinyin": "Jìn Qiè",
+		"hex": "#877D52",
+		"category": "yellow",
+		"solarTerm": "小暑"
+	},
+	{
+		"id": 169,
+		"name": "赤灵",
+		"pinyin": "Chì Líng",
+		"hex": "#954024",
+		"category": "brown",
+		"solarTerm": "小暑"
+	},
+	{
+		"id": 170,
+		"name": "丹秫",
+		"pinyin": "Dān Shú",
+		"hex": "#873424",
+		"category": "brown",
+		"solarTerm": "小暑"
+	},
+	{
+		"id": 171,
+		"name": "木兰",
+		"pinyin": "Mù Lán",
+		"hex": "#662B1F",
+		"category": "brown",
+		"solarTerm": "小暑"
+	},
+	{
+		"id": 172,
+		"name": "麒麟竭",
+		"pinyin": "Qí Lín Jié",
+		"hex": "#4C1E1A",
+		"category": "brown",
+		"solarTerm": "小暑"
+	},
+	{
+		"id": 173,
+		"name": "柔蓝",
+		"pinyin": "Róu Lán",
+		"hex": "#106898",
+		"category": "blue",
+		"solarTerm": "小暑"
+	},
+	{
+		"id": 174,
+		"name": "碧城",
+		"pinyin": "Bì Chéng",
+		"hex": "#12507B",
+		"category": "blue",
+		"solarTerm": "小暑"
+	},
+	{
+		"id": 175,
+		"name": "蓝采和",
+		"pinyin": "Lán Cǎi Hé",
+		"hex": "#06436F",
+		"category": "blue",
+		"solarTerm": "小暑"
+	},
+	{
+		"id": 176,
+		"name": "帝释青",
+		"pinyin": "Dì Shì Qīng",
+		"hex": "#003460",
+		"category": "blue",
+		"solarTerm": "小暑"
+	},
+	{
+		"id": 177,
+		"name": "夕岚",
+		"pinyin": "Xī Lán",
+		"hex": "#E3ADB9",
+		"category": "red",
+		"solarTerm": "大暑"
+	},
+	{
+		"id": 178,
+		"name": "雌霓",
+		"pinyin": "Cí Ní",
+		"hex": "#CF929E",
+		"category": "red",
+		"solarTerm": "大暑"
+	},
+	{
+		"id": 179,
+		"name": "绛纱",
+		"pinyin": "Jiàng Shā",
+		"hex": "#B27777",
+		"category": "red",
+		"solarTerm": "大暑"
+	},
+	{
+		"id": 180,
+		"name": "茹藘",
+		"pinyin": "Rú Lǘ",
+		"hex": "#A35F65",
+		"category": "red",
+		"solarTerm": "大暑"
+	},
+	{
+		"id": 181,
+		"name": "葱青",
+		"pinyin": "Cōng Qīng",
+		"hex": "#EDF1BB",
+		"category": "green",
+		"solarTerm": "大暑"
+	},
+	{
+		"id": 182,
+		"name": "少艾",
+		"pinyin": "Shào Ài",
+		"hex": "#E3EB98",
+		"category": "green",
+		"solarTerm": "大暑"
+	},
+	{
+		"id": 183,
+		"name": "绮钱",
+		"pinyin": "Qǐ Qián",
+		"hex": "#D8DE8A",
+		"category": "green",
+		"solarTerm": "大暑"
+	},
+	{
+		"id": 184,
+		"name": "翠樽",
+		"pinyin": "Cuì Zūn",
+		"hex": "#CDD171",
+		"category": "green",
+		"solarTerm": "大暑"
+	},
+	{
+		"id": 185,
+		"name": "石蜜",
+		"pinyin": "Shí Mì",
+		"hex": "#D4BF89",
+		"category": "yellow",
+		"solarTerm": "大暑"
+	},
+	{
+		"id": 186,
+		"name": "沙饧",
+		"pinyin": "Shā Xíng",
+		"hex": "#BFA670",
+		"category": "yellow",
+		"solarTerm": "大暑"
+	},
+	{
+		"id": 187,
+		"name": "巨吕",
+		"pinyin": "Jù Lǚ",
+		"hex": "#AA8E59",
+		"category": "yellow",
+		"solarTerm": "大暑"
+	},
+	{
+		"id": 188,
+		"name": "吉金",
+		"pinyin": "Jí Jīn",
+		"hex": "#896D47",
+		"category": "brown",
+		"solarTerm": "大暑"
+	},
+	{
+		"id": 189,
+		"name": "山岚",
+		"pinyin": "Shān Lán",
+		"hex": "#BED2BB",
+		"category": "green",
+		"solarTerm": "大暑"
+	},
+	{
+		"id": 190,
+		"name": "渌波",
+		"pinyin": "Lù Bō",
+		"hex": "#9BB496",
+		"category": "green",
+		"solarTerm": "大暑"
+	},
+	{
+		"id": 191,
+		"name": "青楸",
+		"pinyin": "Qīng Qiū",
+		"hex": "#81A380",
+		"category": "green",
+		"solarTerm": "大暑"
+	},
+	{
+		"id": 192,
+		"name": "菉竹",
+		"pinyin": "Lù Zhú",
+		"hex": "#698E6A",
+		"category": "green",
+		"solarTerm": "大暑"
+	},
+	{
+		"id": 193,
+		"name": "窃蓝",
+		"pinyin": "Qiè Lán",
+		"hex": "#88ABDA",
+		"category": "blue",
+		"solarTerm": "立秋"
+	},
+	{
+		"id": 194,
+		"name": "监德",
+		"pinyin": "Jiān Dé",
+		"hex": "#6F94CD",
+		"category": "blue",
+		"solarTerm": "立秋"
+	},
+	{
+		"id": 195,
+		"name": "苍苍",
+		"pinyin": "Cāng Cāng",
+		"hex": "#5976BA",
+		"category": "blue",
+		"solarTerm": "立秋"
+	},
+	{
+		"id": 196,
+		"name": "群青",
+		"pinyin": "Qún Qīng",
+		"hex": "#2E59A7",
+		"category": "blue",
+		"solarTerm": "立秋"
+	},
+	{
+		"id": 197,
+		"name": "白青",
+		"pinyin": "Bái Qīng",
+		"hex": "#98B6C2",
+		"category": "blue",
+		"solarTerm": "立秋"
+	},
+	{
+		"id": 198,
+		"name": "竹月",
+		"pinyin": "Zhú Yuè",
+		"hex": "#7F9FAF",
+		"category": "blue",
+		"solarTerm": "立秋"
+	},
+	{
+		"id": 199,
+		"name": "空青",
+		"pinyin": "Kōng Qīng",
+		"hex": "#66889E",
+		"category": "blue",
+		"solarTerm": "立秋"
+	},
+	{
+		"id": 200,
+		"name": "太师青",
+		"pinyin": "Tài Shī Qīng",
+		"hex": "#547689",
+		"category": "blue",
+		"solarTerm": "立秋"
+	},
+	{
+		"id": 201,
+		"name": "缟羽",
+		"pinyin": "Gǎo Yǔ",
+		"hex": "#EFEFEF",
+		"category": "white",
+		"solarTerm": "立秋"
+	},
+	{
+		"id": 202,
+		"name": "香皮",
+		"pinyin": "Xiāng Pí",
+		"hex": "#D8D1C5",
+		"category": "white",
+		"solarTerm": "立秋"
+	},
+	{
+		"id": 203,
+		"name": "云母",
+		"pinyin": "Yún Mǔ",
+		"hex": "#C6BEB1",
+		"category": "white",
+		"solarTerm": "立秋"
+	},
+	{
+		"id": 204,
+		"name": "佩玖",
+		"pinyin": "Pèi Jiǔ",
+		"hex": "#AC9F8A",
+		"category": "brown",
+		"solarTerm": "立秋"
+	},
+	{
+		"id": 205,
+		"name": "麹尘",
+		"pinyin": "Qū Chén",
+		"hex": "#C0D09D",
+		"category": "green",
+		"solarTerm": "立秋"
+	},
+	{
+		"id": 206,
+		"name": "绿沈",
+		"pinyin": "Lǜ Chén",
+		"hex": "#938F4C",
+		"category": "green",
+		"solarTerm": "立秋"
+	},
+	{
+		"id": 207,
+		"name": "绞衣",
+		"pinyin": "Jiǎo Yī",
+		"hex": "#7F754C",
+		"category": "green",
+		"solarTerm": "立秋"
+	},
+	{
+		"id": 208,
+		"name": "素綦",
+		"pinyin": "Sù Qí",
+		"hex": "#595333",
+		"category": "green",
+		"solarTerm": "立秋"
+	},
+	{
+		"id": 209,
+		"name": "退红",
+		"pinyin": "Tuì Hóng",
+		"hex": "#F0CFE3",
+		"category": "white",
+		"solarTerm": "处暑"
+	},
+	{
+		"id": 210,
+		"name": "樱花",
+		"pinyin": "Yīng Huā",
+		"hex": "#E4B8D5",
+		"category": "purple",
+		"solarTerm": "处暑"
+	},
+	{
+		"id": 211,
+		"name": "丁香",
+		"pinyin": "Dīng Xiāng",
+		"hex": "#CE93BF",
+		"category": "purple",
+		"solarTerm": "处暑"
+	},
+	{
+		"id": 212,
+		"name": "木槿",
+		"pinyin": "Mù Jǐn",
+		"hex": "#BA79B1",
+		"category": "purple",
+		"solarTerm": "处暑"
+	},
+	{
+		"id": 213,
+		"name": "余白",
+		"pinyin": "Yú Bái",
+		"hex": "#C9CFC1",
+		"category": "green",
+		"solarTerm": "处暑"
+	},
+	{
+		"id": 214,
+		"name": "兰苕",
+		"pinyin": "Lán Tiáo",
+		"hex": "#A8B78C",
+		"category": "green",
+		"solarTerm": "处暑"
+	},
+	{
+		"id": 215,
+		"name": "碧滋",
+		"pinyin": "Bì Zī",
+		"hex": "#90A07D",
+		"category": "green",
+		"solarTerm": "处暑"
+	},
+	{
+		"id": 216,
+		"name": "葱倩",
+		"pinyin": "Cōng Qiàn",
+		"hex": "#6C8650",
+		"category": "green",
+		"solarTerm": "处暑"
+	},
+	{
+		"id": 217,
+		"name": "云门",
+		"pinyin": "Yún Mén",
+		"hex": "#A2D2E2",
+		"category": "blue",
+		"solarTerm": "处暑"
+	},
+	{
+		"id": 218,
+		"name": "西子",
+		"pinyin": "Xī Zǐ",
+		"hex": "#87C0CA",
+		"category": "blue",
+		"solarTerm": "处暑"
+	},
+	{
+		"id": 219,
+		"name": "天水碧",
+		"pinyin": "Tiān Shuǐ Bì",
+		"hex": "#5AA4AE",
+		"category": "blue",
+		"solarTerm": "处暑"
+	},
+	{
+		"id": 220,
+		"name": "法翠",
+		"pinyin": "Fǎ Cuì",
+		"hex": "#108B96",
+		"category": "blue",
+		"solarTerm": "处暑"
+	},
+	{
+		"id": 221,
+		"name": "桑蕾",
+		"pinyin": "Sāng Lěi",
+		"hex": "#EAD89A",
+		"category": "yellow",
+		"solarTerm": "处暑"
+	},
+	{
+		"id": 222,
+		"name": "太一余粮",
+		"pinyin": "Tài Yī Yú Liáng",
+		"hex": "#D5B45C",
+		"category": "yellow",
+		"solarTerm": "处暑"
+	},
+	{
+		"id": 223,
+		"name": "秋香",
+		"pinyin": "Qiū Xiāng",
+		"hex": "#BF9C46",
+		"category": "yellow",
+		"solarTerm": "处暑"
+	},
+	{
+		"id": 224,
+		"name": "老茯神",
+		"pinyin": "Lǎo Fú Shén",
+		"hex": "#AA8534",
+		"category": "yellow",
+		"solarTerm": "处暑"
+	},
+	{
+		"id": 225,
+		"name": "凝脂",
+		"pinyin": "Níng Zhī",
+		"hex": "#F5F2E9",
+		"category": "white",
+		"solarTerm": "白露"
+	},
+	{
+		"id": 226,
+		"name": "玉色",
+		"pinyin": "Yù Sè",
+		"hex": "#EAE4D1",
+		"category": "white",
+		"solarTerm": "白露"
+	},
+	{
+		"id": 227,
+		"name": "黄润",
+		"pinyin": "Huáng Rùn",
+		"hex": "#DFD6B8",
+		"category": "yellow",
+		"solarTerm": "白露"
+	},
+	{
+		"id": 228,
+		"name": "缣缃",
+		"pinyin": "Jiān Xiāng",
+		"hex": "#D5C8A0",
+		"category": "yellow",
+		"solarTerm": "白露"
+	},
+	{
+		"id": 229,
+		"name": "蕉月",
+		"pinyin": "Jiāo Yuè",
+		"hex": "#86908A",
+		"category": "green",
+		"solarTerm": "白露"
+	},
+	{
+		"id": 230,
+		"name": "千山翠",
+		"pinyin": "Qiān Shān Cuì",
+		"hex": "#6B7D73",
+		"category": "green",
+		"solarTerm": "白露"
+	},
+	{
+		"id": 231,
+		"name": "结绿",
+		"pinyin": "Jié Lǜ",
+		"hex": "#555F4D",
+		"category": "green",
+		"solarTerm": "白露"
+	},
+	{
+		"id": 232,
+		"name": "绿云",
+		"pinyin": "Lǜ Yún",
+		"hex": "#45493D",
+		"category": "green",
+		"solarTerm": "白露"
+	},
+	{
+		"id": 233,
+		"name": "藕丝秋半",
+		"pinyin": "Ǒu Sī Qiū Bàn",
+		"hex": "#D3CBC5",
+		"category": "white",
+		"solarTerm": "白露"
+	},
+	{
+		"id": 234,
+		"name": "苍烟落照",
+		"pinyin": "Cāng Yān Luò Zhào",
+		"hex": "#C8B5B3",
+		"category": "brown",
+		"solarTerm": "白露"
+	},
+	{
+		"id": 235,
+		"name": "红藤杖",
+		"pinyin": "Hóng Téng Zhàng",
+		"hex": "#928187",
+		"category": "brown",
+		"solarTerm": "白露"
+	},
+	{
+		"id": 236,
+		"name": "紫鼠",
+		"pinyin": "Zǐ Shǔ",
+		"hex": "#594C57",
+		"category": "purple",
+		"solarTerm": "白露"
+	},
+	{
+		"id": 237,
+		"name": "黄粱",
+		"pinyin": "Huáng Liáng",
+		"hex": "#C4B798",
+		"category": "yellow",
+		"solarTerm": "白露"
+	},
+	{
+		"id": 238,
+		"name": "蒸栗",
+		"pinyin": "Zhēng Lì",
+		"hex": "#A58A5F",
+		"category": "yellow",
+		"solarTerm": "白露"
+	},
+	{
+		"id": 239,
+		"name": "射干",
+		"pinyin": "Shè Gān",
+		"hex": "#7C623F",
+		"category": "yellow",
+		"solarTerm": "白露"
+	},
+	{
+		"id": 240,
+		"name": "油葫芦",
+		"pinyin": "Yóu Hú Lu",
+		"hex": "#644D31",
+		"category": "yellow",
+		"solarTerm": "白露"
+	},
+	{
+		"id": 241,
+		"name": "卵色",
+		"pinyin": "Luǎn Sè",
+		"hex": "#D5E3D4",
+		"category": "green",
+		"solarTerm": "秋分"
+	},
+	{
+		"id": 242,
+		"name": "葭菼",
+		"pinyin": "Jiā Tǎn",
+		"hex": "#CAD7C5",
+		"category": "green",
+		"solarTerm": "秋分"
+	},
+	{
+		"id": 243,
+		"name": "冰台",
+		"pinyin": "Bīng Tái",
+		"hex": "#BECAB7",
+		"category": "green",
+		"solarTerm": "秋分"
+	},
+	{
+		"id": 244,
+		"name": "青古",
+		"pinyin": "Qīng Gǔ",
+		"hex": "#B3BDA9",
+		"category": "green",
+		"solarTerm": "秋分"
+	},
+	{
+		"id": 245,
+		"name": "栾华",
+		"pinyin": "Luán Huá",
+		"hex": "#C0AD5E",
+		"category": "yellow",
+		"solarTerm": "秋分"
+	},
+	{
+		"id": 246,
+		"name": "大赤",
+		"pinyin": "Dà Chì",
+		"hex": "#AA9649",
+		"category": "yellow",
+		"solarTerm": "秋分"
+	},
+	{
+		"id": 247,
+		"name": "佛赤",
+		"pinyin": "Fó Chì",
+		"hex": "#8F3D2C",
+		"category": "red",
+		"solarTerm": "秋分"
+	},
+	{
+		"id": 248,
+		"name": "蜜褐",
+		"pinyin": "Mì Hè",
+		"hex": "#683632",
+		"category": "brown",
+		"solarTerm": "秋分"
+	},
+	{
+		"id": 249,
+		"name": "孔雀蓝",
+		"pinyin": "Kǒng Què Lán",
+		"hex": "#4994C4",
+		"category": "blue",
+		"solarTerm": "秋分"
+	},
+	{
+		"id": 250,
+		"name": "吐绶蓝",
+		"pinyin": "Tǔ Shòu Lán",
+		"hex": "#4182A4",
+		"category": "blue",
+		"solarTerm": "秋分"
+	},
+	{
+		"id": 251,
+		"name": "鱼师青",
+		"pinyin": "Yú Shī Qīng",
+		"hex": "#32788A",
+		"category": "blue",
+		"solarTerm": "秋分"
+	},
+	{
+		"id": 252,
+		"name": "软翠",
+		"pinyin": "Ruǎn Cuì",
+		"hex": "#006D87",
+		"category": "blue",
+		"solarTerm": "秋分"
+	},
+	{
+		"id": 253,
+		"name": "浅云",
+		"pinyin": "Qiǎn Yún",
+		"hex": "#EAEEF1",
+		"category": "white",
+		"solarTerm": "秋分"
+	},
+	{
+		"id": 254,
+		"name": "素采",
+		"pinyin": "Sù Cǎi",
+		"hex": "#D4DDE1",
+		"category": "white",
+		"solarTerm": "秋分"
+	},
+	{
+		"id": 255,
+		"name": "影青",
+		"pinyin": "Yǐng Qīng",
+		"hex": "#BDCBD2",
+		"category": "white",
+		"solarTerm": "秋分"
+	},
+	{
+		"id": 256,
+		"name": "逍遥游",
+		"pinyin": "Xiāo Yáo Yóu",
+		"hex": "#B2BFC3",
+		"category": "white",
+		"solarTerm": "秋分"
+	},
+	{
+		"id": 257,
+		"name": "醽醁",
+		"pinyin": "Líng Lù",
+		"hex": "#A6BAB1",
+		"category": "green",
+		"solarTerm": "寒露"
+	},
+	{
+		"id": 258,
+		"name": "翠涛",
+		"pinyin": "Cuì Tāo",
+		"hex": "#819D8E",
+		"category": "green",
+		"solarTerm": "寒露"
+	},
+	{
+		"id": 259,
+		"name": "青梅",
+		"pinyin": "Qīng Méi",
+		"hex": "#778A77",
+		"category": "green",
+		"solarTerm": "寒露"
+	},
+	{
+		"id": 260,
+		"name": "翕赩",
+		"pinyin": "Xī Xì",
+		"hex": "#5F766A",
+		"category": "green",
+		"solarTerm": "寒露"
+	},
+	{
+		"id": 261,
+		"name": "九斤黄",
+		"pinyin": "Jiǔ Jīn Huáng",
+		"hex": "#DDB078",
+		"category": "yellow",
+		"solarTerm": "寒露"
+	},
+	{
+		"id": 262,
+		"name": "杏子",
+		"pinyin": "Xìng Zǐ",
+		"hex": "#DA9233",
+		"category": "yellow",
+		"solarTerm": "寒露"
+	},
+	{
+		"id": 263,
+		"name": "媚蝶",
+		"pinyin": "Mèi Dié",
+		"hex": "#BC6E37",
+		"category": "yellow",
+		"solarTerm": "寒露"
+	},
+	{
+		"id": 264,
+		"name": "韎韐",
+		"pinyin": "Mèi Gé",
+		"hex": "#9F5221",
+		"category": "brown",
+		"solarTerm": "寒露"
+	},
+	{
+		"id": 265,
+		"name": "东方既白",
+		"pinyin": "Dōng Fāng Jì Bái",
+		"hex": "#8BA3C7",
+		"category": "blue",
+		"solarTerm": "寒露"
+	},
+	{
+		"id": 266,
+		"name": "绀宇",
+		"pinyin": "Gàn Yǔ",
+		"hex": "#003D74",
+		"category": "blue",
+		"solarTerm": "寒露"
+	},
+	{
+		"id": 267,
+		"name": "佛头青",
+		"pinyin": "Fó Tóu Qīng",
+		"hex": "#19325F",
+		"category": "blue",
+		"solarTerm": "寒露"
+	},
+	{
+		"id": 268,
+		"name": "花青",
+		"pinyin": "Huā Qīng",
+		"hex": "#1A2847",
+		"category": "blue",
+		"solarTerm": "寒露"
+	},
+	{
+		"id": 269,
+		"name": "弗肯红",
+		"pinyin": "Fú Kěn Hóng",
+		"hex": "#ECD9C7",
+		"category": "white",
+		"solarTerm": "寒露"
+	},
+	{
+		"id": 270,
+		"name": "赤璋",
+		"pinyin": "Chì Zhāng",
+		"hex": "#E1C199",
+		"category": "yellow",
+		"solarTerm": "寒露"
+	},
+	{
+		"id": 271,
+		"name": "茧色",
+		"pinyin": "Jiǎn Sè",
+		"hex": "#C6A268",
+		"category": "yellow",
+		"solarTerm": "寒露"
+	},
+	{
+		"id": 272,
+		"name": "密陀僧",
+		"pinyin": "Mì Tuó Sēng",
+		"hex": "#B3934B",
+		"category": "yellow",
+		"solarTerm": "寒露"
+	},
+	{
+		"id": 273,
+		"name": "银朱",
+		"pinyin": "Yín Zhū",
+		"hex": "#D12920",
+		"category": "red",
+		"solarTerm": "霜降"
+	},
+	{
+		"id": 274,
+		"name": "胭脂虫",
+		"pinyin": "Yān Zhi Chóng",
+		"hex": "#AB1D22",
+		"category": "red",
+		"solarTerm": "霜降"
+	},
+	{
+		"id": 275,
+		"name": "朱樱",
+		"pinyin": "Zhū Yīng",
+		"hex": "#8F1D22",
+		"category": "red",
+		"solarTerm": "霜降"
+	},
+	{
+		"id": 276,
+		"name": "爵头",
+		"pinyin": "Jué Tóu",
+		"hex": "#631216",
+		"category": "red",
+		"solarTerm": "霜降"
+	},
+	{
+		"id": 277,
+		"name": "甘石",
+		"pinyin": "Gān Shí",
+		"hex": "#BDB2B2",
+		"category": "white",
+		"solarTerm": "霜降"
+	},
+	{
+		"id": 278,
+		"name": "迷楼灰",
+		"pinyin": "Mí Lóu Huī",
+		"hex": "#91828F",
+		"category": "brown",
+		"solarTerm": "霜降"
+	},
+	{
+		"id": 279,
+		"name": "鸦雏",
+		"pinyin": "Yā Chú",
+		"hex": "#6A5B6D",
+		"category": "purple",
+		"solarTerm": "霜降"
+	},
+	{
+		"id": 280,
+		"name": "烟墨",
+		"pinyin": "Yān Mò",
+		"hex": "#5C4F55",
+		"category": "purple",
+		"solarTerm": "霜降"
+	},
+	{
+		"id": 281,
+		"name": "十样锦",
+		"pinyin": "Shí Yàng Jǐn",
+		"hex": "#F8C6B5",
+		"category": "red",
+		"solarTerm": "霜降"
+	},
+	{
+		"id": 282,
+		"name": "檀唇",
+		"pinyin": "Tán Chún",
+		"hex": "#DA9E8C",
+		"category": "brown",
+		"solarTerm": "霜降"
+	},
+	{
+		"id": 283,
+		"name": "琼琚",
+		"pinyin": "Qióng Jū",
+		"hex": "#D77F66",
+		"category": "red",
+		"solarTerm": "霜降"
+	},
+	{
+		"id": 284,
+		"name": "棠梨",
+		"pinyin": "Táng Lí",
+		"hex": "#B15A43",
+		"category": "brown",
+		"solarTerm": "霜降"
+	},
+	{
+		"id": 285,
+		"name": "蜜合",
+		"pinyin": "Mì Hé",
+		"hex": "#DFD7C2",
+		"category": "white",
+		"solarTerm": "霜降"
+	},
+	{
+		"id": 286,
+		"name": "假山南",
+		"pinyin": "Jiǎ Shān Nán",
+		"hex": "#D4C1A6",
+		"category": "brown",
+		"solarTerm": "霜降"
+	},
+	{
+		"id": 287,
+		"name": "紫花布",
+		"pinyin": "Zǐ Huā Bù",
+		"hex": "#BEA78B",
+		"category": "brown",
+		"solarTerm": "霜降"
+	},
+	{
+		"id": 288,
+		"name": "沉香",
+		"pinyin": "Chén Xiāng",
+		"hex": "#99806C",
+		"category": "brown",
+		"solarTerm": "霜降"
+	},
+	{
+		"id": 289,
+		"name": "半见",
+		"pinyin": "Bàn Jiàn",
+		"hex": "#FFFBC7",
+		"category": "yellow",
+		"solarTerm": "立冬"
+	},
+	{
+		"id": 290,
+		"name": "女贞黄",
+		"pinyin": "Nǚ Zhēn Huáng",
+		"hex": "#F7EEAD",
+		"category": "yellow",
+		"solarTerm": "立冬"
+	},
+	{
+		"id": 291,
+		"name": "绢纨",
+		"pinyin": "Juàn Wán",
+		"hex": "#ECE093",
+		"category": "yellow",
+		"solarTerm": "立冬"
+	},
+	{
+		"id": 292,
+		"name": "姜黄",
+		"pinyin": "Jiāng Huáng",
+		"hex": "#D6C560",
+		"category": "yellow",
+		"solarTerm": "立冬"
+	},
+	{
+		"id": 293,
+		"name": "繱犗",
+		"pinyin": "Cōng Jiè",
+		"hex": "#88BFB8",
+		"category": "green",
+		"solarTerm": "立冬"
+	},
+	{
+		"id": 294,
+		"name": "二绿",
+		"pinyin": "Èr Lǜ",
+		"hex": "#5DA39D",
+		"category": "green",
+		"solarTerm": "立冬"
+	},
+	{
+		"id": 295,
+		"name": "铜青",
+		"pinyin": "Tóng Qīng",
+		"hex": "#3D8E86",
+		"category": "green",
+		"solarTerm": "立冬"
+	},
+	{
+		"id": 296,
+		"name": "石绿",
+		"pinyin": "Shí Lǜ",
+		"hex": "#206864",
+		"category": "green",
+		"solarTerm": "立冬"
+	},
+	{
+		"id": 297,
+		"name": "黄琮",
+		"pinyin": "Huáng Cóng",
+		"hex": "#9E8C6B",
+		"category": "yellow",
+		"solarTerm": "立冬"
+	},
+	{
+		"id": 298,
+		"name": "茶色",
+		"pinyin": "Chá Sè",
+		"hex": "#887657",
+		"category": "brown",
+		"solarTerm": "立冬"
+	},
+	{
+		"id": 299,
+		"name": "伽罗",
+		"pinyin": "Jiā Luó",
+		"hex": "#6D5C3D",
+		"category": "brown",
+		"solarTerm": "立冬"
+	},
+	{
+		"id": 300,
+		"name": "苍艾",
+		"pinyin": "Cāng Ài",
+		"hex": "#5A4B3B",
+		"category": "brown",
+		"solarTerm": "立冬"
+	},
+	{
+		"id": 301,
+		"name": "藕丝褐",
+		"pinyin": "Ǒu Sī Hè",
+		"hex": "#A88787",
+		"category": "brown",
+		"solarTerm": "立冬"
+	},
+	{
+		"id": 302,
+		"name": "葡萄褐",
+		"pinyin": "Pú Tao Hè",
+		"hex": "#9E696D",
+		"category": "brown",
+		"solarTerm": "立冬"
+	},
+	{
+		"id": 303,
+		"name": "苏方",
+		"pinyin": "Sū Fāng",
+		"hex": "#81474C",
+		"category": "brown",
+		"solarTerm": "立冬"
+	},
+	{
+		"id": 304,
+		"name": "福色",
+		"pinyin": "Fú Sè",
+		"hex": "#662B2F",
+		"category": "red",
+		"solarTerm": "立冬"
+	},
+	{
+		"id": 305,
+		"name": "龙膏烛",
+		"pinyin": "Lóng Gāo Zhú",
+		"hex": "#DE82A7",
+		"category": "red",
+		"solarTerm": "小雪"
+	},
+	{
+		"id": 306,
+		"name": "黪紫",
+		"pinyin": "Cǎn Zǐ",
+		"hex": "#CC73A0",
+		"category": "purple",
+		"solarTerm": "小雪"
+	},
+	{
+		"id": 307,
+		"name": "胭脂水",
+		"pinyin": "Yān Zhi Shuǐ",
+		"hex": "#B95A89",
+		"category": "purple",
+		"solarTerm": "小雪"
+	},
+	{
+		"id": 308,
+		"name": "胭脂紫",
+		"pinyin": "Yān Zhi Zǐ",
+		"hex": "#B0436F",
+		"category": "purple",
+		"solarTerm": "小雪"
+	},
+	{
+		"id": 309,
+		"name": "小红",
+		"pinyin": "Xiǎo Hóng",
+		"hex": "#E67762",
+		"category": "red",
+		"solarTerm": "小雪"
+	},
+	{
+		"id": 310,
+		"name": "岱赭",
+		"pinyin": "Dài Zhě",
+		"hex": "#DD6B4F",
+		"category": "red",
+		"solarTerm": "小雪"
+	},
+	{
+		"id": 311,
+		"name": "鹤顶红",
+		"pinyin": "Hè Dǐng Hóng",
+		"hex": "#D24735",
+		"category": "red",
+		"solarTerm": "小雪"
+	},
+	{
+		"id": 312,
+		"name": "朱殷",
+		"pinyin": "Zhū Yīn",
+		"hex": "#B93A26",
+		"category": "red",
+		"solarTerm": "小雪"
+	},
+	{
+		"id": 313,
+		"name": "月白",
+		"pinyin": "Yuè Bái",
+		"hex": "#D4E5EF",
+		"category": "blue",
+		"solarTerm": "小雪"
+	},
+	{
+		"id": 314,
+		"name": "星郎",
+		"pinyin": "Xīng Láng",
+		"hex": "#BCD4E7",
+		"category": "blue",
+		"solarTerm": "小雪"
+	},
+	{
+		"id": 315,
+		"name": "晴山",
+		"pinyin": "Qíng Shān",
+		"hex": "#A3BBDB",
+		"category": "blue",
+		"solarTerm": "小雪"
+	},
+	{
+		"id": 316,
+		"name": "品月",
+		"pinyin": "Pǐn Yuè",
+		"hex": "#8AABCC",
+		"category": "blue",
+		"solarTerm": "小雪"
+	},
+	{
+		"id": 317,
+		"name": "明茶褐",
+		"pinyin": "Míng Chá Hè",
+		"hex": "#9E8368",
+		"category": "brown",
+		"solarTerm": "小雪"
+	},
+	{
+		"id": 318,
+		"name": "荆褐",
+		"pinyin": "Jīng Hè",
+		"hex": "#906C4A",
+		"category": "brown",
+		"solarTerm": "小雪"
+	},
+	{
+		"id": 319,
+		"name": "驼褐",
+		"pinyin": "Tuó Hè",
+		"hex": "#7C5B3E",
+		"category": "brown",
+		"solarTerm": "小雪"
+	},
+	{
+		"id": 320,
+		"name": "椒褐",
+		"pinyin": "Jiāo Hè",
+		"hex": "#72453A",
+		"category": "brown",
+		"solarTerm": "小雪"
+	},
+	{
+		"id": 321,
+		"name": "粉米",
+		"pinyin": "Fěn Mǐ",
+		"hex": "#EFC4CE",
+		"category": "red",
+		"solarTerm": "大雪"
+	},
+	{
+		"id": 322,
+		"name": "縓缘",
+		"pinyin": "Quàn Yuán",
+		"hex": "#CE8892",
+		"category": "red",
+		"solarTerm": "大雪"
+	},
+	{
+		"id": 323,
+		"name": "美人祭",
+		"pinyin": "Měi Rén Jì",
+		"hex": "#C35C6A",
+		"category": "red",
+		"solarTerm": "大雪"
+	},
+	{
+		"id": 324,
+		"name": "鞓红",
+		"pinyin": "Tīng Hóng",
+		"hex": "#B04552",
+		"category": "red",
+		"solarTerm": "大雪"
+	},
+	{
+		"id": 325,
+		"name": "米汤娇",
+		"pinyin": "Mǐ Tāng Jiāo",
+		"hex": "#EEEAD9",
+		"category": "white",
+		"solarTerm": "大雪"
+	},
+	{
+		"id": 326,
+		"name": "草白",
+		"pinyin": "Cǎo Bái",
+		"hex": "#BFC1A9",
+		"category": "green",
+		"solarTerm": "大雪"
+	},
+	{
+		"id": 327,
+		"name": "玄校",
+		"pinyin": "Xuán Xiào",
+		"hex": "#A9A082",
+		"category": "yellow",
+		"solarTerm": "大雪"
+	},
+	{
+		"id": 328,
+		"name": "綟绶",
+		"pinyin": "Lì Shòu",
+		"hex": "#756C4B",
+		"category": "yellow",
+		"solarTerm": "大雪"
+	},
+	{
+		"id": 329,
+		"name": "雀梅",
+		"pinyin": "Què Méi",
+		"hex": "#788A6F",
+		"category": "green",
+		"solarTerm": "大雪"
+	},
+	{
+		"id": 330,
+		"name": "油绿",
+		"pinyin": "Yóu Lǜ",
+		"hex": "#5D7259",
+		"category": "green",
+		"solarTerm": "大雪"
+	},
+	{
+		"id": 331,
+		"name": "莓莓",
+		"pinyin": "Méi Méi",
+		"hex": "#4E6548",
+		"category": "green",
+		"solarTerm": "大雪"
+	},
+	{
+		"id": 332,
+		"name": "螺青",
+		"pinyin": "Luó Qīng",
+		"hex": "#3F503B",
+		"category": "green",
+		"solarTerm": "大雪"
+	},
+	{
+		"id": 333,
+		"name": "暮山紫",
+		"pinyin": "Mù Shān Zǐ",
+		"hex": "#A4ABD6",
+		"category": "purple",
+		"solarTerm": "大雪"
+	},
+	{
+		"id": 334,
+		"name": "紫苑",
+		"pinyin": "Zǐ Yuàn",
+		"hex": "#757CBB",
+		"category": "purple",
+		"solarTerm": "大雪"
+	},
+	{
+		"id": 335,
+		"name": "优昙瑞",
+		"pinyin": "Yōu Tán Ruì",
+		"hex": "#615EA8",
+		"category": "purple",
+		"solarTerm": "大雪"
+	},
+	{
+		"id": 336,
+		"name": "延维",
+		"pinyin": "Yán Wéi",
+		"hex": "#4A4B9D",
+		"category": "purple",
+		"solarTerm": "大雪"
+	},
+	{
+		"id": 337,
+		"name": "银红",
+		"pinyin": "Yín Hóng",
+		"hex": "#E7CAD3",
+		"category": "red",
+		"solarTerm": "冬至"
+	},
+	{
+		"id": 338,
+		"name": "莲红",
+		"pinyin": "Lián Hóng",
+		"hex": "#D9A0B3",
+		"category": "red",
+		"solarTerm": "冬至"
+	},
+	{
+		"id": 339,
+		"name": "紫梅",
+		"pinyin": "Zǐ Méi",
+		"hex": "#BB7A8C",
+		"category": "purple",
+		"solarTerm": "冬至"
+	},
+	{
+		"id": 340,
+		"name": "紫矿",
+		"pinyin": "Zǐ Kuàng",
+		"hex": "#9E4E56",
+		"category": "red",
+		"solarTerm": "冬至"
+	},
+	{
+		"id": 341,
+		"name": "咸池",
+		"pinyin": "Xián Chí",
+		"hex": "#DAA9A9",
+		"category": "red",
+		"solarTerm": "冬至"
+	},
+	{
+		"id": 342,
+		"name": "红䵂",
+		"pinyin": "Hóng Zhí",
+		"hex": "#CD7372",
+		"category": "red",
+		"solarTerm": "冬至"
+	},
+	{
+		"id": 343,
+		"name": "蚩尤旗",
+		"pinyin": "Chī Yóu Qí",
+		"hex": "#A85858",
+		"category": "red",
+		"solarTerm": "冬至"
+	},
+	{
+		"id": 344,
+		"name": "霁红",
+		"pinyin": "Jì Hóng",
+		"hex": "#7C4449",
+		"category": "red",
+		"solarTerm": "冬至"
+	},
+	{
+		"id": 345,
+		"name": "莺儿",
+		"pinyin": "Yīng Ér",
+		"hex": "#EBE1A9",
+		"category": "yellow",
+		"solarTerm": "冬至"
+	},
+	{
+		"id": 346,
+		"name": "禹余粮",
+		"pinyin": "Yǔ Yú Liáng",
+		"hex": "#E1D279",
+		"category": "yellow",
+		"solarTerm": "冬至"
+	},
+	{
+		"id": 347,
+		"name": "姚黄",
+		"pinyin": "Yáo Huáng",
+		"hex": "#D6BC46",
+		"category": "yellow",
+		"solarTerm": "冬至"
+	},
+	{
+		"id": 348,
+		"name": "蛾黄",
+		"pinyin": "É Huáng",
+		"hex": "#BE8A2F",
+		"category": "yellow",
+		"solarTerm": "冬至"
+	},
+	{
+		"id": 349,
+		"name": "濯绛",
+		"pinyin": "Zhuó Jiàng",
+		"hex": "#796860",
+		"category": "brown",
+		"solarTerm": "冬至"
+	},
+	{
+		"id": 350,
+		"name": "墨黪",
+		"pinyin": "Mò Cǎn",
+		"hex": "#585248",
+		"category": "brown",
+		"solarTerm": "冬至"
+	},
+	{
+		"id": 351,
+		"name": "驖骊",
+		"pinyin": "Tiě Lí",
+		"hex": "#46433B",
+		"category": "brown",
+		"solarTerm": "冬至"
+	},
+	{
+		"id": 352,
+		"name": "京元",
+		"pinyin": "Jīng Yuán",
+		"hex": "#31322C",
+		"category": "black",
+		"solarTerm": "冬至"
+	},
+	{
+		"id": 353,
+		"name": "酂白",
+		"pinyin": "Zàn Bái",
+		"hex": "#F6F9E4",
+		"category": "white",
+		"solarTerm": "小寒"
+	},
+	{
+		"id": 354,
+		"name": "断肠",
+		"pinyin": "Duàn Cháng",
+		"hex": "#ECEBC2",
+		"category": "yellow",
+		"solarTerm": "小寒"
+	},
+	{
+		"id": 355,
+		"name": "田赤",
+		"pinyin": "Tián Chì",
+		"hex": "#E1D384",
+		"category": "yellow",
+		"solarTerm": "小寒"
+	},
+	{
+		"id": 356,
+		"name": "黄封",
+		"pinyin": "Huáng Fēng",
+		"hex": "#CAB272",
+		"category": "yellow",
+		"solarTerm": "小寒"
+	},
+	{
+		"id": 357,
+		"name": "丁香褐",
+		"pinyin": "Dīng Xiāng Hè",
+		"hex": "#BD9683",
+		"category": "brown",
+		"solarTerm": "小寒"
+	},
+	{
+		"id": 358,
+		"name": "棠梨褐",
+		"pinyin": "Táng Lí Hè",
+		"hex": "#955A42",
+		"category": "brown",
+		"solarTerm": "小寒"
+	},
+	{
+		"id": 359,
+		"name": "朱石栗",
+		"pinyin": "Zhū Shí Lì",
+		"hex": "#81492C",
+		"category": "brown",
+		"solarTerm": "小寒"
+	},
+	{
+		"id": 360,
+		"name": "枣褐",
+		"pinyin": "Zǎo Hè",
+		"hex": "#68361A",
+		"category": "brown",
+		"solarTerm": "小寒"
+	},
+	{
+		"id": 361,
+		"name": "秋蓝",
+		"pinyin": "Qiū Lán",
+		"hex": "#7D929F",
+		"category": "blue",
+		"solarTerm": "小寒"
+	},
+	{
+		"id": 362,
+		"name": "育阳染",
+		"pinyin": "Yù Yáng Rǎn",
+		"hex": "#576470",
+		"category": "blue",
+		"solarTerm": "小寒"
+	},
+	{
+		"id": 363,
+		"name": "霁蓝",
+		"pinyin": "Jì Lán",
+		"hex": "#3C4654",
+		"category": "blue",
+		"solarTerm": "小寒"
+	},
+	{
+		"id": 364,
+		"name": "獭见",
+		"pinyin": "Tǎ Jiàn",
+		"hex": "#151D29",
+		"category": "black",
+		"solarTerm": "小寒"
+	},
+	{
+		"id": 365,
+		"name": "井天",
+		"pinyin": "Jǐng Tiān",
+		"hex": "#A4C9CC",
+		"category": "blue",
+		"solarTerm": "小寒"
+	},
+	{
+		"id": 366,
+		"name": "正青",
+		"pinyin": "Zhèng Qīng",
+		"hex": "#6CA8AF",
+		"category": "blue",
+		"solarTerm": "小寒"
+	},
+	{
+		"id": 367,
+		"name": "扁青",
+		"pinyin": "Biǎn Qīng",
+		"hex": "#509296",
+		"category": "blue",
+		"solarTerm": "小寒"
+	},
+	{
+		"id": 368,
+		"name": "䌦色",
+		"pinyin": "Dǎo Sè",
+		"hex": "#226B68",
+		"category": "green",
+		"solarTerm": "小寒"
+	},
+	{
+		"id": 369,
+		"name": "紫府",
+		"pinyin": "Zǐ Fǔ",
+		"hex": "#995D7F",
+		"category": "purple",
+		"solarTerm": "大寒"
+	},
+	{
+		"id": 370,
+		"name": "地血",
+		"pinyin": "Dì Xuè",
+		"hex": "#814662",
+		"category": "purple",
+		"solarTerm": "大寒"
+	},
+	{
+		"id": 371,
+		"name": "芥拾紫",
+		"pinyin": "Jiè Shí Zǐ",
+		"hex": "#602641",
+		"category": "purple",
+		"solarTerm": "大寒"
+	},
+	{
+		"id": 372,
+		"name": "油紫",
+		"pinyin": "Yóu Zǐ",
+		"hex": "#420B2F",
+		"category": "purple",
+		"solarTerm": "大寒"
+	},
+	{
+		"id": 373,
+		"name": "骨缥",
+		"pinyin": "Gǔ Piǎo",
+		"hex": "#EBE3C7",
+		"category": "white",
+		"solarTerm": "大寒"
+	},
+	{
+		"id": 374,
+		"name": "青白玉",
+		"pinyin": "Qīng Bái Yù",
+		"hex": "#CAC5A0",
+		"category": "yellow",
+		"solarTerm": "大寒"
+	},
+	{
+		"id": 375,
+		"name": "绿豆褐",
+		"pinyin": "Lǜ Dòu Hè",
+		"hex": "#92896B",
+		"category": "brown",
+		"solarTerm": "大寒"
+	},
+	{
+		"id": 376,
+		"name": "冥色",
+		"pinyin": "Míng Sè",
+		"hex": "#665F4D",
+		"category": "brown",
+		"solarTerm": "大寒"
+	},
+	{
+		"id": 377,
+		"name": "肉红",
+		"pinyin": "Ròu Hóng",
+		"hex": "#DDC5B8",
+		"category": "red",
+		"solarTerm": "大寒"
+	},
+	{
+		"id": 378,
+		"name": "珠子褐",
+		"pinyin": "Zhū Zǐ Hè",
+		"hex": "#BEA89D",
+		"category": "brown",
+		"solarTerm": "大寒"
+	},
+	{
+		"id": 379,
+		"name": "鹰背褐",
+		"pinyin": "Yīng Bèi Hè",
+		"hex": "#8F6D5F",
+		"category": "brown",
+		"solarTerm": "大寒"
+	},
+	{
+		"id": 380,
+		"name": "麝香褐",
+		"pinyin": "Shè Xiāng Hè",
+		"hex": "#694B3C",
+		"category": "brown",
+		"solarTerm": "大寒"
+	},
+	{
+		"id": 381,
+		"name": "石英",
+		"pinyin": "Shí Yīng",
+		"hex": "#C8B6BB",
+		"category": "white",
+		"solarTerm": "大寒"
+	},
+	{
+		"id": 382,
+		"name": "银褐",
+		"pinyin": "Yín Hè",
+		"hex": "#9C8D9B",
+		"category": "purple",
+		"solarTerm": "大寒"
+	},
+	{
+		"id": 383,
+		"name": "烟红",
+		"pinyin": "Yān Hóng",
+		"hex": "#9D858F",
+		"category": "red",
+		"solarTerm": "大寒"
+	},
+	{
+		"id": 384,
+		"name": "紫诰",
+		"pinyin": "Zǐ Gào",
+		"hex": "#76555D",
+		"category": "purple",
+		"solarTerm": "大寒"
+	}
+]
