@@ -1,4 +1,5 @@
 import paletteData from "../../../data/colorkit-palettes.json";
+import traditionalColors from "./traditional-colors.json";
 import { hexToHsl } from "./color";
 import { mosaic } from "./studio";
 
@@ -7,6 +8,7 @@ export const colorFamilies = [
 	["绿", "#22c55e"], ["青", "#14d8d4"], ["天蓝", "#87ceeb"],
 	["蓝", "#328cdd"], ["紫", "#a855b8"], ["粉", "#f69ac4"],
 	["棕", "#80452c"], ["黑", "#171717"], ["灰", "#a5abb3"], ["白", "#ffffff"],
+	["中国传统色", "#b7282e"],
 ];
 
 export function colorFamily(color: string): string {
@@ -31,7 +33,19 @@ const sidebarPalettes = Array.from({ length: mosaic.length / 6 }, (_, index) => 
 	colors: mosaic.slice(index * 6, index * 6 + 6),
 }));
 
-export const inspirationPalettes = [...sidebarPalettes, ...paletteData.palettes].flatMap((palette, index) => {
+const traditionalPalettes = [
+	["red", "赤色系"], ["yellow", "黄色系"], ["green", "青色系"],
+	["blue", "蓝色系"], ["purple", "紫色系"], ["white", "白色系"],
+	["black", "玄色系"], ["brown", "褐色系"],
+].flatMap(([category, name]) => {
+	const colors = traditionalColors.filter(color => color.category === category);
+	return Array.from({ length: Math.ceil(colors.length / 6) }, (_, index) => ({
+		name: `中国传统色 · ${name} ${index + 1}`,
+		colors: colors.slice(index * 6, index * 6 + 6).map(color => color.hex),
+	}));
+});
+
+export const inspirationPalettes = [...sidebarPalettes, ...traditionalPalettes, ...paletteData.palettes].flatMap((palette, index) => {
 	const name = palette.name || `色板 ${index + 1}`;
 	const groups = Math.ceil(palette.colors.length / 10);
 	return Array.from({ length: groups }, (_, group) => {
@@ -43,7 +57,7 @@ export const inspirationPalettes = [...sidebarPalettes, ...paletteData.palettes]
 			...palette,
 			name: groups > 1 ? `${name}（${group + 1}/${groups}）` : name,
 			colors,
-			families: colors.map(colorFamily),
+			families: [...colors.map(colorFamily), ...(traditionalPalettes.includes(palette) ? ["中国传统色"] : [])],
 		};
 	});
 });

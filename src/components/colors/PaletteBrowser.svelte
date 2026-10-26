@@ -115,7 +115,7 @@
 		{#if visibleCount < filtered.length}
 			<div class="load-status" role="status">{loading ? "Loading" : ""}</div>
 		{/if}
-		<footer>色板来源 <a href="https://colorkit.co/palettes/" target="_blank" rel="noreferrer">ColorKit</a> 与原侧栏预设 · 点击色块设为基色</footer>
+		<footer>色板来源 <a href="https://colorkit.co/palettes/" target="_blank" rel="noreferrer">ColorKit</a>、<a href="https://cncolor.art/" target="_blank" rel="noopener noreferrer">cncolor.art</a> 与原侧栏预设 · 点击色块设为基色</footer>
 	</div>
 </dialog>
 
@@ -141,7 +141,7 @@
 		max-height: calc(100dvh - 48px);
 		padding: 0;
 		border: 1px solid #ffffff99;
-		border-radius: 22px;
+		border-radius: 12px;
 		color: #233047;
 		background: #fff;
 		box-shadow: 0 24px 100px #14283b40;
