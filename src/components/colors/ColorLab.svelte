@@ -4,6 +4,7 @@
 	import { studioSteps, mosaic, hexToOklch, type StudioRow } from "./studio";
 	import StudioIcon from "./StudioIcon.svelte";
 	import StudioDropdown from "./StudioDropdown.svelte";
+	import PaletteBrowser from "./PaletteBrowser.svelte";
 	let base = "#eea8d9";
 	let input = "eea8d9";
 	let editingInput = false;
@@ -274,6 +275,7 @@
 		</aside>{/if}
 	<header class="toolbar" aria-label="配色工具栏">
 		<a class="home-link joined" href="/" data-no-swup title="返回首页">返回首页</a>
+		<PaletteBrowser onselect={choose} />
 		<form
 			class="color-entry"
 			style:--history-count={recentColors.length}
