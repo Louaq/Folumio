@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { onMount, tick } from "svelte";
 	import { hexToHsl, contrast, ink, createColorFormatter } from "./color";
-	import { studioSteps, mosaic, hexToOklch, type StudioRow } from "./studio";
+	import { studioSteps, hexToOklch, type StudioRow } from "./studio";
 	import StudioIcon from "./StudioIcon.svelte";
 	import StudioDropdown from "./StudioDropdown.svelte";
 	import PaletteBrowser from "./PaletteBrowser.svelte";
@@ -14,10 +14,6 @@
 	let recentColors = [base];
 	let channels = [true, true, true, false];
 	let settings = false;
-	let sidebar = true;
-	let paletteExpanded = false;
-	let touchX = 0;
-	let touchY = 0;
 	let cssNotation = false;
 	let delimiter = "Comma";
 	let percent = false;
@@ -34,8 +30,6 @@
 	let mounted = false;
 	let centered = false;
 	let stages: HTMLDivElement[] = [];
-	let rail: HTMLDivElement;
-	let viewportHeight = 0;
 	let timer: ReturnType<typeof setTimeout>;
 	let tooltip: {
 		color: string;
@@ -64,20 +58,6 @@
 		alpha,
 		hueUnit,
 	});
-	$: railCopies = Math.max(
-		1,
-		Math.ceil((viewportHeight - 44) / ((mosaic.length / 6) * 24)),
-	);
-	$: railColors = Array.from(
-		{ length: mosaic.length * railCopies },
-		(_, i) => mosaic[i % mosaic.length],
-	);
-	$: cycleHeight = (railColors.length / 6) * 24;
-	$: if (rail) {
-		const target = rail;
-		const height = cycleHeight;
-		tick().then(() => (target.scrollTop = height));
-	}
 	$: visibleColumns = columns
 		.map((rows, index) => ({ rows, index }))
 		.filter(({ index }) => channels[index]);
@@ -130,29 +110,6 @@
 	function choose(color: string) {
 		restoreColor(color);
 		recentColors = [...recentColors, color].slice(-8);
-	}
-	function selectPaletteColor(color: string) {
-		if (window.matchMedia("(max-width:800px)").matches && !paletteExpanded)
-			paletteExpanded = true;
-		else choose(color);
-	}
-	function startPaletteSwipe(event: TouchEvent) {
-		touchX = event.changedTouches[0].clientX;
-		touchY = event.changedTouches[0].clientY;
-	}
-	function endPaletteSwipe(event: TouchEvent) {
-		const dx = event.changedTouches[0].clientX - touchX;
-		const dy = event.changedTouches[0].clientY - touchY;
-		if (Math.abs(dx) > 40 && Math.abs(dx) > Math.abs(dy)) {
-			event.preventDefault();
-			paletteExpanded = dx > 0;
-		}
-	}
-	function loopRail(event: Event) {
-		const target = event.currentTarget as HTMLDivElement;
-		if (target.scrollTop < cycleHeight) target.scrollTop += cycleHeight;
-		else if (target.scrollTop >= cycleHeight * 2)
-			target.scrollTop -= cycleHeight;
 	}
 	function showTooltip(
 		event: MouseEvent | FocusEvent,
@@ -221,8 +178,6 @@
 			)
 		)
 			settings = false;
-		if (paletteExpanded && !(event.target as Element).closest(".palette-rail"))
-			paletteExpanded = false;
 	}
 	async function copy(text: string, rowKey: string) {
 		try {
@@ -240,39 +195,11 @@
 </script>
 
 <svelte:window
-	bind:innerHeight={viewportHeight}
 	on:click={closePanelsOutside}
 	on:pageshow={replayEntry}
 />
 
-<div class="studio" class:no-sidebar={!sidebar}>
-	{#if sidebar}<aside
-			class="palette-rail"
-			class:expanded={paletteExpanded}
-			aria-label="预设色块"
-		>
-			<div class="rail-glass"></div>
-			<div
-				id="palette-colors"
-				class="rail-scroll"
-				role="region"
-				aria-label="可滑动颜色面板"
-				bind:this={rail}
-				on:scroll={loopRail}
-				on:touchstart={startPaletteSwipe}
-				on:touchend|nonpassive={endPaletteSwipe}
-			>
-				<div class="mosaic">
-					{#each [0, 1, 2] as copy}{#each railColors as color}<button
-								style:background={color}
-								aria-label={`使用 ${color}`}
-								title={color}
-								on:click={() => selectPaletteColor(color)}
-							></button>{/each}{/each}
-				</div>
-			</div>
-			<div class="panel-sliver-mask" aria-hidden="true"></div>
-		</aside>{/if}
+<div class="studio">
 	<header class="toolbar" aria-label="配色工具栏">
 		<a class="home-link joined" href="/" data-no-swup title="返回首页">返回首页</a>
 		<PaletteBrowser onselect={choose} />
@@ -321,15 +248,8 @@
 				><StudioIcon name="target" /></span
 			>
 		</form>
-		<div class="tool-group space-group">
-			<button
-				class="icon-button"
-				aria-label="切换色块栏"
-				title="切换色块栏"
-				aria-pressed={sidebar}
-				on:click={() => (sidebar = !sidebar)}
-				><StudioIcon name="database" /></button
-			><StudioDropdown
+		<div class="tool-group">
+			<StudioDropdown
 				id="studio-space-menu"
 				label="色彩空间"
 				options={["HSL", "OKLCh"]}
@@ -624,18 +544,11 @@
 		background: #f3f4f5;
 	}
 	.studio {
-		--rail: 140px;
 		color: #111;
 		width: 100%;
 		height: 100dvh;
-		font:
-			14px Arial,
-			Helvetica,
-			sans-serif;
+		font-size: 14px;
 		background: #f3f4f5;
-	}
-	.studio.no-sidebar {
-		--rail: 0px;
 	}
 	button,
 	input,
@@ -654,72 +567,11 @@
 		outline: 2px solid #4e879a;
 		outline-offset: 1px;
 	}
-	.palette-rail {
-		position: fixed;
-		inset: 0 auto 0 0;
-		width: var(--rail);
-		overflow: hidden;
-		border-right: 1px solid #bfc4c4;
-		background: #e2e5e6;
-	}
-	.panel-sliver-mask {
-		position: absolute;
-		z-index: 3;
-		inset: 0;
-		background: #f3f4f5;
-		opacity: 0.2;
-		pointer-events: none;
-		transition: opacity 0.2s cubic-bezier(0.3, 0.1, 0.15, 0.95);
-	}
-	.palette-rail:hover .panel-sliver-mask,
-	.palette-rail:focus-within .panel-sliver-mask {
-		opacity: 0;
-	}
-	.rail-glass {
-		position: absolute;
-		z-index: 2;
-		inset: 0 0 auto;
-		height: 50px;
-		border-bottom: 1px solid #fff9;
-		background: linear-gradient(110deg, #e9d5e8a8, #cff9eba8);
-		backdrop-filter: blur(20px);
-	}
-	.rail-scroll {
-		position: absolute;
-		inset: 44px 0 0;
-		overflow-y: auto;
-		overflow-x: hidden;
-		scrollbar-width: none;
-		overscroll-behavior-y: contain;
-		touch-action: pan-y;
-		overflow-anchor: none;
-	}
-	.rail-scroll::-webkit-scrollbar {
-		display: none;
-	}
-	.mosaic {
-		display: grid;
-		grid-template-columns: repeat(6, 24px);
-		width: 144px;
-		position: relative;
-		left: -4px;
-	}
-	.mosaic button {
-		height: 24px;
-		border: 0;
-		padding: 0;
-	}
-	.mosaic button:hover {
-		position: relative;
-		z-index: 1;
-		outline: 1px solid #fff;
-		box-shadow: 0 0 3px #0006;
-	}
 	.toolbar {
 		position: fixed;
 		z-index: 5;
 		top: 0;
-		left: var(--rail);
+		left: 0;
 		right: 0;
 		height: 50px;
 		display: flex;
@@ -821,8 +673,7 @@
 		height: 33px;
 		flex-shrink: 0;
 	}
-	.tool-symbol,
-	.icon-button {
+	.tool-symbol {
 		display: grid;
 		place-items: center;
 		width: 14px;
@@ -831,8 +682,7 @@
 		border: 0;
 		background: transparent;
 	}
-	.tool-symbol :global(svg),
-	.icon-button :global(svg) {
+	.tool-symbol :global(svg) {
 		width: 14px;
 		height: 16px;
 	}
@@ -843,13 +693,6 @@
 		border-radius: 7px;
 		background: #f7f9f95c;
 		box-shadow: inset 0 0 0 1px #ffffff9c;
-	}
-	.space-group .icon-button {
-		width: 19px;
-	}
-	.icon-button :global(.database-19-icon) {
-		width: 19px;
-		height: 19px;
 	}
 	.channel-group .tool-symbol {
 		width: 19px;
@@ -1045,7 +888,7 @@
 	}
 	.columns {
 		position: fixed;
-		left: var(--rail);
+		left: 0;
 		right: 0;
 		top: 0;
 		bottom: 0;
@@ -1248,10 +1091,8 @@
 		border-radius: 18px;
 		background: #242424;
 		color: #f2f2f2;
-		font:
-			12px/24px Arial,
-			Helvetica,
-			sans-serif;
+		font-size: 12px;
+		line-height: 24px;
 		box-shadow: 0 4px 12px #00000012;
 		pointer-events: none;
 	}
@@ -1325,9 +1166,6 @@
 		}
 	}
 	@media (max-width: 800px) {
-		.studio {
-			--rail: 72px;
-		}
 		.toolbar {
 			gap: 12px;
 			padding-left: 10px;
@@ -1355,32 +1193,6 @@
 		}
 		.download-color {
 			display: none;
-		}
-	}
-	@media (max-width: 450px) {
-		.studio {
-			--rail: 48px;
-		}
-	}
-	@media (max-width: 800px) {
-		.palette-rail {
-			z-index: 6;
-			transition: width 0.2s;
-		}
-		.palette-rail:not(.expanded) .panel-sliver-mask {
-			opacity: 0.85;
-		}
-		.palette-rail.expanded {
-			width: min(80vw, 450px);
-			box-shadow: 8px 0 24px #0003;
-		}
-		.palette-rail.expanded .mosaic {
-			width: 100%;
-			left: 0;
-			grid-template-columns: repeat(6, minmax(0, 1fr));
-		}
-		.palette-rail.expanded .panel-sliver-mask {
-			opacity: 0;
 		}
 	}
 </style>
