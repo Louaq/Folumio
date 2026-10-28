@@ -39,7 +39,7 @@
     "@videojs/hlsjs-video": "10.0.1",
     "@videojs/html": "10.0.1",
     "aplayer": "1.10.1",
-    "astro": "7.3.8",
+    "astro": "7.4.2",
     "astro-expressive-code": "^0.43.1",
     "astro-icon": "^1.1.5",
     "expressive-code-collapsible": "^0.1.0",
