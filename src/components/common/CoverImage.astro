@@ -162,6 +162,9 @@ const remoteSrc = isPublic ? url(src) : src;
   img.cover-image-fade-in.is-loaded {
     opacity: 1;
   }
+  img.cover-image-fade-in.cover-image-restored {
+    transition: none;
+  }
 
   /*
    * 加载骨架：懒加载图片就绪前，容器显示一个缓慢流动的浅色光带，

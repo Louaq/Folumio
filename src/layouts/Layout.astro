@@ -202,6 +202,7 @@ const collapsiblePreviewLines =
   import { expressiveCodeConfig, siteConfig } from "@/config";
   import { initArchivePage } from "@/utils/archive-init";
   import { initPostCardDelegation } from "@/utils/post-card-init";
+  import { initCoverImages } from "@/utils/cover-image-init";
   import { initMarkdownImages } from "@/utils/markdown-image-init";
   import { initPostPageTOC } from "@/utils/post-page-toc-init";
   import { initCodeCopyFeedback } from "@/utils/code-copy-feedback-init";
@@ -210,6 +211,7 @@ const collapsiblePreviewLines =
   import { initPromoStrip } from "@/utils/promo-init";
 
   initPostCardDelegation();
+  initCoverImages();
   initPostPageTOC();
   initMarkdownImages();
   initCodeCopyFeedback();
@@ -353,6 +355,7 @@ const collapsiblePreviewLines =
       (window as any).__swupScrollLockY = null;
 
       initArchivePage();
+      initCoverImages();
       initPostPageTOC();
       initMarkdownImages();
       warmUpDeferredBlocks();

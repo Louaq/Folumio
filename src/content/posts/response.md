@@ -5,7 +5,7 @@ expires: 2026-08-31 23:59:59
 mathjax: true
 category: 模板
 tags: [Response Template]
-image: https://pic1.imgdb.cn/i/034ZNXUrCe6F9ALU9g8iep.webp
+image: /assets/coverImage/3.webp
 description: 回复审稿人模板
 pinned: true
 homeCarousel: true
