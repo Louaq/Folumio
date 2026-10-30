@@ -73,11 +73,6 @@ function oklchToRgb(L: number, C: number, h: number): { rgb: number[]; clipped: 
 	return { rgb: rgb.map(v => Math.max(0, Math.min(255, v))), clipped };
 }
 
-export function oklchToHex(L: number, C: number, h: number): { color: string; clipped: boolean } {
-	const { rgb, clipped } = oklchToRgb(L, C, h);
-	return { color: rgbToHex(rgb), clipped };
-}
-
 export function studioSteps(hex: string, step: number, space: string): StudioRow[][] {
 	const perceptual = space === "OKLCh";
 	let components = perceptual ? hexToOklch(hex) : rgbToHsl(hexToRgb(hex));

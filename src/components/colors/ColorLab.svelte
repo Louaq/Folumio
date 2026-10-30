@@ -18,7 +18,6 @@
 	let delimiter = "Comma";
 	let percent = false;
 	let prefix = true;
-	let alpha = 1;
 	let uppercase = false;
 	let settingsLeft = 0;
 	let settingsTop = 0;
@@ -42,9 +41,12 @@
 		key: string;
 	} | null = null;
 	$: inputHex = input.trim().replace(/^#/, "");
-	$: inputColor = editingInput && /^(?:[\da-f]{3}|[\da-f]{6})$/i.test(inputHex)
+	$: parsedInput = /^(?:[\da-f]{3}|[\da-f]{6})$/i.test(inputHex)
 		? `#${inputHex.length === 3 ? [...inputHex].map(c => c + c).join("") : inputHex}`
 		: "";
+	$: inputColor = editingInput ? parsedInput : "";
+	$: baseHue = space === "OKLCh" ? hexToOklch(base)[2] : hexToHsl(base)[0];
+	$: baseLuminance = contrast(base);
 	$: columns = studioSteps(base, step, space);
 	$: value = createColorFormatter({
 		format,
@@ -55,11 +57,10 @@
 		cssNotation,
 		prefix,
 		uppercase,
-		alpha,
 		hueUnit,
 	});
 	$: visibleColumns = columns
-		.map((rows, index) => ({ rows, index }))
+		.map((rows, index) => ({ rows, index, basePosition: rows.findIndex(row => row.base) }))
 		.filter(({ index }) => channels[index]);
 	$: if (format === "Auto") settings = false;
 	$: if (mounted) {
@@ -80,12 +81,11 @@
 		};
 	});
 	function center() {
-		visibleColumns.forEach(({ rows, index }) => {
-			const before = rows.findIndex((row) => row.base);
+		visibleColumns.forEach(({ index, basePosition }) => {
 			if (stages[index])
 				stages[index].scrollTop = Math.max(
 					0,
-					before * 40 - (window.innerHeight / 2 - 64),
+					basePosition * 40 - (window.innerHeight / 2 - 64),
 				);
 		});
 		centered = true;
@@ -120,13 +120,11 @@
 	) {
 		const hue =
 			space === "OKLCh" ? hexToOklch(row.color)[2] : hexToHsl(row.color)[0];
-		const baseHue = space === "OKLCh" ? hexToOklch(base)[2] : hexToHsl(base)[0];
 		const target = event.currentTarget as HTMLButtonElement;
 		const rect = target.getBoundingClientRect();
 		const x = event instanceof MouseEvent ? event.clientX : rect.right - 30;
 		const y = event instanceof MouseEvent ? event.clientY : rect.bottom;
 		const luminance = contrast(row.color);
-		const baseLuminance = contrast(base);
 		tooltip = {
 			color: row.color,
 			hue: hue.toFixed(1),
@@ -145,14 +143,11 @@
 	}
 	function apply() {
 		editingInput = false;
-		const v = input.trim().replace(/^#/, "");
-		if (!/^(?:[\da-f]{3}|[\da-f]{6})$/i.test(v)) {
+		if (!parsedInput) {
 			notify("请输入 3 位或 6 位 HEX 色值");
 			return;
 		}
-		choose(
-			`#${v.length === 3 ? [...v].map((c) => c + c).join("") : v.toLowerCase()}`,
-		);
+		choose(inputHex.length === 3 ? parsedInput : parsedInput.toLowerCase());
 	}
 	function notify(text: string) {
 		message = text;
@@ -401,7 +396,7 @@
 		class:three={visibleColumns.length === 3}
 		style:--column-count={visibleColumns.length}
 	>
-		{#each visibleColumns as { rows, index } (index)}
+		{#each visibleColumns as { rows, index, basePosition } (index)}
 			<section
 				class="column"
 				aria-label={[
@@ -430,19 +425,21 @@
 						class="color-strip"
 						class:centered
 						class:entering={index === 1 && centered}
-						style:--before={rows.findIndex((row) => row.base)}
+						style:--before={basePosition}
 					>
-						{#each rows as row, position}<div
+						{#each rows as row, position}
+							{@const text = value(row.color, row.alpha)}
+							<div
 								class="color-row"
 								class:base-row={row.base}
 								class:transparent={index === 3}
 								style:--row-color={row.color}
-								style:--row-alpha={index === 3 ? row.alpha : alpha}
+								style:--row-alpha={row.alpha}
 								style:color={row.ink}
 							>
 								<button
 									class="color-value"
-									aria-label={`复制 ${value(row.color, index === 3 ? row.alpha : alpha)}`}
+									aria-label={`复制 ${text}`}
 									aria-describedby={tooltip?.key === `${index}-${position}`
 										? "color-tooltip"
 										: undefined}
@@ -452,7 +449,7 @@
 											row,
 											index,
 											position,
-											rows.findIndex((r) => r.base),
+											basePosition,
 										)}
 									on:mousemove={(event) =>
 										showTooltip(
@@ -460,7 +457,7 @@
 											row,
 											index,
 											position,
-											rows.findIndex((r) => r.base),
+											basePosition,
 										)}
 									on:mouseleave={() => (tooltip = null)}
 									on:focus={(event) =>
@@ -469,12 +466,12 @@
 											row,
 											index,
 											position,
-											rows.findIndex((r) => r.base),
+											basePosition,
 										)}
 									on:blur={() => (tooltip = null)}
 									on:click={() =>
 										copy(
-											value(row.color, index === 3 ? row.alpha : alpha),
+											text,
 											`${index}-${position}-${row.color}`,
 										)}
 									on:dblclick={() => choose(row.color)}
@@ -489,7 +486,7 @@
 												: "copy"}
 										/></span
 									><span
-										>{value(row.color, index === 3 ? row.alpha : alpha)}</span
+										>{text}</span
 									></button
 								>
 								<button
@@ -788,22 +785,8 @@
 		color: #344a4c;
 		background: #eef5f4b3;
 	}
-	.settings {
-		position: absolute;
-		left: 480px;
-		top: 34px;
-		width: 230px;
-		padding: 13px;
-		border: 1px solid #aebbbbc9;
-		border-radius: 10px;
-		background: #edf4f1c9;
-		backdrop-filter: blur(22px);
-		box-shadow: 0 6px 22px #344b4b26;
-		font-size: 10px;
-	}
 	.settings > label,
 	.settings > div {
-		min-height: 30px;
 		display: flex;
 		align-items: center;
 		justify-content: space-between;
@@ -811,24 +794,8 @@
 	}
 	.settings input[type="checkbox"] {
 		appearance: none;
-		width: 14px;
-		height: 14px;
-		border: 1px solid #8fa2a1;
-		border-radius: 3px;
-		background: #f5faf740;
 	}
-	.settings input:checked {
-		background: #5e9b97;
-		box-shadow: inset 0 0 0 3px #edf4f1;
-	}
-	.settings .joined {
-		height: 20px;
-	}
-	.settings .joined button {
-		font-size: 10px;
-		min-width: 18px;
-		padding: 0 6px;
-	}
+
 	.settings.compact-settings {
 		position: absolute;
 		left: var(--settings-left);
@@ -1172,12 +1139,6 @@
 			padding-right: 10px;
 			overflow-x: auto;
 			overflow-y: visible;
-		}
-		.settings {
-			position: fixed;
-			left: auto;
-			right: 8px;
-			top: 40px;
 		}
 		.color-strip {
 			width: 300px;

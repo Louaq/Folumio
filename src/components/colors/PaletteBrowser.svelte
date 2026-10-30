@@ -201,11 +201,6 @@
 		text-align: center;
 		margin-bottom: 38px;
 	}
-	.eyebrow {
-		color: #65918d;
-		font-size: 11px;
-		letter-spacing: 0.2em;
-	}
 	h1 {
 		margin: 10px 0;
 		font-size: clamp(26px, 3vw, 40px);
