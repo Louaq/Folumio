@@ -196,7 +196,6 @@
 
 <div class="studio">
 	<header class="toolbar" aria-label="配色工具栏">
-		<a class="home-link joined" href="/" data-no-swup title="返回首页">返回首页</a>
 		<PaletteBrowser onselect={choose} />
 		<form
 			class="color-entry"
@@ -590,19 +589,6 @@
 		border-radius: 7px;
 		box-shadow: inset 0 0 0 1px #fff9;
 		background: #f9faf65c;
-	}
-	.home-link.joined {
-		display: flex;
-		align-items: center;
-		flex-shrink: 0;
-		height: 34px;
-		padding: 0 10px;
-		color: inherit;
-		font-size: 13px;
-		text-decoration: none;
-	}
-	.home-link:hover {
-		background: #ffffffa6;
 	}
 	.base-marker {
 		align-self: stretch;

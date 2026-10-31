@@ -15,16 +15,16 @@ export const homeTopNoticeConfig: HomeTopNoticeConfig = {
 				external: false,
 			},
 		},
-		// {
-		// 	title: "每日一言",
-		// 	content: "鱼跃此时海，花开彼岸天",
-		// 	link: {
-		// 		enable: false,
-		// 		text: "",
-		// 		url: "",
-		// 		external: false,
-		// 	},
-		// },
+		{
+			title: "每日一言",
+			content: "天上白玉京，十二楼五城",
+			link: {
+				enable: false,
+				text: "",
+				url: "",
+				external: false,
+			},
+		},
 	],
 };
 
