@@ -35,14 +35,14 @@ const {
 const isHomePageCheck = isHomePage(Astro.url.pathname);
 const isPostPageCheck = postSlug !== undefined;
 
-const isSingleColumnLayout = isPostPageCheck || hideSidebar;
+const isSingleColumnLayout = hideSidebar;
 const PostPageTOC = isPostPageCheck
 	? (await import("@components/layout/PostPageTOC.astro")).default
 	: null;
 
 const gridCols = isSingleColumnLayout
 	? "grid-cols-1"
-	: "grid-cols-1 md:grid-cols-[17rem_1fr]";
+	: "grid-cols-1 md:grid-cols-[minmax(0,1fr)_17rem]";
 
 const mainPanelTop = "5.5rem";
 ---
@@ -54,7 +54,7 @@ const mainPanelTop = "5.5rem";
 
 
 <slot slot="head" name="head"></slot>
-<div id="top-row" class="z-50 pointer-events-none absolute top-0 left-0 right-0 transition-[opacity,transform] duration-700">
+<div id="top-row" class="z-50 pointer-events-none fixed top-0 left-0 right-0 transition-[opacity,transform] duration-700">
     <div id="navbar-wrapper" class="pointer-events-auto transition-[opacity,transform] duration-700">
         <Navbar></Navbar>
     </div>
@@ -62,32 +62,38 @@ const mainPanelTop = "5.5rem";
 
 
 <div class="absolute w-full z-30 pointer-events-none no-banner-layout" style={`top: ${mainPanelTop}`}>
+    <div id="post-hero-wrapper" class="pointer-events-auto transition-swup-fade transition-main">
+        <slot name="post-hero" />
+    </div>
     <!-- The pointer-events-none here prevent blocking the click event of the TOC -->
     <div class="relative max-w-(--page-width) mx-auto pointer-events-auto">
         <div id="main-grid" class={`w-full left-0 right-0 grid ${gridCols} grid-rows-[auto_1fr_auto] lg:grid-rows-[auto] mx-auto gap-4 px-2 md:px-4 ${!showSidebarOnMobile ? 'mobile-no-sidebar' : ''}`}
         >
+            <div id="home-featured-wrapper" class="col-span-full min-w-0 transition-swup-fade transition-main">
+                <slot name="featured" />
+            </div>
 
             <div id="left-sidebar-wrapper" class="contents">
                 {!isSingleColumnLayout && (
-                    <div class="hidden md:block md:row-start-1 md:row-end-2 md:col-start-1 md:col-end-2 md:h-full transition-main">
+                    <div class="hidden md:block md:row-start-[var(--content-row)] md:row-span-1 md:col-start-2 md:col-end-3 md:h-full transition-main">
                         {/* 此处不能挂 onload-animation：它的 animation ... forwards 填充会把
                            opacity 永久钉在 1，且动画声明在级联中压过一切普通规则，
                            transition-main 的 is-animating 淡出会被它完全屏蔽 */}
-                        <LeftSideBar headings={headings} class="md:h-full" />
+                        <LeftSideBar headings={headings} isPostPage={isPostPageCheck} class="md:h-full">
+                            {PostPageTOC && <PostPageTOC headings={headings} />}
+                        </LeftSideBar>
                     </div>
                 )}
             </div>
 
             {/* 主内容区 - 始终渲染，确保 Swup 容器存在 */}
             <main id="swup-container" class:list={[
-                "transition-swup-fade overflow-hidden w-full transition-main",
-                isPostPageCheck
-                    ? "max-w-[calc(var(--page-width)-18rem)] mx-auto"
-                    : isSingleColumnLayout
+                "transition-swup-fade overflow-hidden w-full min-w-0 transition-main",
+                isSingleColumnLayout
                     ? wideContent
                         ? "max-w-none mx-auto"
                         : "max-w-[calc(var(--page-width)-18rem)] mx-auto"
-                    : "md:col-start-2 md:col-end-3",
+                    : "md:row-start-[var(--content-row)] md:col-start-1 md:col-end-2",
             ]}>
                 {/* 携带网格布局类名，用于JS更新父容器 */}
                 <div id="grid-class-carrier" data-grid-class={gridCols} data-white-bg={String(hideSidebar)} class="hidden"></div>
@@ -115,31 +121,24 @@ const mainPanelTop = "5.5rem";
     </div>
 </div>
 
-<div
-    id="post-toc-floating-layer"
-    class:list={[
-        "absolute w-full z-30 pointer-events-none post-toc-floating-layer",
-        { "is-post-page": isPostPageCheck },
-    ]}
-    style={`top: ${mainPanelTop}`}
->
-    {isPostPageCheck && (
-        <div class="relative max-w-(--page-width) mx-auto px-2 md:px-4">
-            <div class="post-toc-wrapper absolute top-0" style="left: calc(50% + 29.5rem); width: min(20rem, calc(50vw - 30.5rem));">
-                <div class="post-toc-inner-wrapper fixed top-22 max-h-[calc(100vh-7rem)] pointer-events-auto pr-2 pb-4 overflow-y-auto overflow-x-hidden hide-scrollbar" style="width: min(20rem, calc(50vw - 30.5rem));">
-                    {PostPageTOC && <PostPageTOC headings={headings} />}
-                </div>
-            </div>
-        </div>
-    )}
-</div>
-
 <FloatingControls />
 
 
 </Layout>
 
 <style is:global>
+  #main-grid {
+    --content-row: 1;
+  }
+  #main-grid:has(.home-featured) {
+    --content-row: 2;
+  }
+  #home-featured-wrapper:not(:has(.home-featured)) {
+    display: none;
+  }
+  .home-featured .home-carousel {
+    margin-bottom: 0;
+  }
 
   :root:not(.dark):has(body[data-page-type="post"]) {
     background-color: #f9f9f9 !important;
@@ -159,27 +158,6 @@ const mainPanelTop = "5.5rem";
   #right-sidebar {
     transition: opacity 0.35s ease-in-out, 
                 transform 0.35s ease-in-out;
-  }
-
-  .post-toc-floating-layer {
-    display: none;
-  }
-
-  .post-toc-floating-layer .toc-item {
-    align-items: flex-start;
-  }
-
-  .post-toc-floating-layer .toc-label {
-    overflow: visible;
-    text-overflow: clip;
-    white-space: normal;
-    overflow-wrap: anywhere;
-  }
-
-  @media (min-width: 1400px) {
-    .post-toc-floating-layer.is-post-page {
-      display: block;
-    }
   }
 
 </style>

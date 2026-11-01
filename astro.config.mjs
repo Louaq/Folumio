@@ -36,8 +36,9 @@ import meilisearch from "./src/utils/meilisearch.ts";
 const isDev = process.env.NODE_ENV === "development";
 const swupContainers = [
 	"#swup-container",
-	"#post-toc-floating-layer",
 	"#left-sidebar-wrapper",
+	"#home-featured-wrapper",
+	"#post-hero-wrapper",
 ];
 const collapsibleConfig = expressiveCodeConfig.pluginCollapsible;
 const collapsibleOptions =

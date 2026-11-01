@@ -1,7 +1,7 @@
 import { TOCManager } from "@/utils/tocUtils";
 
 /**
- * 宽屏文章页右侧的悬浮目录（原本内联在 PostPageTOC.astro 的 <script> 里）。
+ * 文章页左侧的目录（原本内联在 PostPageTOC.astro 的 <script> 里）。
  *
  * 搬出来的原因有两条：
  * 1. 该组件只在文章页渲染，脚本也就只在文章页出现，swup 从非文章页导航过来时不会执行它；

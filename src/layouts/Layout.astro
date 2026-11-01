@@ -208,7 +208,16 @@ const collapsiblePreviewLines =
   import { initCodeCopyFeedback } from "@/utils/code-copy-feedback-init";
   import { initCodeFullscreen } from "@/utils/code-fullscreen-init";
   import { warmUpDeferredBlocks } from "@/utils/deferred-block-warmup";
-  import { initPromoStrip } from "@/utils/promo-init";
+
+  function updateNavbarAppearance() {
+    const navbar = document.getElementById("top-row")!;
+    const scrolled = window.scrollY > 0;
+    navbar.dataset.scrolled = String(scrolled);
+    navbar.dataset.overPostHero = String(!scrolled && !!document.querySelector(".post-hero"));
+  }
+
+  updateNavbarAppearance();
+  window.addEventListener("scroll", updateNavbarAppearance, { passive: true });
 
   initPostCardDelegation();
   initCoverImages();
@@ -216,7 +225,6 @@ const collapsiblePreviewLines =
   initMarkdownImages();
   initCodeCopyFeedback();
   initCodeFullscreen();
-  initPromoStrip();
   warmUpDeferredBlocks();
 
   let copyResetTimer: ReturnType<typeof setTimeout>;
@@ -355,6 +363,7 @@ const collapsiblePreviewLines =
       (window as any).__swupScrollLockY = null;
 
       initArchivePage();
+      updateNavbarAppearance();
       initCoverImages();
       initPostPageTOC();
       initMarkdownImages();

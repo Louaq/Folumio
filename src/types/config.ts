@@ -247,6 +247,7 @@ export type WidgetComponentType =
 export type WidgetComponentConfig = {
 	type: WidgetComponentType; // 组件类型
 	enable: boolean; // 是否启用该组件
+	showOnPostPage?: boolean; // 是否在文章详情页显示，默认显示
 	position: "top" | "sticky"; // 组件位置：top=固定在顶部，sticky=粘性定位（可滚动）
 	order?: number; // 组件显示顺序（数字越小越靠前）
 	class?: string; // CSS 类名，用于应用样式和动画
@@ -274,38 +275,6 @@ export type SidebarLayoutConfig = {
 			desktop: "hidden" | "drawer" | "sidebar"; // 桌面端布局模式
 		};
 	};
-};
-
-// 单条横幅广告
-export type AdItem = {
-	id: string; // 唯一标识；顶部与底部配成同一个 id 时，关掉一处另一处也一起消失
-	enable: boolean; // 是否启用该条
-	image?: string; // 横幅图片地址（/ 开头为 public 下的站内资源，也可填外链）；留空显示占位块
-	alt?: string; // 图片描述
-	link?: string; // 点击跳转地址；留空则整块不可点击
-	placeholderText?: string; // 没有 image 时占位块上的文字，留空用「广告」
-	external?: boolean; // 是否在新标签页打开
-	closable?: boolean; // 左上角是否显示「关闭」按钮
-	label?: string; // 右上角标记文案，留空则用「广告」
-	expireDate?: string; // 过期时间 (ISO 8601 格式)，过期后不再显示该条
-};
-
-// 广告位置：文章详情页的顶部 / 底部
-export type AdPlacementName = "top" | "bottom";
-
-// 单个广告位的配置
-export type AdPlacement = {
-	enable: boolean; // 该位置是否启用
-	aspectRatio?: string; // 该位置的横幅宽高比，留空则用顶层的 aspectRatio
-	items: AdItem[]; // 广告条目，按顺序横向排列，一行最多三条
-};
-
-// 广告栏配置：文章详情页顶部 / 底部的横幅广告条
-export type AdConfig = {
-	enable: boolean; // 总开关，关闭后两个位置都不渲染
-	aspectRatio?: string; // 默认横幅宽高比，如 "350 / 60"
-	top: AdPlacement; // 文章正文上方
-	bottom: AdPlacement; // 文章正文下方（版权声明之后）
 };
 
 // 友链配置

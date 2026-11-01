@@ -114,31 +114,6 @@
 	display: none;
 }
 
-/* 目录 Widget：无卡片底色与描边，贴合页面背景 */
-widget-layout.card-base.toc-widget-plain,
-.toc-widget-plain.card-base {
-	background: transparent !important;
-
-	border: none !important;
-
-	box-shadow: none !important;
-}
-
-:root.dark widget-layout.card-base.toc-widget-plain,
-:root.dark .toc-widget-plain.card-base {
-	background: transparent !important;
-
-	border: none !important;
-}
-
-widget-layout.card-base.toc-widget-plain:hover,
-.enable-card-border widget-layout.card-base.toc-widget-plain:hover,
-.toc-widget-plain.card-base:hover {
-	border: none !important;
-
-	box-shadow: none !important;
-}
-
 @media (max-width: 768px) {
 	.toc-item {
 		padding: 0.44rem 0.58rem;

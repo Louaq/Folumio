@@ -9,12 +9,18 @@ export const showSidebarOnMobile =
 	sidebarLayoutConfig.enable &&
 	(sidebarLayoutConfig.responsive?.layout?.mobile ?? "sidebar") === "sidebar";
 
-/** 按位置取启用的组件，order 未设置时按 0 排 */
+/** 按位置和页面取启用的组件，order 未设置时按 0 排 */
 export function getComponentsByPosition(
 	position: "top" | "sticky",
+	isPostPage = false,
 ): WidgetComponentConfig[] {
 	return sidebarComponents
-		.filter((component) => component.enable && component.position === position)
+		.filter(
+			(component) =>
+				component.enable &&
+				component.position === position &&
+				(!isPostPage || component.showOnPostPage !== false),
+		)
 		.sort((a, b) => (a.order ?? 0) - (b.order ?? 0));
 }
 

@@ -15,7 +15,7 @@ const { headings: _headings = [], class: className, style } = Astro.props;
 ---
 
 <div class:list={["post-page-toc-wrap", className]} style={style}>
-  <WidgetLayout id="post-page-toc-widget" name={i18n(I18nKey.tableOfContents)} class="toc-widget-plain">
+  <WidgetLayout id="post-page-toc-widget" name={i18n(I18nKey.tableOfContents)} class="overflow-hidden rounded-2xl shadow-xs border border-black/6 dark:border-white/10">
     <div class="toc-scroll-container">
       <div class="toc-content" id="post-page-toc-content">
         <!-- TOC 内容由 TOCManager 从正文标题生成 -->
@@ -25,34 +25,35 @@ const { headings: _headings = [], class: className, style } = Astro.props;
 </div>
 
 <style>
-/* 仅在宽屏显示文章页目录 */
 .post-page-toc-wrap {
-	display: none;
-	@media (min-width: 1200px) {
-		display: block;
-	}
+	display: block;
 }
 
-/* 去掉 WidgetLayout 默认的 px-4 / pt-4 / pb-4 内边距，让目录条目更贴近卡片边缘 */
 .post-page-toc-wrap :global(widget-layout) {
 	display: block;
-	padding-bottom: 0;
-}
-.post-page-toc-wrap :global(widget-layout > .collapse-wrapper) {
-	padding: 0;
-	border-radius: inherit;
 }
 
 /* 标题与目录项文字左对齐（.toc-item 左内边距 0.62rem），去掉标题前的竖条 */
 .post-page-toc-wrap :global(.widget-title) {
-	margin-left: 0.62rem;
+	margin-left: 1.62rem;
 }
 .post-page-toc-wrap :global(.widget-title)::before {
 	display: none;
 }
 
 .post-page-toc-wrap .toc-scroll-container {
-	max-height: calc(100vh - 20rem);
+	max-height: calc(100vh - 12rem);
+}
+
+.post-page-toc-wrap :global(.toc-item) {
+	align-items: flex-start;
+}
+
+.post-page-toc-wrap :global(.toc-label) {
+	overflow: visible;
+	text-overflow: clip;
+	white-space: normal;
+	overflow-wrap: anywhere;
 }
 </style>
 

@@ -17,12 +17,13 @@ import {
 interface Props {
 	class?: string;
 	headings?: MarkdownHeading[];
+	isPostPage?: boolean;
 }
 
-const { class: className, headings: _headings } = Astro.props;
+const { class: className, headings: _headings, isPostPage = false } = Astro.props;
 
-const topComponents = getComponentsByPosition("top");
-const stickyComponents = getComponentsByPosition("sticky");
+const topComponents = getComponentsByPosition("top", isPostPage);
+const stickyComponents = getComponentsByPosition("sticky", isPostPage);
 
 const componentMap = {
 	profile: Profile,
@@ -77,7 +78,7 @@ function renderComponent(
     stickyComponents.length > 0 && (
       <div
         id="left-sidebar-sticky"
-        class="flex flex-col w-full gap-5 sticky top-4"
+        class:list={["flex flex-col w-full gap-5", { "sticky top-22": !isPostPage }]}
       >
         {stickyComponents.map((component, index) => {
           const renderData = renderComponent(
@@ -93,6 +94,11 @@ function renderComponent(
       </div>
     )
   }
+  {isPostPage && (
+    <div class:list={["sticky top-22", { "mt-5": stickyComponents.length > 0 }]}>
+      <slot />
+    </div>
+  )}
 </div>
 
 <!-- 左侧边栏显示/隐藏由父布局传入的 Tailwind 类控制 -->

@@ -4,6 +4,17 @@
   border-radius: 0 !important;
   border: none !important;
   backdrop-filter: none !important;
+  transition: background-color 250ms ease;
+}
+
+#top-row[data-scrolled="true"] #navbar > div {
+  background: var(--card-bg) !important;
+}
+
+#top-row[data-over-post-hero="true"] #navbar .btn-plain,
+#top-row[data-over-post-hero="true"] #navbar .btn-plain:hover,
+#top-row[data-over-post-hero="true"] #navbar .btn-plain:active {
+  color: #ffffff !important;
 }
 
 #navbar .btn-plain {
@@ -11,6 +22,7 @@
   color: #000000 !important;
   font-size: 16px !important;
   font-weight: 400 !important;
+  transition: color 250ms ease;
 }
 :root.dark #navbar .btn-plain {
   color: rgba(255, 255, 255, 0.85) !important;

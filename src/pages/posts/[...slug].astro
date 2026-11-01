@@ -12,10 +12,10 @@ import { Icon } from "astro-icon/components";
 import qrcode from "qrcode-generator";
 import CoverImage from "@/components/common/CoverImage.astro";
 import PostMetadata from "@/components/layout/PostMeta.astro";
+import PostHero from "@/components/layout/PostHero.astro";
 import PostStaleNoticeBanner from "@/components/layout/PostStaleNoticeBanner.astro";
 import EncryptedContent from "@/components/misc/EncryptedContent.astro";
 import PasswordProtection from "@/components/misc/PasswordProtection.svelte";
-import PromoStrip from "@/components/misc/PromoStrip.astro";
 import { profileConfig } from "@/config/profileConfig";
 import { siteConfig } from "@/config/siteConfig";
 import { formatDateToYYYYMMDD } from "@/utils/date-utils";
@@ -99,8 +99,18 @@ const jsonLd = {
     type="application/ld+json"
     set:html={JSON.stringify(jsonLd)}
   />
+  <PostHero slot="post-hero" title={entry.data.title} locked={Boolean(entry.data.password)}>
+    <PostMetadata
+      published={entry.data.published}
+      updated={entry.data.updated}
+      tags={entry.data.tags}
+      category={entry.data.category || undefined}
+      id={entry.id}
+      hideUpdateDate={!siteConfig.showLastModified}
+    />
+  </PostHero>
   <div
-    class="flex w-full relative mb-4"
+    class="card-base rounded-2xl shadow-xs border border-black/6 dark:border-white/10 flex flex-col w-full relative mb-4"
   >
     <div
       id="post-container"
@@ -109,44 +119,6 @@ const jsonLd = {
         {},
       ]}
     >
-      <PromoStrip placement="top" class="onload-animation" />
-
-      <div class="relative onload-animation">
-        <h1
-          class="w-full flex items-center gap-2 flex-wrap font-bold mb-3
-                    text-3xl md:text-[2.25rem]/[2.75rem]
-                    wrap-break-word
-                    text-black/90 dark:text-white/90
-                    md:before:w-1 before:h-5 before:rounded-md before:bg-(--primary)
-                    before:absolute before:top-3 before:-left-4.5"
-        >
-          <span class="min-w-0">{entry.data.title}</span>
-          {entry.data.password && (
-            <Icon
-              name="material-symbols:lock-outline"
-              class="inline text-2xl md:text-3xl align-middle -translate-y-px text-inherit shrink-0"
-              aria-label="文章已加密"
-            />
-          )}
-        </h1>
-      </div>
-
-      <div class="onload-animation">
-        <PostMetadata
-          className="mb-5"
-          published={entry.data.published}
-          updated={entry.data.updated}
-          tags={entry.data.tags}
-          category={entry.data.category || undefined}
-          id={entry.id}
-          hideUpdateDate={!siteConfig.showLastModified}
-        />
-        {
-          !processedImage && (
-            <div class="border-(--line-divider) border-dashed border-b mt-3 mb-5" />
-          )
-        }
-      </div>
 
       {!entry.data.password && shouldShowOutdatedNotice && (
         <PostStaleNoticeBanner
@@ -212,7 +184,6 @@ const jsonLd = {
         )
       }
 
-      <PromoStrip placement="bottom" class="onload-animation" />
 
       <div class="flex items-start justify-center gap-6 mt-8 pt-7 pb-3 border-t border-(--line-divider) onload-animation">
         <button
@@ -272,7 +243,6 @@ const jsonLd = {
         </button>
       </div>
     </div>
+    {entry.data.comment && <Comment />}
   </div>
-
-  {entry.data.comment && <Comment />}
 </MainGridLayout>

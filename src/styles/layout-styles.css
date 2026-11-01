@@ -28,6 +28,10 @@
     min-height: calc(100vh - 5.5rem) !important;
 }
 
+.no-banner-layout:has(.post-hero) {
+    top: 0 !important;
+}
+
 /* 移动端文章封面图（.banner-container）性能优化 */
 @media (max-width: 1023px) {
     .banner-container {

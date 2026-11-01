@@ -10,12 +10,14 @@ export const sidebarLayoutConfig: SidebarLayoutConfig = {
 
 	// 侧边栏组件配置列表
 	// 组件位置position：top=顶部，sticky=粘性定位(会跟随页面滚动)
+	// showOnPostPage：是否在文章详情页显示；false 仅在文章页隐藏，省略时默认显示
 	components: [
 		{
 			// 组件类型：用户资料组件
 			type: "profile",
 			// 是否启用该组件
 			enable: true,
+			showOnPostPage: true,
 			// 组件显示顺序（数字越小越靠前）
 			order: 1,
 			// 组件位置
@@ -30,6 +32,7 @@ export const sidebarLayoutConfig: SidebarLayoutConfig = {
 			type: "announcement",
 			// 是否启用该组件
 			enable: true,
+			showOnPostPage: true,
 			// 组件显示顺序
 			order: 2,
 			// 组件位置
@@ -44,6 +47,7 @@ export const sidebarLayoutConfig: SidebarLayoutConfig = {
 			type: "music",
 			// 是否启用该组件
 			enable: true,
+			showOnPostPage: false,
 			// 组件显示顺序
 			order: 3,
 			// 组件位置
@@ -58,6 +62,7 @@ export const sidebarLayoutConfig: SidebarLayoutConfig = {
 			type: "runtime",
 			// 是否启用该组件
 			enable: true,
+			showOnPostPage: false,
 			// 组件显示顺序
 			order: 4,
 			// 组件位置
@@ -72,6 +77,7 @@ export const sidebarLayoutConfig: SidebarLayoutConfig = {
 			type: "solarTerm",
 			// 是否启用该组件
 			enable: true,
+			showOnPostPage: false,
 			// 组件显示顺序
 			order: 5,
 			// 组件位置

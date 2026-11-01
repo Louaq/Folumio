@@ -1,0 +1,87 @@
+---
+import { Icon } from "astro-icon/components";
+
+interface Props {
+	title: string;
+	locked: boolean;
+}
+
+const { title, locked } = Astro.props;
+---
+
+<header class="post-hero">
+  <div class="hero-content">
+    <h1>
+      {title}
+      {locked && <Icon name="material-symbols:lock-outline" class="inline text-3xl" aria-label="文章已加密" />}
+    </h1>
+    <div class="hero-meta"><slot /></div>
+  </div>
+  <div class="hero-waves" aria-hidden="true">
+    {[0, 1, 2].map((layer) => (
+      <svg class={`hero-wave wave-${layer}`} viewBox="0 0 1440 80" preserveAspectRatio="none">
+        <path d="M0 30 Q180 0 360 30 T720 30 Q900 0 1080 30 T1440 30 V80 H0Z" />
+      </svg>
+    ))}
+  </div>
+</header>
+
+<style>
+  .post-hero {
+    position: relative;
+    overflow: hidden;
+    color: white;
+    background: linear-gradient(115deg, #b0b9da, #629fe8 48%, #9cbce9);
+  }
+  .hero-content {
+    max-width: var(--page-width);
+    margin: 0 auto;
+    padding: calc(5.5rem + 112px) 32px 160px;
+  }
+  h1 {
+    font-size: clamp(2rem, 4vw, 3rem);
+    font-weight: 700;
+    line-height: 1.3;
+    overflow-wrap: anywhere;
+    margin-bottom: 24px;
+  }
+  .hero-meta :global(.text-50),
+  .hero-meta :global(.meta-icon),
+  .hero-meta :global(.link-lg) {
+    color: rgba(255, 255, 255, 0.9);
+  }
+  .hero-meta :global(.meta-icon) {
+    background: transparent;
+  }
+  .hero-waves {
+    position: absolute;
+    bottom: -1px;
+    left: 0;
+    width: 100%;
+    height: 60px;
+    pointer-events: none;
+  }
+  .hero-wave {
+    position: absolute;
+    bottom: 0;
+    width: 200%;
+    height: 100%;
+    fill: var(--page-bg);
+    animation: wave-drift 18s linear infinite;
+  }
+  .wave-0 { opacity: 0.35; }
+  .wave-1 { opacity: 0.55; bottom: -10px; animation-duration: 24s; animation-direction: reverse; }
+  .wave-2 { bottom: -20px; animation-duration: 30s; }
+  @keyframes wave-drift {
+    to { transform: translateX(-50%); }
+  }
+  :global(:root.dark) .post-hero {
+    background: linear-gradient(115deg, #333b5d, #254e7c 48%, #394b70);
+  }
+  @media (max-width: 767px) {
+    .hero-content { padding: calc(5.5rem + 64px) 24px 112px; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .hero-wave { animation: none; }
+  }
+</style>

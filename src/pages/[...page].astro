@@ -5,6 +5,8 @@ import HomeCarousel, {
 	type CarouselSlide,
 } from "@/components/layout/HomeCarousel.astro";
 import HomeTopNotice from "@/components/layout/HomeTopNotice.astro";
+import HomeWelcome from "@/components/layout/HomeWelcome.astro";
+import { homeWelcomeConfig } from "@/config/homeWelcomeConfig";
 import PostPage from "@/components/layout/PostPage.astro";
 import {
 	getNormalizedHomeTopNoticeItems,
@@ -73,7 +75,7 @@ const postSlides: CarouselSlide[] = allPosts
 
 
 const featuredSlides: CarouselSlide[] = [...manualSlides, ...postSlides];
-const showCarousel = homeCarouselConfig.enable;
+const showCarousel = homeCarouselConfig.enable && featuredSlides.length > 0;
 const homeTopNoticeItems = getNormalizedHomeTopNoticeItems();
 
 const showHomeTopNotice = homeTopNoticeItems.length > 0;
@@ -81,10 +83,15 @@ const showHomeTopNotice = homeTopNoticeItems.length > 0;
 
 <MainGridLayout>
   {showCarousel && (
-    <HomeCarousel
-      slides={featuredSlides}
-      autoplayMs={homeCarouselConfig.autoplayMs}
-    />
+    <div slot="featured" class:list={["home-featured grid gap-4 min-w-0", { "md:grid-cols-[minmax(0,1fr)_17rem]": homeWelcomeConfig.enable }]}>
+      <div class="min-w-0">
+        <HomeCarousel
+          slides={featuredSlides}
+          autoplayMs={homeCarouselConfig.autoplayMs}
+        />
+      </div>
+      {homeWelcomeConfig.enable && <HomeWelcome recommendations={featuredSlides.slice(0, 6)} />}
+    </div>
   )}
   {showHomeTopNotice && <HomeTopNotice items={homeTopNoticeItems} />}
   <PostPage page={page} />

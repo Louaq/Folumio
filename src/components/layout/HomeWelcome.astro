@@ -1,0 +1,183 @@
+---
+import CoverImage from "@/components/common/CoverImage.astro";
+import type { CarouselSlide } from "@/components/layout/HomeCarousel.astro";
+import { homeWelcomeConfig } from "@/config/homeWelcomeConfig";
+
+interface Props {
+	recommendations: CarouselSlide[];
+}
+const { recommendations } = Astro.props;
+---
+
+<section class="home-welcome card-base overflow-hidden rounded-2xl shadow-xs border border-black/6 dark:border-white/10" aria-label={homeWelcomeConfig.eyebrow}>
+  <div class:list={["welcome-front", { "has-cover": !!homeWelcomeConfig.image }]}>
+    {homeWelcomeConfig.image ? (
+      <CoverImage src={homeWelcomeConfig.image} alt="" preview={true} class="welcome-cover" />
+    ) : (
+      <svg class="welcome-art" viewBox="0 0 225 100" aria-hidden="true">
+        <defs>
+          <linearGradient id="welcome-hello-gradient" x1="0" y1="0" x2="1" y2="0">
+            <stop offset="0%" stop-color="#009aa7" />
+            <stop offset="25%" stop-color="#9adb66" />
+            <stop offset="42%" stop-color="#ffd600" />
+            <stop offset="58%" stop-color="#ff8425" />
+            <stop offset="76%" stop-color="#ed39be" />
+            <stop offset="100%" stop-color="#3ebaf0" />
+          </linearGradient>
+        </defs>
+        <path class="hello-stroke" pathLength="1" d="M18 84 C28 65 49 10 38 12 C25 14 17 72 22 83 C27 64 36 48 43 55 C50 62 32 88 48 86 C59 84 73 65 66 58 C58 50 48 62 51 75 C56 92 75 87 84 72 C96 48 114 12 104 12 C94 12 79 68 86 80 C91 91 103 84 113 70 C129 43 144 12 134 12 C122 14 109 68 116 80 C122 93 139 83 148 67 C158 48 180 51 177 69 C174 88 150 94 148 77 C147 62 159 55 169 59 C186 67 196 61 204 55" />
+      </svg>
+    )}
+    <div class="welcome-copy">
+      <p class="welcome-eyebrow">{homeWelcomeConfig.eyebrow}</p>
+      <h2>{homeWelcomeConfig.title}</h2>
+      <p class="welcome-description">{homeWelcomeConfig.description}</p>
+    </div>
+  </div>
+  <details class="welcome-discovery">
+    <summary class="welcome-button">
+      <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" class="iconify iconify--tabler" width="22" height="22" viewBox="0 0 24 24"><path fill="currentColor" d="M17 3.34a10 10 0 1 1-14.995 8.984L2 12l.005-.324A10 10 0 0 1 17 3.34M15 8H9l-.117.007A1 1 0 0 0 8 9l.007.117A1 1 0 0 0 9 10h3.584l-4.291 4.293l-.083.094a1 1 0 0 0 1.497 1.32L14 11.414V15l.007.117A1 1 0 0 0 16 15V9l-.007-.117l-.029-.149l-.035-.105l-.054-.113l-.071-.111a1 1 0 0 0-.097-.112l-.09-.08l-.096-.067l-.098-.052l-.11-.044l-.112-.03l-.126-.017z"></path></svg>
+      <span class="label-open">{homeWelcomeConfig.linkText}</span>
+      <span class="label-close">返回封面</span>
+    </summary>
+    <div class="welcome-recommendations">
+      <h3>精选文章</h3>
+      <div class="recommendation-grid">
+        {recommendations.map((post) => (
+          <a href={post.href} class="recommendation" title={post.title}
+            target={post.openInNewTab ? "_blank" : undefined}
+            rel={post.openInNewTab ? "noopener noreferrer" : undefined}>
+            {post.image && <CoverImage src={post.image} basePath={post.basePath} alt="" preview={true} loading="lazy" class="recommendation-cover" />}
+            <span>{post.title}</span>
+          </a>
+        ))}
+      </div>
+    </div>
+  </details>
+</section>
+
+<style>
+  .home-welcome {
+    position: relative;
+    height: 300px;
+    overflow: hidden;
+    background: linear-gradient(115deg, #e5f7f3, #f5f5ff 56%, #fff6fa);
+  }
+  .welcome-front {
+    position: absolute;
+    inset: 0;
+    display: block;
+    transition: opacity 300ms ease;
+  }
+  .welcome-art {
+    position: absolute;
+    inset: 8px 16px auto;
+    height: 110px;
+    width: calc(100% - 32px);
+  }
+  .hello-stroke {
+    fill: none;
+    stroke: url(#welcome-hello-gradient);
+    stroke-width: 7;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+  .home-welcome :global(.welcome-cover) {
+    position: absolute;
+    inset: 0;
+    min-height: 0;
+    height: 100%;
+  }
+  .has-cover::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(transparent 20%, rgba(0, 0, 0, 0.75));
+  }
+  .welcome-copy {
+    position: absolute;
+    bottom: 72px;
+    left: 20px;
+    right: 20px;
+    z-index: 1;
+  }
+  .welcome-eyebrow, .welcome-description {
+    color: var(--content-meta);
+    font-size: 12px;
+    line-height: 1.6;
+  }
+  h2 {
+    color: #249fa7;
+    font-size: 22px;
+    line-height: 1.35;
+    font-weight: 700;
+    margin: 4px 0;
+  }
+  .has-cover .welcome-copy :is(h2, p) { color: white; }
+  .welcome-button {
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+    z-index: 3;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 16px;
+    border: 1px solid var(--line-divider);
+    border-radius: 999px;
+    background: var(--card-bg-transparent);
+    backdrop-filter: blur(16px);
+    color: #d94f83;
+    font-size: 14px;
+    cursor: pointer;
+    list-style: none;
+    transition: background-color 200ms ease, color 200ms ease;
+  }
+  .welcome-button::-webkit-details-marker { display: none; }
+  .welcome-button:hover { background: var(--primary); color: white; }
+  .label-close, details[open] .label-open { display: none; }
+  details[open] .label-close { display: inline; }
+  .home-welcome:has(details[open]) .welcome-front { opacity: 0; visibility: hidden; }
+  .welcome-recommendations {
+    position: absolute;
+    inset: 0;
+    padding: 14px 14px 68px;
+    background: var(--card-bg);
+    animation: reveal 250ms ease;
+  }
+  h3 { font-size: 13px; font-weight: 700; color: var(--content-meta); margin-bottom: 8px; }
+  .recommendation-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
+  .recommendation {
+    position: relative;
+    height: 58px;
+    overflow: hidden;
+    border-radius: 6px;
+    background: var(--btn-regular-bg);
+    color: white;
+  }
+  .home-welcome :global(.recommendation-cover) { min-height: 0; height: 100%; }
+  .recommendation span {
+    position: absolute;
+    inset: auto 0 0;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    overflow: hidden;
+    padding: 6px;
+    font-size: 11px;
+    line-height: 1.4;
+    background: linear-gradient(transparent, rgba(0, 0, 0, 0.8));
+  }
+  .recommendation:hover span { background: color-mix(in srgb, var(--primary) 75%, transparent); }
+  @keyframes reveal { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
+  :global(:root.dark) .home-welcome { background: linear-gradient(115deg, #183533, #27283b 56%, #352532); }
+  :global(:root.dark) h2 { color: #69ccc7; }
+  :global(:root.dark) .welcome-button { color: #f18ab0; }
+  @media (max-width: 767px) {
+    .home-welcome { display: none; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .welcome-front, .welcome-art, .welcome-button { transition: none; }
+    .welcome-recommendations { animation: none; }
+  }
+</style>
