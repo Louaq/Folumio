@@ -37,109 +37,141 @@ if (footerConfig.enable) {
 }
 ---
 
-<div
-  class="border-t border-black/10 dark:border-white/15 my-10 border-dashed mx-32"
->
-</div>
-<div
-  class="border-dashed border-[color-mix(in_oklch,var(--primary)_5%,oklch(85%_0_0))] dark:border-white/15 rounded-2xl mb-12 flex flex-col items-center justify-center px-6"
->
-  <div class="text-50 text-sm text-center">
+<footer class="site-footer">
+  <div class="footer-inner">
+  <div class="footer-information">
+    <div class="footer-copyright">
+      <span>&copy; <span id="copyright-year">{currentYear}</span> By <a href={url("/about/")}>{profileConfig.name}</a></span>
+      <span class="footer-powered">
+        Powered by
+        <a href="https://astro.build" target="_blank" rel="noopener noreferrer">Astro</a>
+        &amp;
+        <a href="https://github.com/Louaq/Folumio" target="_blank" rel="noopener noreferrer">Folumio</a>
+      </span>
+    </div>
     {
       customFooterHtml && (
         <div
-          class="mb-2 leading-tight [&_.copyright]:leading-tight"
+          class="footer-custom"
           set:html={customFooterHtml}
         />
       )
     }
-    &copy; <span id="copyright-year">{currentYear}</span> {profileConfig.name}. All Rights Reserved. /
-    <a
-      class="link text-(--primary) font-medium"
-      target="_blank"
-      href={url("/rss/")}
-      > RSS</a
-    > /
-    <a
-      class="link text-(--primary) font-medium"
-      target="_blank"
-      href={url("/sitemap/")}> Sitemap</a
-    ><br />
-    Powered by
-    <a
-      class="link text-(--primary) font-medium"
-      target="_blank"
-      href="https://astro.build"> Astro</a
-    > &
-    <a
-      class="link text-(--primary) font-medium"
-      target="_blank"
-      href="https://github.com/Louaq/Folumio"> Folumio</a
-    ><br />
-    <span
-      class="mt-1 mr-1 inline-flex flex-wrap items-center justify-center gap-x-2 gap-y-1 align-middle"
-    >
-      <span class="text-50">Supported by</span>
-      <a
-        class="inline-flex items-center gap-1 text-(--primary) font-medium"
-        target="_blank"
-        rel="noopener noreferrer"
-        href="https://cloud.tencent.com/"
-        aria-label="腾讯云"
+    <div class="footer-meta">
+      <span
+        class="inline-flex items-center gap-2"
       >
-        <img
-          src={url("/assets/images/tencent-cloud.svg")}
-          alt=""
-          width={80}
-          height={18}
-          class="h-[18px] w-20 shrink-0"
-          aria-hidden="true"
-          loading="lazy"
-          decoding="async"
-          fetchpriority="low"
-        />
-      </a>
-    </span>
-    {
-      showVisitorCount && (
-        <span
-          class="mt-1 hidden flex-wrap items-center justify-center gap-x-3 gap-y-1 align-middle"
-          data-visitor-count
-          data-api-url={visitorApiUrl}
+        <span>Supported by</span>
+        <a
+          class="inline-flex items-center gap-1 text-(--primary) font-medium"
+          target="_blank"
+          rel="noopener noreferrer"
+          href="https://cloud.tencent.com/"
+          aria-label="腾讯云"
         >
-          {showSitePv && (
-            <span class="inline-flex items-center gap-1">
-              <Icon
-                name="material-symbols:visibility-outline-rounded"
-                is:inline
-                class="text-base text-(--primary)"
-              />
-              <span class="text-50">{i18n(I18nKey.visitorSitePv)}</span>
-              <span
-                class="font-medium text-(--primary) tabular-nums"
-                data-visitor-value="site_pv"
-              />
-            </span>
-          )}
-          {showSiteUv && (
-            <span class="inline-flex items-center gap-1">
-              <Icon
-                name="material-symbols:person-outline-rounded"
-                is:inline
-                class="text-base text-(--primary)"
-              />
-              <span class="text-50">{i18n(I18nKey.visitorSiteUv)}</span>
-              <span
-                class="font-medium text-(--primary) tabular-nums"
-                data-visitor-value="site_uv"
-              />
-            </span>
-          )}
-        </span>
-      )
-    }
+          <img
+            src={url("/assets/images/tencent-cloud.svg")}
+            alt=""
+            width={80}
+            height={18}
+            class="h-[18px] w-20 shrink-0"
+            aria-hidden="true"
+            loading="lazy"
+            decoding="async"
+            fetchpriority="low"
+          />
+        </a>
+      </span>
+      {
+        showVisitorCount && (
+          <span
+            class="hidden flex-wrap items-center gap-x-3 gap-y-1"
+            data-visitor-count
+            data-api-url={visitorApiUrl}
+          >
+            {showSitePv && (
+              <span class="inline-flex items-center gap-1">
+                <Icon
+                  name="material-symbols:visibility-outline-rounded"
+                  is:inline
+                  class="text-base text-(--primary)"
+                />
+                <span class="text-50">{i18n(I18nKey.visitorSitePv)}</span>
+                <span
+                  class="font-medium text-(--primary) tabular-nums"
+                  data-visitor-value="site_pv"
+                />
+              </span>
+            )}
+            {showSiteUv && (
+              <span class="inline-flex items-center gap-1">
+                <Icon
+                  name="material-symbols:person-outline-rounded"
+                  is:inline
+                  class="text-base text-(--primary)"
+                />
+                <span class="text-50">{i18n(I18nKey.visitorSiteUv)}</span>
+                <span
+                  class="font-medium text-(--primary) tabular-nums"
+                  data-visitor-value="site_uv"
+                />
+              </span>
+            )}
+          </span>
+        )
+      }
+    </div>
   </div>
-</div>
+  <nav class="footer-navigation" aria-label="页脚导航">
+    <a href={url("/about/")}>关于</a>
+    <a href="https://github.com/Louaq/Folumio" target="_blank" rel="noopener noreferrer">框架</a>
+    <a href={url("/")}>主页</a>
+    <a href={url("/rss/")} aria-label="RSS 订阅" title="RSS 订阅"><Icon name="lucide:rss" /></a>
+    <a href={url("/sitemap/")} aria-label="站点地图" title="站点地图"><Icon name="lucide:map" /></a>
+  </nav>
+  </div>
+</footer>
+
+<style>
+  .site-footer {
+    margin-top: 32px;
+    background-color: #f1f3f8;
+    border-top: 1px solid var(--line-divider);
+    color: var(--content-meta);
+    font-size: 14px;
+    line-height: 1.8;
+  }
+  .footer-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+    max-width: var(--page-width);
+    margin: 0 auto;
+    padding: 24px 16px;
+  }
+  .footer-information { min-width: 0; }
+  .footer-copyright, .footer-meta, .footer-powered {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 4px 16px;
+  }
+  .footer-copyright > span > a { color: var(--juejin-text-primary); font-weight: 700; }
+  .footer-powered { gap: 4px; }
+  .footer-powered a { color: var(--primary); }
+  .footer-meta { margin-top: 4px; }
+  .footer-custom { margin-top: 4px; }
+  .footer-navigation { display: flex; align-items: center; flex-wrap: wrap; gap: 16px; flex-shrink: 0; color: var(--juejin-text-primary); }
+  .footer-navigation a { display: inline-flex; align-items: center; font-weight: 600; }
+  .footer-navigation :global(svg) { width: 18px; height: 18px; }
+  .site-footer a { transition: color 200ms ease; }
+  .site-footer a:hover { color: var(--primary); }
+  :global(:root.dark) .site-footer { background-color: #20222a; }
+  @media (max-width: 767px) {
+    .footer-inner { flex-direction: column; align-items: flex-start; gap: 16px; padding: 20px 8px; }
+  }
+</style>
 
 <script>
   const API_FALLBACK = "https://events.vercount.one/api/v2/log";
@@ -190,7 +222,7 @@ if (footerConfig.enable) {
     }
   };
 
-  // querySelectorAll 而非 getElementById：页面上同时存在桌面端与移动端两份页脚
+  // 统一更新正文与页脚中的访问统计
   const render = (counts: Counts, includePageViews = true) => {
     for (const el of document.querySelectorAll<HTMLElement>(
       "[data-visitor-value]",

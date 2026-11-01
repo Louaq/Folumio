@@ -39,6 +39,9 @@ const isSingleColumnLayout = hideSidebar;
 const PostPageTOC = isPostPageCheck
 	? (await import("@components/layout/PostPageTOC.astro")).default
 	: null;
+const PostPageRecentPosts = isPostPageCheck
+	? (await import("@components/layout/PostPageRecentPosts.astro")).default
+	: null;
 
 const gridCols = isSingleColumnLayout
 	? "grid-cols-1"
@@ -75,14 +78,18 @@ const mainPanelTop = "5.5rem";
 
             <div id="left-sidebar-wrapper" class="contents">
                 {!isSingleColumnLayout && (
-                    <div class="hidden md:block md:row-start-[var(--content-row)] md:row-span-1 md:col-start-2 md:col-end-3 md:h-full transition-main">
-                        {/* 此处不能挂 onload-animation：它的 animation ... forwards 填充会把
-                           opacity 永久钉在 1，且动画声明在级联中压过一切普通规则，
-                           transition-main 的 is-animating 淡出会被它完全屏蔽 */}
-                        <LeftSideBar headings={headings} isPostPage={isPostPageCheck} class="md:h-full">
-                            {PostPageTOC && <PostPageTOC headings={headings} />}
-                        </LeftSideBar>
-                    </div>
+                    <LeftSideBar
+                        headings={headings}
+                        isPostPage={isPostPageCheck}
+                        class={`hidden ${isPostPageCheck ? 'md:flex md:flex-col' : 'md:block'} md:row-start-[var(--content-row)] md:row-span-1 md:col-start-2 md:col-end-3 md:self-stretch transition-main`}
+                    >
+                        {PostPageTOC && PostPageRecentPosts && postSlug !== undefined && (
+                            <div class="flex flex-col gap-5">
+                                <PostPageTOC headings={headings} />
+                                <PostPageRecentPosts currentPostSlug={postSlug} />
+                            </div>
+                        )}
+                    </LeftSideBar>
                 )}
             </div>
 
@@ -103,9 +110,6 @@ const mainPanelTop = "5.5rem";
                 )}
                 <div id="content-wrapper" class="onload-animation transition-leaving">
                     <slot></slot>
-                    <div class="footer col-span-2 onload-animation hidden lg:block">
-                        <Footer></Footer>
-                    </div>
                 </div>
             </main>
 
@@ -113,11 +117,10 @@ const mainPanelTop = "5.5rem";
             <div id="right-sidebar-static" class="hidden"></div>
             <div id="right-sidebar-dynamic" class="hidden"></div>
 
-            <div class="footer col-span-full onload-animation block lg:hidden">
-                <Footer></Footer>
-            </div>
         </div>
-
+    </div>
+    <div class="footer pointer-events-auto transition-swup-fade transition-main">
+        <Footer />
     </div>
 </div>
 

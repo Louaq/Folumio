@@ -122,8 +122,6 @@ export const zh_CN: Translation = {
 	[Key.siteRuntimeUnitYear]: "年",
 	[Key.siteRuntimeUnitMonth]: "月",
 
-	// 节气
-	[Key.solarTerm]: "节气",
 	[Key.music]: "音乐",
 
 	// 页脚访客计数

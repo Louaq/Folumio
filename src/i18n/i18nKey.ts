@@ -122,9 +122,6 @@ enum I18nKey {
 	siteRuntimeUnitYear = "siteRuntimeUnitYear",
 	siteRuntimeUnitMonth = "siteRuntimeUnitMonth",
 
-	// 节气
-	solarTerm = "solarTerm",
-
 	// 音乐播放器
 	music = "music",
 

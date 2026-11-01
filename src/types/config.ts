@@ -241,7 +241,6 @@ export type WidgetComponentType =
 	| "tags"
 	| "stats"
 	| "runtime"
-	| "solarTerm"
 	| "music";
 
 export type WidgetComponentConfig = {

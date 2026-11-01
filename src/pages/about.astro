@@ -5,6 +5,16 @@ import Markdown from "@components/common/Markdown.astro";
 import I18nKey from "@/i18n/i18nKey";
 import { i18n } from "@/i18n/translation";
 import MainGridLayout from "@/layouts/MainGridLayout.astro";
+import { Icon } from "astro-icon/components";
+import { aboutPageConfig } from "@/config/aboutConfig";
+import { profileConfig } from "@/config/profileConfig";
+import { siteConfig } from "@/config/siteConfig";
+import {
+	getCategoryList,
+	getSortedPosts,
+	getTagList,
+} from "@/utils/content-utils";
+import { url } from "@/utils/url-utils";
 
 const aboutPost = await getEntry("spec", "about");
 
@@ -13,13 +23,495 @@ if (!aboutPost) {
 }
 
 const { Content } = await render(aboutPost);
+const [posts, tags, categories] = await Promise.all([
+	getSortedPosts(),
+	getTagList(),
+	getCategoryList(),
+]);
+const statistics = [
+	{ value: posts.length, label: "篇文章", href: "/archive/" },
+	{ value: tags.length, label: "个标签", href: "/tags/" },
+	{ value: categories.length, label: "个分类", href: "/categories/" },
+];
 ---
-<MainGridLayout title={i18n(I18nKey.about)} description={i18n(I18nKey.about)} hideSidebar wideContent>
-    <div class="flex w-full rounded-(--radius-large) overflow-hidden relative min-h-32">
-        <div class="card-base card-plain z-10 px-9 py-6 relative w-full">
-            <Markdown class="mt-2">
-                <Content />
-            </Markdown>
+<MainGridLayout
+  title={i18n(I18nKey.about)}
+  description={aboutPageConfig.introduction}
+  hideSidebar
+  wideContent
+>
+  <div class="about-page">
+    <header class="about-header">
+      <div class="avatar-stage">
+        <div class="identity-tags tags-left" aria-hidden="true">
+          {aboutPageConfig.identityTags.slice(0, 3).map((tag) =>
+            <span>{tag}</span>
+          )}
         </div>
+        <div class="avatar-ring">
+          <img
+            src={url(profileConfig.avatar!)}
+            alt={`${profileConfig.name}的头像`}
+            width="136"
+            height="136"
+            loading="eager"
+          />
+          <span class="avatar-status" aria-label="持续学习中">🌱</span>
+        </div>
+        <div class="identity-tags tags-right" aria-hidden="true">
+          {aboutPageConfig.identityTags.slice(3).map((tag) =>
+            <span>{tag}</span>
+          )}
+        </div>
+      </div>
+      <p class="eyebrow">ABOUT ME</p>
+      <h1>关于我</h1>
+      <p class="header-description">很高兴，在这里与你相遇。</p>
+    </header>
+
+    <div class="about-grid">
+      <section class="about-card card-base identity-card span-7">
+        <p class="eyebrow">你好，欢迎来到我的小站 👋</p>
+        <h2>我是 <span>{profileConfig.name}</span></h2>
+        <p class="identity-role">{aboutPageConfig.role}</p>
+        <p class="card-description">{aboutPageConfig.introduction}</p>
+        <a class="text-link" href={url("/archive/")}>
+          看看我的记录 <Icon name="lucide:arrow-up-right" />
+        </a>
+      </section>
+
+      <section class="about-card card-base pursuit-card span-5">
+        <p class="eyebrow">研究与探索</p>
+        <h2>{aboutPageConfig.pursuit}</h2>
+        <div class="pursuit-footer">
+          <span>医学影像 × 人工智能</span>
+          <Icon name="lucide:sparkles" />
+        </div>
+      </section>
+
+      <section class="about-card card-base keywords-card span-7">
+        <p class="eyebrow">研究关键词</p>
+        <h2>从不同模态，看见更多。</h2>
+        <div class="keyword-grid">
+          {aboutPageConfig.keywords.map((keyword, index) => (
+            <div class:list={["keyword", `keyword-${index % 4}`]}>
+              <span class="keyword-mark" aria-hidden="true">
+                {String(index + 1).padStart(2, "0")}
+              </span>
+              <span>{keyword}</span>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <section class="about-card card-base statistics-card span-5">
+        <p class="eyebrow">关于这个博客</p>
+        <h2>让知识慢慢积累。</h2>
+        <p class="card-description">
+          始于 {siteConfig.siteStartDate}，每一篇都是探索的足迹。
+        </p>
+        <div class="statistics">
+          {statistics.map((stat) => (
+            <a href={url(stat.href)}>
+              <strong>{stat.value}</strong>
+              <span>{stat.label}</span>
+            </a>
+          ))}
+        </div>
+      </section>
+
+      <section class="about-card card-base motto-card span-4">
+        <p class="eyebrow">字里行间</p>
+        <Icon name="lucide:quote" class="quote-icon" aria-hidden="true" />
+        <blockquote>{profileConfig.bio}</blockquote>
+        <span class="motto-signature">{profileConfig.name}</span>
+      </section>
+
+      <section class="about-card card-base directions-card span-8">
+        <p class="eyebrow">这里会写些什么</p>
+        <h2>论文之外，也有实践。</h2>
+        <div class="direction-list">
+          {aboutPageConfig.directions.map((direction) => (
+            <div class="direction">
+              <span class="direction-icon">
+                <Icon name={direction.icon} />
+              </span>
+              <div>
+                <h3>{direction.title}</h3>
+                <p>{direction.description}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <section
+        class="about-card card-base story-card"
+        aria-label="个人介绍与博客内容"
+      >
+        <p class="eyebrow">写在这里</p>
+        <h2>关于我，关于这个博客。</h2>
+        <Markdown class="about-story">
+          <Content />
+        </Markdown>
+      </section>
     </div>
+  </div>
 </MainGridLayout>
+
+<style>
+  .about-page {
+    padding-bottom: 24px;
+    color: var(--juejin-text-primary);
+  }
+  .about-header {
+    text-align: center;
+    padding: 32px 16px 40px;
+  }
+  .avatar-stage {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 40px;
+    margin-bottom: 28px;
+  }
+  .avatar-ring {
+    position: relative;
+    flex-shrink: 0;
+    padding: 8px;
+    border-radius: 50%;
+    background: var(--card-bg);
+    border: 1px solid var(--line-divider);
+  }
+  .avatar-ring > img {
+    width: 136px;
+    height: 136px;
+    border-radius: 50%;
+    object-fit: cover;
+  }
+  .avatar-status {
+    position: absolute;
+    bottom: 4px;
+    right: 4px;
+    width: 40px;
+    height: 40px;
+    display: grid;
+    place-items: center;
+    border: 4px solid var(--page-bg);
+    border-radius: 50%;
+    background: var(--card-bg);
+  }
+  .identity-tags {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    width: 180px;
+  }
+  .identity-tags span {
+    padding: 8px 16px;
+    border: 1px solid var(--line-divider);
+    border-radius: 10px;
+    background: var(--card-bg);
+    font-size: 14px;
+    font-weight: 600;
+  }
+  .tags-left {
+    align-items: flex-end;
+    transform: rotate(-5deg);
+  }
+  .tags-right {
+    align-items: flex-start;
+    transform: rotate(5deg);
+  }
+  .identity-tags span:nth-child(2) {
+    transform: translateX(-12px);
+  }
+  .tags-right span:nth-child(2) {
+    transform: translateX(12px);
+  }
+  .eyebrow {
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    color: var(--content-meta);
+    margin-bottom: 12px;
+  }
+  h1 {
+    font-size: 36px;
+    font-weight: 750;
+    line-height: 1.3;
+  }
+  .header-description {
+    margin-top: 10px;
+    font-size: 14px;
+    color: var(--content-meta);
+  }
+  .about-grid {
+    display: grid;
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    gap: 20px;
+  }
+  .about-card {
+    padding: 32px;
+    min-width: 0;
+    border: 1px solid var(--line-divider);
+  }
+  .span-4 {
+    grid-column: span 4;
+  }
+  .span-5 {
+    grid-column: span 5;
+  }
+  .span-7 {
+    grid-column: span 7;
+  }
+  .span-8 {
+    grid-column: span 8;
+  }
+  h2 {
+    font-size: clamp(22px, 2.4vw, 30px);
+    font-weight: 700;
+    line-height: 1.4;
+    letter-spacing: -0.02em;
+  }
+  .identity-card {
+    background-image: linear-gradient(
+      120deg,
+      color-mix(in srgb, var(--primary) 12%, var(--card-bg)),
+      var(--card-bg)
+    );
+  }
+  .identity-card h2 {
+    font-size: clamp(32px, 4vw, 48px);
+    margin: 16px 0 8px;
+  }
+  .identity-card h2 span {
+    color: var(--primary);
+  }
+  .identity-role {
+    font-size: 17px;
+    font-weight: 600;
+    margin-bottom: 14px;
+  }
+  .card-description {
+    font-size: 14px;
+    line-height: 1.9;
+    color: var(--content-meta);
+    margin-top: 12px;
+  }
+  .text-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--primary);
+    font-size: 14px;
+    font-weight: 600;
+    margin-top: 24px;
+  }
+  .text-link :global(svg) {
+    width: 18px;
+    height: 18px;
+  }
+  .pursuit-card {
+    display: flex;
+    flex-direction: column;
+    background-image: linear-gradient(135deg, #5565df, #7889ee);
+    color: white;
+  }
+  .pursuit-card .eyebrow {
+    color: #ffffffb3;
+  }
+  .pursuit-card h2 {
+    white-space: pre-line;
+    margin: 16px 0 32px;
+    font-size: clamp(26px, 3vw, 38px);
+  }
+  .pursuit-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    margin-top: auto;
+    font-size: 13px;
+    color: #ffffffcf;
+  }
+  .pursuit-footer :global(svg) {
+    width: 28px;
+    height: 28px;
+  }
+  .keyword-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 12px;
+    margin-top: 24px;
+  }
+  .keyword {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 18px;
+    padding: 14px;
+    min-height: 96px;
+    border-radius: 10px;
+    font-size: 13px;
+    font-weight: 600;
+  }
+  .keyword-mark {
+    font-size: 12px;
+    opacity: 0.6;
+    font-variant-numeric: tabular-nums;
+  }
+  .keyword-0 {
+    background: #eaf6f0;
+    color: #267653;
+  }
+  .keyword-1 {
+    background: #edf0ff;
+    color: #5968b3;
+  }
+  .keyword-2 {
+    background: #fff1df;
+    color: #9e6b28;
+  }
+  .keyword-3 {
+    background: #f8eaf1;
+    color: #a2547b;
+  }
+  .statistics-card {
+    display: flex;
+    flex-direction: column;
+  }
+  .statistics {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 12px;
+    margin-top: auto;
+    padding-top: 32px;
+  }
+  .statistics a {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    border-top: 2px solid var(--line-divider);
+    padding-top: 16px;
+  }
+  .statistics strong {
+    font-size: 40px;
+    line-height: 1;
+    font-weight: 700;
+    color: var(--primary);
+    font-variant-numeric: tabular-nums;
+  }
+  .statistics span {
+    font-size: 13px;
+    color: var(--content-meta);
+  }
+  .motto-card {
+    display: flex;
+    flex-direction: column;
+    background-image: linear-gradient(
+      140deg,
+      color-mix(in srgb, #e6bb89 20%, var(--card-bg)),
+      var(--card-bg)
+    );
+  }
+  .quote-icon {
+    width: 40px;
+    height: 40px;
+    color: #c5a173;
+    margin: 20px 0 12px;
+  }
+  blockquote {
+    font-size: clamp(25px, 2.7vw, 34px);
+    font-weight: 650;
+    line-height: 1.7;
+    max-width: 9em;
+  }
+  .motto-signature {
+    margin-top: 24px;
+    color: var(--content-meta);
+    font-size: 14px;
+  }
+  .direction-list {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    margin-top: 24px;
+  }
+  .direction {
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+  }
+  .direction-icon {
+    display: grid;
+    place-items: center;
+    width: 44px;
+    height: 44px;
+    flex-shrink: 0;
+    border-radius: 12px;
+    background: var(--btn-regular-bg);
+    color: var(--primary);
+  }
+  .direction-icon :global(svg) {
+    width: 23px;
+    height: 23px;
+  }
+  h3 {
+    font-size: 15px;
+    font-weight: 650;
+    margin-bottom: 4px;
+  }
+  .direction p {
+    font-size: 13px;
+    color: var(--content-meta);
+    line-height: 1.8;
+  }
+  .about-story {
+    margin-top: 24px;
+  }
+  .story-card {
+    grid-column: 1 / -1;
+  }
+  :global(:root.dark) .keyword {
+    background: var(--btn-regular-bg);
+    color: var(--content-meta);
+  }
+  @media (max-width: 1023px) {
+    .about-card {
+      padding: 24px;
+    }
+    .span-4,
+    .span-5,
+    .span-7,
+    .span-8 {
+      grid-column: span 6;
+    }
+    .keyword-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+  @media (max-width: 767px) {
+    .about-header {
+      padding: 24px 12px 32px;
+    }
+    .identity-tags {
+      display: none;
+    }
+    .avatar-ring > img {
+      width: 112px;
+      height: 112px;
+    }
+    .about-grid {
+      grid-template-columns: minmax(0, 1fr);
+      gap: 16px;
+    }
+    .about-card {
+      grid-column: auto;
+      padding: 24px;
+    }
+    .statistics strong {
+      font-size: 34px;
+    }
+  }
+</style>

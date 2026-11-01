@@ -72,22 +72,6 @@ export const sidebarLayoutConfig: SidebarLayoutConfig = {
 			// 动画延迟时间
 			animationDelay: 0,
 		},
-		{
-			// 组件类型：节气组件（数据来自 jieqi.dev）
-			type: "solarTerm",
-			// 是否启用该组件
-			enable: true,
-			showOnPostPage: false,
-			// 组件显示顺序
-			order: 5,
-			// 组件位置
-			position: "sticky",
-			// CSS 类名
-			class: "onload-animation",
-			// 动画延迟时间
-			animationDelay: 0,
-		},
-
 		// {
 		// 	// 组件类型：分类组件
 		// 	type: "categories",

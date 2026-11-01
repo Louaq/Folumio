@@ -396,11 +396,6 @@ widget-layout .widget-title::before {
   border-radius: var(--radius-large) !important;
 }
 
-.footer .border-dashed {
-  border-style: solid !important;
-  border-color: var(--juejin-border) !important;
-}
-
 #main-grid {
   gap: 12px !important;
 }

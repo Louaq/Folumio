@@ -90,7 +90,7 @@ const showHomeTopNotice = homeTopNoticeItems.length > 0;
           autoplayMs={homeCarouselConfig.autoplayMs}
         />
       </div>
-      {homeWelcomeConfig.enable && <HomeWelcome recommendations={featuredSlides.slice(0, 6)} />}
+      {homeWelcomeConfig.enable && <HomeWelcome />}
     </div>
   )}
   {showHomeTopNotice && <HomeTopNotice items={homeTopNoticeItems} />}

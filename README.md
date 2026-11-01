@@ -41,7 +41,7 @@
 
 **页面与组件**
 - 🏠 首页轮播、顶部通知条、文章置顶
-- 🧭 侧边栏组件：个人资料、公告、音乐播放器、运行时间、节气，可配置顺序与开关
+- 🧭 侧边栏组件：个人资料、公告、音乐播放器、运行时间，可配置顺序与开关
 - 🎵 侧边栏音乐播放器（APlayer + 自建曲库，支持歌单搜索、定位当前播放，Swup 换页不中断）
 - 🏷️ 分类、标签、归档、RSS、站点地图
 - 🎬 追番 / 观影清单（动画、电影、剧集）、友链页面
@@ -209,7 +209,7 @@ public/           # 静态资源（含自托管 pdf.js）
 
 ## 感谢
 
-参考样式：[Ru-yu Blog](https://www.chichu.chat/)、[ThriveX Blog](https://liuyuyang.net/)
+参考样式：[Ru-yu Blog](https://www.chichu.chat/)、[ThriveX Blog](https://liuyuyang.net/)、[安和鱼](https://blog.anheyu.com/)
 
 ## 许可证
 

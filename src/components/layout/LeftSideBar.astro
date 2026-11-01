@@ -6,7 +6,6 @@ import Music from "@/components/widget/Music.astro";
 import Profile from "@/components/widget/Profile.astro";
 import SiteRuntime from "@/components/widget/SiteRuntime.astro";
 import SiteStats from "@/components/widget/SiteStats.astro";
-import SolarTerm from "@/components/widget/SolarTerm.astro";
 import Tags from "@/components/widget/Tags.astro";
 import type { WidgetComponentConfig } from "@/types/config";
 import {
@@ -32,7 +31,6 @@ const componentMap = {
 	tags: Tags,
 	stats: SiteStats,
 	runtime: SiteRuntime,
-	solarTerm: SolarTerm,
 	music: Music,
 };
 
@@ -61,7 +59,7 @@ function renderComponent(
   <!-- 顶部固定组件区域 -->
   {
     topComponents.length > 0 && (
-      <div class="flex flex-col w-full gap-5 mb-5">
+      <div class="flex flex-col w-full gap-5 mb-5 shrink-0">
         {topComponents.map((component, index) => {
           const renderData = renderComponent(component, index, topComponents);
           if (!renderData) return null;
@@ -78,7 +76,7 @@ function renderComponent(
     stickyComponents.length > 0 && (
       <div
         id="left-sidebar-sticky"
-        class:list={["flex flex-col w-full gap-5", { "sticky top-22": !isPostPage }]}
+        class:list={["flex flex-col w-full gap-5 shrink-0", { "sticky top-22": !isPostPage }]}
       >
         {stickyComponents.map((component, index) => {
           const renderData = renderComponent(
@@ -95,7 +93,7 @@ function renderComponent(
     )
   }
   {isPostPage && (
-    <div class:list={["sticky top-22", { "mt-5": stickyComponents.length > 0 }]}>
+    <div class:list={["sticky top-22 shrink-0", { "mt-5": stickyComponents.length > 0 }]}>
       <slot />
     </div>
   )}
