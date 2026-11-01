@@ -16,6 +16,16 @@ export const homeTopNoticeConfig: HomeTopNoticeConfig = {
 			},
 		},
 		{
+			title: "最新动态",
+			content: "从2026年开始，将会使用AI进行润色",
+			link: {
+				enable: false,
+				text: "",
+				url: "",
+				external: false,
+			},
+		},
+		{
 			title: "每日一言",
 			content: "天上白玉京，十二楼五城",
 			link: {
