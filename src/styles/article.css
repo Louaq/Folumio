@@ -28,6 +28,17 @@
   text-decoration: none;
 }
 
+.custom-md a[href]:not([href^="#"]):not(.anchor):not(.no-styling):not(.btn-regular):not(.btn-card):not(.btn-plain):not(:has(img, svg))::before {
+  content: "";
+  display: inline-block;
+  width: 0.9em;
+  height: 0.9em;
+  margin-right: 0.2em;
+  vertical-align: -0.1em;
+  background-color: currentColor;
+  mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M15 3h6v6M10 14 21 3M21 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5'/%3E%3C/svg%3E") center / contain no-repeat;
+}
+
 .custom-md h1,
 .custom-md h2,
 .custom-md h3,
