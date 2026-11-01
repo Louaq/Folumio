@@ -1,5 +1,5 @@
 import { h } from "hastscript";
-import { visit } from "unist-util-visit";
+import { SKIP, visit } from "unist-util-visit";
 
 const ADMONITION_TYPES = [
 	"note",
@@ -31,8 +31,19 @@ const ADMONITION_TYPES = [
 ];
 
 export function parseDirectiveNode() {
-	return (tree) => {
-		visit(tree, (node) => {
+	return (tree, file) => {
+		visit(tree, (node, index, parent) => {
+			// 时间中的 :59 等纯数字行内指令应保留为原文。
+			if (node.type === "textDirective" && /^\d+$/.test(node.name)) {
+				parent.children[index] = {
+					type: "text",
+					value: file
+						.toString()
+						.slice(node.position.start.offset, node.position.end.offset),
+				};
+				return SKIP;
+			}
+
 			if (
 				node.type === "containerDirective" ||
 				node.type === "leafDirective" ||
