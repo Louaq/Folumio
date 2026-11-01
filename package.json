@@ -1,7 +1,7 @@
 {
-  "name": "firefly",
+  "name": "Folumio",
   "type": "module",
-  "version": "6.7.15",
+  "version": "9.0.1",
   "scripts": {
     "dev": "astro dev",
     "start": "astro dev",

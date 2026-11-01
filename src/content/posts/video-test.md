@@ -1,6 +1,7 @@
 ---
 title: 视频播放测试
 published: 2026-10-06
+updated: 2026-10-31
 category: 测试
 tags: [测试]
 description: video 测试
