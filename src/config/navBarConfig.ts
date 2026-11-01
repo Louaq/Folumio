@@ -22,13 +22,6 @@ const getDynamicNavBarConfig = (): NavBarConfig => {
 	links.push(LinkPreset.About);
 
 	links.push({
-		name: "配色",
-		url: "/colors/",
-		external: true,
-		icon: "fluent-emoji-flat:artist-palette",
-	});
-
-	links.push({
 		name: "状态",
 		url: "https://status.louaq.io",
 		external: true,
