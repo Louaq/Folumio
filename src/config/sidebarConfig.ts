@@ -28,11 +28,26 @@ export const sidebarLayoutConfig: SidebarLayoutConfig = {
 			animationDelay: 0,
 		},
 		{
+			// 组件类型：站点运行时间组件
+			type: "runtime",
+			// 是否启用该组件
+			enable: true,
+			showOnPostPage: false,
+			// 组件显示顺序
+			order: 2,
+			// 组件位置
+			position: "sticky",
+			// CSS 类名
+			class: "onload-animation",
+			// 动画延迟时间
+			animationDelay: 0,
+		},
+		{
 			// 组件类型：公告组件
 			type: "announcement",
 			// 是否启用该组件
 			enable: true,
-			showOnPostPage: true,
+			showOnPostPage: false,
 			// 组件显示顺序
 			order: 3,
 			// 组件位置
@@ -50,21 +65,6 @@ export const sidebarLayoutConfig: SidebarLayoutConfig = {
 			showOnPostPage: false,
 			// 组件显示顺序
 			order: 4,
-			// 组件位置
-			position: "sticky",
-			// CSS 类名
-			class: "onload-animation",
-			// 动画延迟时间
-			animationDelay: 0,
-		},
-		{
-			// 组件类型：站点运行时间组件
-			type: "runtime",
-			// 是否启用该组件
-			enable: true,
-			showOnPostPage: true,
-			// 组件显示顺序
-			order: 2,
 			// 组件位置
 			position: "sticky",
 			// CSS 类名
