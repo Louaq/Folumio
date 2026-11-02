@@ -34,7 +34,7 @@ export const sidebarLayoutConfig: SidebarLayoutConfig = {
 			enable: true,
 			showOnPostPage: true,
 			// 组件显示顺序
-			order: 2,
+			order: 3,
 			// 组件位置
 			position: "sticky",
 			// CSS 类名
@@ -49,7 +49,7 @@ export const sidebarLayoutConfig: SidebarLayoutConfig = {
 			enable: true,
 			showOnPostPage: false,
 			// 组件显示顺序
-			order: 3,
+			order: 4,
 			// 组件位置
 			position: "sticky",
 			// CSS 类名
@@ -62,9 +62,9 @@ export const sidebarLayoutConfig: SidebarLayoutConfig = {
 			type: "runtime",
 			// 是否启用该组件
 			enable: true,
-			showOnPostPage: false,
+			showOnPostPage: true,
 			// 组件显示顺序
-			order: 4,
+			order: 2,
 			// 组件位置
 			position: "sticky",
 			// CSS 类名

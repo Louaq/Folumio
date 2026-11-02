@@ -20,11 +20,9 @@ interface Props {
 	/** 首次挂载时是否直接打开搜索弹窗（用于懒加载入口） */
 	initialOpen?: boolean;
 	labels: SearchLabels;
-	/** 搜索框为空时默认展示的文章 */
-	recentPosts: { url: string; title: string; description: string }[];
 }
 
-let { initialOpen = false, labels, recentPosts }: Props = $props();
+let { initialOpen = false, labels }: Props = $props();
 
 const MEILISEARCH_HOST =
 	import.meta.env.PUBLIC_MEILISEARCH_HOST || "https://search.louaq.com";
@@ -132,22 +130,13 @@ const openModal = async () => {
 	lockScroll();
 	await tick();
 	modalInputEl?.focus();
-	showRecent();
+	results = [];
+	activeIndex = -1;
 	page = 0;
 	nbHits = 0;
 	nbPages = 0;
 	hasMore = false;
 	isLoadingMore = false;
-};
-
-const showRecent = () => {
-	results = recentPosts.map((post) => ({
-		...post,
-		excerpt: "",
-		tags: [],
-		category: "",
-	}));
-	activeIndex = 0;
 };
 
 const closeModal = () => {
@@ -241,7 +230,9 @@ const doSearch = async (keyword: string, opts?: { reset?: boolean }) => {
 
 	const trimmed = keyword.trim();
 	if (!trimmed) {
-		showRecent();
+		requestSeq++;
+		results = [];
+		activeIndex = -1;
 		isSearching = false;
 		page = 0;
 		nbHits = 0;
@@ -364,6 +355,10 @@ $effect(() => {
 		// 读取 query 以建立依赖
 		const _q = query;
 		clearTimeout(debounceTimer);
+		if (!_q.trim()) {
+			void doSearch(_q, { reset: true });
+			return;
+		}
 		debounceTimer = setTimeout(() => void doSearch(_q, { reset: true }), 250);
 	}
 });
@@ -493,6 +488,7 @@ onDestroy(() => {
 			</div>
 		</div>
 
+		{#if query.trim()}
 		<div class="search-body">
 			{#if !initialized}
 				<div class="search-empty">搜索服务未配置</div>
@@ -540,6 +536,7 @@ onDestroy(() => {
 				{/if}
 			{/if}
 		</div>
+		{/if}
 
 		<footer class="docsearch-modal-footer">
 			<ul class="docsearch-modal-footer-commands" role="list">

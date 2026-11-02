@@ -39,9 +39,6 @@ const isSingleColumnLayout = hideSidebar;
 const PostPageTOC = isPostPageCheck
 	? (await import("@components/layout/PostPageTOC.astro")).default
 	: null;
-const PostPageRecentPosts = isPostPageCheck
-	? (await import("@components/layout/PostPageRecentPosts.astro")).default
-	: null;
 
 const gridCols = isSingleColumnLayout
 	? "grid-cols-1"
@@ -83,11 +80,8 @@ const mainPanelTop = "5.5rem";
                         isPostPage={isPostPageCheck}
                         class={`hidden ${isPostPageCheck ? 'md:flex md:flex-col' : 'md:block'} md:row-start-[var(--content-row)] md:row-span-1 md:col-start-2 md:col-end-3 md:self-stretch transition-main`}
                     >
-                        {PostPageTOC && PostPageRecentPosts && postSlug !== undefined && (
-                            <div class="flex flex-col gap-5">
-                                <PostPageTOC headings={headings} />
-                                <PostPageRecentPosts currentPostSlug={postSlug} />
-                            </div>
+                        {PostPageTOC && (
+                            <PostPageTOC headings={headings} />
                         )}
                     </LeftSideBar>
                 )}

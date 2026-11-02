@@ -15,7 +15,7 @@ const { headings: _headings = [], class: className, style } = Astro.props;
 ---
 
 <div class:list={["post-page-toc-wrap", className]} style={style}>
-  <WidgetLayout id="post-page-toc-widget" name={i18n(I18nKey.tableOfContents)} class="overflow-hidden rounded-2xl shadow-xs border border-black/6 dark:border-white/10">
+  <WidgetLayout id="post-page-toc-widget" name={i18n(I18nKey.tableOfContents)} icon="material-symbols:menu" class="overflow-hidden rounded-2xl shadow-xs border border-black/6 dark:border-white/10">
     <div class="toc-scroll-container">
       <div class="toc-content" id="post-page-toc-content">
         <!-- TOC 内容由 TOCManager 从正文标题生成 -->
@@ -31,14 +31,6 @@ const { headings: _headings = [], class: className, style } = Astro.props;
 
 .post-page-toc-wrap :global(widget-layout) {
 	display: block;
-}
-
-/* 标题与目录项文字左对齐（.toc-item 左内边距 0.62rem），去掉标题前的竖条 */
-.post-page-toc-wrap :global(.widget-title) {
-	margin-left: 1.62rem;
-}
-.post-page-toc-wrap :global(.widget-title)::before {
-	display: none;
 }
 
 .post-page-toc-wrap .toc-scroll-container {

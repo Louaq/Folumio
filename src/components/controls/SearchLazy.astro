@@ -1,8 +1,6 @@
 ---
 import I18nKey from "@/i18n/i18nKey";
 import { i18n } from "@/i18n/translation";
-import { getSortedPosts } from "@utils/content-utils";
-import { getPostUrlForEntry } from "@utils/url-utils";
 import Search from "./Search.svelte";
 
 const labels = {
@@ -14,13 +12,8 @@ const labels = {
 	announcementClose: i18n(I18nKey.announcementClose),
 };
 
-const recentPosts = (await getSortedPosts()).slice(0, 4).map((post) => ({
-	url: getPostUrlForEntry(post),
-	title: post.data.title,
-	description: post.data.description || "",
-}));
 ---
 
 <div class="navbar-search-slot">
-	<Search client:load labels={labels} recentPosts={recentPosts} />
+	<Search client:load labels={labels} />
 </div>
