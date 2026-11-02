@@ -4,6 +4,7 @@ published: 2026-10-31
 description: 汇总 2026 年 8—10 月 Node.js、PHP、Next.js 安全更新、eMudhra 中间 CA 弱私钥事件与 npm 供应链攻击，整理影响范围和排查要点。
 category: 网络安全
 tags: [网络安全, 供应链安全]
+image: /assets/coverImage/4.webp
 homeCarousel: true
 homeCarouselOrder: 4
 ---
