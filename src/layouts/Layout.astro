@@ -363,10 +363,14 @@ const collapsiblePreviewLines =
       }
       return replaceContent(visit, args);
     });
-    window.swup.hooks.on("content:replace", () => {
+    window.swup.hooks.on("content:replace", (visit: { to: { url: string } }) => {
       initArchivePage();
       updateNavbarPostTitle();
       updateNavbarAppearance();
+      const isHomePage = pathsEqual(visit.to.url, url("/"));
+      const toPathname = new URL(visit.to.url, window.location.href).pathname;
+      const isPostPage = /\/posts\/.+/.test(toPathname);
+      document.body.dataset.pageType = isHomePage ? "home" : isPostPage ? "post" : "page";
       initCoverImages();
       initPostPageTOC();
       initMarkdownImages();
@@ -431,12 +435,6 @@ const collapsiblePreviewLines =
 
       const bodyElement = document.querySelector("body");
       const isHomePage = pathsEqual(visit.to.url, url("/"));
-      const toPathname = new URL(visit.to.url, window.location.href).pathname;
-      const isPostPage = /\/posts\/.+/.test(toPathname);
-      const nextPageType = isHomePage ? "home" : isPostPage ? "post" : "page";
-      if (bodyElement) {
-        bodyElement.dataset.pageType = nextPageType;
-      }
 
       if (isHomePage) {
         bodyElement!.classList.add("lg:is-home");
