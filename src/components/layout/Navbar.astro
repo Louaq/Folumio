@@ -33,11 +33,11 @@ let links: NavBarLink[] = navBarConfig.links.map(
                 "navbar-row flex h-full w-full min-w-0 items-center gap-2 lg:gap-3 xl:gap-4",
             ]}
         >
-        <!-- 移动端：Logo 隐藏，改为汉堡菜单+日夜切换在左侧成对出现；桌面端：Logo 保持最左 -->
+        <!-- 桌面端品牌胶囊，移动端使用折叠菜单 -->
         <a
             href={url('/')}
             aria-label="Go to Home Page"
-            class="navbar-brand-link btn-plain rounded-lg h-13 px-5 max-lg:hidden lg:order-1 lg:shrink-0"
+            class="navbar-brand-link navbar-pill max-lg:hidden"
         >
             <div class="flex min-w-0 flex-row items-center justify-center text-[16px] dark:text-white">
                                 {siteConfig.navbar.logo?.type === "icon" ? (
@@ -50,25 +50,32 @@ let links: NavBarLink[] = navBarConfig.links.map(
                                     <Icon name="material-symbols:home-pin-outline" class="shrink-0 text-[1.75rem]" />
                                 )}
             </div>
+            <span>{siteConfig.title}</span>
         </a>
         <div
             class:list={[
-                "hidden min-w-0 items-center space-x-1 lg:flex lg:order-2",
+                "navbar-links navbar-pill hidden min-w-0 items-center lg:flex",
             ]}
         >
-            {links.map((l) => {
-                return <DropdownMenu link={l} />;
-            })}
+            <div class="navbar-menu-items space-x-1">
+                {links.map((l) => {
+                    return <DropdownMenu link={l} />;
+                })}
+            </div>
+            <span id="navbar-post-title"></span>
         </div>
 
-        <!-- 移动端左侧：汉堡菜单 + 日夜切换成对出现（order-1/2）；桌面端隐藏，样式不变 -->
-        <button aria-label="Menu" name="Nav Menu" class="navbar-util-no-hover btn-plain scale-animation rounded-lg w-12 h-12 active:scale-90 shrink-0 order-1 lg:hidden!" id="nav-menu-switch">
+        <div class="navbar-pill lg:hidden!">
+        <button aria-label="Menu" name="Nav Menu" class="navbar-util-no-hover btn-plain scale-animation rounded-lg w-11 h-11 active:scale-90 shrink-0" id="nav-menu-switch">
             <Icon name="material-symbols:menu-rounded" class="text-[1.75rem]"></Icon>
         </button>
+        </div>
+        <div class="navbar-tools navbar-pill">
+        <SearchLazy />
         {(siteConfig.themeColor.showModeSwitch ?? true) && (
             <button
                 aria-label="Toggle Light/Dark Mode"
-                class="navbar-util-no-hover theme-switch relative shrink-0 order-2 lg:order-5 active:scale-95"
+                class="navbar-util-no-hover theme-switch relative shrink-0 active:scale-95"
                 id="scheme-switch"
                 type="button"
             >
@@ -90,9 +97,6 @@ let links: NavBarLink[] = navBarConfig.links.map(
             </button>
         )}
 
-        <!-- 右侧：仅保留搜索图标，ml-auto 将其（及桌面端的主题按钮）推到最右侧 -->
-        <div class="flex shrink-0 items-center order-4 lg:order-3 ml-auto">
-            <SearchLazy />
         </div>
         </div>
         </div>

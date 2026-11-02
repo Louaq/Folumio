@@ -213,9 +213,16 @@ const collapsiblePreviewLines =
     const navbar = document.getElementById("top-row")!;
     const scrolled = window.scrollY > 0;
     navbar.dataset.scrolled = String(scrolled);
-    navbar.dataset.overPostHero = String(!scrolled && !!document.querySelector(".post-hero"));
   }
 
+  function updateNavbarPostTitle() {
+    const title = document.getElementById("post-title");
+    const navbarTitle = document.getElementById("navbar-post-title")!;
+    navbarTitle.textContent = title?.textContent?.trim() ?? "";
+    navbarTitle.title = navbarTitle.textContent;
+  }
+
+  updateNavbarPostTitle();
   updateNavbarAppearance();
   window.addEventListener("scroll", updateNavbarAppearance, { passive: true });
 
@@ -341,28 +348,24 @@ const collapsiblePreviewLines =
         if (oldest) window.swup.cache.delete(oldest);
       }
     });
-    window.swup.hooks.on("link:click", (_visit: any, { el }: { el: HTMLAnchorElement }) => {
+    window.swup.hooks.on("link:click", () => {
       document.documentElement.style.setProperty("--content-delay", "0ms");
-
-      const targetHref = el?.getAttribute("href") || "";
-      const targetPathname = (() => {
-        try {
-          return new URL(targetHref, window.location.origin).pathname;
-        } catch {
-          return targetHref;
-        }
-      })();
-      const isSamePage = pathsEqual(targetPathname, window.location.pathname);
-      if (!isSamePage) {
-        document.documentElement.classList.add("is-page-transitioning");
-      }
 
      
     });
-    window.swup.hooks.on("content:replace", () => {
+    window.swup.hooks.replace("content:replace", (visit: {
+      history?: { popstate?: boolean };
+    }, args: unknown, replaceContent: (visit: unknown, args: unknown) => unknown) => {
       (window as any).__swupScrollLockY = null;
 
+      if (!visit.history?.popstate) {
+        scrollWindowTopInstant();
+      }
+      return replaceContent(visit, args);
+    });
+    window.swup.hooks.on("content:replace", () => {
       initArchivePage();
+      updateNavbarPostTitle();
       updateNavbarAppearance();
       initCoverImages();
       initPostPageTOC();
@@ -401,6 +404,7 @@ const collapsiblePreviewLines =
       history?: { popstate?: boolean; direction?: string };
       scroll?: { reset?: boolean };
     }) => {
+      document.documentElement.classList.add("is-page-transitioning");
       const fromPath = visit.from?.url ?? (window.location.pathname + window.location.search);
       const fromHash = visit.from?.hash ?? window.location.hash;
       const currentKey = "swup-scroll:" + fromPath + (fromHash || "");
@@ -484,10 +488,9 @@ const collapsiblePreviewLines =
           const maxY = Math.max(0, document.documentElement.scrollHeight - window.innerHeight);
           requestAnimationFrame(() => {
             window.scrollTo(0, Math.min(savedY!, maxY));
+            updateNavbarAppearance();
           });
         }
-      } else {
-        scrollWindowTopInstant();
       }
 
       const isMobile = window.innerWidth < 1024;

@@ -62,9 +62,6 @@ const mainPanelTop = "5.5rem";
 
 
 <div class="absolute w-full z-30 pointer-events-none no-banner-layout" style={`top: ${mainPanelTop}`}>
-    <div id="post-hero-wrapper" class="pointer-events-auto transition-swup-fade transition-main">
-        <slot name="post-hero" />
-    </div>
     <!-- The pointer-events-none here prevent blocking the click event of the TOC -->
     <div class="relative max-w-(--page-width) mx-auto pointer-events-auto">
         <div id="main-grid" class={`w-full left-0 right-0 grid ${gridCols} grid-rows-[auto_1fr_auto] lg:grid-rows-[auto] mx-auto gap-4 px-2 md:px-4 ${!showSidebarOnMobile ? 'mobile-no-sidebar' : ''}`}
