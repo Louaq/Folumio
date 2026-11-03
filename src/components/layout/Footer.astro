@@ -276,12 +276,22 @@ if (footerConfig.enable) {
   @media (max-width: 767px) {
     .footer-inner {
       flex-direction: column;
-      align-items: flex-start;
+      align-items: center;
       gap: 16px;
       padding: 20px 8px;
     }
+    .footer-information {
+      text-align: center;
+    }
+    .footer-copyright,
+    .footer-meta,
+    [data-visitor-count],
+    .footer-navigation,
     .footer-links {
-      align-self: flex-end;
+      justify-content: center;
+    }
+    .footer-links {
+      flex-wrap: wrap;
     }
   }
 </style>

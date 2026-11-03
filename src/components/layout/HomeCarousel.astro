@@ -87,12 +87,12 @@ const safeAutoplayMs = Math.max(0, autoplayMs);
 			</div>
 			{
 				slides.length > 1 && (
-					<div class="carousel-dots absolute right-4 top-1/2 -translate-y-1/2 z-10 flex flex-col items-center gap-2">
+					<div class="carousel-dots absolute bottom-3 left-1/2 -translate-x-1/2 z-10 flex items-center gap-2">
 						{
 							slides.map((_slide, index) => (
 								<button
 									type="button"
-									class="carousel-dot w-1.5 rounded-full"
+									class="carousel-dot h-1.5 rounded-full"
 									data-slide-to={index}
 									aria-label={`跳转到第 ${index + 1} 张`}
 								/>
@@ -236,7 +236,7 @@ const safeAutoplayMs = Math.max(0, autoplayMs);
 				const touch = event.touches[0];
 				const deltaX = touch.clientX - touchStartX;
 				const deltaY = touch.clientY - touchStartY;
-				if (Math.abs(deltaY) > 10 && Math.abs(deltaY) > Math.abs(deltaX) * 1.2) {
+				if (Math.abs(deltaX) > 10 && Math.abs(deltaX) > Math.abs(deltaY) * 1.2) {
 					suppressClick = true;
 					event.preventDefault();
 				}
@@ -256,11 +256,11 @@ const safeAutoplayMs = Math.max(0, autoplayMs);
 				}
 				const deltaX = touch.clientX - touchStartX;
 				const deltaY = touch.clientY - touchStartY;
-				const isVerticalSwipe = Math.abs(deltaY) > 48 && Math.abs(deltaY) > Math.abs(deltaX) * 1.2;
-				if (isVerticalSwipe) {
+				const isHorizontalSwipe = Math.abs(deltaX) > 48 && Math.abs(deltaX) > Math.abs(deltaY) * 1.2;
+				if (isHorizontalSwipe) {
 					suppressClick = true;
 					if (event.cancelable) event.preventDefault();
-					goTo(deltaY < 0 ? current + 1 : current - 1);
+					goTo(deltaX < 0 ? current + 1 : current - 1);
 				} else {
 					start();
 				}
@@ -300,7 +300,7 @@ const safeAutoplayMs = Math.max(0, autoplayMs);
 	.home-carousel .carousel-track-wrap {
 		overflow: hidden;
 		background: color-mix(in oklab, var(--card-bg) 82%, black 18%);
-		touch-action: pan-x;
+		touch-action: pan-y;
 	}
 
 	.home-carousel .carousel-slide {
@@ -356,13 +356,13 @@ const safeAutoplayMs = Math.max(0, autoplayMs);
 	}
 
 	.home-carousel .carousel-dot {
-		height: 1.5rem;
+		width: 1.5rem;
 		background: rgba(255, 255, 255, 0.55);
-		transition: height 0.2s ease, background 0.2s ease;
+		transition: width 0.2s ease, background 0.2s ease;
 	}
 
 	.home-carousel .carousel-dot.is-active {
-		height: 2.5rem;
+		width: 2.5rem;
 		background: var(--primary);
 	}
 
