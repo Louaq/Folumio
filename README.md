@@ -9,21 +9,21 @@
 <table>
   <tr>
     <td width="50%" align="center">
-      <img src="https://pic1.imgdb.cn/i/034eTilS48S3CdG1acXUup.png" alt="首页"><br>
+      <img src="https://pic1.imgdb.cn/i/034r9HxAqUvgP1Yf0Pa5bo.webp" alt="首页"><br>
       <sub><b>首页 · 深色</b></sub>
     </td>
     <td width="50%" align="center">
-      <img src="https://pic1.imgdb.cn/i/034eTjOcsNigCY1uSZadG3.png" alt="文章页"><br>
+      <img src="https://pic1.imgdb.cn/i/034r9HwQXQ6Xt5bR44cdii.webp" alt="文章页"><br>
       <sub><b>文章页</b></sub>
     </td>
   </tr>
   <tr>
     <td width="50%" align="center">
-      <img src="https://pic1.imgdb.cn/i/034eTlN9D2SLgavCMnmveB.png" alt="归档页"><br>
+      <img src="https://pic1.imgdb.cn/i/034r9HyCax3iU3Ju2uoepN.webp" alt="归档页"><br>
       <sub><b>归档页</b></sub>
     </td>
     <td width="50%" align="center">
-      <img src="https://pic1.imgdb.cn/i/034eTlmbViuJddiKcsv7j4.png" alt="追番 / 观影清单"><br>
+      <img src="https://pic1.imgdb.cn/i/034r9I02qFfyJYbH3uZ1sL.webp" alt="追番 / 观影清单"><br>
       <sub><b>追番 / 观影清单</b></sub>
     </td>
   </tr>
