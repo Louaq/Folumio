@@ -200,14 +200,7 @@ const collapsiblePreviewLines =
 <script>
   import { pathsEqual, url } from "@/utils/url-utils";
   import { expressiveCodeConfig, siteConfig } from "@/config";
-  import { initArchivePage } from "@/utils/archive-init";
-  import { initPostCardDelegation } from "@/utils/post-card-init";
-  import { initCoverImages } from "@/utils/cover-image-init";
-  import { initMarkdownImages } from "@/utils/markdown-image-init";
-  import { initPostPageTOC } from "@/utils/post-page-toc-init";
-  import { initCodeCopyFeedback } from "@/utils/code-copy-feedback-init";
-  import { initCodeFullscreen } from "@/utils/code-fullscreen-init";
-  import { warmUpDeferredBlocks } from "@/utils/deferred-block-warmup";
+  import { initPageFeatures } from "@/utils/page-features-init";
 
   function updateNavbarAppearance() {
     const navbar = document.getElementById("top-row")!;
@@ -226,35 +219,9 @@ const collapsiblePreviewLines =
   updateNavbarAppearance();
   window.addEventListener("scroll", updateNavbarAppearance, { passive: true });
 
-  initPostCardDelegation();
-  initCoverImages();
-  initPostPageTOC();
-  initMarkdownImages();
-  initCodeCopyFeedback();
-  initCodeFullscreen();
-  warmUpDeferredBlocks();
-
-  let copyResetTimer: ReturnType<typeof setTimeout>;
-
-  document.addEventListener("click", async (event) => {
-    const button = (event.target as Element).closest<HTMLButtonElement>("#post-share");
-    if (!button) return;
-
-    const label = button.querySelector("[data-share-label]")!;
-    try {
-      await navigator.clipboard.writeText(button.dataset.url!);
-      label.textContent = button.dataset.copied!;
-      button.title = button.dataset.copied!;
-      clearTimeout(copyResetTimer);
-      copyResetTimer = setTimeout(() => {
-        label.textContent = button.dataset.label!;
-        button.title = button.getAttribute("aria-label")!;
-      }, 3000);
-    } catch {
-      label.textContent = button.dataset.failed!;
-      button.title = button.dataset.failed!;
-    }
-  });
+  initPageFeatures();
+  // Swup 导航和加密正文解锁共用同一入口，避免换页时重复初始化。
+  document.addEventListener("astro:page-load", initPageFeatures);
 
   function setClickOutsideToClose(panel: string, ignores: string[]) {
       document.addEventListener("click", (event) => {
@@ -284,27 +251,6 @@ const collapsiblePreviewLines =
     "theme-mode-panel",
     "scheme-switch",
   ]);
-
-  function initCustomScrollbar() {
-    const katexElements = document.querySelectorAll(
-      ".katex-display:not([data-scrollbar-initialized])"
-    ) as NodeListOf<HTMLElement>;
-    katexElements.forEach((element) => {
-      if (!element.parentNode) return;
-
-      const container = document.createElement("div");
-      container.className = "katex-display-container";
-      element.parentNode.insertBefore(container, element);
-      container.appendChild(element);
-
-      container.style.cssText = `
-			overflow-x: auto;
-		`;
-
-      element.setAttribute("data-scrollbar-initialized", "true");
-    });
-  }
-
 
   function scrollWindowTopInstant() {
     const root = document.documentElement;
@@ -364,17 +310,16 @@ const collapsiblePreviewLines =
       return replaceContent(visit, args);
     });
     window.swup.hooks.on("content:replace", (visit: { to: { url: string } }) => {
-      initArchivePage();
+      if (window.PostPageTOC) {
+        window.PostPageTOC.manager?.cleanup();
+        window.PostPageTOC.manager = null;
+      }
       updateNavbarPostTitle();
       updateNavbarAppearance();
       const isHomePage = pathsEqual(visit.to.url, url("/"));
       const toPathname = new URL(visit.to.url, window.location.href).pathname;
       const isPostPage = /\/posts\/.+/.test(toPathname);
       document.body.dataset.pageType = isHomePage ? "home" : isPostPage ? "post" : "page";
-      initCoverImages();
-      initPostPageTOC();
-      initMarkdownImages();
-      warmUpDeferredBlocks();
 
       const gridClassCarrier = document.getElementById("grid-class-carrier");
       if (gridClassCarrier) {
@@ -393,7 +338,6 @@ const collapsiblePreviewLines =
       }
 
 
-      initCustomScrollbar();
       
       import("@/utils/icon-loader").then(({ initIconLoader }) => {
         initIconLoader();
@@ -537,7 +481,6 @@ const collapsiblePreviewLines =
 
 
 
-  initCustomScrollbar();
 
   import { initIconLoader } from "@/utils/icon-loader";
   const initOptionalRuntime = () => {

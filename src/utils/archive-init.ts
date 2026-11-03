@@ -11,8 +11,8 @@
  * 几次归档页，监听器依然缺失，年份分组状态就再也无法恢复。
  *
  * 因此本函数不能只由归档页自身的 <script> 调用一次；还需要被 Layout.astro
- * 里保证只执行一次、且通过 swup 自身钩子系统（而非依赖脚本重新执行）持续触发
- * 的 `content:replace` 回调调用，才能在任意导航路径下都可靠生效。
+ * 的公共入口按需导入，并在首载和 `astro:page-load` 时调用；Swup 在 `page:view`
+ * 钩子派发该事件，因此无需依赖归档页自身脚本重新执行。
  */
 export function initArchivePage(): void {
 	const list = document.getElementById("archive-list");
