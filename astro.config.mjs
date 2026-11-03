@@ -1,4 +1,3 @@
-import sitemap from "@astrojs/sitemap";
 import svelte from "@astrojs/svelte";
 import { pluginLineNumbers } from "@expressive-code/plugin-line-numbers";
 import swup from "@swup/astro";
@@ -181,17 +180,6 @@ export default defineConfig({
 			},
 		}),
 		svelte(),
-		sitemap({
-			filter: (page) => {
-				const url = new URL(page);
-				const pathname = url.pathname;
-				if (pathname === "/friends/" && !siteConfig.pages.friends) {
-					return false;
-				}
-
-				return true;
-			},
-		}),
 		mdx(),
 		meilisearch(),
 	],
