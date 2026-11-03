@@ -122,6 +122,15 @@ if (footerConfig.enable) {
       }
     </div>
   </div>
+  <div class="footer-links">
+    <nav class="footer-friend-links" aria-label="友链集合">
+      <a href="https://www.foreverblog.cn/go.html" target="_blank" rel="noopener noreferrer" title="WORMHOLE · 穿梭虫洞">
+        <img src={url("/assets/images/wormhole_4_tp.gif")} alt="WORMHOLE" width="80" height="22" loading="lazy" decoding="async" />
+      </a>
+      <a href="https://www.travellings.cn/go.html" target="_blank" rel="noopener noreferrer" title="Travelling · 开往友链接力">
+        <img src={url("/assets/images/kaiwang.gif")} alt="Travelling" width="80" height="20" loading="lazy" decoding="async" />
+      </a>
+    </nav>
   <nav class="footer-navigation" aria-label="页脚导航">
     <a href={url("/about/")}>关于</a>
     <a href="https://github.com/Louaq/Folumio" target="_blank" rel="noopener noreferrer">框架</a>
@@ -129,6 +138,7 @@ if (footerConfig.enable) {
     <a href={url("/rss.xml")} data-no-swup aria-label="RSS 订阅" title="RSS 订阅"><Icon name="lucide:rss" /></a>
     <a href={url("/sitemap.xml")} data-no-swup aria-label="站点地图" title="站点地图"><Icon name="lucide:map" /></a>
   </nav>
+  </div>
   </div>
 </footer>
 
@@ -162,6 +172,11 @@ if (footerConfig.enable) {
   .footer-powered a { color: var(--primary); }
   .footer-meta { margin-top: 4px; }
   .footer-custom { margin-top: 4px; }
+  .footer-links { display: flex; align-items: center; justify-content: flex-end; flex-wrap: wrap; gap: 16px; }
+  .footer-friend-links { display: flex; align-items: center; gap: 8px; }
+  .footer-friend-links a { display: inline-flex; }
+  .footer-friend-links img { display: block; width: 80px; height: auto; }
+  :global(:root.dark) .footer-friend-links img { filter: invert(1); }
   .footer-navigation { display: flex; align-items: center; flex-wrap: wrap; gap: 16px; flex-shrink: 0; color: var(--juejin-text-primary); }
   .footer-navigation a { display: inline-flex; align-items: center; font-weight: 600; }
   .footer-navigation :global(svg) { width: 18px; height: 18px; }
@@ -170,6 +185,7 @@ if (footerConfig.enable) {
   :global(:root.dark) .site-footer { background-color: #20222a; }
   @media (max-width: 767px) {
     .footer-inner { flex-direction: column; align-items: flex-start; gap: 16px; padding: 20px 8px; }
+    .footer-links { align-self: flex-end; }
   }
 </style>
 
