@@ -33,11 +33,11 @@ let links: NavBarLink[] = navBarConfig.links.map(
                 "navbar-row flex h-full w-full min-w-0 items-center gap-2 lg:gap-3 xl:gap-4",
             ]}
         >
-        <!-- 桌面端品牌胶囊，移动端使用折叠菜单 -->
+        <!-- 桌面端品牌，移动端使用折叠菜单 -->
         <a
             href={url('/')}
             aria-label="Go to Home Page"
-            class="navbar-brand-link navbar-pill max-lg:hidden"
+            class="navbar-brand-link navbar-group max-lg:hidden"
         >
             <div class="flex min-w-0 flex-row items-center justify-center text-[16px] dark:text-white">
                                 {siteConfig.navbar.logo?.type === "icon" ? (
@@ -54,7 +54,7 @@ let links: NavBarLink[] = navBarConfig.links.map(
         </a>
         <div
             class:list={[
-                "navbar-links navbar-pill hidden min-w-0 items-center lg:flex",
+                "navbar-links navbar-group hidden min-w-0 items-center lg:flex",
             ]}
         >
             <div class="navbar-menu-items space-x-1">
@@ -65,12 +65,12 @@ let links: NavBarLink[] = navBarConfig.links.map(
             <span id="navbar-post-title"></span>
         </div>
 
-        <div class="navbar-pill px-3 lg:hidden!">
-        <button aria-label="Menu" name="Nav Menu" class="navbar-util-no-hover btn-plain scale-animation rounded-lg w-11 h-11 active:scale-90 shrink-0" id="nav-menu-switch">
+        <div class="navbar-group px-3 lg:hidden!">
+        <button aria-label="Menu" aria-controls="nav-menu-panel" aria-expanded="false" name="Nav Menu" class="navbar-util-no-hover btn-plain scale-animation rounded-lg w-11 h-11 active:scale-90 shrink-0" id="nav-menu-switch">
             <Icon name="material-symbols:menu-rounded" class="text-[1.75rem]"></Icon>
         </button>
         </div>
-        <div class="navbar-tools navbar-pill">
+        <div class="navbar-tools navbar-group">
         <SearchLazy />
         {(siteConfig.themeColor.showModeSwitch ?? true) && (
             <button
@@ -100,8 +100,10 @@ let links: NavBarLink[] = navBarConfig.links.map(
         </div>
         </div>
         </div>
-        <NavMenuPanel links={links}></NavMenuPanel>
     </div>
+    <nav aria-label="移动端导航">
+        <NavMenuPanel links={links}></NavMenuPanel>
+    </nav>
 </div>
 
 <script>

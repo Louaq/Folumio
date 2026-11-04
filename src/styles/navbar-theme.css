@@ -1,42 +1,25 @@
 
 #navbar > div {
-  background: transparent !important;
+  background: #fdfeff !important;
   border-radius: 0 !important;
   border: none !important;
   backdrop-filter: none !important;
+  box-shadow: 0 2px 6px rgb(0 0 0 / 8%);
+}
+
+:root.dark #navbar > div {
+  background: var(--card-bg) !important;
 }
 
 #navbar .navbar-row {
   justify-content: space-between;
 }
 
-#navbar .navbar-pill {
-  position: relative;
-  isolation: isolate;
+#navbar .navbar-group {
   display: flex;
   align-items: center;
   flex-shrink: 0;
   min-height: 44px;
-  border-radius: 999px;
-}
-
-#navbar .navbar-pill::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  z-index: -1;
-  border-radius: inherit;
-  background: rgba(255, 255, 255, 0.68);
-  backdrop-filter: blur(24px) saturate(180%);
-  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.9),
-    0 4px 16px rgba(31, 38, 64, 0.1);
-  pointer-events: none;
-}
-
-:root.dark #navbar .navbar-pill::before {
-  background: rgba(34, 34, 42, 0.72);
-  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.16),
-    0 4px 16px rgba(0, 0, 0, 0.25);
 }
 
 #navbar .navbar-brand-link {
