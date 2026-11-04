@@ -37,7 +37,7 @@ enum I18nKey {
 	license = "license",
 	postShare = "postShare",
 	postQrCode = "postQrCode",
-	postShareWechatGuide = "postShareWechatGuide",
+	postScanToVisit = "postScanToVisit",
 	postLinkCopied = "postLinkCopied",
 	postLinkCopyFailed = "postLinkCopyFailed",
 	friends = "friends",

@@ -41,7 +41,7 @@ export const zh_CN: Translation = {
 	[Key.license]: "许可协议",
 	[Key.postShare]: "分享",
 	[Key.postQrCode]: "二维码",
-	[Key.postShareWechatGuide]: "微信扫一扫，打开文章后点击右上角分享给好友或朋友圈",
+	[Key.postScanToVisit]: "扫码访问",
 	[Key.postLinkCopied]: "链接已复制",
 	[Key.postLinkCopyFailed]: "复制失败，请重试",
 	[Key.watchlist]: "观影",
