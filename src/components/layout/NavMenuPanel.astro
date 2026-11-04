@@ -35,11 +35,11 @@ const processedLinks = Astro.props.links.map((link: NavBarLink) => ({
 }));
 const currentPath = Astro.url.pathname;
 ---
-<div id="nav-menu-panel" class:list={["nav-menu-drawer float-panel-closed fixed inset-y-0 left-0 z-50 flex w-[42%] min-w-[150px] max-w-[190px] flex-col"]}>
-    <div class="nav-menu-drawer-header flex shrink-0 items-center px-5 py-4">
+<div id="nav-menu-panel" class="float-panel float-panel-closed absolute left-2 z-50 flex w-48 flex-col">
+    <div class="flex shrink-0 items-center px-5 py-3">
         <span class="text-lg font-bold">导航</span>
     </div>
-    <div class="nav-menu-drawer-list flex flex-1 flex-col gap-1 overflow-y-auto px-3 pb-6">
+    <div class="flex flex-col gap-1 overflow-y-auto px-3 pb-3">
     {processedLinks.map((link) => {
         const isCurrentLink = !link.external && isNavPathActive(currentPath, link.url);
         const hasActiveChild =
@@ -119,51 +119,20 @@ const currentPath = Astro.url.pathname;
     })}
     </div>
 </div>
-<div id="nav-menu-backdrop" class="nav-menu-backdrop fixed inset-0 z-40" aria-hidden="true"></div>
 
 <style>
     /* Tailwind v4：组件级 <style> 内使用 @apply 需先 @reference 取得 utilities 上下文 */
     @reference "tailwindcss";
 
-    /* 全屏高度左侧抽屉：不复用 .float-panel（那是给下拉小面板用的 top-4/圆角/阴影），
-       这里自行定义背景、投影与开合过渡；.float-panel-closed 只作状态类沿用既有的
-       显示/点击穿透/外部点击关闭逻辑（Layout.astro 的 setClickOutsideToClose） */
-    #nav-menu-panel.nav-menu-drawer {
-        top: 0;
-        height: 100dvh;
-        background: var(--card-bg);
-        box-shadow: 4px 0 24px rgba(0, 0, 0, 0.12);
-        transform: translateX(0);
+    #nav-menu-panel {
+        top: calc(100% + 0.5rem);
+        max-height: calc(100dvh - var(--navbar-height) - 1rem);
         transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.3s ease;
-    }
-    :root.dark #nav-menu-panel.nav-menu-drawer {
-        box-shadow: 4px 0 24px rgba(0, 0, 0, 0.5);
-    }
-    /* 覆盖 .float-panel-closed 工具类默认的 -translate-y-1（那是给下拉面板用的），
-       抽屉改为整体滑出到视口左侧外 */
-    #nav-menu-panel.nav-menu-drawer.float-panel-closed {
-        transform: translateX(-100%);
     }
 
     .nav-menu-row:hover,
     .nav-menu-row:active {
         background-color: color-mix(in oklch, var(--primary) 6%, transparent);
-    }
-
-    /* 背景遮罩：与抽屉同级的兄弟节点，跟随抽屉的开合状态淡入淡出；
-       遮罩点击会被 Layout.astro 的“外部点击关闭”逻辑识别为面板外点击，从而自动关闭抽屉。
-       top 从导航栏高度开始，避免遮罩盖住导航栏本身（原先 inset-0 会把导航栏右侧未被
-       抽屉覆盖的部分一起蒙黑，看起来像导航栏变黑的 bug） */
-    #nav-menu-backdrop {
-        top: var(--navbar-height, 4.5rem);
-        background: rgba(0, 0, 0, 0.45);
-        opacity: 0;
-        pointer-events: none;
-        transition: opacity 0.3s ease;
-    }
-    #nav-menu-panel.nav-menu-drawer:not(.float-panel-closed) ~ #nav-menu-backdrop {
-        opacity: 1;
-        pointer-events: auto;
     }
 
     .mobile-submenu {
@@ -222,8 +191,7 @@ const currentPath = Astro.url.pathname;
             });
         });
 
-        // 点击具体导航项跳转后，抽屉需要自然收起，而不是一直保持展开
-        // （导航栏是常驻布局，不会随 Swup 切换内容而重建，抽屉状态不会自动重置）
+        // 导航栏不会随 Swup 切换内容而重建，选择导航项后主动关闭菜单。
         const panel = document.getElementById('nav-menu-panel');
         panel?.addEventListener('click', function(e) {
             const target = e.target;

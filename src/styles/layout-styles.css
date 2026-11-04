@@ -25,6 +25,7 @@
 
 .no-banner-layout {
     display: grid;
+    grid-template-columns: minmax(0, 1fr);
     grid-template-rows: 1fr auto;
     top: 5.5rem !important;
     min-height: calc(100vh - 5.5rem) !important;
