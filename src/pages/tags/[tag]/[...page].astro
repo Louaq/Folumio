@@ -1,24 +1,24 @@
 ---
 import type { GetStaticPaths } from "astro";
 import Pagination from "@/components/common/Pagination.astro";
-import PostPage from "@/components/layout/PostPage.astro";
+import ArchiveList from "@/components/layout/ArchiveList.astro";
 import { siteConfig } from "@/config";
 import I18nKey from "@/i18n/i18nKey";
 import { i18n } from "@/i18n/translation";
 import MainGridLayout from "@/layouts/MainGridLayout.astro";
-import { getSortedPosts, getTagList } from "@/utils/content-utils";
+import { getArchivePostsList, getTagList } from "@/utils/content-utils";
 
 export const getStaticPaths = (async ({ paginate }) => {
 	const tags = await getTagList();
-	const allPosts = await getSortedPosts();
+	const allPosts = await getArchivePostsList();
 	const pageSize = siteConfig.pagination.postsPerPage;
 
 	return tags.flatMap((tagItem) => {
 		const name = tagItem.name.trim();
 		const filtered = allPosts.filter(
 			(p) =>
-				Array.isArray(p.data.tags) &&
-				p.data.tags.some((t) => t.trim() === name),
+				Array.isArray(p.tags) &&
+				p.tags.some((t) => t.trim() === name),
 		);
 		return paginate(filtered, {
 			pageSize,
@@ -34,8 +34,8 @@ const paginationRoot = `tags/${tagEncoded}`;
 const title = `#${tagParam} · ${i18n(I18nKey.tags)}`;
 ---
 
-<MainGridLayout title={title} description={title}>
-	<PostPage page={page} />
+<MainGridLayout title={title} description={title} hideSidebar wideContent>
+	<ArchiveList posts={page.data} />
 	{
 		page.lastPage > 1 && (
 			<Pagination

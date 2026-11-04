@@ -21,8 +21,9 @@ export function initArchivePage(): void {
 	const groupsOf = () =>
 		document.querySelectorAll<HTMLDetailsElement>(".archive-year-group");
 
-	// 按查询串分键，使筛选视图与完整视图各自保留独立的展开状态
-	const stateKey = () => `archive:open-years:${window.location.search}`;
+	// 按路径和查询串分键，使各列表与筛选视图保留独立的展开状态
+	const stateKey = () =>
+		`archive:open-years:${window.location.pathname}${window.location.search}`;
 
 	function saveOpenYears() {
 		const open = Array.from(groupsOf())

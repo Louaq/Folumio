@@ -1,22 +1,22 @@
 ---
 import type { GetStaticPaths } from "astro";
 import Pagination from "@/components/common/Pagination.astro";
-import PostPage from "@/components/layout/PostPage.astro";
+import ArchiveList from "@/components/layout/ArchiveList.astro";
 import { siteConfig } from "@/config";
 import I18nKey from "@/i18n/i18nKey";
 import { i18n } from "@/i18n/translation";
 import MainGridLayout from "@/layouts/MainGridLayout.astro";
-import { getCategoryList, getSortedPosts } from "@/utils/content-utils";
+import { getArchivePostsList, getCategoryList } from "@/utils/content-utils";
 
 export const getStaticPaths = (async ({ paginate }) => {
 	const categories = await getCategoryList();
-	const allPosts = await getSortedPosts();
+	const allPosts = await getArchivePostsList();
 	const pageSize = siteConfig.pagination.postsPerPage;
 	const uncategorizedLabel = i18n(I18nKey.uncategorized);
 
 	return categories.flatMap((cat) => {
 		const filtered = allPosts.filter((p) => {
-			const c = p.data.category?.trim();
+			const c = p.category?.trim();
 			if (cat.name === uncategorizedLabel) {
 				return !c;
 			}
@@ -36,8 +36,8 @@ const paginationRoot = `categories/${categoryEncoded}`;
 const title = `${categoryParam} · ${i18n(I18nKey.categories)}`;
 ---
 
-<MainGridLayout title={title} description={title}>
-	<PostPage page={page} />
+<MainGridLayout title={title} description={title} hideSidebar wideContent>
+	<ArchiveList posts={page.data} />
 	{
 		page.lastPage > 1 && (
 			<Pagination
