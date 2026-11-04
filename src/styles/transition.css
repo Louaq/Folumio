@@ -4,8 +4,8 @@
 :root {
     --swup-fade-duration: 100ms;
     --swup-fade-easing: cubic-bezier(0.22, 1, 0.36, 1);
-    --swup-enter-y: 0.75rem;
-    --swup-leave-y: -0.4rem;
+    --swup-enter-y: 0;
+    --swup-leave-y: 0;
     --swup-scale: 0.995;
 }
 
@@ -49,7 +49,6 @@ html.is-animating.is-leaving .transition-main {
 /* State: Leaving */
 html.is-animating.is-leaving .transition-leaving {
     opacity: 0;
-    transform: translate3d(0, -0.15rem, 0);
 }
 
 @keyframes fade-in-up {

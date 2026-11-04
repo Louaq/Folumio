@@ -51,12 +51,12 @@ const currentPath = Astro.url.pathname;
                 <div class="mobile-dropdown" data-mobile-dropdown>
                     <button
                         class="group flex justify-between items-center py-3 px-3 rounded-xl gap-4 w-full text-left
-                            transition nav-menu-row"
+                            transition-transform nav-menu-row"
                         data-mobile-dropdown-trigger
                         aria-expanded="false"
                     >
                         <div class:list={[
-                            "flex items-center transition text-base font-medium text-[#000000B3] dark:text-white/75",
+                            "flex items-center transition-transform text-base font-medium text-[#000000B3] dark:text-white/75",
                             hasActiveChild && "navbar-link-active",
                         ]}>
                             {link.icon && <Icon icon={link.icon} class="text-[1.35rem] mr-3" />}
@@ -76,12 +76,12 @@ const currentPath = Astro.url.pathname;
                             return (
                                 <a href={child.external ? child.url : url(child.url)}
                                    class="group flex justify-between items-center py-2.5 pl-9 pr-3 rounded-xl gap-4
-                                       transition nav-menu-row"
+                                       transition-transform nav-menu-row"
                                    target={child.external ? "_blank" : null}
                                    data-nav-path={!child.external ? child.url : undefined}
                                 >
                                     <div class:list={[
-                                        "flex items-center transition text-black/60 dark:text-white/60 font-medium",
+                                        "flex items-center transition-transform text-black/60 dark:text-white/60 font-medium",
                                         isChildCurrent && "navbar-link-active",
                                     ]} data-nav-active-target>
                                         {child.icon && <Icon icon={child.icon} class="text-[1.2rem] mr-3" />}
@@ -97,13 +97,13 @@ const currentPath = Astro.url.pathname;
                 </div>
             ) : (
                 <a href={link.external ? link.url : url(link.url)} class="group flex justify-between items-center py-3 px-3 rounded-xl gap-4
-                    transition nav-menu-row
+                    transition-transform nav-menu-row
                 "
                    target={link.external ? "_blank" : null}
                    data-nav-path={!link.external ? link.url : undefined}
                 >
                     <div class:list={[
-                        "flex items-center transition text-base font-medium text-[#000000B3] dark:text-white/75",
+                        "flex items-center transition-transform text-base font-medium text-[#000000B3] dark:text-white/75",
                         isCurrentLink && "navbar-link-active",
                     ]} data-nav-active-target>
                         {link.icon && <Icon icon={link.icon} class="text-[1.35rem] mr-3" />}

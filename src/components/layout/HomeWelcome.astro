@@ -114,7 +114,6 @@ import { url } from "@/utils/url-utils";
     color: #d94f83;
     font-size: 14px;
     cursor: pointer;
-    transition: background-color 200ms ease, color 200ms ease;
   }
   .welcome-button:hover { background: var(--primary); color: white; }
   :global(:root.dark) .home-welcome { background: linear-gradient(115deg, #183533, #27283b 56%, #352532); }
@@ -125,6 +124,5 @@ import { url } from "@/utils/url-utils";
   }
   @media (prefers-reduced-motion: reduce) {
     .hello-stroke { animation: none; }
-    .welcome-button { transition: none; }
   }
 </style>

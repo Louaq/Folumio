@@ -34,7 +34,6 @@ const categoryParam = Astro.params.category!;
 const categoryEncoded = encodeURIComponent(categoryParam);
 const paginationRoot = `categories/${categoryEncoded}`;
 const title = `${categoryParam} · ${i18n(I18nKey.categories)}`;
-const len = page.data.length;
 ---
 
 <MainGridLayout title={title} description={title}>
@@ -42,10 +41,9 @@ const len = page.data.length;
 	{
 		page.lastPage > 1 && (
 			<Pagination
-				class="mx-auto onload-animation"
+				class="mx-auto"
 				page={page}
 				pageUrlRoot={paginationRoot}
-				style={`animation-delay: calc(var(--content-delay) + ${len * 20}ms)`}
 			/>
 		)
 	}

@@ -131,7 +131,7 @@ body[data-page-type="post"] #top-row[data-scrolled="true"] #navbar-post-title {
   color: #000000 !important;
   font-size: 16px !important;
   font-weight: 400 !important;
-  transition: color 250ms ease;
+  transition: transform 250ms ease;
 }
 :root.dark #navbar .btn-plain {
   color: rgba(255, 255, 255, 0.85) !important;

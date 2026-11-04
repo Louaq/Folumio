@@ -208,7 +208,6 @@
 @layer utilities {
   .icon-scale {
     transform-origin: center;
-    animation: icon-scale 1s infinite;
   }
   @keyframes icon-scale {
     0%,

@@ -25,7 +25,6 @@ export const getStaticPaths = (async ({ paginate }) => {
 
 const { page } = Astro.props;
 
-const len = page.data.length;
 const allPosts = await getSortedPosts();
 
 const manualSlides: CarouselSlide[] = homeCarouselConfig.manualItems.map(
@@ -98,9 +97,8 @@ const showHomeTopNotice = homeTopNoticeItems.length > 0;
   {
     page.total > page.size && (
       <Pagination
-        class="mx-auto onload-animation"
+        class="mx-auto"
         page={page}
-        style={`animation-delay: calc(var(--content-delay) + ${len * 20}ms)`}
       />
     )
   }

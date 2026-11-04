@@ -32,7 +32,6 @@ const tagParam = Astro.params.tag!;
 const tagEncoded = encodeURIComponent(tagParam);
 const paginationRoot = `tags/${tagEncoded}`;
 const title = `#${tagParam} · ${i18n(I18nKey.tags)}`;
-const len = page.data.length;
 ---
 
 <MainGridLayout title={title} description={title}>
@@ -40,10 +39,9 @@ const len = page.data.length;
 	{
 		page.lastPage > 1 && (
 			<Pagination
-				class="mx-auto onload-animation"
+				class="mx-auto"
 				page={page}
 				pageUrlRoot={paginationRoot}
-				style={`animation-delay: calc(var(--content-delay) + ${len * 20}ms)`}
 			/>
 		)
 	}

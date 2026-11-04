@@ -1,14 +1,6 @@
 /// <reference types="mdast" />
 import { h } from "hastscript";
 
-/**
- * 内嵌 PDF 预览（pdf.js 自带 viewer，含完整工具栏：翻页/缩放/搜索/下载/打印）。
- * 不使用浏览器内置 PDF 查看器，viewer 资源自托管于 /pdfjs/web/viewer.html。
- * 用法：::pdf{src="https://..." title="可选" height="660px"}
- * - src / url：PDF 直链（跨域时源站需开启 CORS）
- * - title：viewer 标题与无障碍说明
- * - height：可选，默认 90vh，可写 660px、80vh 等
- */
 export function PdfEmbedComponent(properties, children) {
 	if (Array.isArray(children) && children.length !== 0) {
 		return h("div", { class: "hidden" }, [
@@ -32,7 +24,7 @@ export function PdfEmbedComponent(properties, children) {
 	const height =
 		typeof properties.height === "string" && properties.height.trim()
 			? properties.height.trim()
-			: "90vh";
+			: undefined;
 
 	const viewerSrc = `/pdfjs/web/viewer.html?file=${encodeURIComponent(rawSrc)}#zoom=page-width`;
 
@@ -41,7 +33,7 @@ export function PdfEmbedComponent(properties, children) {
 		{
 			class:
 				"pdf-embed not-prose my-6 w-full max-w-full rounded-(--radius-large) border border-black/10 dark:border-white/10 bg-(--btn-regular-bg)/30 dark:bg-white/6",
-			style: `--pdf-embed-h: ${height};`,
+			style: height ? `--pdf-embed-h: ${height};` : undefined,
 			"data-pdf-src": rawSrc,
 			"data-pdf-title": title,
 		},

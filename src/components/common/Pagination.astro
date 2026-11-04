@@ -38,15 +38,15 @@ const pageItems = buildPageItems(page.currentPage, page.lastPage);
 const baseUrl = import.meta.env.BASE_URL;
 
 const navArrowClass =
-	"inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-lg border border-(--juejin-border) bg-(--juejin-tag-bg) text-(--juejin-text-secondary) transition-colors hover:bg-(--btn-plain-bg-hover)";
+	"inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-lg border border-(--juejin-border) bg-(--juejin-tag-bg) text-(--juejin-text-secondary) hover:bg-(--btn-plain-bg-hover)";
 const navArrowDisabledClass =
 	"inline-flex h-9 w-9 shrink-0 cursor-not-allowed items-center justify-center rounded-lg border border-(--juejin-border) bg-(--juejin-tag-bg) text-(--juejin-text-tertiary) opacity-70";
 const pageNumBase =
-	"inline-flex h-9 min-w-9 items-center justify-center rounded-lg border px-2 text-sm font-medium tabular-nums transition-colors";
+	"inline-flex h-9 min-w-9 items-center justify-center rounded-lg border px-2 text-sm font-medium tabular-nums";
 const pageNumIdle = `${pageNumBase} border-(--juejin-border) bg-(--card-bg) text-(--juejin-text-primary) hover:bg-(--btn-plain-bg-hover)`;
 const pageNumActive = `${pageNumBase} border-(--primary) bg-(--primary) text-white shadow-xs`;
 const jumpSubmitClass =
-	"inline-flex h-9 shrink-0 items-center justify-center border-l border-(--juejin-border) bg-(--juejin-tag-bg) px-2 text-(--primary) transition-colors hover:bg-(--btn-plain-bg-hover)";
+	"inline-flex h-9 shrink-0 items-center justify-center border-l border-(--juejin-border) bg-(--juejin-tag-bg) px-2 text-(--primary) hover:bg-(--btn-plain-bg-hover)";
 ---
 
 {

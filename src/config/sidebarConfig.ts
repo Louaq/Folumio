@@ -32,7 +32,7 @@ export const sidebarLayoutConfig: SidebarLayoutConfig = {
 			type: "runtime",
 			// 是否启用该组件
 			enable: true,
-			showOnPostPage: false,
+			showOnPostPage: true,
 			// 组件显示顺序
 			order: 2,
 			// 组件位置
@@ -47,7 +47,7 @@ export const sidebarLayoutConfig: SidebarLayoutConfig = {
 			type: "announcement",
 			// 是否启用该组件
 			enable: true,
-			showOnPostPage: false,
+			showOnPostPage: true,
 			// 组件显示顺序
 			order: 3,
 			// 组件位置
