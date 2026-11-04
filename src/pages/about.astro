@@ -15,6 +15,7 @@ import {
 	getTagList,
 } from "@/utils/content-utils";
 import { url } from "@/utils/url-utils";
+import ContentCharts from "@components/pages/about/ContentCharts.astro";
 
 const aboutPost = await getEntry("spec", "about");
 
@@ -119,6 +120,8 @@ const statistics = [
           ))}
         </div>
       </section>
+
+      <ContentCharts posts={posts} categories={categories} />
 
       <section class="about-card card-base motto-card span-4">
         <p class="eyebrow">字里行间</p>

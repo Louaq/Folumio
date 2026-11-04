@@ -1,0 +1,164 @@
+---
+import type { CollectionEntry } from "astro:content";
+import type { Category } from "@/utils/content-utils";
+import { url } from "@/utils/url-utils";
+
+interface Props {
+  posts: CollectionEntry<"posts">[];
+  categories: Category[];
+}
+
+const { posts, categories } = Astro.props;
+const sortedCategories = [...categories].sort((a, b) => b.count - a.count);
+const yearCounts = new Map<number, number>();
+for (const post of posts) {
+  const year = post.data.published.getUTCFullYear();
+  yearCounts.set(year, (yearCounts.get(year) ?? 0) + 1);
+}
+const years = [...yearCounts.keys()].sort((a, b) => a - b);
+const annualCounts = years.length
+  ? Array.from({ length: years[years.length - 1] - years[0] + 1 }, (_, index) => ({
+      year: years[0] + index,
+      count: yearCounts.get(years[0] + index) ?? 0,
+    }))
+  : [];
+---
+
+<section class="chart-card card-base" aria-labelledby="category-chart-title">
+  <p class="eyebrow">内容分布</p>
+  <h2 id="category-chart-title">探索的不同方向。</h2>
+  <blog-content-chart
+    kind="category"
+    data-values={JSON.stringify(sortedCategories.map((category) => ({ name: category.name, value: category.count, href: url(category.url) })))}
+    data-total={posts.length}
+    role="img"
+    aria-label={`???????? ${posts.length} ????${sortedCategories.map((category) => `${category.name} ${category.count} ?`).join("?")}`}
+  />
+</section>
+
+<section class="chart-card card-base" aria-labelledby="annual-chart-title">
+  <p class="eyebrow">写作足迹</p>
+  <h2 id="annual-chart-title">每一年，都有新记录。</h2>
+  <p class="chart-description">按文章发布日期统计每年的篇数。</p>
+  <blog-content-chart
+    kind="annual"
+    data-values={JSON.stringify(annualCounts)}
+    data-href={url("/archive/")}
+    role="img"
+    aria-label={annualCounts.map(({ year, count }) => `${year} ? ${count} ???`).join("?")}
+  />
+</section>
+
+<script>
+  import { init, use, type EChartsType } from "echarts/core";
+  import { PieChart, BarChart } from "echarts/charts";
+  import { GridComponent, TooltipComponent, TitleComponent } from "echarts/components";
+  import { CanvasRenderer } from "echarts/renderers";
+
+  use([PieChart, BarChart, GridComponent, TooltipComponent, TitleComponent, CanvasRenderer]);
+
+  class BlogContentChart extends HTMLElement {
+    chart!: EChartsType;
+    resizeObserver = new ResizeObserver(() => this.chart.resize());
+    updateTheme = () => this.renderChart();
+
+    connectedCallback() {
+      this.chart = init(this);
+      this.renderChart();
+      this.resizeObserver.observe(this);
+      window.addEventListener("theme-change", this.updateTheme);
+      this.chart.on("click", (params) => {
+        const href = this.getAttribute("kind") === "category"
+          ? (params.data as { href: string }).href
+          : this.dataset.href!;
+        window.location.assign(href);
+      });
+    }
+
+    disconnectedCallback() {
+      this.resizeObserver.disconnect();
+      window.removeEventListener("theme-change", this.updateTheme);
+      this.chart.dispose();
+    }
+
+    renderChart() {
+      const dark = document.documentElement.classList.contains("dark");
+      const text = dark ? "#e2e8f0" : "#334155";
+      const muted = dark ? "#94a3b8" : "#64748b";
+      const animation = !window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      const values = JSON.parse(this.dataset.values!);
+      const shared = {
+        animation,
+        color: ["#5968c7", "#248572", "#b37823", "#b25583", "#7c5bbb", "#357caa"],
+        textStyle: { fontFamily: "inherit", color: text },
+        tooltip: {
+          renderMode: "richText" as const,
+          backgroundColor: dark ? "#1e293b" : "#ffffff",
+          borderColor: dark ? "#475569" : "#e2e8f0",
+          textStyle: { color: text },
+          confine: true,
+        },
+      };
+      if (this.getAttribute("kind") === "category") {
+        this.chart.setOption({
+          ...shared,
+          title: {
+            text: this.dataset.total,
+            subtext: "篇文章",
+            left: "center", top: "39%",
+            textStyle: { color: text, fontSize: 32, fontWeight: 700 },
+            subtextStyle: { color: muted, fontSize: 13 },
+          },
+          tooltip: { ...shared.tooltip, trigger: "item", formatter: "{b}\n{c} 篇 · {d}%" },
+          series: [{
+            type: "pie", radius: ["53%", "75%"],
+            label: { show: false }, labelLine: { show: false },
+            emphasis: { scaleSize: 8 },
+            data: values,
+          }],
+        });
+      } else {
+        const annual = values as { year: number; count: number }[];
+        this.chart.setOption({
+          ...shared,
+          tooltip: { ...shared.tooltip, trigger: "axis", axisPointer: { type: "shadow" } },
+          grid: { left: 40, right: 16, top: 24, bottom: 32 },
+          xAxis: {
+            type: "category", data: annual.map(({ year }) => String(year)),
+            axisLabel: { color: muted }, axisTick: { show: false },
+            axisLine: { lineStyle: { color: dark ? "#475569" : "#cbd5e1" } },
+          },
+          yAxis: {
+            type: "value", minInterval: 1,
+            axisLabel: { color: muted },
+            splitLine: { lineStyle: { color: dark ? "#334155" : "#e2e8f0", type: "dashed" } },
+          },
+          series: [{
+            name: "文章数", type: "bar", barMaxWidth: 56,
+            data: annual.map(({ count }) => count),
+            itemStyle: { color: "#4caf88", borderRadius: [6, 6, 0, 0] },
+            label: { show: true, position: "top", color: text },
+            emphasis: { itemStyle: { color: "#248572" } },
+          }],
+        });
+      }
+    }
+  }
+
+  customElements.define("blog-content-chart", BlogContentChart);
+</script>
+
+<style>
+  .chart-card {
+    grid-column: span 6;
+    min-width: 0;
+    padding: 32px;
+    border: 1px solid var(--line-divider);
+  }
+  .eyebrow { font-size: 12px; font-weight: 600; letter-spacing: 0.08em; color: var(--content-meta); margin-bottom: 12px; }
+  h2 { font-size: clamp(22px, 2.4vw, 30px); font-weight: 700; line-height: 1.4; }
+  blog-content-chart { display: block; width: 100%; height: 300px; margin-top: 24px; }
+  .chart-description { color: var(--content-meta); font-size: 13px; margin-top: 12px; }
+  @media (max-width: 1023px) { .chart-card { padding: 24px; } }
+  @media (max-width: 767px) { .chart-card { grid-column: 1 / -1; } }
+</style>
