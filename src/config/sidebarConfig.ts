@@ -1,14 +1,6 @@
 import type { SidebarLayoutConfig } from "../types/config";
 
-/**
- * 侧边栏布局配置
- * 用于控制侧边栏组件的显示、排序、动画和响应式行为
- */
 export const sidebarLayoutConfig: SidebarLayoutConfig = {
-	// 是否启用侧边栏功能
-	enable: true,
-
-	// 侧边栏组件配置列表
 	// 组件位置position：top=顶部，sticky=粘性定位(会跟随页面滚动)
 	// showOnPostPage：是否在文章详情页显示；false 仅在文章页隐藏，省略时默认显示
 	components: [
@@ -32,7 +24,7 @@ export const sidebarLayoutConfig: SidebarLayoutConfig = {
 			type: "runtime",
 			// 是否启用该组件
 			enable: true,
-			showOnPostPage: true,
+			showOnPostPage: false,
 			// 组件显示顺序
 			order: 2,
 			// 组件位置
@@ -47,7 +39,7 @@ export const sidebarLayoutConfig: SidebarLayoutConfig = {
 			type: "announcement",
 			// 是否启用该组件
 			enable: true,
-			showOnPostPage: true,
+			showOnPostPage: false,
 			// 组件显示顺序
 			order: 3,
 			// 组件位置

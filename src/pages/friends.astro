@@ -1,11 +1,9 @@
 ---
 import Comment from "@components/comment/index.astro";
-import ApplyDialog from "@components/pages/friends/ApplyDialog.astro";
 import GroupSection from "@components/pages/friends/GroupSection.astro";
-import { Icon as AstroIcon } from "astro-icon/components";
+import ApplicationInfo from "@components/pages/friends/ApplicationInfo.astro";
 import {
 	commentConfig,
-	friendSiteInfo,
 	friendsPageConfig,
 	getEnabledFriendGroups,
 	siteConfig,
@@ -28,110 +26,22 @@ const friendGroupList = getEnabledFriendGroups();
 const title = friendsPageConfig.title || i18n(I18nKey.friends);
 const description =
 	friendsPageConfig.description || i18n(I18nKey.friendsDescription);
-const copyFields = [
-	{
-		label: "SITE TITLE",
-		value: friendSiteInfo.name,
-		icon: "material-symbols:text-fields-rounded",
-	},
-	{
-		label: "SITE DESC",
-		value: friendSiteInfo.desc,
-		icon: "material-symbols:notes-rounded",
-	},
-	{
-		label: "URL ADDRESS",
-		value: friendSiteInfo.url,
-		icon: "material-symbols:link-rounded",
-	},
-	{
-		label: "AVATAR SOURCE",
-		value: friendSiteInfo.avatar,
-		icon: "material-symbols:image-outline-rounded",
-	},
-	{
-		label: "RSS FEED",
-		value: friendSiteInfo.rss,
-		icon: "material-symbols:rss-feed-rounded",
-	},
-];
+
 ---
 
 <MainGridLayout title={title} description={description} hideSidebar wideContent>
-  <!-- 本站信息 + 全站置顶 -->
+  <!-- 友链列表 -->
   <div class="card-base card-plain z-10 relative w-full overflow-hidden mb-4">
-    <div class="friend-hero relative px-5 py-7 sm:px-8 sm:py-9">
-      <div class="friend-hero-card relative">
-        <div class="relative flex flex-col lg:flex-row items-center lg:items-stretch gap-6 lg:gap-8 px-5 py-7 sm:px-8 sm:py-9">
-          <!-- 头像 + 站点标识 -->
-          <div class="flex flex-col items-center text-center lg:w-60 shrink-0 justify-center">
-            <div class="relative mb-4">
-              <div class="relative w-28 h-28 rounded-full overflow-hidden shadow-lg">
-                <img
-                  src={friendSiteInfo.avatar}
-                  alt={friendSiteInfo.name}
-                  class="w-full h-full object-cover"
-                />
-              </div>
-            </div>
-            <h2 class="text-xl font-bold text-(--primary)">
-              {friendSiteInfo.name}
-            </h2>
-            <p class="text-sm text-neutral-500 dark:text-neutral-400 mt-1.5 flex items-center gap-2 justify-center">
-              <span>{friendSiteInfo.desc}</span>
-            </p>
-          </div>
-
-          <div class="friend-hero-divider hidden lg:block shrink-0" aria-hidden="true"></div>
-
-          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 flex-1 content-center w-full">
-            {copyFields.map((field, index) => (
-              <friend-copy-field
-                class:list={[
-                  "friend-copy-field flex items-center gap-3 rounded-xl px-4 py-3 bg-(--card-bg) border border-(--line-divider)",
-                  index >= 2 && "sm:col-span-2",
-                ]}
-                data-copy-value={field.value}
-              >
-                <div class="min-w-0 flex-1">
-                  <p class="text-[0.65rem] font-semibold uppercase tracking-wide text-neutral-400 dark:text-neutral-500">
-                    {field.label}
-                  </p>
-                  <p class="text-sm font-medium truncate" title={field.value}>
-                    {field.value}
-                  </p>
-                </div>
-                <button
-                  type="button"
-                  class="friend-copy-btn shrink-0 w-7 h-7 flex items-center justify-center rounded-md bg-black/10 dark:bg-white/10 text-(--btn-content) hover:opacity-80 transition-opacity cursor-pointer"
-                  aria-label="复制"
-                >
-                  <AstroIcon
-                    name="material-symbols:content-copy-outline-rounded"
-                    class="friend-copy-icon-default w-3.5 h-3.5"
-                  />
-                  <AstroIcon
-                    name="material-symbols:check-rounded"
-                    class="friend-copy-icon-success w-3.5 h-3.5 text-green-500"
-                  />
-                </button>
-              </friend-copy-field>
-            ))}
-          </div>
-        </div>
-      </div>
-
-      {friendGroupList.map((group, index) => (
-        <GroupSection
-          group={group}
-          showApplyButton={index === 0 && friendsPageConfig.showCustomContent !== false}
-          withDivider={index === 0}
-        />
+    <div class="relative px-5 py-7 sm:px-8 sm:py-9">
+      {friendGroupList.map((group) => (
+        <GroupSection group={group} />
       ))}
     </div>
   </div>
 
-  {friendsPageConfig.showCustomContent !== false && <ApplyDialog />}
+  {friendsPageConfig.showCustomContent !== false && (
+    <ApplicationInfo />
+  )}
 
   {isCommentEnabled && (
     <div class="mt-4">
@@ -139,132 +49,11 @@ const copyFields = [
     </div>
   )}
 
-  <script slot="head" is:inline>
-    if (!customElements.get("friend-copy-field")) {
-      class FriendCopyField extends HTMLElement {
-        constructor() {
-          super();
-          this.handleClick = this.handleClick.bind(this);
-        }
-
-        connectedCallback() {
-          this.addEventListener("click", this.handleClick);
-        }
-
-        disconnectedCallback() {
-          this.removeEventListener("click", this.handleClick);
-          clearTimeout(this._resetTimer);
-        }
-
-        async handleClick(e) {
-          if (!e.target.closest(".friend-copy-btn")) return;
-
-          const value = this.dataset.copyValue || "";
-          try {
-            await navigator.clipboard.writeText(value);
-          } catch {
-            return;
-          }
-          this.classList.add("friend-copy-field-done");
-          clearTimeout(this._resetTimer);
-          this._resetTimer = setTimeout(() => {
-            this.classList.remove("friend-copy-field-done");
-          }, 1500);
-        }
-      }
-      customElements.define("friend-copy-field", FriendCopyField);
-    }
-  </script>
-
   <style is:global>
     .friends-grid {
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
       gap: 0.75rem;
-    }
-
-    /* 本站信息 Hero */
-    .friend-hero {
-      overflow: hidden;
-    }
-
-    /* 站长介绍卡片 */
-    .friend-hero-card {
-      border-radius: 1.5rem;
-      overflow: hidden;
-      background: linear-gradient(160deg, #ffffff 0%, #f7f8fa 60%, #eef0f4 100%);
-      border: 1px solid rgba(0, 0, 0, 0.06);
-      box-shadow:
-        0 1px 2px rgba(0, 0, 0, 0.04),
-        0 8px 24px -12px rgba(0, 0, 0, 0.12);
-    }
-
-    :root.dark .friend-hero-card {
-      background: linear-gradient(
-        135deg,
-        rgba(255, 255, 255, 0.07) 0%,
-        rgba(255, 255, 255, 0.02) 100%
-      );
-      border-color: rgba(255, 255, 255, 0.08);
-      box-shadow:
-        0 12px 28px -12px rgba(0, 0, 0, 0.5),
-        0 24px 48px -24px rgba(0, 0, 0, 0.6);
-    }
-
-    /* 头像 */
-    .friend-hero-avatar-glow {
-      position: absolute;
-      inset: 0;
-      border-radius: 9999px;
-      background: var(--primary);
-      opacity: 0.25;
-      filter: blur(20px);
-    }
-
-    /* 竖向分隔线（中间带一个高亮圆点） */
-    .friend-hero-divider {
-      position: relative;
-      width: 1px;
-      align-self: stretch;
-      background: linear-gradient(
-        to bottom,
-        transparent,
-        var(--line-divider) 20%,
-        var(--line-divider) 80%,
-        transparent
-      );
-    }
-    .friend-hero-divider::after {
-      content: "";
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      width: 0.4rem;
-      height: 0.4rem;
-      border-radius: 9999px;
-      background: var(--primary);
-      transform: translate(-50%, -50%);
-    }
-
-    /* 可复制字段 */
-    .friend-copy-field {
-      transition:
-        transform 0.2s,
-        box-shadow 0.2s;
-      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
-    }
-    .friend-copy-icon {
-      background-color: color-mix(in oklch, var(--primary) 15%, transparent);
-      color: var(--primary);
-    }
-    .friend-copy-icon-success {
-      display: none;
-    }
-    .friend-copy-field-done .friend-copy-icon-default {
-      display: none;
-    }
-    .friend-copy-field-done .friend-copy-icon-success {
-      display: inline-block;
     }
 
     /* 置顶徽标 */

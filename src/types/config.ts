@@ -152,11 +152,6 @@ export type ExpressiveCodeConfig = {
 	darkTheme: string;
 	lightTheme: string;
 	pluginCollapsible?: PluginCollapsibleConfig;
-	pluginLanguageBadge?: PluginLanguageBadgeConfig;
-};
-
-export type PluginLanguageBadgeConfig = {
-	enable: boolean; // 是否启用语言徽章
 };
 
 export type PluginCollapsibleConfig = {
@@ -260,7 +255,6 @@ export type WidgetComponentConfig = {
 };
 
 export type SidebarLayoutConfig = {
-	enable: boolean; // 是否启用侧边栏
 	components: WidgetComponentConfig[]; // 侧边栏组件配置列表
 	defaultAnimation?: {
 		enable: boolean; // 是否启用默认动画

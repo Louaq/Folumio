@@ -6,7 +6,7 @@ import type {
 import { profileConfig } from "./profileConfig";
 import { siteConfig } from "./siteConfig";
 
-// 友链页面顶部"本站信息"卡片展示的数据，方便其他站长复制添加本站为友链
+// 本站友链信息，供友链页面展示及其他站长复制使用
 export const friendSiteInfo = {
 	name: profileConfig.name,
 	desc: "致力于探索如何利用计算机视觉和深度学习技术",

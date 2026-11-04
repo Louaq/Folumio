@@ -166,9 +166,8 @@
   scrollbar-gutter: auto;
 }
 
-html[data-language-badge-enabled="true"] .custom-md .expressive-code {
+.custom-md .expressive-code {
   & pre[data-language]::before {
-    /* 未在下方枚举的语言回退为语言标识本身 */
     content: attr(data-language);
     position: absolute;
     top: calc(var(--ec-header-h) / 2);
@@ -176,70 +175,21 @@ html[data-language-badge-enabled="true"] .custom-md .expressive-code {
     z-index: 1;
     display: flex;
     align-items: center;
-    /* 左侧留出图标位；未枚举的语言没有 background-image，留白也不突兀 */
-    padding: 0.2rem 0.5rem 0.2rem 1.55rem;
+    padding: 0.2rem 0.5rem;
     color: var(--deep-text);
-    background-repeat: no-repeat;
-    background-position: 0.45rem center;
-    background-size: 0.85rem 0.85rem;
     font-family: var(--font-family-fallback);
     font-size: 0.7rem;
     font-weight: 600;
     line-height: 1.4;
-    text-transform: capitalize;
+    text-transform: uppercase;
     white-space: nowrap;
     pointer-events: none;
     transform: translate(-50%, -50%);
   }
 
-  /* 铺满视口时 frame 自身成为滚动容器，absolute 的徽标会随内容滚走；
+  /* 铺满视口时 frame 自身成为滚动容器，absolute 的语言名称会随内容滚走；
    * 此时 frame 与视口重合，改 fixed 即可钉在吸顶标题栏中央 */
   & .frame:popover-open pre[data-language]::before {
     position: fixed;
-  }
-
-  & pre[data-language="python"]::before {
-    content: "Python";
-    background-image: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2024%2024%22%3E%3Cpath%20fill%3D%22%233776AB%22%20d%3D%22m14.25.18l.9.2l.73.26l.59.3l.45.32l.34.34l.25.34l.16.33l.1.3l.04.26l.02.2l-.01.13V8.5l-.05.63l-.13.55l-.21.46l-.26.38l-.3.31l-.33.25l-.35.19l-.35.14l-.33.1l-.3.07l-.26.04l-.21.02H8.77l-.69.05l-.59.14l-.5.22l-.41.27l-.33.32l-.27.35l-.2.36l-.15.37l-.1.35l-.07.32l-.04.27l-.02.21v3.06H3.17l-.21-.03l-.28-.07l-.32-.12l-.35-.18l-.36-.26l-.36-.36l-.35-.46l-.32-.59l-.28-.73l-.21-.88l-.14-1.05l-.05-1.23l.06-1.22l.16-1.04l.24-.87l.32-.71l.36-.57l.4-.44l.42-.33l.42-.24l.4-.16l.36-.1l.32-.05l.24-.01h.16l.06.01h8.16v-.83H6.18l-.01-2.75l-.02-.37l.05-.34l.11-.31l.17-.28l.25-.26l.31-.23l.38-.2l.44-.18l.51-.15l.58-.12l.64-.1l.71-.06l.77-.04l.84-.02l1.27.05zm-6.3%201.98l-.23.33l-.08.41l.08.41l.23.34l.33.22l.41.09l.41-.09l.33-.22l.23-.34l.08-.41l-.08-.41l-.23-.33l-.33-.22l-.41-.09l-.41.09zm13.09%203.95l.28.06l.32.12l.35.18l.36.27l.36.35l.35.47l.32.59l.28.73l.21.88l.14%201.04l.05%201.23l-.06%201.23l-.16%201.04l-.24.86l-.32.71l-.36.57l-.4.45l-.42.33l-.42.24l-.4.16l-.36.09l-.32.05l-.24.02l-.16-.01h-8.22v.82h5.84l.01%202.76l.02.36l-.05.34l-.11.31l-.17.29l-.25.25l-.31.24l-.38.2l-.44.17l-.51.15l-.58.13l-.64.09l-.71.07l-.77.04l-.84.01l-1.27-.04l-1.07-.14l-.9-.2l-.73-.25l-.59-.3l-.45-.33l-.34-.34l-.25-.34l-.16-.33l-.1-.3l-.04-.25l-.02-.2l.01-.13v-5.34l.05-.64l.13-.54l.21-.46l.26-.38l.3-.32l.33-.24l.35-.2l.35-.14l.33-.1l.3-.06l.26-.04l.21-.02l.13-.01h5.84l.69-.05l.59-.14l.5-.21l.41-.28l.33-.32l.27-.35l.2-.36l.15-.36l.1-.35l.07-.32l.04-.28l.02-.21V6.07h2.09l.14.01zm-6.47%2014.25l-.23.33l-.08.41l.08.41l.23.33l.33.23l.41.08l.41-.08l.33-.23l.23-.33l.08-.41l-.08-.41l-.23-.33l-.33-.23l-.41-.08l-.41.08z%22%2F%3E%3C%2Fsvg%3E");
-  }
-
-  & pre[data-language="bash"]::before {
-    content: "Shell";
-    background-image: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2024%2024%22%3E%3Cg%20fill%3D%22none%22%20stroke%3D%22%23E9713B%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%20stroke-width%3D%222%22%3E%3Cpath%20d%3D%22m7%2011l2-2l-2-2m4%206h4%22%2F%3E%3Crect%20width%3D%2218%22%20height%3D%2218%22%20x%3D%223%22%20y%3D%223%22%20rx%3D%222%22%20ry%3D%222%22%2F%3E%3C%2Fg%3E%3C%2Fsvg%3E");
-  }
-
-  & pre[data-language="powershell"]::before {
-    content: "PowerShell";
-    background-image: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2024%2024%22%3E%3Cpath%20fill%3D%22%235391FE%22%20d%3D%22M23.181%202.974c.568%200%20.923.463.792%201.035l-3.659%2015.982c-.13.572-.697%201.035-1.265%201.035H.819c-.568%200-.923-.463-.792-1.035L3.686%204.009c.13-.572.697-1.035%201.265-1.035zm-8.375%209.346c.251-.394.227-.905-.09-1.243L9.122%205.125c-.38-.404-1.037-.407-1.466-.003c-.429.402-.468%201.056-.088%201.46l4.662%204.96v.11l-7.42%205.374c-.45.327-.533.977-.187%201.453s.991.597%201.44.27l8.229-5.91c.28-.196.438-.365.514-.52zm-2.796%204.399a.93.93%200%200%200-.934.923c0%20.51.418.923.934.923h4.433a.93.93%200%200%200%20.934-.923a.93.93%200%200%200-.934-.923z%22%2F%3E%3C%2Fsvg%3E");
-  }
-
-  & pre[data-language="nginx"]::before {
-    content: "Nginx";
-    background-image: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2024%2024%22%3E%3Cpath%20fill%3D%22%23009639%22%20d%3D%22M12%200L1.605%206v12L12%2024l10.395-6V6zm6%2016.59c0%20.705-.646%201.29-1.529%201.29c-.631%200-1.351-.255-1.801-.81l-6-7.141v6.66c0%20.721-.57%201.29-1.274%201.29H7.32c-.721%200-1.29-.6-1.29-1.29V7.41c0-.705.63-1.29%201.5-1.29c.646%200%201.38.255%201.83.81l5.97%207.141V7.41c0-.721.6-1.29%201.29-1.29h.075c.72%200%201.29.6%201.29%201.29v9.18z%22%2F%3E%3C%2Fsvg%3E");
-  }
-
-  & pre[data-language="json"]::before {
-    content: "JSON";
-    background-image: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2024%2024%22%3E%3Cg%20fill%3D%22none%22%20stroke%3D%22%23E0A030%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%20stroke-width%3D%222%22%3E%3Cpath%20d%3D%22M6%2022a2%202%200%200%201-2-2V4a2%202%200%200%201%202-2h8a2.4%202.4%200%200%201%201.704.706l3.588%203.588A2.4%202.4%200%200%201%2020%208v12a2%202%200%200%201-2%202z%22%2F%3E%3Cpath%20d%3D%22M14%202v5a1%201%200%200%200%201%201h5m-10%204.5L8%2015l2%202.5m4-5l2%202.5l-2%202.5%22%2F%3E%3C%2Fg%3E%3C%2Fsvg%3E");
-  }
-
-  & pre[data-language="toml"]::before {
-    content: "TOML";
-    background-image: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2024%2024%22%3E%3Cpath%20fill%3D%22%23B4643A%22%20d%3D%22M.014%200h5.34v2.652H2.888v18.681h2.468V24H.015zm17.622%205.049v2.78h-4.274v12.935h-3.008V7.83H6.059V5.05zM23.986%2024h-5.34v-2.652h2.467V2.667h-2.468V0h5.34v24Z%22%2F%3E%3C%2Fsvg%3E");
-  }
-
-  & pre[data-language="tex"]::before {
-    content: "TeX";
-    background-image: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2024%2024%22%3E%3Cg%20fill%3D%22none%22%20stroke%3D%22%232AA198%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%20stroke-width%3D%222%22%3E%3Cpath%20d%3D%22M6%2022a2%202%200%200%201-2-2V4a2%202%200%200%201%202-2h8a2.4%202.4%200%200%201%201.704.706l3.588%203.588A2.4%202.4%200%200%201%2020%208v12a2%202%200%200%201-2%202z%22%2F%3E%3Cpath%20d%3D%22M14%202v5a1%201%200%200%200%201%201h5m-10%204.5L8%2015l2%202.5m4-5l2%202.5l-2%202.5%22%2F%3E%3C%2Fg%3E%3C%2Fsvg%3E");
-  }
-
-  & pre[data-language="ini"]::before {
-    content: "INI";
-    background-image: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2024%2024%22%3E%3Cg%20fill%3D%22none%22%20stroke%3D%22%238A919F%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%20stroke-width%3D%222%22%3E%3Cpath%20d%3D%22M9.671%204.136a2.34%202.34%200%200%201%204.659%200a2.34%202.34%200%200%200%203.319%201.915a2.34%202.34%200%200%201%202.33%204.033a2.34%202.34%200%200%200%200%203.831a2.34%202.34%200%200%201-2.33%204.033a2.34%202.34%200%200%200-3.319%201.915a2.34%202.34%200%200%201-4.659%200a2.34%202.34%200%200%200-3.32-1.915a2.34%202.34%200%200%201-2.33-4.033a2.34%202.34%200%200%200%200-3.831A2.34%202.34%200%200%201%206.35%206.051a2.34%202.34%200%200%200%203.319-1.915%22%2F%3E%3Ccircle%20cx%3D%2212%22%20cy%3D%2212%22%20r%3D%223%22%2F%3E%3C%2Fg%3E%3C%2Fsvg%3E");
-  }
-
-  & pre[data-language="txt"]::before {
-    content: "Text";
-    background-image: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2024%2024%22%3E%3Cg%20fill%3D%22none%22%20stroke%3D%22%238A919F%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%20stroke-width%3D%222%22%3E%3Cpath%20d%3D%22M6%2022a2%202%200%200%201-2-2V4a2%202%200%200%201%202-2h8a2.4%202.4%200%200%201%201.704.706l3.588%203.588A2.4%202.4%200%200%201%2020%208v12a2%202%200%200%201-2%202z%22%2F%3E%3Cpath%20d%3D%22M14%202v5a1%201%200%200%200%201%201h5M10%209H8m8%204H8m8%204H8%22%2F%3E%3C%2Fg%3E%3C%2Fsvg%3E");
   }
 }

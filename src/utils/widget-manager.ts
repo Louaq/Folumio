@@ -6,7 +6,6 @@ export const sidebarComponents = sidebarLayoutConfig.components;
 
 /** 移动端是否走侧边栏布局；MainGridLayout 据此决定单列 */
 export const showSidebarOnMobile =
-	sidebarLayoutConfig.enable &&
 	(sidebarLayoutConfig.responsive?.layout?.mobile ?? "sidebar") === "sidebar";
 
 /** 按位置和页面取启用的组件，order 未设置时按 0 排 */

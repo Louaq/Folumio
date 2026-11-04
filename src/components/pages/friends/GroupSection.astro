@@ -5,13 +5,11 @@ import type { FriendGroup } from "@/types/config";
 
 interface Props {
 	group: FriendGroup;
-	// 是否在本分组标题右侧显示「申请友链」按钮（通常只在第一个分组显示）
-	showApplyButton?: boolean;
 	// 是否与上一个分组之间显示分隔线
 	withDivider?: boolean;
 }
 
-const { group, showApplyButton = false, withDivider = false } = Astro.props;
+const { group, withDivider = false } = Astro.props;
 
 const isCompact = group.layout === "compact";
 ---
@@ -19,25 +17,15 @@ const isCompact = group.layout === "compact";
 <div class:list={["relative mt-8", withDivider && "pt-6 border-t border-(--line-divider)"]}>
   <div class="flex items-center justify-between gap-3 mb-4">
     <div class="min-w-0">
-      <h3 class="text-base font-bold text-neutral-900 dark:text-neutral-100">
+      <h2 class="text-2xl font-bold text-neutral-900 dark:text-neutral-100">
         {group.name}
-      </h3>
+      </h2>
       {group.description && (
         <p class="text-xs text-neutral-500 dark:text-neutral-400 mt-1">
           {group.description}
         </p>
       )}
     </div>
-    {showApplyButton && (
-      <friend-apply-trigger>
-        <button
-          type="button"
-          class="shrink-0 inline-flex items-center gap-1.5 px-4 py-2 rounded-lg text-sm font-medium text-white bg-(--primary) hover:opacity-90 transition-opacity cursor-pointer"
-        >
-          申请友链
-        </button>
-      </friend-apply-trigger>
-    )}
   </div>
 
   <div

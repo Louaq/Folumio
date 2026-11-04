@@ -77,12 +77,12 @@ function renderComponent(
     )
   }
 
-  <!-- 参考 Firefly SideBar.astro：组件组以独立的 1rem 顶部偏移吸顶 -->
+  <!-- 组件组吸顶时避开固定导航栏，并保留 1rem 间距 -->
   {
     (pinnedComponents.length > 0 || isPostPage) && (
       <div
         id="left-sidebar-sticky"
-        class="sticky top-4 flex flex-col w-full gap-5 shrink-0"
+        class="sticky top-[calc(var(--navbar-height)+1rem)] flex flex-col w-full gap-5 shrink-0"
       >
         {pinnedComponents.map((component, index) => {
           const renderData = renderComponent(
