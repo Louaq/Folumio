@@ -8,24 +8,18 @@ import { Content as ApplicationTemplate } from "./application-template.md";
 <section class="friend-application custom-md card-base card-plain px-5 py-7 sm:px-8 sm:py-9" aria-labelledby="friend-application-title">
   <h2 id="friend-application-title">友链申请</h2>
 
-  <h3>我的友链</h3>
-  <p>欢迎交换友链，以下是本站信息：</p>
-  <SiteInfo />
-  <p class="text-sm">RSS 订阅：<a href={friendSiteInfo.rss}>{friendSiteInfo.rss}</a></p>
-
-  <h3>友链要求</h3>
-  <ul>
-    <li>网站无违法违规内容。</li>
-    <li>网站可正常访问，并支持 HTTPS。</li>
-    <li>保持更新，有自己的原创内容。</li>
-    <li>页面整洁，没有影响浏览体验的广告。</li>
-    <li>欢迎先将本站添加至你的友链页面。</li>
-  </ul>
-
-  <h3>申请格式</h3>
-  <p>请按以下格式填写信息，发送至 <a href={`mailto:${friendSiteInfo.email}`}>{friendSiteInfo.email}</a>，确认后会尽快添加。</p>
-  <ApplicationTemplate />
-  <p>如果网站地址或头像发生变更，也请通过邮件告知，方便及时更新。</p>
+  <div class="application-grid">
+    <div class="application-column">
+      <h3>1. 我的友链</h3>
+      <p>欢迎交换友链，以下是本站信息：</p>
+      <SiteInfo />
+    </div>
+    <div class="application-column">
+      <h3>2. 申请格式</h3>
+      <p>请按以下格式填写信息，发送至 <a href={`mailto:${friendSiteInfo.email}`}>{friendSiteInfo.email}</a>，确认后会尽快添加。</p>
+      <ApplicationTemplate />
+    </div>
+  </div>
 </section>
 
 <script>
@@ -42,24 +36,31 @@ import { Content as ApplicationTemplate } from "./application-template.md";
     line-height: 1.8;
     overflow-wrap: anywhere;
   }
+  .application-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 2rem;
+    margin-top: 1.75rem;
+  }
+  .application-column {
+    min-width: 0;
+  }
+  @media (min-width: 1024px) {
+    .application-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
   h2 {
     font-size: 1.5rem;
     font-weight: 700;
   }
   h3 {
-    margin: 1.75rem 0 1rem;
+    margin: 0 0 1rem;
     font-size: 1.125rem;
     font-weight: 700;
   }
   p {
     margin: 1rem 0;
-  }
-  ul {
-    list-style: disc;
-    padding-left: 1.5rem;
-  }
-  li + li {
-    margin-top: 0.5rem;
   }
   a {
     color: var(--primary);
