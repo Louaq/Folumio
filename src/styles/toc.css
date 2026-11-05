@@ -18,7 +18,6 @@
 .toc-content {
 	display: flex;
 	flex-direction: column;
-	gap: 0.28rem;
 	position: relative;
 	overflow: visible;
 	width: 100%;
@@ -28,6 +27,36 @@
 	align-items: stretch;
 	padding: 0.125rem 0;
 	isolation: isolate;
+}
+
+.toc-row {
+	display: grid;
+	grid-template-rows: 1fr;
+	opacity: 1;
+	padding-bottom: 0.28rem;
+	transition: grid-template-rows 120ms ease, opacity 120ms ease, padding-bottom 120ms ease;
+}
+
+.toc-row[data-collapsed="true"] {
+	grid-template-rows: 0fr;
+	opacity: 0;
+	padding-bottom: 0;
+}
+
+.toc-row-content {
+	display: flex;
+	min-height: 0;
+	overflow: hidden;
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.toc-row {
+		transition: none;
+	}
+}
+
+.toc-row .toc-item {
+	flex: 1;
 }
 
 .toc-item {

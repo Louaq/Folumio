@@ -30,6 +30,7 @@ export class TOCManager {
 	// 目录要跟随的活动项：滚动途中只记录，等正文停下（scrollend）再滚目录，
 	// 这样点击目录引起的平滑滚动不会让目录被途经的标题来回拉扯
 	private followItem: HTMLElement | null = null;
+	private isNavigating = false;
 	private contentId: string;
 	private indicatorId: string;
 
@@ -108,7 +109,9 @@ export class TOCManager {
 		}
 
 		this.minDepth = this.calculateMinDepth(headings);
-		const filteredHeadings = this.filterHeadings(headings);
+		const filteredHeadings = this.filterHeadings(headings).filter(
+			(heading) => heading.id,
+		);
 
 		if (filteredHeadings.length === 0) {
 			return this.getEmptyStateHTML();
@@ -116,8 +119,12 @@ export class TOCManager {
 
 		let tocHTML = "";
 
-		filteredHeadings.forEach((heading) => {
+		const parents: { depth: number; index: number }[] = [];
+		filteredHeadings.forEach((heading, index) => {
 			const depth = Number.parseInt(heading.tagName.charAt(1), 10);
+			while (parents.length && parents[parents.length - 1].depth >= depth)
+				parents.pop();
+			const parent = parents.at(-1)?.index;
 			const depthLevel =
 				depth === this.minDepth ? 0 : depth === this.minDepth + 1 ? 1 : 2;
 
@@ -150,6 +157,8 @@ export class TOCManager {
 			const escapedHeadingText = this.escapeHtmlAttr(headingText);
 
 			tocHTML += `
+        <div class="toc-row" data-parent="${parent ?? ""}" data-collapsed="${parent !== undefined}" ${parent !== undefined ? 'inert aria-hidden="true"' : ""}>
+        <div class="toc-row-content">
         <a
           href="#${heading.id}"
 			  class="toc-item toc-level-${depthLevel}"
@@ -159,7 +168,10 @@ export class TOCManager {
         >
 			  <div class="toc-label ${depth <= this.minDepth + 1 ? "toc-label-primary" : "toc-label-secondary"}">${headingText}</div>
         </a>
+        </div>
+        </div>
       `;
+			parents.push({ depth, index });
 		});
 
 		tocHTML += `<div id="${this.indicatorId}" style="opacity: 0;" class="toc-active-indicator"></div>`;
@@ -178,46 +190,16 @@ export class TOCManager {
 	}
 
 	private getVisibleHeadingIds(): string[] {
-		const headings = this.getAllHeadings();
-		const visibleHeadingIds: string[] = [];
-
-		headings.forEach((heading) => {
-			if (heading.id) {
-				const rect = heading.getBoundingClientRect();
-				const isVisible = rect.top < window.innerHeight && rect.bottom > 0;
-
-				if (isVisible) {
-					visibleHeadingIds.push(heading.id);
-				}
-			}
-		});
-
-		// 如果没有可见标题，选择最接近屏幕顶部的标题
-		if (visibleHeadingIds.length === 0 && headings.length > 0) {
-			let closestHeading: string | null = null;
-			let minDistance = Number.POSITIVE_INFINITY;
-
-			headings.forEach((heading) => {
-				if (heading.id) {
-					const rect = heading.getBoundingClientRect();
-					const distance = Math.abs(rect.top);
-
-					if (distance < minDistance) {
-						minDistance = distance;
-						closestHeading = heading.id;
-					}
-				}
-			});
-
-			if (closestHeading) {
-				visibleHeadingIds.push(closestHeading);
-			}
+		const headings = this.filterHeadings(this.getAllHeadings());
+		let current: HTMLElement | undefined;
+		for (const heading of headings) {
+			if (heading.id && heading.getBoundingClientRect().top <= 100) current = heading;
 		}
-
-		return visibleHeadingIds;
+		return current ? [current.id] : [];
 	}
 
 	public updateActiveState(): void {
+		if (this.isNavigating) return;
 		if (this.tocItems.length === 0) return;
 
 		this.tocItems.forEach((item) => {
@@ -226,10 +208,26 @@ export class TOCManager {
 
 		const visibleHeadingIds = this.getVisibleHeadingIds();
 
-		const activeItems = this.tocItems.filter((item) => {
+		const matchedItems = this.tocItems.filter((item) => {
 			const headingId = item.dataset.headingId;
 			return headingId && visibleHeadingIds.includes(headingId);
 		});
+		const rows = this.tocItems.map((item) => item.closest<HTMLElement>(".toc-row")!);
+		const expanded = new Set<number>();
+		let index = matchedItems.length ? this.tocItems.indexOf(matchedItems[0]) : -1;
+		while (index >= 0) {
+			expanded.add(index);
+			const parent = rows[index].dataset.parent!;
+			index = parent === "" ? -1 : Number(parent);
+		}
+		for (const row of rows) {
+			const parent = row.dataset.parent!;
+			const collapsed = parent !== "" && !expanded.has(Number(parent));
+			row.dataset.collapsed = String(collapsed);
+			row.inert = collapsed;
+			row.setAttribute("aria-hidden", String(collapsed));
+		}
+		const activeItems = matchedItems;
 
 		activeItems.forEach((item) => {
 			item.classList.add("visible");
@@ -269,7 +267,10 @@ export class TOCManager {
 		this.followItem = firstActive;
 	}
 
-	private scrollToActiveItem = (): void => {
+	private scrollToActiveItem = (event?: Event): void => {
+		if (event && event.target !== document) return;
+		this.isNavigating = false;
+		this.updateActiveState();
 		const activeItem = this.followItem;
 		if (!activeItem) return;
 
@@ -318,6 +319,12 @@ export class TOCManager {
 			// 顶栏偏移交给 CSS 的 scroll-margin-top（markdown.css 中标题已设置），
 			// 不要退回手写 getBoundingClientRect + scrollTo 减偏移的方案。
 			warmBlocksBeforeElement(targetElement);
+			const marginTop = Number.parseFloat(getComputedStyle(targetElement).scrollMarginTop) || 0;
+			const destination = Math.max(0, Math.min(
+				window.scrollY + targetElement.getBoundingClientRect().top - marginTop,
+				document.documentElement.scrollHeight - window.innerHeight,
+			));
+			this.isNavigating = Math.abs(destination - window.scrollY) > 1;
 			targetElement.scrollIntoView({
 				behavior: "smooth",
 				block: "start",
@@ -337,7 +344,7 @@ export class TOCManager {
 				this.updateActiveState();
 			},
 			{
-				rootMargin: "0px 0px 0px 0px",
+				rootMargin: "-100px 0px 0px 0px",
 				threshold: 0,
 			},
 		);
@@ -356,6 +363,7 @@ export class TOCManager {
 	}
 
 	public cleanup(): void {
+		this.isNavigating = false;
 		if (this.observer) {
 			this.observer.disconnect();
 			this.observer = null;
