@@ -38,40 +38,6 @@
 #navbar .navbar-menu-items {
   display: flex;
   justify-content: center;
-  grid-area: 1 / 1;
-  transition: opacity 200ms ease, transform 200ms ease, visibility 200ms;
-}
-
-#navbar-post-title {
-  grid-area: 1 / 1;
-  justify-self: center;
-  max-width: min(48vw, 680px);
-  padding: 0 12px;
-  overflow: hidden;
-  white-space: nowrap;
-  text-overflow: ellipsis;
-  color: var(--juejin-text-primary);
-  font-size: 16px;
-  font-weight: 600;
-  opacity: 0;
-  visibility: hidden;
-  pointer-events: none;
-  transform: translateY(6px);
-  transition: opacity 200ms ease, transform 200ms ease, visibility 200ms;
-}
-
-body[data-page-type="post"] #top-row[data-scrolled="true"] .navbar-menu-items {
-  opacity: 0;
-  visibility: hidden;
-  pointer-events: none;
-  transform: translateY(-6px);
-}
-
-body[data-page-type="post"] #top-row[data-scrolled="true"] #navbar-post-title {
-  opacity: 1;
-  visibility: visible;
-  pointer-events: auto;
-  transform: translateY(0);
 }
 
 #navbar .navbar-tools {
@@ -82,23 +48,15 @@ body[data-page-type="post"] #top-row[data-scrolled="true"] #navbar-post-title {
 }
 
 @media (min-width: 1024px) {
+  #navbar .navbar-tools {
+    margin-left: 0;
+  }
   #navbar .navbar-links {
     display: grid;
   }
   #navbar .navbar-row {
     display: grid;
-    grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  #navbar .navbar-menu-items,
-  #navbar-post-title {
-    transition: none;
-    transform: none;
-  }
-  body[data-page-type="post"] #top-row[data-scrolled="true"] .navbar-menu-items {
-    transform: none;
+    grid-template-columns: minmax(0, 1fr) auto auto;
   }
 }
 
@@ -192,17 +150,6 @@ body[data-page-type="post"] #top-row[data-scrolled="true"] #navbar-post-title {
   background: none !important;
 }
 
-#navbar .navbar-link-active {
-  color: var(--primary) !important;
-}
-#navbar .navbar-link-active:hover,
-#navbar .navbar-link-active:active,
-:root.dark #navbar .navbar-link-active:hover,
-:root.dark #navbar .navbar-link-active:active {
-  color: var(--primary) !important;
-  background-color: transparent !important;
-}
-
 #navbar .btn-plain.h-11 {
   height: 2.5rem !important;
   padding: 0 0.75rem !important;
@@ -224,5 +171,23 @@ body[data-page-type="post"] #top-row[data-scrolled="true"] #navbar-post-title {
 }
 
 .dropdown-item.current-theme-btn:hover {
+  color: var(--primary) !important;
+}
+
+#top-row[data-over-hero="true"] #navbar > div {
+  background: transparent !important;
+  box-shadow: none;
+}
+
+#top-row[data-over-hero="true"] #navbar .navbar-brand-link,
+#top-row[data-over-hero="true"] #navbar .navbar-brand-link:hover,
+#top-row[data-over-hero="true"] #navbar .navbar-menu-items > .dropdown-container > a,
+#top-row[data-over-hero="true"] #navbar [data-dropdown-trigger],
+#top-row[data-over-hero="true"] #navbar .navbar-util-no-hover,
+#top-row[data-over-hero="true"] #navbar #nav-menu-switch {
+  color: #fff !important;
+}
+
+#top-row #navbar .navbar-menu-items > .dropdown-container > .btn-plain:hover {
   color: var(--primary) !important;
 }

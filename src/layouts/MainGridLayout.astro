@@ -35,7 +35,7 @@ const {
 const isHomePageCheck = isHomePage(Astro.url.pathname);
 const isPostPageCheck = postSlug !== undefined;
 
-const isSingleColumnLayout = hideSidebar;
+const isSingleColumnLayout = hideSidebar || isPostPageCheck;
 const PostPageTOC = isPostPageCheck
 	? (await import("@components/layout/PostPageTOC.astro")).default
 	: null;
@@ -54,7 +54,7 @@ const mainPanelTop = "5.5rem";
 
 
 <slot slot="head" name="head"></slot>
-<div id="top-row" class="z-50 pointer-events-none fixed top-0 left-0 right-0 transition-[opacity,transform] duration-700">
+<div id="top-row" data-over-hero={String(isPostPageCheck)} class="z-50 pointer-events-none fixed top-0 left-0 right-0 transition-[opacity,transform] duration-700">
     <div id="navbar-wrapper" class="pointer-events-auto transition-[opacity,transform] duration-700">
         <Navbar></Navbar>
     </div>
@@ -62,6 +62,9 @@ const mainPanelTop = "5.5rem";
 
 
 <div class="absolute w-full z-30 pointer-events-none no-banner-layout" style={`top: ${mainPanelTop}`}>
+    <div id="post-header-wrapper" class="pointer-events-auto">
+        <slot name="post-header" />
+    </div>
     <!-- The pointer-events-none here prevent blocking the click event of the TOC -->
     <div class="relative w-full max-w-(--page-width) mx-auto pointer-events-auto">
         <div id="main-grid" class={`w-full left-0 right-0 grid ${gridCols} grid-rows-[auto_1fr_auto] lg:grid-rows-[auto] mx-auto gap-4 px-2 md:px-4 ${!showSidebarOnMobile ? 'mobile-no-sidebar' : ''}`}
@@ -76,11 +79,7 @@ const mainPanelTop = "5.5rem";
                         headings={headings}
                         isPostPage={isPostPageCheck}
                         class="hidden md:flex md:flex-col md:row-start-[var(--content-row)] md:row-span-1 md:col-start-2 md:col-end-3 md:self-stretch transition-main"
-                    >
-                        {PostPageTOC && (
-                            <PostPageTOC headings={headings} />
-                        )}
-                    </LeftSideBar>
+                    />
                 )}
             </div>
 
@@ -115,14 +114,27 @@ const mainPanelTop = "5.5rem";
     </div>
 </div>
 
-<FloatingControls />
+<FloatingControls>
+    <div id="floating-toc-container" class="contents">
+        {PostPageTOC && <PostPageTOC headings={headings} />}
+    </div>
+</FloatingControls>
 
 
 </Layout>
 
 <style is:global>
+  #post-header-wrapper:empty {
+    display: none;
+  }
+  .no-banner-layout:has(.post-hero) {
+    grid-template-rows: auto 1fr auto;
+  }
   #main-grid {
     --content-row: 1;
+  }
+  body[data-page-type="home"] #main-grid {
+    max-width: 72rem;
   }
   #main-grid:has(.home-featured) {
     --content-row: 2;
@@ -149,6 +161,12 @@ const mainPanelTop = "5.5rem";
   }
 
   /* 右侧栏平滑过渡 */
+  body[data-page-type="post"] #swup-container {
+    grid-column: 1 / -1;
+    max-width: calc(var(--page-width) - 18rem);
+    margin-inline: auto;
+  }
+
   #right-sidebar {
     transition: opacity 0.35s ease-in-out, 
                 transform 0.35s ease-in-out;

@@ -9,7 +9,7 @@ export const sidebarLayoutConfig: SidebarLayoutConfig = {
 			type: "profile",
 			// 是否启用该组件
 			enable: true,
-			showOnPostPage: true,
+			showOnPostPage: false,
 			// 组件显示顺序（数字越小越靠前）
 			order: 1,
 			// 组件位置

@@ -27,7 +27,7 @@ let links: NavBarLink[] = navBarConfig.links.map(
         className,
         "overflow-visible! relative h-18 mx-auto w-full",
     ]}>
-        <div class="mx-auto flex h-full w-full min-w-0 max-w-(--page-width) px-2 md:px-4">
+        <div class="flex h-full w-full min-w-0 px-2 md:px-4">
         <div
             class:list={[
                 "navbar-row flex h-full w-full min-w-0 items-center gap-2 lg:gap-3 xl:gap-4",
@@ -62,7 +62,6 @@ let links: NavBarLink[] = navBarConfig.links.map(
                     return <DropdownMenu link={l} />;
                 })}
             </div>
-            <span id="navbar-post-title"></span>
         </div>
 
         <div class="navbar-group px-3 lg:hidden!">
@@ -226,7 +225,21 @@ function loadButtonScript() {
     }
 }
 
+function updateNavbarHeroOverlap() {
+    const hero = document.querySelector(".post-hero");
+    const topRow = document.getElementById("top-row")!;
+    const heroBottom = hero
+        ? document.getElementById("post-header-wrapper")!.getBoundingClientRect().bottom
+        : 0;
+    topRow.dataset.overHero = String(heroBottom > topRow.offsetHeight);
+    document.documentElement.style.setProperty("--post-hero-bottom", `${heroBottom}px`);
+}
+
 setupNavbarActiveSync();
 loadButtonScript();
+updateNavbarHeroOverlap();
+window.addEventListener("scroll", updateNavbarHeroOverlap, { passive: true });
+window.addEventListener("resize", updateNavbarHeroOverlap);
+document.addEventListener("astro:page-load", updateNavbarHeroOverlap);
 
 </script>

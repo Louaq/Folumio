@@ -202,23 +202,6 @@ const collapsiblePreviewLines =
   import { expressiveCodeConfig, siteConfig } from "@/config";
   import { initPageFeatures } from "@/utils/page-features-init";
 
-  function updateNavbarAppearance() {
-    const navbar = document.getElementById("top-row")!;
-    const scrolled = window.scrollY > 0;
-    navbar.dataset.scrolled = String(scrolled);
-  }
-
-  function updateNavbarPostTitle() {
-    const title = document.getElementById("post-title");
-    const navbarTitle = document.getElementById("navbar-post-title")!;
-    navbarTitle.textContent = title?.textContent?.trim() ?? "";
-    navbarTitle.title = navbarTitle.textContent;
-  }
-
-  updateNavbarPostTitle();
-  updateNavbarAppearance();
-  window.addEventListener("scroll", updateNavbarAppearance, { passive: true });
-
   initPageFeatures();
   // Swup 导航和加密正文解锁共用同一入口，避免换页时重复初始化。
   document.addEventListener("astro:page-load", initPageFeatures);
@@ -314,8 +297,6 @@ const collapsiblePreviewLines =
         window.PostPageTOC.manager?.cleanup();
         window.PostPageTOC.manager = null;
       }
-      updateNavbarPostTitle();
-      updateNavbarAppearance();
       const isHomePage = pathsEqual(visit.to.url, url("/"));
       const toPathname = new URL(visit.to.url, window.location.href).pathname;
       const isPostPage = /\/posts\/.+/.test(toPathname);
@@ -430,8 +411,7 @@ const collapsiblePreviewLines =
           const maxY = Math.max(0, document.documentElement.scrollHeight - window.innerHeight);
           requestAnimationFrame(() => {
             window.scrollTo(0, Math.min(savedY!, maxY));
-            updateNavbarAppearance();
-          });
+                });
         }
       }
 
