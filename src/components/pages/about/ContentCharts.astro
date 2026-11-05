@@ -1,7 +1,6 @@
 ---
 import type { CollectionEntry } from "astro:content";
 import type { Category } from "@/utils/content-utils";
-import { url } from "@/utils/url-utils";
 
 interface Props {
   posts: CollectionEntry<"posts">[];
@@ -29,7 +28,7 @@ const annualCounts = years.length
   <h2 id="category-chart-title">探索的不同方向。</h2>
   <blog-content-chart
     kind="category"
-    data-values={JSON.stringify(sortedCategories.map((category) => ({ name: category.name, value: category.count, href: url(category.url) })))}
+    data-values={JSON.stringify(sortedCategories.map((category) => ({ name: category.name, value: category.count })))}
     data-total={posts.length}
     role="img"
     aria-label={`???????? ${posts.length} ????${sortedCategories.map((category) => `${category.name} ${category.count} ?`).join("?")}`}
@@ -43,7 +42,6 @@ const annualCounts = years.length
   <blog-content-chart
     kind="annual"
     data-values={JSON.stringify(annualCounts)}
-    data-href={url("/archive/")}
     role="img"
     aria-label={annualCounts.map(({ year, count }) => `${year} ? ${count} ???`).join("?")}
   />
@@ -67,12 +65,6 @@ const annualCounts = years.length
       this.renderChart();
       this.resizeObserver.observe(this);
       window.addEventListener("theme-change", this.updateTheme);
-      this.chart.on("click", (params) => {
-        const href = this.getAttribute("kind") === "category"
-          ? (params.data as { href: string }).href
-          : this.dataset.href!;
-        window.location.assign(href);
-      });
     }
 
     disconnectedCallback() {

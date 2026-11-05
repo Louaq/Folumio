@@ -71,7 +71,7 @@ const statistics = [
     </header>
 
     <div class="about-grid">
-      <section class="about-card card-base identity-card span-7">
+      <section class="about-card identity-card span-7">
         <p class="eyebrow">你好，欢迎来到我的小站 👋</p>
         <h2>我是 <span>{profileConfig.name}</span></h2>
         <p class="identity-role">{aboutPageConfig.role}</p>
@@ -81,31 +81,34 @@ const statistics = [
         </a>
       </section>
 
-      <section class="about-card card-base pursuit-card span-5">
+      <section class="about-card pursuit-card span-5">
         <p class="eyebrow">研究与探索</p>
-        <h2>{aboutPageConfig.pursuit}</h2>
+        <h2>{aboutPageConfig.pursuit.split("\n").map((line) => (
+          <span>{line}</span>
+        ))}</h2>
         <div class="pursuit-footer">
           <span>医学影像 × 人工智能</span>
           <Icon name="lucide:sparkles" />
         </div>
       </section>
 
-      <section class="about-card card-base keywords-card span-7">
+      <section class="about-card keywords-card span-6">
         <p class="eyebrow">研究关键词</p>
         <h2>从不同模态，看见更多。</h2>
         <div class="keyword-grid">
           {aboutPageConfig.keywords.map((keyword, index) => (
             <div class:list={["keyword", `keyword-${index % 4}`]}>
-              <span class="keyword-mark" aria-hidden="true">
-                {String(index + 1).padStart(2, "0")}
-              </span>
+              <Icon name={[
+                "lucide:magnet", "lucide:scan", "lucide:activity", "lucide:layers",
+                "lucide:scissors", "lucide:combine", "lucide:box", "lucide:stethoscope",
+              ][index]} aria-hidden="true" />
               <span>{keyword}</span>
             </div>
           ))}
         </div>
       </section>
 
-      <section class="about-card card-base statistics-card span-5">
+      <section class="about-card statistics-card span-6">
         <p class="eyebrow">关于这个博客</p>
         <h2>让知识慢慢积累。</h2>
         <p class="card-description">
@@ -113,8 +116,8 @@ const statistics = [
         </p>
         <div class="statistics">
           {statistics.map((stat) => (
-            <a href={url(stat.href)}>
-              <strong>{stat.value}</strong>
+            <a href={url(stat.href)} aria-label={`${stat.value} ${stat.label}`}>
+              <strong aria-hidden="true"><about-counter data-value={stat.value} style={`min-width: ${String(stat.value).length}ch`}>{stat.value}</about-counter></strong>
               <span>{stat.label}</span>
             </a>
           ))}
@@ -122,36 +125,86 @@ const statistics = [
       </section>
 
       <ContentCharts posts={posts} categories={categories} />
-
-      <section class="about-card card-base motto-card span-4">
-        <p class="eyebrow">字里行间</p>
-        <Icon name="lucide:quote" class="quote-icon" aria-hidden="true" />
-        <blockquote>{profileConfig.bio}</blockquote>
-        <span class="motto-signature">{profileConfig.name}</span>
-      </section>
-
-      <section class="about-card card-base directions-card span-8">
-        <p class="eyebrow">这里会写些什么</p>
-        <h2>论文之外，也有实践。</h2>
-        <div class="direction-list">
-          {aboutPageConfig.directions.map((direction) => (
-            <div class="direction">
-              <span class="direction-icon">
-                <Icon name={direction.icon} />
-              </span>
-              <div>
-                <h3>{direction.title}</h3>
-                <p>{direction.description}</p>
-              </div>
-            </div>
-          ))}
-        </div>
-      </section>
     </div>
   </div>
 </MainGridLayout>
 
+<script>
+  class AboutCounter extends HTMLElement {
+    frame = 0;
+    observer?: IntersectionObserver;
+    motion = window.matchMedia("(prefers-reduced-motion: reduce)");
+    finish = () => {
+      cancelAnimationFrame(this.frame);
+      this.textContent = this.dataset.value!;
+      this.observer?.disconnect();
+    };
+
+    connectedCallback() {
+      if (this.motion.matches) return;
+      this.textContent = "0";
+      this.motion.addEventListener("change", this.finish);
+      this.observer = new IntersectionObserver((entries) => {
+        if (!entries.some((entry) => entry.isIntersecting)) return;
+        this.observer!.disconnect();
+        const value = Number(this.dataset.value);
+        let start: number;
+        const tick = (time: number) => {
+          start ??= time;
+          const progress = Math.min((time - start) / 1400, 1);
+          this.textContent = String(Math.round(value * (1 - (1 - progress) ** 3)));
+          if (progress < 1) this.frame = requestAnimationFrame(tick);
+        };
+        this.frame = requestAnimationFrame(tick);
+      }, { threshold: 0.5 });
+      this.observer.observe(this);
+    }
+
+    disconnectedCallback() {
+      this.finish();
+      this.motion.removeEventListener("change", this.finish);
+    }
+  }
+
+  customElements.define("about-counter", AboutCounter);
+</script>
+
 <style>
+  about-counter {
+    display: inline-block;
+    font-variant-numeric: tabular-nums;
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    .about-card {
+      animation: card-enter 650ms both;
+    }
+    .about-card:nth-child(2) { animation-delay: 100ms; }
+    .about-card:nth-child(3) { animation-delay: 200ms; }
+    .about-card:nth-child(4) { animation-delay: 300ms; }
+    .identity-card {
+      background-size: 200% 200%;
+      animation: card-enter 650ms both, gradient-drift 8s ease-in-out infinite alternate;
+    }
+    .avatar-status,
+    .keyword :global(svg) {
+      animation: gentle-float 4s ease-in-out infinite;
+    }
+    .keyword:nth-child(even) :global(svg) { animation-delay: -2s; }
+    .statistics a { transition: translate 250ms; }
+    .statistics a:focus-visible { translate: 0 -4px; }
+  }
+  @keyframes card-enter {
+    from { opacity: 0; transform: translateY(18px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes gentle-float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-5px); }
+  }
+  @keyframes gradient-drift {
+    from { background-position: 0% 50%; }
+    to { background-position: 100% 50%; }
+  }
   .about-page {
     padding-bottom: 24px;
     color: var(--juejin-text-primary);
@@ -241,12 +294,18 @@ const statistics = [
   .about-grid {
     display: grid;
     grid-template-columns: repeat(12, minmax(0, 1fr));
-    gap: 20px;
+    gap: 10px;
   }
   .about-card {
-    padding: 32px;
+    padding: 28px 32px;
     min-width: 0;
-    border: 1px solid var(--line-divider);
+    overflow: hidden;
+    border: 1px solid color-mix(in srgb, #8da7ff 28%, var(--line-divider));
+    border-radius: 12px;
+    background: var(--card-bg);
+  }
+  .span-6 {
+    grid-column: span 6;
   }
   .span-4 {
     grid-column: span 4;
@@ -267,23 +326,30 @@ const statistics = [
     letter-spacing: -0.02em;
   }
   .identity-card {
-    background-image: linear-gradient(
-      120deg,
-      color-mix(in srgb, var(--primary) 12%, var(--card-bg)),
-      var(--card-bg)
-    );
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    min-height: 240px;
+    background: linear-gradient(110deg, #528dff, #00c4e8);
+    color: white;
+  }
+  .identity-card .eyebrow {
+    color: white;
+    font-size: 15px;
+    letter-spacing: 0;
+    margin-bottom: 8px;
   }
   .identity-card h2 {
-    font-size: clamp(32px, 4vw, 48px);
-    margin: 16px 0 8px;
-  }
-  .identity-card h2 span {
-    color: var(--primary);
+    font-size: clamp(32px, 3vw, 40px);
+    line-height: 1.2;
+    margin-bottom: 10px;
   }
   .identity-role {
-    font-size: 17px;
-    font-weight: 600;
-    margin-bottom: 14px;
+    font-size: 16px;
+    font-weight: 500;
+  }
+  .identity-card .card-description {
+    color: white;
   }
   .card-description {
     font-size: 14px;
@@ -295,10 +361,10 @@ const statistics = [
     display: inline-flex;
     align-items: center;
     gap: 8px;
-    color: var(--primary);
+    color: white;
     font-size: 14px;
     font-weight: 600;
-    margin-top: 24px;
+    margin-top: 16px;
   }
   .text-link :global(svg) {
     width: 18px;
@@ -307,67 +373,86 @@ const statistics = [
   .pursuit-card {
     display: flex;
     flex-direction: column;
-    background-image: linear-gradient(135deg, #5565df, #7889ee);
-    color: white;
-  }
-  .pursuit-card .eyebrow {
-    color: #ffffffb3;
+    justify-content: center;
   }
   .pursuit-card h2 {
-    white-space: pre-line;
-    margin: 16px 0 32px;
-    font-size: clamp(26px, 3vw, 38px);
+    margin-bottom: 20px;
+    font-size: clamp(28px, 2.8vw, 38px);
+    line-height: 1.15;
+    font-weight: 800;
+  }
+  .pursuit-card h2 span {
+    display: block;
+  }
+  .pursuit-card h2 span:last-child {
+    color: #f36b76;
   }
   .pursuit-footer {
     display: flex;
     align-items: center;
     justify-content: space-between;
     gap: 16px;
-    margin-top: auto;
     font-size: 13px;
-    color: #ffffffcf;
+    color: var(--content-meta);
   }
   .pursuit-footer :global(svg) {
     width: 28px;
     height: 28px;
   }
+  .keywords-card,
+  .statistics-card {
+    min-height: 420px;
+  }
+  .keywords-card {
+    display: flex;
+    flex-direction: column;
+  }
+  .keywords-card h2,
+  .statistics-card h2 {
+    font-size: clamp(26px, 2.8vw, 36px);
+    font-weight: 800;
+    line-height: 1.2;
+  }
   .keyword-grid {
     display: grid;
     grid-template-columns: repeat(4, minmax(0, 1fr));
-    gap: 12px;
-    margin-top: 24px;
+    gap: 16px;
+    margin-top: auto;
+    padding-top: 40px;
   }
   .keyword {
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
-    gap: 18px;
-    padding: 14px;
-    min-height: 96px;
-    border-radius: 10px;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    padding: 16px 8px;
+    min-height: 116px;
+    border-radius: 24px;
     font-size: 13px;
     font-weight: 600;
+    text-align: center;
+    box-shadow: 0 3px 12px #00000014;
   }
-  .keyword-mark {
-    font-size: 12px;
-    opacity: 0.6;
-    font-variant-numeric: tabular-nums;
+  .keyword :global(svg) {
+    width: 38px;
+    height: 38px;
   }
   .keyword-0 {
-    background: #eaf6f0;
-    color: #267653;
+    background: #2d343b;
+    color: #fff;
   }
   .keyword-1 {
-    background: #edf0ff;
-    color: #5968b3;
+    background: #469deb;
+    color: #fff;
   }
   .keyword-2 {
-    background: #fff1df;
-    color: #9e6b28;
+    background: #f5d77e;
+    color: #654e0b;
   }
   .keyword-3 {
-    background: #f8eaf1;
-    color: #a2547b;
+    background: #b1efa5;
+    color: #225c43;
   }
   .statistics-card {
     display: flex;
@@ -384,14 +469,14 @@ const statistics = [
     display: flex;
     flex-direction: column;
     gap: 8px;
-    border-top: 2px solid var(--line-divider);
+    border-top: 4px solid #2584ff;
     padding-top: 16px;
   }
   .statistics strong {
-    font-size: 40px;
+    font-size: clamp(36px, 4vw, 56px);
     line-height: 1;
     font-weight: 700;
-    color: var(--primary);
+    color: #2584ff;
     font-variant-numeric: tabular-nums;
   }
   .statistics span {
@@ -465,10 +550,6 @@ const statistics = [
   .story-card {
     grid-column: 1 / -1;
   }
-  :global(:root.dark) .keyword {
-    background: var(--btn-regular-bg);
-    color: var(--content-meta);
-  }
   @media (max-width: 1023px) {
     .about-card {
       padding: 24px;
@@ -494,6 +575,7 @@ const statistics = [
       width: 112px;
       height: 112px;
     }
+
     .about-grid {
       grid-template-columns: minmax(0, 1fr);
       gap: 16px;
@@ -501,6 +583,18 @@ const statistics = [
     .about-card {
       grid-column: auto;
       padding: 24px;
+    }
+    .keywords-card,
+    .statistics-card {
+      min-height: auto;
+    }
+    .keyword-grid {
+      padding-top: 24px;
+      gap: 12px;
+    }
+    .keyword {
+      min-height: 104px;
+      border-radius: 20px;
     }
     .statistics strong {
       font-size: 34px;
