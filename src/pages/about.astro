@@ -30,9 +30,9 @@ const [posts, tags, categories] = await Promise.all([
 	getCategoryList(),
 ]);
 const statistics = [
-	{ value: posts.length, label: "篇文章", href: "/archive/" },
-	{ value: tags.length, label: "个标签", href: "/tags/" },
-	{ value: categories.length, label: "个分类", href: "/categories/" },
+	{ value: posts.length, label: "篇文章"},
+	{ value: tags.length, label: "个标签"},
+	{ value: categories.length, label: "个分类"},
 ];
 ---
 <MainGridLayout
@@ -116,7 +116,7 @@ const statistics = [
         </p>
         <div class="statistics">
           {statistics.map((stat) => (
-            <a href={url(stat.href)} aria-label={`${stat.value} ${stat.label}`}>
+            <a aria-label={`${stat.value} ${stat.label}`}>
               <strong aria-hidden="true"><about-counter data-value={stat.value} style={`min-width: ${String(stat.value).length}ch`}>{stat.value}</about-counter></strong>
               <span>{stat.label}</span>
             </a>

@@ -44,20 +44,11 @@ const { headings: _headings = [], class: className, style } = Astro.props;
   list-style: none;
   cursor: pointer;
   background: transparent;
-  color: #000;
-}
-
-:global(:root.dark) .post-page-toc-toggle {
-  color: #fff;
+  color: var(--primary);
 }
 
 .post-page-toc-toggle::-webkit-details-marker {
   display: none;
-}
-
-.post-page-toc-toggle:hover,
-.post-page-toc-toggle:focus-visible {
-  color: var(--primary);
 }
 
 .post-page-toc-panel {
