@@ -287,6 +287,9 @@ export default function meilisearch(): AstroIntegration {
 					];
 					const displayedAttributes = [
 						"type",
+						"image",
+						"author",
+						"published",
 						"title",
 						"description",
 						"content",

@@ -1,4 +1,8 @@
 import { getCollection } from "astro:content";
+import * as path from "node:path";
+import type { ImageMetadata } from "astro";
+import { profileConfig } from "@/config/profileConfig";
+import { url } from "@/utils/url-utils";
 import { createHash } from "node:crypto";
 import type { APIRoute } from "astro";
 import { getPostUrlForEntry } from "@/utils/url-utils";
@@ -30,6 +34,8 @@ type MeilisearchRecord = {
 	objectID: string;
 	type: "post";
 	title: string;
+	image: string;
+	author: string;
 	description?: string;
 	content: string;
 	url: string;
@@ -77,6 +83,7 @@ function makeMeiliId(objectID: string): string {
 
 export const GET: APIRoute = async () => {
 	const posts = await getCollection("posts");
+	const images = import.meta.glob<ImageMetadata>("../content/**/*.{png,jpg,jpeg,webp,gif,avif,svg}", { eager: true, import: "default" });
 
 	// 过滤掉草稿文章
 	const publishedPosts = posts.filter((post) => !post.data.draft);
@@ -92,6 +99,13 @@ export const GET: APIRoute = async () => {
 			? ""
 			: truncateToBytes(body, maxContentBytes);
 
+		let image = post.data.image;
+		if (image.startsWith("/")) {
+			image = url(image);
+		} else if (image && !/^(https?:|data:)/.test(image)) {
+			const imagePath = path.posix.normalize(path.posix.join("..", path.posix.dirname(post.filePath!.replace(/\\/g, "/").replace(/^src\//, "")), image));
+			image = images[imagePath].src;
+		}
 		const objectID = post.id;
 		const rec: MeilisearchRecord = {
 			// Meilisearch primaryKey：必须满足字符限制
@@ -99,6 +113,8 @@ export const GET: APIRoute = async () => {
 			objectID,
 			type: "post",
 			title: post.data.title,
+			image,
+			author: post.data.author || profileConfig.name,
 			description: post.data.description || "",
 			content: truncatedContent,
 			published: post.data.published.toISOString(),

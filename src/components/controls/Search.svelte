@@ -32,6 +32,9 @@ const MEILISEARCH_INDEX_NAME =
 
 /** 检索结果条目（doSearch / loadMore 共用的归一化结构） */
 interface SearchHit {
+	image: string;
+	author: string;
+	published: string;
 	url: string;
 	title: string;
 	description: string;
@@ -195,6 +198,9 @@ const queryMeilisearch = async (
 				limit: hitsPerPage,
 				offset: pageIndex * hitsPerPage,
 				attributesToRetrieve: [
+					"image",
+					"author",
+					"published",
 					"title",
 					"description",
 					"content",
@@ -212,6 +218,9 @@ const queryMeilisearch = async (
 		const excerptRaw = content.replace(/\s+/g, " ").trim().slice(0, 180);
 		return {
 			url: hit.url as string,
+			image: hit.image as string,
+			author: hit.author as string,
+			published: hit.published as string,
 			title: highlightText((hit.title as string) ?? "", keyword),
 			description: hit.description
 				? highlightText(hit.description as string, keyword)
@@ -473,15 +482,27 @@ onDestroy(() => {
 			aria-label="Search"
 			tabindex="-1"
 		>
+		<div class="search-heading">
+			<h2>{labels.search}</h2>
+			<button type="button" class="search-close" aria-label={labels.announcementClose} onclick={closeModal}>
+				<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+					<path d="m6 6 12 12M18 6 6 18" />
+				</svg>
+			</button>
+		</div>
 		<div class="search-header">
 			<div class="search-input-wrap">
 				<span class="search-search-icon" aria-hidden="true">
-					{@render searchIcon(20)}
+					<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round">
+						<circle cx="10.5" cy="10.5" r="7.5" />
+						<path d="m16 16 5 5" />
+					</svg>
 				</span>
 				<input
 					bind:this={modalInputEl}
 					bind:value={query}
-					placeholder={labels.search}
+					placeholder="输入关键字，按 Enter 搜索"
+					aria-label={labels.search}
 					class="search-input"
 					onkeydown={handleInputKeydown}
 				/>
@@ -497,6 +518,7 @@ onDestroy(() => {
 			{:else if results.length === 0}
 				<div class="search-empty">{labels.searchNoResults}</div>
 			{:else}
+				<div class="search-count">找到 {nbHits} 条结果</div>
 				<div class="search-list" role="list" bind:this={listEl}>
 					{#each results as item, idx}
 						<a
@@ -505,14 +527,24 @@ onDestroy(() => {
 							onclick={(e) => handleResultClick(e, item.url)}
 							onmouseenter={() => (activeIndex = idx)}
 						>
-							<div class="search-title">
-								{@html item.title}
-							</div>
-							{#if item.excerpt || item.description}
-								<div class="search-excerpt">
-									{@html item.excerpt || item.description}
-								</div>
+							{#if item.image}
+								<img class="search-thumbnail" src={item.image} alt="" width="96" height="96" loading="lazy" />
 							{/if}
+							<div class="search-content">
+								<div class="search-result-heading">
+									<div class="search-title">{@html item.title}</div>
+									<span class="search-type">▤ 文章</span>
+								</div>
+								{#if item.description || item.excerpt}
+									<div class="search-excerpt">{@html item.description || item.excerpt}</div>
+								{/if}
+								<div class="search-meta">
+									<span>{item.author || ""}</span>
+									{#if item.published}
+										<time datetime={item.published}>{new Date(item.published).toLocaleDateString("zh-CN", { year: "numeric", month: "long", day: "numeric" })}</time>
+									{/if}
+								</div>
+							</div>
 						</a>
 					{/each}
 				</div>
@@ -538,61 +570,8 @@ onDestroy(() => {
 		</div>
 		{/if}
 
-		<footer class="docsearch-modal-footer">
-			<ul class="docsearch-modal-footer-commands" role="list">
-				<li>
-					<kbd class="docsearch-modal-footer-commands-key">
-						<svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" aria-hidden="true">
-							<g fill="currentColor" fill-rule="evenodd" clip-rule="evenodd">
-								<path
-									d="M3 14a1 1 0 0 1 1-1h12a3 3 0 0 0 3-3V6a1 1 0 1 1 2 0v4a5 5 0 0 1-5 5H4a1 1 0 0 1-1-1z"
-								></path>
-								<path
-									d="M3.293 14.707a1 1 0 0 1 0-1.414l4-4a1 1 0 0 1 1.414 1.414L5.414 14l3.293 3.293a1 1 0 1 1-1.414 1.414l-4-4z"
-								></path>
-							</g>
-						</svg>
-					</kbd>
-					<span class="docsearch-modal-footer-commands-label">{labels.searchKbdSelect}</span>
-				</li>
-				<li>
-					<kbd class="docsearch-modal-footer-commands-key">
-						<svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" aria-hidden="true">
-							<path
-								fill="currentColor"
-								d="M12 4a1 1 0 0 1 1 1v11.586l4.293-4.293a1 1 0 0 1 1.414 1.414l-6 6a1 1 0 0 1-1.414 0l-6-6a1 1 0 1 1 1.414-1.414L11 16.586V5a1 1 0 0 1 1-1z"
-							></path>
-						</svg>
-					</kbd>
-					<kbd class="docsearch-modal-footer-commands-key">
-						<svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" aria-hidden="true">
-							<path
-								fill="currentColor"
-								d="M12 4a1 1 0 0 1 .707.293l6 6a1 1 0 0 1-1.414 1.414L13 7.414V19a1 1 0 1 1-2 0V7.414l-4.293 4.293a1 1 0 0 1-1.414-1.414l6-6A1 1 0 0 1 12 4z"
-							></path>
-						</svg>
-					</kbd>
-					<span class="docsearch-modal-footer-commands-label">{labels.searchKbdSwitch}</span>
-				</li>
-				<li>
-					<kbd class="docsearch-modal-footer-commands-key">
-						<svg width="15" height="15" viewBox="0 0 15 15" aria-hidden="true">
-							<g
-								fill="none"
-								stroke="currentColor"
-								stroke-linecap="round"
-								stroke-linejoin="round"
-								stroke-width="1.2"
-							>
-								<path
-									d="M13.6167 8.936c-.1065.3583-.6883.962-1.4875.962-.7993 0-1.653-.9165-1.653-2.1258v-.5678c0-1.2548.7896-2.1016 1.653-2.1016.8634 0 1.3601.4778 1.4875 1.0724M9 6c-.1352-.4735-.7506-.9219-1.46-.8972-.7092.0246-1.344.57-1.344 1.2166s.4198.8812 1.3445.9805C8.465 7.3992 8.968 7.9337 9 8.5c.032.5663-.454 1.398-1.4595 1.398C6.6593 9.898 6 9 5.963 8.4851m-1.4748.5368c-.2635.5941-.8099.876-1.5443.876s-1.7073-.6248-1.7073-2.204v-.4603c0-1.0416.721-2.131 1.7073-2.131.9864 0 1.6425 1.031 1.5443 2.2492h-2.956"
-								></path>
-							</g>
-						</svg>
-					</kbd>
-					<span class="docsearch-modal-footer-commands-label">{labels.announcementClose}</span>
-				</li>
-			</ul>
+		<footer class="search-footer">
+			按 Esc 关闭 <span aria-hidden="true">·</span> 按 Ctrl/⌘ + K 打开
 		</footer>
 	</div>
 	</div>
@@ -628,11 +607,11 @@ onDestroy(() => {
 		top: clamp(1rem, 8vh, 4rem);
 		left: 50%;
 		transform: translateX(-50%);
-		width: min(560px, calc(100vw - 2rem));
+		width: min(640px, calc(100vw - 2rem));
 		max-height: min(640px, calc(100vh - 2rem));
 		display: flex;
 		flex-direction: column;
-		border-radius: 8px;
+		border-radius: 16px;
 		overflow: hidden;
 		background: rgba(255, 255, 255, 0.98);
 		color: #111827;
@@ -640,59 +619,72 @@ onDestroy(() => {
 			0 28px 90px rgba(0, 0, 0, 0.25),
 			0 2px 0 rgba(255, 255, 255, 0.6) inset;
 		z-index: 2147483647;
-		border: 1px solid rgba(0, 0, 0, 0.06);
 	}
 
 	:global(html.dark) .search-modal {
 		background: #1e293b;
 		color: #e2e8f0;
-		border: 1px solid rgba(148, 163, 184, 0.22);
 		box-shadow:
 			0 28px 90px rgba(0, 0, 0, 0.55),
 			0 0 0 1px rgba(15, 23, 42, 0.5);
 	}
 
-	.search-header {
+	.search-heading {
 		display: flex;
-		gap: 0.5rem;
 		align-items: center;
-		padding: 0.75rem 0.75rem 0.6rem 0.75rem;
+		justify-content: space-between;
+		padding: 16px 24px;
+		border-bottom: 1px solid color-mix(in oklch, var(--primary) 22%, transparent);
+		flex-shrink: 0;
 	}
-
+	.search-heading h2 {
+		margin: 0;
+		font-size: 16px;
+		font-weight: 600;
+		line-height: 24px;
+	}
+	.search-close {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		width: 24px;
+		height: 24px;
+		padding: 0;
+		border: 0;
+		background: transparent;
+		color: #60606b;
+		cursor: pointer;
+	}
+	.search-header {
+		padding: 20px 20px 0;
+		flex-shrink: 0;
+	}
 	.search-input-wrap {
 		position: relative;
-		flex: 1;
 		display: flex;
 		align-items: center;
-		border-radius: 8px;
-		background: rgba(255, 255, 255, 1);
-		border: 1px solid rgba(17, 24, 39, 0.12);
-		box-shadow: 0 1px 0 rgba(17, 24, 39, 0.04);
-	}
-	:global(html.dark) .search-input-wrap {
-		background: #0f172a;
-		border: 1px solid rgba(148, 163, 184, 0.28);
-		box-shadow: none;
+		border-radius: 9px;
+		border: 1px solid var(--primary);
 	}
 	.search-input-wrap:focus-within {
 		border-color: var(--primary);
-		box-shadow: 0 0 0 2px color-mix(in oklch, var(--primary) 28%, transparent);
 	}
-	:global(html.dark) .search-input-wrap:focus-within {
-		border-color: var(--primary);
-		box-shadow: 0 0 0 2px color-mix(in oklch, var(--primary) 32%, transparent);
-	}
-
 	.search-search-icon {
 		position: absolute;
-		left: 0.75rem;
-		top: 50%;
-		transform: translateY(-50%);
-		color: rgba(17, 24, 39, 0.35);
+		left: 12px;
+		display: flex;
+		color: #60606b;
 		pointer-events: none;
 	}
+	:global(html.dark) .search-heading {
+		border-color: rgba(148, 163, 184, 0.22);
+	}
+	:global(html.dark) .search-close,
 	:global(html.dark) .search-search-icon {
-		color: #60a5fa;
+		color: #cbd5e1;
+	}
+	:global(html.dark) .search-input-wrap {
+		border-color: var(--primary);
 	}
 
 	/* 搜索触发按钮：仅图标 + 悬浮放大，参考 Ruyu-Blog 的搜索入口实现
@@ -727,8 +719,8 @@ onDestroy(() => {
 
 	.search-input {
 		width: 100%;
-		height: 46px;
-		padding: 0 0.75rem 0 2.85rem;
+		height: 26px;
+		padding: 0 12px 0 40px;
 		background: transparent;
 		border: 0;
 		outline: 0;
@@ -743,7 +735,7 @@ onDestroy(() => {
 	}
 
 	.search-body {
-		padding: 0.35rem 0.5rem 0.5rem 0.5rem;
+		padding: 24px 20px 0;
 		overflow: auto;
 		flex: 1 1 auto;
 		min-height: 0;
@@ -762,7 +754,7 @@ onDestroy(() => {
 	.search-list {
 		display: flex;
 		flex-direction: column;
-		gap: 0.25rem;
+		gap: 12px;
 	}
 
 	.search-more {
@@ -807,45 +799,74 @@ onDestroy(() => {
 		background: rgba(255, 255, 255, 0.06);
 	}
 
+	.search-count {
+		margin: 0 8px 8px;
+		font-size: 13px;
+		opacity: 0.7;
+	}
 	.search-item {
 		display: flex;
-		flex-direction: column;
-		justify-content: center;
-		height: 64px; /* 统一每条结果高度 */
-		padding: 0.6rem 0.75rem;
-		border-radius: 10px;
+		align-items: center;
+		gap: 20px;
+		min-height: 152px;
+		padding: 16px 20px;
+		border-radius: 12px;
 		text-decoration: none;
 		color: inherit;
-		background: transparent;
-		border: 1px solid rgba(17, 24, 39, 0.08);
-		overflow: hidden;
+		border: 1px solid color-mix(in oklch, var(--primary) 22%, transparent);
 	}
-	.search-item:hover {
-		background: rgba(17, 24, 39, 0.04);
-		border-color: rgba(17, 24, 39, 0.14);
-	}
-	:global(html.dark) .search-item:hover {
-		background: rgba(255, 255, 255, 0.06);
-		border-color: rgba(255, 255, 255, 0.16);
-	}
-	:global(html.dark) .search-item {
-		border-color: rgba(255, 255, 255, 0.1);
-	}
-
-	.search-item.is-active {
-		background: transparent;
+	.search-item:hover,
+	.search-item.is-active,
+	.search-item:focus-visible {
 		border-color: var(--primary);
+		background: color-mix(in oklch, var(--primary) 4%, transparent);
 	}
-	:global(html.dark) .search-item.is-active {
+	.search-thumbnail {
+		width: 96px;
+		height: 96px;
+		object-fit: cover;
+		border-radius: 8px;
+		flex-shrink: 0;
+	}
+	.search-content {
+		flex: 1;
+		min-width: 0;
+	}
+	.search-result-heading {
+		display: flex;
+		align-items: center;
+		gap: 12px;
+		justify-content: space-between;
+	}
+	.search-type {
+		flex-shrink: 0;
+		padding: 3px 8px;
+		border-radius: 6px;
+		font-size: 12px;
+		color: var(--primary);
+		background: color-mix(in oklch, var(--primary) 15%, transparent);
+	}
+	.search-meta {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 12px;
+		margin-top: 20px;
+		font-size: 12px;
+		opacity: 0.7;
+	}
+	.search-content :global(mark) {
 		background: transparent;
-		border-color: var(--primary);
+		color: var(--primary);
+		padding: 0;
 	}
-	.search-item.is-active :global(mark) {
-		background-color: color-mix(in oklch, var(--primary) 25%, transparent);
-		color: inherit;
+	@media (max-width: 480px) {
+		.search-item { gap: 12px; padding: 12px; }
+		.search-thumbnail { width: 64px; height: 64px; }
+		.search-result-heading { align-items: flex-start; gap: 8px; }
 	}
 
 	.search-title {
+		font-size: 18px;
 		font-weight: 700;
 		display: -webkit-box;
 		-webkit-box-orient: vertical;
@@ -855,85 +876,29 @@ onDestroy(() => {
 	}
 
 	.search-excerpt {
-		margin-top: 0.25rem;
-		font-size: 0.9rem;
-		opacity: 0.75;
+		margin-top: 10px;
+		font-size: 14px;
+		opacity: 0.7;
 		display: -webkit-box;
 		-webkit-box-orient: vertical;
-		-webkit-line-clamp: 1;
+		-webkit-line-clamp: 2;
 		overflow: hidden;
-		line-height: 1.2;
+		line-height: 1.65;
 	}
 
-	.docsearch-modal-footer {
+	.search-footer {
 		display: flex;
-		flex-direction: row;
-		flex-wrap: wrap;
-		justify-content: space-between;
-		align-items: center;
-		gap: 0.5rem 1rem;
-		padding: 0.5rem 0.75rem;
-		background: rgba(249, 250, 251, 1);
-		border-top: 1px solid rgba(17, 24, 39, 0.08);
-	}
-	:global(html.dark) .docsearch-modal-footer {
-		background: #0f172a;
-		border-top: 1px solid rgba(148, 163, 184, 0.18);
-	}
-
-	.docsearch-modal-footer-commands {
-		display: flex;
-		flex-wrap: wrap;
-		align-items: center;
-		flex: 1;
-		gap: 0.65rem 1rem;
-		list-style: none;
-		margin: 0;
-		padding: 0;
-	}
-	.docsearch-modal-footer-commands li {
-		display: flex;
-		align-items: center;
-		gap: 0.35rem;
-	}
-	.docsearch-modal-footer-commands li:last-child {
-		margin-left: auto;
-	}
-	.docsearch-modal-footer-commands-key {
-		display: inline-flex;
-		align-items: center;
 		justify-content: center;
-		min-width: 1.5rem;
-		height: 1.375rem;
-		padding: 0 0.35rem;
-		border-radius: 0.25rem;
-		border: 1px solid #d1d5db;
-		background: linear-gradient(180deg, #ffffff 0%, #f3f4f6 100%);
-		box-shadow:
-			0 1px 1px rgba(15, 23, 42, 0.06),
-			inset 0 -1px 0 rgba(15, 23, 42, 0.04);
-		color: #374151;
-		line-height: 1;
-	}
-	.docsearch-modal-footer-commands-key :global(svg) {
-		display: block;
+		align-items: center;
+		gap: 8px;
+		padding: 12px 16px 18px;
+		font-size: 13px;
+		line-height: 20px;
+		color: #71717a;
 		flex-shrink: 0;
 	}
-	:global(html.dark) .docsearch-modal-footer-commands-key {
-		border-color: rgba(148, 163, 184, 0.35);
-		background: linear-gradient(180deg, #374151 0%, #1f2937 100%);
-		color: #e5e7eb;
-		box-shadow:
-			0 1px 1px rgba(0, 0, 0, 0.2),
-			inset 0 1px 0 rgba(255, 255, 255, 0.05);
-	}
-	.docsearch-modal-footer-commands-label {
-		font-size: 0.75rem;
-		color: #6b7280;
-		white-space: nowrap;
-	}
-	:global(html.dark) .docsearch-modal-footer-commands-label {
-		color: #9ca3af;
+	:global(html.dark) .search-footer {
+		color: #94a3b8;
 	}
 
 </style>
