@@ -1,0 +1,84 @@
+---
+import type { CollectionEntry } from "astro:content";
+import { Icon } from "astro-icon/components";
+import I18nKey from "@/i18n/i18nKey";
+import { i18n } from "@/i18n/translation";
+import { getCategoryUrl } from "@/utils/category-utils";
+import { url } from "@/utils/url-utils";
+
+interface Props {
+	entry: CollectionEntry<"posts">;
+}
+
+const { entry } = Astro.props;
+---
+
+<div class="post-toolbar">
+  <nav aria-label="面包屑导航" class="post-breadcrumb">
+    <ol>
+      <li><a href={url("/")}><Icon name="material-symbols:home-rounded" />{i18n(I18nKey.home)}</a></li>
+      <li aria-hidden="true">›</li>
+      <li><a href={getCategoryUrl(entry.data.category)}>{entry.data.category || i18n(I18nKey.uncategorized)}</a></li>
+      <li aria-hidden="true">›</li>
+      <li class="post-breadcrumb-current" aria-current="page" title={entry.data.title}>{entry.data.title}</li>
+    </ol>
+  </nav>
+  {!entry.data.password && (
+    <button type="button" id="post-copy-markdown" data-markdown={entry.body}>
+      <Icon name="material-symbols:content-copy-outline-rounded" />
+      <span data-copy-label aria-live="polite">复制为 Markdown</span>
+    </button>
+  )}
+</div>
+
+<style>
+  .post-toolbar {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.75rem 1rem;
+    margin-bottom: 1.5rem;
+    font-size: 0.875rem;
+    color: var(--juejin-text-primary);
+  }
+  .post-breadcrumb {
+    min-width: 0;
+    flex: 1 1 12rem;
+  }
+  ol {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+  li {
+    flex-shrink: 0;
+  }
+  a, button {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+  }
+  .post-breadcrumb-current, button {
+    border-radius: 9999px;
+    padding: 0.375rem 0.75rem;
+    color: var(--primary);
+    background: color-mix(in srgb, var(--primary) 8%, transparent);
+  }
+  .post-breadcrumb-current {
+    flex-shrink: 1;
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  button {
+    flex-shrink: 0;
+    cursor: pointer;
+    font: inherit;
+    border: 0;
+  }
+</style>

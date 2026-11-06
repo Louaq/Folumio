@@ -12,6 +12,7 @@ import { Icon } from "astro-icon/components";
 import qrcode from "qrcode-generator";
 import CoverImage from "@/components/common/CoverImage.astro";
 import PostMetadata from "@/components/layout/PostMeta.astro";
+import PostToolbar from "@/components/layout/PostToolbar.astro";
 import PostStaleNoticeBanner from "@/components/layout/PostStaleNoticeBanner.astro";
 import EncryptedContent from "@/components/misc/EncryptedContent.astro";
 import PasswordProtection from "@/components/misc/PasswordProtection.svelte";
@@ -138,6 +139,8 @@ const jsonLd = {
       ]}
     >
 
+
+      <PostToolbar entry={entry} />
 
       {!entry.data.password && shouldShowOutdatedNotice && (
         <PostStaleNoticeBanner

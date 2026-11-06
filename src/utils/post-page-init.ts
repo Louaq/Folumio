@@ -20,6 +20,25 @@ function initPostShare(post: HTMLElement): void {
 	};
 }
 
+function initMarkdownCopy(post: HTMLElement): void {
+	const button = post.querySelector<HTMLButtonElement>("#post-copy-markdown");
+	if (!button) return;
+	let resetTimer: ReturnType<typeof setTimeout>;
+	button.onclick = async () => {
+		const label = button.querySelector("[data-copy-label]")!;
+		clearTimeout(resetTimer);
+		try {
+			await navigator.clipboard.writeText(button.dataset.markdown!);
+			label.textContent = "已复制";
+		} catch {
+			label.textContent = "复制失败，请重试";
+		}
+		resetTimer = setTimeout(() => {
+			label.textContent = "复制为 Markdown";
+		}, 3000);
+	};
+}
+
 function initCustomScrollbar() {
 	const katexElements = document.querySelectorAll(
 		".katex-display:not([data-scrollbar-initialized])",
@@ -42,6 +61,7 @@ function initCustomScrollbar() {
 
 export function initPostPage(post: HTMLElement): void {
 	initPostShare(post);
+	initMarkdownCopy(post);
 	initCustomScrollbar();
 
 	if (document.getElementById("post-page-toc-content")) {
