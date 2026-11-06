@@ -14,4 +14,4 @@ homeCarouselOrder: 3
 
 ## point-to-point response
 <!-- 预览PDF -->
-::pdf{src="https://1816472581.cdn.123clouddisk.com/1816472581/video/reviewer_response_template.pdf#" title="CCF 2026 推荐目录"}
+::pdf{src="https://1816472581.cdn.123clouddisk.com/1816472581/video/reviewer_response_template.pdf" title="CCF 2026 推荐目录"}
