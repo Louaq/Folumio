@@ -204,4 +204,6 @@ trusted-host =pypi.mirrors.ustc.edu.cn
 安装VSCODE，安装完就可以launch一下了，之后就可以把VScode固定到任务栏上，方便打开。  
 ![在这里插入图片描述](https://yangyang666.oss-cn-chengdu.aliyuncs.com/images/f781c276062dded3ab0d4c9f37aef3bf.png)
 
- 
+ :::important
+注：转载自https://blog.csdn.net/weixin_44791964/article/details/106037141
+:::

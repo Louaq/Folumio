@@ -229,5 +229,6 @@ nnUNetv2 train 1 3d_lowres 0 --c
 （2）nohup 后台挂起，使用`nohup+运行的命令行+&`，这样断网什么的不会影响进程
 
 
-
+:::important
 转载自CSDN博客：https://blog.csdn.net/m0_45521766/article/details/131539779
+:::

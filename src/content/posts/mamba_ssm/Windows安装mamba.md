@@ -156,13 +156,10 @@ assert y.shape == x.shape
 print('success')
 ```
 
-
-
-转载自CSDN博客：https://blog.csdn.net/zly_Always_be/article/details/140400011
-
-
-
-> 按照上述按照完成后，我在本地测试的时候还是会报错，如下图所示：
+---
+:::important
+按照上述按照完成后，我在本地测试的时候还是会报错，如下图所示：
+:::
 
 ![Snipaste_2025-08-23_15-02-25](https://yangyang666.oss-cn-chengdu.aliyuncs.com/images/Snipaste_2025-08-23_15-02-25.png)
 
@@ -215,6 +212,6 @@ print('success')
 
 ![Snipaste_2025-08-23_15-02-39](https://yangyang666.oss-cn-chengdu.aliyuncs.com/images/Snipaste_2025-08-23_15-02-39.png)
 
-
-
-到这里，基本就算大功告成了！感谢博主[一本糊涂张～](https://blog.csdn.net/zly_Always_be)的安装教程
+:::important
+注：部分内容转载自https://blog.csdn.net/zly_Always_be/article/details/140400011
+:::
