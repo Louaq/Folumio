@@ -27,6 +27,8 @@ import { PdfEmbedComponent } from "./src/plugins/rehype-component-pdf-embed.mjs"
 import { VideoEmbedComponent } from "./src/plugins/rehype-component-video-embed.mjs";
 import rehypeExternalLinks from "./src/plugins/rehype-external-links.mjs";
 import rehypeFigure from "./src/plugins/rehype-figure.mjs";
+import rehypeFileTree from "./src/plugins/rehype-file-tree.mjs";
+import rehypeSpoiler from "./src/plugins/rehype-spoiler.mjs";
 import { parseDirectiveNode } from "./src/plugins/remark-directive-rehype.js";
 import { remarkExcerpt } from "./src/plugins/remark-excerpt.js";
 import { remarkReadingTime } from "./src/plugins/remark-reading-time.mjs";
@@ -198,6 +200,8 @@ export default defineConfig({
 				parseDirectiveNode,
 			],
 			rehypePlugins: [
+				rehypeFileTree,
+				rehypeSpoiler,
 				[rehypeKatex, { katex }],
 				[rehypeCallouts, { theme: siteConfig.rehypeCallouts.theme }],
 				rehypeSlug,

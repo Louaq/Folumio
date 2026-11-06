@@ -1,0 +1,136 @@
+.custom-md .file-tree {
+  --ft-bg: #f6f6f7;
+  --ft-line: #e2e2e3;
+  margin: 1.5rem 0;
+  overflow-x: auto;
+  border: 1px solid var(--ft-line);
+  border-radius: 0.5rem;
+  background: var(--ft-bg);
+  color: var(--deep-text);
+  font-size: 0.875rem;
+}
+
+:root.dark .custom-md .file-tree {
+  --ft-bg: #202127;
+  --ft-line: #383940;
+}
+
+.custom-md .file-tree .ft-title {
+  padding: 0.5rem 1rem;
+  border-bottom: 1px solid var(--ft-line);
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.custom-md .file-tree .ft-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.custom-md .file-tree > .ft-list {
+  padding: 0.875rem 0;
+}
+
+.custom-md .file-tree .ft-item {
+  margin: 0;
+  padding: 0;
+}
+
+.custom-md .file-tree details > .ft-list {
+  margin-left: 1.125rem;
+  border-left: 1px solid var(--ft-line);
+}
+
+.custom-md .file-tree .ft-row {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  min-height: 1.875rem;
+  padding: 0 1rem 0 0.75rem;
+  font-family: var(--font-mono, monospace);
+  white-space: nowrap;
+  list-style: none;
+}
+
+.custom-md .file-tree summary {
+  cursor: pointer;
+}
+
+.custom-md .file-tree summary::-webkit-details-marker {
+  display: none;
+}
+
+.custom-md .file-tree summary:focus-visible {
+  outline: 2px solid var(--primary);
+  outline-offset: -2px;
+}
+
+.custom-md .file-tree .ft-chevron {
+  width: 0.5rem;
+  height: 0.5rem;
+  flex: none;
+}
+
+.custom-md .file-tree summary > .ft-chevron {
+  width: 0.375rem;
+  height: 0.375rem;
+  margin-right: 0.125rem;
+  border-right: 1px solid currentColor;
+  border-bottom: 1px solid currentColor;
+  transform: rotate(-45deg);
+  opacity: 0.6;
+}
+
+.custom-md .file-tree details[open] > summary > .ft-chevron {
+  transform: rotate(45deg);
+}
+
+.custom-md .file-tree .ft-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 0.875rem;
+  height: 0.875rem;
+  flex: none;
+  color: #8a929d;
+  font-size: 0.625rem;
+  font-weight: 700;
+}
+
+.custom-md .file-tree .ft-icon svg {
+  width: 100%;
+  height: 100%;
+}
+
+.custom-md .file-tree .ft-icon-folder { color: #bc9557; }
+.custom-md .file-tree .ft-icon-ts { color: #149bd0; }
+.custom-md .file-tree .ft-icon-css { color: #268ec4; }
+.custom-md .file-tree .ft-icon-md { color: #8d7656; }
+.custom-md .file-tree .ft-icon-json { color: #dc2030; }
+.custom-md .file-tree .ft-icon-yaml { color: #dca100; }
+
+.custom-md .file-tree .ft-comment {
+  margin-left: 0.75rem;
+  color: var(--content-meta);
+  font-family: var(--font-family-fallback);
+}
+
+.custom-md .file-tree .ft-change {
+  position: absolute;
+  left: 0.125rem;
+}
+
+.custom-md .file-tree .ft-added > .ft-row,
+.custom-md .file-tree .ft-added > details > .ft-row {
+  background: rgb(16 185 129 / 14%);
+}
+
+.custom-md .file-tree .ft-removed > .ft-row,
+.custom-md .file-tree .ft-removed > details > .ft-row {
+  background: rgb(244 63 94 / 14%);
+}
+
+.custom-md .file-tree .ft-added > .ft-row > .ft-change { color: #078352; }
+.custom-md .file-tree .ft-removed > .ft-row > .ft-change { color: #dc2547; }
