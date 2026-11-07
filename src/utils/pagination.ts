@@ -1,4 +1,4 @@
-export type PageItem = { kind: "page"; num: number } | { kind: "ellipsis" };
+type PageItem = { kind: "page"; num: number } | { kind: "ellipsis" };
 
 export function buildPageItems(current: number, last: number): PageItem[] {
 	if (last <= 1) return [];

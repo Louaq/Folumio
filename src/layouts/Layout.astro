@@ -10,8 +10,7 @@ import {
 	siteConfig,
 } from "@/config";
 import { PAGE_WIDTH } from "@/constants/constants";
-import { isHomePage } from "@/utils/layout-utils";
-import { url } from "@/utils/url-utils";
+import { isHomePage, url } from "@/utils/navigation";
 
 import "@/styles/main.css";
 import "@/styles/theme-switch.css";
@@ -204,7 +203,7 @@ const collapsiblePreviewLines =
 
 <script>
   import "@/utils/page-scrollbar-init";
-  import { pathsEqual, url } from "@/utils/url-utils";
+  import { pathsEqual, url } from "@/utils/navigation";
   import { expressiveCodeConfig, siteConfig } from "@/config";
   import { initPageFeatures } from "@/utils/page-features-init";
 

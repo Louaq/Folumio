@@ -2,10 +2,9 @@ import { getCollection } from "astro:content";
 import * as path from "node:path";
 import type { ImageMetadata } from "astro";
 import { profileConfig } from "@/config/profileConfig";
-import { url } from "@/utils/url-utils";
+import { url, getPostUrlForEntry } from "@/utils/navigation";
 import { createHash } from "node:crypto";
 import type { APIRoute } from "astro";
-import { getPostUrlForEntry } from "@/utils/url-utils";
 
 function truncateToBytes(str: string, maxBytes: number): string {
 	const encoder = new TextEncoder();

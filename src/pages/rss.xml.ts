@@ -4,7 +4,7 @@ import { getContainerRenderer as getMDXRenderer } from "@astrojs/mdx";
 import rss, { type RSSFeedItem } from "@astrojs/rss";
 import { getSortedPosts } from "@utils/content-utils";
 import { formatDateI18nWithTime } from "@utils/date-utils";
-import { getPostUrlForEntry } from "@utils/url-utils";
+import { getPostUrlForEntry } from "@utils/navigation";
 import type { APIContext } from "astro";
 import { experimental_AstroContainer as AstroContainer } from "astro/container";
 import sanitizeHtml from "sanitize-html";

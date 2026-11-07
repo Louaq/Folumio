@@ -5,7 +5,7 @@ import Navbar from "@components/layout/Navbar.astro";
 import type { MarkdownHeading } from "astro";
 import IconifyLoader from "@/components/misc/IconifyLoader.astro";
 import { siteConfig } from "@/config";
-import { isHomePage } from "@/utils/layout-utils";
+import { isHomePage } from "@/utils/navigation";
 import { showSidebarOnMobile } from "@/utils/widget-manager";
 import Layout from "./Layout.astro";
 
@@ -99,7 +99,12 @@ const mainPanelTop = "5.5rem";
                         <h1 class="sr-only">{siteConfig.title}</h1>
                 )}
                 <div id="content-wrapper" class:list={{ "onload-animation": !isPostPageCheck }}>
-                    <slot></slot>
+                    {isPostPageCheck ? (
+                        <div class="post-content-layout">
+                            <div class="min-w-0"><slot /></div>
+                            {PostPageTOC && <PostPageTOC headings={headings} />}
+                        </div>
+                    ) : <slot />}
                 </div>
             </main>
 
@@ -114,9 +119,6 @@ const mainPanelTop = "5.5rem";
     </div>
 </div>
 
-  <div slot="floating-controls" id="floating-toc-container" class="contents">
-    {PostPageTOC && <PostPageTOC headings={headings} />}
-  </div>
 </Layout>
 
 <style is:global>
@@ -161,6 +163,19 @@ const mainPanelTop = "5.5rem";
     grid-column: 1 / -1;
     max-width: calc(var(--page-width) - 18rem);
     margin-inline: auto;
+  }
+
+  @media (min-width: 1280px) {
+    body[data-page-type="post"] #swup-container {
+      max-width: none;
+      overflow: visible;
+    }
+    .post-content-layout {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 11rem;
+      gap: 2.5rem;
+      align-items: stretch;
+    }
   }
 
   #right-sidebar {

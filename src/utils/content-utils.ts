@@ -1,8 +1,7 @@
-import { type CollectionEntry, getCollection } from "astro:content";
+import { type CollectionEntry, getCollection, render } from "astro:content";
 import I18nKey from "@i18n/i18nKey";
 import { i18n } from "@i18n/translation";
-import { getCategoryUrl } from "@utils/category-utils";
-import { getResolvedPostPath } from "@utils/url-utils";
+import { getResolvedPostPath, url } from "@utils/navigation";
 
 type PostEntry = CollectionEntry<"posts">;
 
@@ -120,4 +119,36 @@ export async function getCategoryList(): Promise<Category[]> {
 	});
 
 	return categoryListPromise;
+}
+
+export function getCategoryUrl(category: string | null): string {
+	const uncategorizedLabel = i18n(I18nKey.uncategorized);
+	if (
+		!category ||
+		category.trim() === "" ||
+		category.trim().toLowerCase() === uncategorizedLabel.toLowerCase()
+	) {
+		return url(`/categories/${encodeURIComponent(uncategorizedLabel)}/`);
+	}
+	return url(`/categories/${encodeURIComponent(category.trim())}/`);
+}
+
+const metadataCache = new Map<
+	string,
+	Promise<Awaited<ReturnType<typeof loadPostRenderMetadata>>>
+>();
+
+async function loadPostRenderMetadata(entry: CollectionEntry<"posts">) {
+	const { remarkPluginFrontmatter } = await render(entry);
+	return remarkPluginFrontmatter;
+}
+
+/** Reuse remark-derived metadata when the same post appears on multiple listing pages. */
+export function getPostRenderMetadata(entry: CollectionEntry<"posts">) {
+	let pending = metadataCache.get(entry.id);
+	if (!pending) {
+		pending = loadPostRenderMetadata(entry);
+		metadataCache.set(entry.id, pending);
+	}
+	return pending;
 }

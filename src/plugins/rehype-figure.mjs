@@ -17,7 +17,7 @@ export default function rehypeFigure() {
 			}
 
 			// 正文图片不懒加载（参考 ThriveX-Blog 的做法），渲染即开始下载。
-			// markdown-img 类给运行时的"加载完成前模糊占位"用（见 markdown-image-init.ts）。
+			// markdown-img 类给运行时的"加载完成前模糊占位"用（见 post/rendering.ts）。
 			const existingClass = node.properties?.className;
 			node.properties = {
 				...node.properties,

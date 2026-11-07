@@ -15,7 +15,7 @@ import {
 } from "@/config";
 import MainGridLayout from "@/layouts/MainGridLayout.astro";
 import { getSortedPosts } from "@/utils/content-utils";
-import { getFileDirFromPath, getPostUrlForEntry } from "@/utils/url-utils";
+import { getFileDirFromPath, getPostUrlForEntry } from "@/utils/navigation";
 export const getStaticPaths = (async ({ paginate }) => {
 	const allBlogPosts = await getSortedPosts();
 	const pageSize = siteConfig.pagination.postsPerPage;

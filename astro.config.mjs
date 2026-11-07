@@ -40,7 +40,6 @@ const swupContainers = [
 	"#swup-container",
 	"#left-sidebar-wrapper",
 	"#home-featured-wrapper",
-	"#floating-toc-container",
 	"#post-header-wrapper",
 ];
 const collapsibleConfig = expressiveCodeConfig.pluginCollapsible;

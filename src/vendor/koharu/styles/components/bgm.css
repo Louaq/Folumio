@@ -34,8 +34,8 @@
 }
 
 .bgm-panel-placeholder-cover {
-  width: 100px;
-  height: 100px;
+  width: 90px;
+  height: 90px;
   border-radius: 50%;
   margin: 5px;
 }
@@ -49,22 +49,6 @@
 .bgm-panel-placeholder-artist {
   width: 6em;
   height: 1.5em;
-}
-
-.bgm-panel-placeholder-lyrics {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  gap: 1em;
-}
-
-.bgm-panel-placeholder-lyrics span {
-  width: 70%;
-  height: 0.8em;
-}
-
-.bgm-panel-placeholder-lyrics span:nth-child(2) {
-  width: 90%;
 }
 
 .bgm-panel-placeholder-button {
@@ -104,25 +88,27 @@
 
 /* ── Preview: smaller disc + tighter padding ── */
 .bgm-panel .audio-player-preview {
-  padding: 0.8em 1.2em;
+  padding: 1em 3.5em 0.75em 1em;
   gap: 1em;
+  flex-direction: row;
+  text-align: left;
   flex-shrink: 0;
 }
 
 .bgm-panel .audio-player-disc-wrapper {
-  width: 110px;
-  height: 110px;
+  width: 100px;
+  height: 100px;
 }
 
 .bgm-panel .audio-player-disc {
-  width: 100px;
-  height: 100px;
+  width: 90px;
+  height: 90px;
 }
 
 .bgm-panel .audio-player-disc-wrapper::after {
   inset: 5px;
-  width: 100px;
-  height: 100px;
+  width: 90px;
+  height: 90px;
 }
 
 /* Tonearm — scale down proportionally */
@@ -196,21 +182,9 @@
   min-height: 1.5em;
 }
 
-/* Lyrics — 5 lines visible (5 × 28px) */
-.bgm-panel .audio-player-lrc {
-  margin-top: -0.5em;
-  height: 140px;
-}
-
-.bgm-panel .audio-player-lrc p {
-  font-size: 0.85em;
-  height: 28px;
-  line-height: 28px;
-}
-
 /* ── Controls: compact spacing ── */
 .bgm-panel .audio-player-controls {
-  padding: 0 1.2em 0.8em;
+  padding: 0 1em 0.65em;
   flex-shrink: 0;
 }
 
@@ -286,7 +260,7 @@
 
 /* ── Mobile: hide scrollbar when panel overflows ── */
 .bgm-panel {
-  height: min(480px, calc(100dvh - 10rem));
+  height: min(360px, calc(100dvh - 10rem));
   overflow: hidden;
   border: 1px solid hsl(var(--border));
   background: hsl(var(--popover));
@@ -298,21 +272,13 @@
   display: none;
 }
 
-/* ── Mobile: taller lyrics area for column layout ── */
+.bgm-panel .audio-player-info {
+  align-self: center;
+  text-align: left;
+}
+
 @media (max-width: 600px) {
-  .bgm-panel {
-    height: min(560px, calc(100dvh - 10rem));
-  }
-
-  .bgm-panel .audio-player-lrc {
-    height: 168px;
-  }
-
-  .bgm-panel-loading-label {
-    justify-content: center;
-  }
-
-  .bgm-panel-placeholder-lyrics span {
-    align-self: center;
+  .bgm-panel .audio-player-preview {
+    gap: 0.75em;
   }
 }

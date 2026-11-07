@@ -1,5 +1,5 @@
 <script lang="ts">
-import { navigateToPage } from "@utils/navigation-utils";
+import { navigateToPage } from "@utils/navigation";
 import { onDestroy, onMount, tick } from "svelte";
 
 /**

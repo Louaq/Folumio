@@ -4,19 +4,19 @@ import { siteConfig } from "@/config/siteConfig";
  * 移除文件扩展名（.md, .mdx, .markdown）
  * 用于将 Astro v5 Content Layer API 的 id 转换为 URL 友好的 slug
  */
-export function removeFileExtension(id: string): string {
+function removeFileExtension(id: string): string {
 	return id.replace(/\.(md|mdx|markdown)$/i, "");
 }
 
 /** frontmatter 可能影响路径的字段 */
-export type PostPathSource = {
+type PostPathSource = {
 	slug?: string | null;
 };
 
 const POST_PATH_HASH_HEX_CHARS = 12;
 
 /** 纯 JS 确定性短 id（浏览器与 Node 一致），用于 URL，非加密用途 */
-export function getStablePostPathId(contentId: string): string {
+function getStablePostPathId(contentId: string): string {
 	let h1 = 5381;
 	for (let i = 0; i < contentId.length; i++) {
 		h1 = ((h1 << 5) + h1) ^ contentId.charCodeAt(i);
@@ -95,4 +95,70 @@ export function getFileDirFromPath(filePath: string): string {
 
 export function url(path: string) {
 	return joinUrl("", import.meta.env.BASE_URL, path);
+}
+
+export const isHomePage = (pathname: string): boolean => {
+	const baseUrl = import.meta.env.BASE_URL || "/";
+	const baseUrlNoSlash = baseUrl.endsWith("/") ? baseUrl.slice(0, -1) : baseUrl;
+
+	if (pathname === baseUrl) return true;
+	if (pathname === baseUrlNoSlash) return true;
+	if (pathname === "/") return true;
+
+	return false;
+};
+
+export function navigateToPage(
+	url: string,
+	options?: {
+		replace?: boolean;
+	},
+): void {
+	if (!url || typeof url !== "string") {
+		return;
+	}
+
+	if (
+		url.startsWith("http://") ||
+		url.startsWith("https://") ||
+		url.startsWith("//")
+	) {
+		window.open(url, "_blank");
+		return;
+	}
+
+	if (url.startsWith("#")) {
+		const element = document.getElementById(url.slice(1));
+		if (element) {
+			element.scrollIntoView({ behavior: "smooth" });
+		}
+		return;
+	}
+
+	if (typeof window !== "undefined" && window.swup) {
+		try {
+			if (options?.replace) {
+				window.swup.navigate(url, { history: false });
+			} else {
+				window.swup.navigate(url);
+			}
+		} catch {
+			fallbackNavigation(url, options);
+		}
+	} else {
+		fallbackNavigation(url, options);
+	}
+}
+
+function fallbackNavigation(
+	url: string,
+	options?: {
+		replace?: boolean;
+	},
+): void {
+	if (options?.replace) {
+		window.location.replace(url);
+	} else {
+		window.location.href = url;
+	}
 }

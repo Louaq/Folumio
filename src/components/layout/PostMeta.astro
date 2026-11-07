@@ -3,9 +3,9 @@ import { Icon } from "astro-icon/components";
 import { footerConfig } from "@/config";
 import I18nKey from "@/i18n/i18nKey";
 import { i18n } from "@/i18n/translation";
-import { getCategoryUrl } from "@/utils/category-utils";
+import { getCategoryUrl } from "@/utils/content-utils";
 import { formatDateToYYYYMMDD } from "@/utils/date-utils";
-import { getTagUrl } from "@/utils/url-utils";
+import { getTagUrl } from "@/utils/navigation";
 
 export interface Props {
 	published: Date;

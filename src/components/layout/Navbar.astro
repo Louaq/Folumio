@@ -4,8 +4,7 @@ import SearchLazy from "@/components/controls/SearchLazy.astro";
 import { navBarConfig, siteConfig } from "@/config";
 import { LinkPresets } from "@/constants/link-presets";
 import { LinkPreset, type NavBarLink } from "@/types/config";
-import { isHomePage } from "@/utils/layout-utils";
-import { url } from "@/utils/url-utils";
+import { isHomePage, url } from "@/utils/navigation";
 import DropdownMenu from "./DropdownMenu.astro";
 import NavMenuPanel from "./NavMenuPanel.astro";
 
@@ -106,37 +105,19 @@ let links: NavBarLink[] = navBarConfig.links.map(
 </div>
 
 <script>
+import { isNavPathActive } from "@/utils/navigation";
+
 const NAVBAR_ACTIVE_CLASS = "navbar-link-active";
-
-function normalizeNavPath(path: string) {
-    const pathname = (() => {
-        try {
-            return new URL(path, window.location.origin).pathname;
-        } catch {
-            return path;
-        }
-    })();
-
-    return pathname.replace(/^\/|\/$/g, "").toLowerCase();
-}
 
 function applyNavbarActivePath(path: string) {
     const navbar = document.getElementById("navbar");
     if (!navbar) return;
 
-    const currentPath = normalizeNavPath(path);
+    const currentPath = new URL(path, window.location.origin).pathname;
     const navLinks = navbar.querySelectorAll<HTMLElement>("[data-nav-path]");
 
     navLinks.forEach((link) => {
-        const targetPath = normalizeNavPath(
-            link instanceof HTMLAnchorElement
-                ? link.href
-                : link.dataset.navPath || "",
-        );
-        const isActive =
-            targetPath === ""
-                ? currentPath === ""
-                : currentPath === targetPath || currentPath.startsWith(`${targetPath}/`);
+        const isActive = isNavPathActive(currentPath, link.dataset.navPath!);
 
         link.classList.toggle(NAVBAR_ACTIVE_CLASS, isActive);
 

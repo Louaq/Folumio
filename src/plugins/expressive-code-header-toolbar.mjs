@@ -82,7 +82,7 @@ export function pluginHeaderToolbar() {
 					);
 				}
 
-				// 全屏按钮：点击逻辑见 code-fullscreen-init.ts
+				// 全屏按钮：点击逻辑见 code-block-init.ts
 				header.children.push({
 					type: "element",
 					tagName: "button",

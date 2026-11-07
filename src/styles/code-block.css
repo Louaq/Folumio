@@ -106,7 +106,7 @@
     margin: 0.5rem !important;
   }
 
-  /* 复制成功后 3 秒内把图标换成对勾（ec-copy-done 由 code-copy-feedback-init.ts 打上/摘掉） */
+  /* 复制成功后 3 秒内把图标换成对勾（ec-copy-done 由 code-block-init.ts 打上/摘掉） */
   & .frame .header .copy button.ec-copy-done::after {
     background-color: #22c55e !important;
     --_icon: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2024%2024%22%3E%3Cpolyline%20points%3D%2220%206%209%2017%204%2012%22%20fill%3D%22none%22%20stroke%3D%22black%22%20stroke-width%3D%222.5%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%2F%3E%3C%2Fsvg%3E");
@@ -114,7 +114,7 @@
     -webkit-mask-image: var(--_icon) !important;
   }
 
-  /* 全屏按钮（expressive-code-header-toolbar 注入，点击逻辑见 code-fullscreen-init.ts） */
+  /* 全屏按钮（expressive-code-header-toolbar 注入，点击逻辑见 code-block-init.ts） */
   & .frame .header .ec-fullscreen {
     width: 1.75rem;
     height: 1.75rem;

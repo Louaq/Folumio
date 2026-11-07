@@ -1,3 +1,6 @@
+import { initPostPageTOC } from "./toc";
+import { initPostRendering } from "./rendering";
+
 function initPostShare(post: HTMLElement): void {
 	let copyResetTimer: ReturnType<typeof setTimeout>;
 	const button = post.querySelector<HTMLButtonElement>("#post-share")!;
@@ -44,33 +47,6 @@ export function initPostPage(post: HTMLElement): void {
 	initPostShare(post);
 	initCustomScrollbar();
 
-	if (document.getElementById("post-page-toc-content")) {
-		void import("./post-page-toc-init").then(({ initPostPageTOC }) => {
-			if (post.isConnected) initPostPageTOC();
-		});
-	}
-	if (post.querySelector(".custom-md img.markdown-img")) {
-		void import("./markdown-image-init").then(({ initMarkdownImages }) => {
-			if (post.isConnected) initMarkdownImages();
-		});
-	}
-	if (post.querySelector(".expressive-code")) {
-		void import("./code-copy-feedback-init").then(
-			({ initCodeCopyFeedback }) => {
-				if (post.isConnected) initCodeCopyFeedback();
-			},
-		);
-		void import("./code-fullscreen-init").then(({ initCodeFullscreen }) => {
-			if (post.isConnected) initCodeFullscreen();
-		});
-	}
-	if (
-		post.querySelector(
-			".custom-md .expressive-code, .custom-md .katex-display-container",
-		)
-	) {
-		void import("./deferred-block-warmup").then(({ warmUpDeferredBlocks }) => {
-			if (post.isConnected) warmUpDeferredBlocks();
-		});
-	}
+	if (document.getElementById("post-page-toc-content")) initPostPageTOC();
+	initPostRendering(post);
 }

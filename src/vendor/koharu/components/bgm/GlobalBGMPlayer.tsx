@@ -26,7 +26,6 @@ import {
 } from "@floating-ui/react";
 import { useAudioPlayer } from "@/vendor/koharu/hooks/useAudioPlayer";
 import { useIsMounted } from "@/vendor/koharu/hooks/useIsMounted";
-import { useMediaQuery } from "@/vendor/koharu/hooks/useMediaQuery";
 import { useMotionLevel } from "@/vendor/koharu/hooks/useMotionLevel";
 import { useTranslation } from "@/vendor/koharu/hooks/useTranslation";
 import { Icon } from "@iconify/react";
@@ -35,7 +34,7 @@ import { resolveLocalPlaylist } from "@/utils/koharu-music-source";
 import { useStore } from "@nanostores/react";
 import { AnimatePresence, m } from "motion/react";
 import { useEffect, useState } from "react";
-import { $bgmPanelOpen, closeBgmPanel } from "@/vendor/koharu/store/bgm";
+import { $bgmPanelOpen, $bgmPlaying, closeBgmPanel } from "@/vendor/koharu/store/bgm";
 import "@/vendor/koharu/lib/icons";
 
 interface GlobalBGMPlayerProps {
@@ -46,7 +45,6 @@ export default function GlobalBGMPlayer({ songsUrl }: GlobalBGMPlayerProps) {
 	const { t } = useTranslation();
 	const isMounted = useIsMounted();
 	const panelOpen = useStore($bgmPanelOpen);
-	const isMobilePlayer = useMediaQuery("(max-width: 600px)");
 	const motionDisabled = useMotionLevel() === "reduced";
 
 	const [tracks, setTracks] = useState<MetingSong[]>([]);
@@ -98,6 +96,10 @@ export default function GlobalBGMPlayer({ songsUrl }: GlobalBGMPlayerProps) {
 
 	// Audio hook at top level — Audio element persists across panel open/close
 	const player = useAudioPlayer(tracks);
+	useEffect(() => {
+		$bgmPlaying.set(player.state.playing);
+		return () => $bgmPlaying.set(false);
+	}, [player.state.playing]);
 	const currentTrack = tracks[player.state.currentIndex] ?? null;
 
 	const isHidden = false;
@@ -135,14 +137,6 @@ export default function GlobalBGMPlayer({ songsUrl }: GlobalBGMPlayerProps) {
 							</div>
 							<div className="audio-player-artist" aria-hidden="true">
 								<span className="bgm-panel-placeholder bgm-panel-placeholder-artist" />
-							</div>
-							<div
-								className="audio-player-lrc bgm-panel-placeholder-lyrics"
-								aria-hidden="true"
-							>
-								{[0, 1, 2].map((line) => (
-									<span key={line} className="bgm-panel-placeholder" />
-								))}
 							</div>
 						</div>
 					</div>
@@ -204,9 +198,6 @@ export default function GlobalBGMPlayer({ songsUrl }: GlobalBGMPlayerProps) {
 					track={currentTrack}
 					playing={player.state.playing}
 					timeStore={player.timeStore}
-					lrcLineHeight={28}
-					lrcContainerHeight={isMobilePlayer ? 168 : 140}
-					reserveLyrics
 				/>
 				<MediaControls
 					playing={player.state.playing}

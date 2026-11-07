@@ -1,4 +1,4 @@
-import type { TOCManager } from "@/utils/tocUtils";
+import type { TOCManager } from "@/utils/post/toc";
 
 declare global {
 	interface HTMLElementTagNameMap {

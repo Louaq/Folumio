@@ -9,17 +9,21 @@ export function initPageFeatures(): void {
 
 	const card = document.querySelector(".post-card-wrapper[data-url]");
 	if (card) {
-		void import("./post-card-init").then(({ initPostCardDelegation }) => {
-			if (card.isConnected) initPostCardDelegation();
+		void import("./post-list-init").then(({ initPostList }) => {
+			if (card.isConnected) initPostList();
 		});
-		void import("./cover-image-init").then(({ initCoverImages }) => {
-			if (card.isConnected) initCoverImages();
+	}
+
+	const codeBlock = document.querySelector(".expressive-code");
+	if (codeBlock) {
+		void import("./code-block-init").then(({ initCodeBlocks }) => {
+			if (codeBlock.isConnected) initCodeBlocks();
 		});
 	}
 
 	const post = document.getElementById("post-container");
 	if (post) {
-		void import("./post-page-init").then(({ initPostPage }) => {
+		void import("./post/index").then(({ initPostPage }) => {
 			if (post.isConnected) initPostPage(post);
 		});
 	}

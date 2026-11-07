@@ -4,10 +4,9 @@ import { Icon } from "astro-icon/components";
 import CoverImage from "@/components/common/CoverImage.astro";
 import I18nKey from "@/i18n/i18nKey";
 import { i18n } from "@/i18n/translation";
-import { getCategoryUrl } from "@/utils/category-utils";
+import { getCategoryUrl, getPostRenderMetadata } from "@/utils/content-utils";
 import { formatDateToYYYYMMDD } from "@/utils/date-utils";
-import { getPostRenderMetadata } from "@/utils/post-render-metadata";
-import { getFileDirFromPath, getTagUrl } from "@/utils/url-utils";
+import { getFileDirFromPath, getTagUrl } from "@/utils/navigation";
 
 interface Props {
 	class?: string;

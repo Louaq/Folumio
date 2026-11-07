@@ -2,7 +2,7 @@
  * TOC (Table of Contents) 工具类
  */
 
-import { warmBlocksBeforeElement } from "@/utils/deferred-block-warmup";
+import { warmBlocksBeforeElement } from "./rendering";
 
 /**
  * TOC 空状态文案。
@@ -16,7 +16,7 @@ function getTocEmptyLabel(): string {
 	return carrier?.dataset.tocEmpty || "No headings found";
 }
 
-export interface TOCConfig {
+interface TOCConfig {
 	contentId: string;
 	indicatorId: string;
 	maxLevel?: number;
@@ -194,7 +194,8 @@ export class TOCManager {
 		const headings = this.filterHeadings(this.getAllHeadings());
 		let current: HTMLElement | undefined;
 		for (const heading of headings) {
-			if (heading.id && heading.getBoundingClientRect().top <= 100) current = heading;
+			if (heading.id && heading.getBoundingClientRect().top <= 100)
+				current = heading;
 		}
 		return current ? [current.id] : [];
 	}
@@ -213,9 +214,13 @@ export class TOCManager {
 			const headingId = item.dataset.headingId;
 			return headingId && visibleHeadingIds.includes(headingId);
 		});
-		const rows = this.tocItems.map((item) => item.closest<HTMLElement>(".toc-row")!);
+		const rows = this.tocItems.map(
+			(item) => item.closest<HTMLElement>(".toc-row")!,
+		);
 		const expanded = new Set<number>();
-		let index = matchedItems.length ? this.tocItems.indexOf(matchedItems[0]) : -1;
+		let index = matchedItems.length
+			? this.tocItems.indexOf(matchedItems[0])
+			: -1;
 		while (index >= 0) {
 			expanded.add(index);
 			const parent = rows[index].dataset.parent!;
@@ -314,17 +319,23 @@ export class TOCManager {
 			// 落点准确性依赖三件事：
 			// 1. warmBlocksBeforeElement 在这里同步强制渲染目标之前的重型块，不依赖
 			//    空闲期预热是否已经跑完，跳转前把目标之前的坐标钉死；
-			// 2. deferred-block-warmup 在空闲期也让全文 content-visibility: auto 的
+			// 2. rendering.ts 在空闲期也让全文 content-visibility: auto 的
 			//    重型块各渲染一次并记住真实尺寸，覆盖鼠标滚轮/URL hash 等非点击路径；
 			// 3. scrollIntoView 把目标自身的 c-v 祖先链强制渲染后再计算落点。
 			// 顶栏偏移交给 CSS 的 scroll-margin-top（markdown.css 中标题已设置），
 			// 不要退回手写 getBoundingClientRect + scrollTo 减偏移的方案。
 			warmBlocksBeforeElement(targetElement);
-			const marginTop = Number.parseFloat(getComputedStyle(targetElement).scrollMarginTop) || 0;
-			const destination = Math.max(0, Math.min(
-				window.scrollY + targetElement.getBoundingClientRect().top - marginTop,
-				document.documentElement.scrollHeight - window.innerHeight,
-			));
+			const marginTop =
+				Number.parseFloat(getComputedStyle(targetElement).scrollMarginTop) || 0;
+			const destination = Math.max(
+				0,
+				Math.min(
+					window.scrollY +
+						targetElement.getBoundingClientRect().top -
+						marginTop,
+					document.documentElement.scrollHeight - window.innerHeight,
+				),
+			);
 			this.isNavigating = Math.abs(destination - window.scrollY) > 1;
 			targetElement.scrollIntoView({
 				behavior: "smooth",
@@ -379,5 +390,27 @@ export class TOCManager {
 		this.updateActiveState();
 		this.scrollToActiveItem();
 		window.addEventListener("scrollend", this.scrollToActiveItem);
+	}
+}
+
+export function initPostPageTOC(): void {
+	window.PostPageTOC ??= { manager: null };
+	const store = window.PostPageTOC;
+
+	const tocContent = document.getElementById("post-page-toc-content");
+	if (!tocContent) return;
+
+	try {
+		store.manager?.cleanup();
+
+		store.manager = new TOCManager({
+			contentId: "post-page-toc-content",
+			indicatorId: "post-page-toc-indicator",
+			maxLevel: 3,
+		});
+
+		store.manager.init();
+	} catch (error) {
+		console.error("Failed to load TOCManager for PostPageTOC:", error);
 	}
 }

@@ -9,7 +9,7 @@ const SALT_LENGTH = 16;
 const IV_LENGTH = 12;
 const KEY_LENGTH = 32; // AES-256
 
-export interface EncryptedContentPayload {
+interface EncryptedContentPayload {
 	cipher: string;
 	iv: string;
 	salt: string;

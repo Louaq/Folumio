@@ -26,11 +26,11 @@
 }
 .koharu-bgm-position {
   position: fixed;
-  right: 4rem;
+  right: calc(var(--floating-controls-right) + 2.75rem + 0.75rem);
   bottom: 5rem;
   z-index: 1001;
-  width: 460px;
-  max-width: calc(100vw - 5rem);
+  width: 380px;
+  max-width: calc(100vw - var(--floating-controls-right) - 4.25rem);
   font-size: 16px;
   line-height: 1.5;
 }
@@ -56,6 +56,18 @@
 .koharu-bgm-close svg {
   width: 1rem;
   height: 1rem;
+}
+.koharu-music-toggle svg {
+  animation: music-toggle-spin 4s linear infinite;
+  animation-play-state: paused;
+}
+.koharu-music-toggle.is-playing svg {
+  animation-play-state: running;
+}
+@keyframes music-toggle-spin {
+  to {
+    transform: rotate(360deg);
+  }
 }
 .koharu-music :is(button, [role="slider"]):focus-visible {
   outline: 2px solid hsl(var(--primary));

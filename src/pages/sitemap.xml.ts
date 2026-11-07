@@ -5,7 +5,7 @@ import {
 	getSortedPosts,
 	getTagList,
 } from "@/utils/content-utils";
-import { getPostUrlForEntry, getTagUrl, url } from "@/utils/url-utils";
+import { getPostUrlForEntry, getTagUrl, url } from "@/utils/navigation";
 
 export const GET: APIRoute = async ({ site }) => {
 	const [posts, categories, tags] = await Promise.all([
