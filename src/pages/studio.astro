@@ -1,0 +1,132 @@
+---
+import { Icon } from "astro-icon/components";
+import FontSetup from "@/components/features/FontSetup.astro";
+import { siteConfig } from "@/config/siteConfig";
+import { url } from "@/utils/url-utils";
+import "@/styles/main.css";
+---
+
+<!doctype html>
+<html lang="zh-CN" style={`--primary: ${siteConfig.themeColor.color}`}>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="noindex" />
+    <title>写作室 - {siteConfig.title}</title>
+    <FontSetup />
+  </head>
+  <body>
+    <main>
+      <header>
+        <a class="brand" href={url("/")}>{siteConfig.title}</a><span class="badge">写作室</span>
+        <input id="draft-title" aria-label="文章标题" placeholder="未命名文章" />
+        <small id="save-status" role="status">草稿保存在此浏览器</small>
+        <button id="studio-copy"><Icon name="lucide:copy" /><span>复制</span></button>
+        <button id="studio-download" class="primary"><Icon name="lucide:download" />下载 MD</button>
+      </header>
+      <nav aria-label="Markdown 编辑工具">
+        <button id="studio-drafts"><Icon name="lucide:file-pen-line" />草稿</button>
+        <button id="studio-new" title="新建文章" aria-label="新建文章"><Icon name="lucide:plus" /></button>
+        <button id="studio-open" title="打开 .md" aria-label="打开 Markdown 文件"><Icon name="lucide:folder-open" /></button>
+        <input id="open-file" type="file" accept=".md,.markdown,.txt" hidden />
+        <span class="divider"></span>
+        <button data-before="**" data-after="**" title="粗体" aria-label="粗体"><b>B</b></button>
+        <button data-before="*" data-after="*" title="斜体" aria-label="斜体"><i>I</i></button>
+        <button data-before="## " title="标题" aria-label="标题">H</button>
+        <button data-before="[" data-after="](https://)" title="链接" aria-label="链接"><Icon name="lucide:link" /></button>
+        <button data-before="![" data-after="](https://)" title="图片" aria-label="图片"><Icon name="lucide:image" /></button>
+        <button id="studio-info" title="编辑提示" aria-label="编辑提示"><Icon name="lucide:info" /></button>
+        <button data-before="`" data-after="`" title="代码" aria-label="代码"><Icon name="lucide:code" /></button>
+        <button data-before="$$&#10;" data-after="&#10;$$" title="插入公式" aria-label="插入公式"><Icon name="lucide:variable" /></button>
+        <span class="divider"></span>
+        <button id="studio-undo" title="撤销（Ctrl/⌘ Z）" aria-label="撤销"><Icon name="lucide:undo-2" /></button>
+        <button id="studio-redo" title="重做（Ctrl/⌘ Shift Z）" aria-label="重做"><Icon name="lucide:redo-2" /></button>
+        <div class="toolbar-end">
+          <button id="studio-properties"><Icon name="lucide:sliders-horizontal" />文章属性</button>
+          <button id="focus-mode" aria-pressed="false"><Icon name="lucide:scan" />专注</button>
+        </div>
+      </nav>
+      <div class="workspace">
+        <section id="source-pane" class="source-pane" aria-label="Markdown 源码">
+          <div class="pane-heading"><span>Markdown</span><span id="cursor-position">第 1 行 · 第 1 列</span></div>
+          <textarea id="markdown-source" aria-label="Markdown 编辑器" spellcheck="false" placeholder="从这里开始写作…"></textarea>
+        </section>
+        <div id="studio-resizer" role="separator" tabindex="0" aria-label="调整编辑区与预览区宽度" aria-orientation="vertical" aria-controls="source-pane preview-pane" aria-valuemin="20" aria-valuemax="80" aria-valuenow="50"></div>
+        <section id="preview-pane" class="preview-pane" aria-label="实时预览">
+          <div class="pane-heading">实时预览</div>
+          <article id="markdown-preview"></article>
+        </section>
+      </div>
+      <footer><span id="word-count">0 字符</span><span>Markdown · 本地草稿</span></footer>
+    </main>
+    <dialog id="drafts-dialog" aria-labelledby="drafts-heading">
+      <div class="dialog-heading"><h2 id="drafts-heading">本地草稿</h2><button data-close-dialog aria-label="关闭"><Icon name="lucide:x" /></button></div>
+      <p>草稿仅保存在当前浏览器。新建或打开文件时，当前文章会存入此列表。</p>
+      <div id="draft-list"></div>
+    </dialog>
+    <dialog id="properties-dialog" aria-labelledby="properties-heading">
+      <form id="properties-form">
+        <div class="dialog-heading"><h2 id="properties-heading">文章属性</h2><button type="button" data-close-dialog aria-label="关闭"><Icon name="lucide:x" /></button></div>
+        <label>文章标题<input id="property-title" /></label>
+        <label>Frontmatter（YAML）<textarea id="property-frontmatter" rows="8" spellcheck="false" placeholder="title: 文章标题&#10;tags:&#10;  - Markdown"></textarea></label>
+        <p>YAML 内容会写入 Markdown 文件头部；文章标题用于草稿名称和下载文件名。</p>
+        <button type="submit" class="primary">保存属性</button>
+      </form>
+    </dialog>
+    <script>
+      import "@/utils/page-scrollbar-init";
+      import { initStudio } from "@/utils/studio-init";
+      initStudio();
+    </script>
+  </body>
+</html>
+
+<style>
+  body { margin: 0; color: #303238; background: #fdfcfd; font: 14px/1.6 var(--font-family-custom), var(--font-family-fallback); }
+  main { height: 100dvh; display: flex; flex-direction: column; }
+  header, nav, footer, .pane-heading { display: flex; align-items: center; gap: 0.75rem; border-bottom: 1px solid #eae6eb; }
+  header { padding: 0.5rem 1rem; background: linear-gradient(110deg, color-mix(in srgb, var(--primary) 12%, white), #fceafa); }
+  .brand { color: var(--primary); font-size: 1.5rem; font-weight: 900; text-decoration: none; }
+  .badge { color: var(--primary); font-size: 0.75rem; white-space: nowrap; }
+  input#draft-title { flex: 1; min-width: 5rem; border: 0; background: transparent; font: inherit; font-weight: 600; }
+  small { font-size: 0.75rem; }
+  button, .file-button { display: inline-flex; align-items: center; justify-content: center; gap: 0.4rem; cursor: pointer; border: 0; background: transparent; color: inherit; font: inherit; padding: 0.35rem 0.5rem; white-space: nowrap; }
+  button.primary { background: var(--primary); color: white; border-radius: 2rem; padding: 0.4rem 0.9rem; }
+  nav { padding: 0.35rem 1rem; gap: 0.35rem; overflow-x: auto; flex-shrink: 0; }
+  nav button { flex-shrink: 0; }
+  nav :global(svg) { width: 1rem; height: 1rem; }
+  nav button:disabled { opacity: 0.35; cursor: default; }
+  .divider { height: 1rem; border-left: 1px solid #e3dde5; margin: 0 0.35rem; }
+  .toolbar-end { display: flex; gap: 0.35rem; margin-left: auto; padding-left: 1rem; }
+  dialog { margin: auto; width: min(34rem, calc(100vw - 2rem)); max-height: 80dvh; overflow: auto; padding: 1.25rem; border: 1px solid #eae6eb; border-radius: 0.75rem; background: #fdfcfd; color: inherit; }
+  dialog::backdrop { background: #0004; }
+  .dialog-heading { display: flex; align-items: center; justify-content: space-between; margin-bottom: 1rem; }
+  .dialog-heading h2 { font-size: 1.1rem; font-weight: 600; }
+  dialog p { font-size: 0.8rem; color: #68606b; margin: 0.75rem 0; }
+  dialog label { display: grid; gap: 0.35rem; margin-bottom: 1rem; }
+  dialog input, dialog textarea { width: 100%; border: 1px solid #e3dde5; border-radius: 0.35rem; padding: 0.5rem; background: transparent; font: inherit; }
+  dialog textarea { min-height: 10rem; }
+  #draft-list :global(button) { display: block; width: 100%; text-align: left; padding: 0.75rem; border-bottom: 1px solid #eae6eb; }
+  .workspace { flex: 1; min-height: 0; display: grid; grid-template-columns: minmax(0, calc(var(--editor-width, 50%) - 3px)) 6px minmax(0, 1fr); }
+  section { min-width: 0; min-height: 0; display: flex; flex-direction: column; }
+  #studio-resizer { cursor: col-resize; touch-action: none; background: linear-gradient(to right, transparent 2px, #eae6eb 2px, #eae6eb 3px, transparent 3px); }
+  #studio-resizer:hover, #studio-resizer:focus-visible, .workspace.resizing #studio-resizer { background: var(--primary); }
+  .workspace.resizing { user-select: none; cursor: col-resize; }
+  .pane-heading { justify-content: space-between; padding: 0.45rem 1rem; font-size: 0.75rem; }
+  textarea { flex: 1; min-height: 0; width: 100%; resize: none; border: 0; padding: 1.25rem 1.5rem; outline: none; background: transparent; color: inherit; font: 14px/1.85 ui-monospace, Consolas, monospace; tab-size: 2; }
+  article { overflow: auto; flex: 1; padding: 1.25rem; overflow-wrap: anywhere; font-size: 16px; line-height: 1.85; }
+  article :global(h1), article :global(h2), article :global(h3) { font-weight: 700; margin: 1.25rem 0 0.75rem; line-height: 1.4; }
+  article :global(h1) { font-size: 2em; } article :global(h2) { font-size: 1.5em; } article :global(h3) { font-size: 1.25em; }
+  article :global(p), article :global(ul), article :global(ol), article :global(pre), article :global(blockquote) { margin: 0 0 1rem; }
+  article :global(ul) { list-style: disc; padding-left: 1.5rem; } article :global(ol) { list-style: decimal; padding-left: 1.5rem; }
+  article :global(a) { color: var(--primary); text-decoration: underline; }
+  article :global(pre) { overflow: auto; padding: 1rem; background: #f1eff3; border-radius: 0.5rem; }
+  article :global(code) { font-family: ui-monospace, Consolas, monospace; background: #f1eff3; }
+  article :global(blockquote) { border-left: 3px solid var(--primary); padding-left: 1rem; color: #68606b; }
+  article :global(table) { width: 100%; border-collapse: collapse; margin-bottom: 1rem; }
+  article :global(th), article :global(td) { border-bottom: 1px solid #eae6eb; text-align: left; padding: 0.5rem; }
+  article :global(img) { max-width: 100%; }
+  footer { justify-content: space-between; padding: 0.15rem 1rem; border-top: 1px solid #eae6eb; font-size: 0.7rem; }
+  main.focus header, main.focus footer { display: none; }
+  @media (max-width: 700px) { header { flex-wrap: wrap; gap: 0.4rem; } small { display: none; } .workspace { grid-template-columns: 1fr; grid-template-rows: 1fr 1fr; } #studio-resizer { display: none; } .source-pane { border-right: 0; border-bottom: 1px solid #eae6eb; } nav { padding: 0.25rem; gap: 0; } textarea, article { padding: 0.75rem; } }
+</style>

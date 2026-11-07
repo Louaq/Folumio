@@ -1,30 +1,11 @@
 ---
 import { Font } from "astro:assets";
-import fs from "node:fs";
 import { siteConfig } from "@/config";
 
 const { font: fontConfig } = siteConfig;
 
-// 正文字体（本地托管，分层切片，见 scripts/split-font.js）
+// 正文字体（本地托管，按 unicode-range 加载切片）
 const body = fontConfig.body;
-
-// split-font.js 产出的 tier → 哈希文件名映射。tier-a 是所有页面（含列表页）
-// 都必然命中的分层，值得 preload；tier-b 只有文章页用，交给浏览器按
-// unicode-range 决定。manifest 缺失时静默跳过 preload，不影响字体本身加载。
-let tierAHref: string | null = null;
-try {
-	const manifest = JSON.parse(
-		fs.readFileSync(
-			new URL("../../../public/font/harmony/manifest.json", import.meta.url),
-			"utf-8",
-		),
-	);
-	if (typeof manifest["tier-a"] === "string") {
-		tierAHref = `/font/harmony/${manifest["tier-a"]}`;
-	}
-} catch {
-	// public/font/harmony 未生成（例如尚未跑 pnpm split-font）时不阻塞构建
-}
 
 const bodyFamilyCss = `"${body.family}"`;
 const fallbackCss = (fontConfig.fallback || []).join(", ");
@@ -47,27 +28,7 @@ const codeCssVariable = fontConfig.code
 	<Font cssVariable={codeCssVariable} preload={fontConfig.preload ?? true} />
 )}
 
-{
-	/*
-	 * 正文字体：加载 scripts/split-font.js 生成的分层样式表。里面是两条带精确
-	 * unicode-range 的 @font-face —— tier-a（非文章页也会用到的字）与 tier-b
-	 * （只在正文出现的字），浏览器据此按页决定要不要取 tier-b。
-	 *
-	 * preload 只给 tier-a：任何页面都必然用到它，提前于 result.css 的
-	 * 下载-解析链路开始取字体；tier-b 不预加载，否则列表页会白下它。
-	 * @font-face 里已带 font-display: swap，文字先用 fallback 渲染，
-	 * 字体到位后替换。
-	 */
-}
-{fontConfig.enable && body.css && tierAHref && (
-	<link
-		rel="preload"
-		as="font"
-		type="font/woff2"
-		crossorigin
-		href={tierAHref}
-	/>
-)}
+{/* Regular / Bold 切片共用字体族，浏览器按字重和页面用字加载。 */}
 {fontConfig.enable && body.css && <link rel="stylesheet" href={body.css} />}
 
 {

@@ -3,9 +3,9 @@ export const fontConfig = {
 	// 是否预加载代码字体（正文字体已切片，整包预加载无意义，见 body）
 	preload: false,
 	body: {
-		name: "HarmonyOS Sans SC",
-		family: "HarmonyOS Sans SC",
-		css: "/font/harmony/result.css",
+		name: "寒蝉全圆体",
+		family: "寒蝉全圆体",
+		css: "/font/chill-round/result.css",
 	},
 
 	// 代码字体（通过 Astro Font API 自托管 + 子集化）
