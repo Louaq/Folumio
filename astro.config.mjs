@@ -98,7 +98,8 @@ export default defineConfig({
 			// 搜索框是 client:only：dev 下它的样式由 Vite 运行时注入，不在服务端 HTML 的 head 里，
 			// 第一次换页就会被删掉，之后打开搜索弹窗完全没有样式（生产构建是每页都有的静态 <link>）。
 			updateHead: {
-				awaitAssets: false,
+				// 冷缓存导航时，等待页面专属 CSS，避免文章封面先按原图高度显示。
+				awaitAssets: true,
 				persistAssets: false,
 				persistTags:
 					'style[data-twikoo-style], link#twikoo-css, link#aplayer-css, style[data-vite-dev-id*="Search.svelte"]',
