@@ -9,4 +9,8 @@ description: video 测试
 
 ## 测试视频
 
-::video{src="https://1816472581.cdn.123clouddisk.com/1816472581/video/vide_2.mp4"}
+::video{src="https://1816472581.cdn.123clouddisk.com/1816472581/video/video_1.mp4"}
+
+:::tip
+来源：https://www.bilibili.com/video/BV1YZgA64Ecn
+:::

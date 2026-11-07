@@ -161,6 +161,7 @@ export class TOCManager {
         <div class="toc-row-content">
         <a
           href="#${heading.id}"
+          data-no-swup
 			  class="toc-item toc-level-${depthLevel}"
           data-heading-id="${heading.id}"
 		  aria-label="${escapedHeadingText}"
