@@ -241,20 +241,26 @@ const collapsiblePreviewLines =
     "scheme-switch",
   ]);
 
-  function scrollWindowTopInstant() {
-    const root = document.documentElement;
-    const prev = root.style.scrollBehavior;
-    root.style.scrollBehavior = "auto";
-    window.scrollTo(0, 0);
-    root.scrollTop = 0;
-    document.body.scrollTop = 0;
-    requestAnimationFrame(() => {
-      root.style.scrollBehavior = prev;
-    });
-  }
-
   const setup = () => {
     const MAX_SWUP_CACHE_PAGES = 6;
+    let visitRunning = false;
+    let scrollRunning = false;
+    let finishTimer: ReturnType<typeof setTimeout>;
+    const finishTransition = () => {
+      clearTimeout(finishTimer);
+      finishTimer = setTimeout(() => {
+        if (visitRunning || scrollRunning) return;
+        document.getElementById("page-height-extend")?.classList.add("hidden");
+        document.documentElement.classList.remove("is-page-transitioning");
+      }, 200);
+    };
+    window.swup.hooks.on("scroll:start", () => {
+      scrollRunning = true;
+    });
+    window.swup.hooks.on("scroll:end", () => {
+      scrollRunning = false;
+      finishTransition();
+    });
     const moduleKey = (s: HTMLScriptElement) => s.src || s.textContent;
     const executedModules = new Set(
       Array.from(document.querySelectorAll<HTMLScriptElement>('script[type="module"]'), moduleKey),
@@ -293,9 +299,6 @@ const collapsiblePreviewLines =
     }, args: unknown, replaceContent: (visit: unknown, args: unknown) => unknown) => {
       (window as any).__swupScrollLockY = null;
 
-      if (!visit.history?.popstate) {
-        scrollWindowTopInstant();
-      }
       return replaceContent(visit, args);
     });
     window.swup.hooks.on("content:replace", (visit: { to: { url: string } }) => {
@@ -337,9 +340,15 @@ const collapsiblePreviewLines =
       from?: { url: string; hash?: string };
       to: { url: string };
       history?: { popstate?: boolean; direction?: string };
-      scroll?: { reset?: boolean };
+      scroll?: { reset?: boolean; animate?: boolean };
     }) => {
+      visitRunning = true;
+      clearTimeout(finishTimer);
       document.documentElement.classList.add("is-page-transitioning");
+      if (visit.scroll) {
+        const isPostPage = /\/posts\/.+/.test(new URL(visit.to.url, window.location.href).pathname);
+        visit.scroll.animate = !isPostPage && !window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      }
       const fromPath = visit.from?.url ?? (window.location.pathname + window.location.search);
       const fromHash = visit.from?.hash ?? window.location.hash;
       const currentKey = "swup-scroll:" + fromPath + (fromHash || "");
@@ -445,16 +454,13 @@ const collapsiblePreviewLines =
     });
     window.swup.hooks.on("visit:end", (_visit: { to: { url: string } }) => {
       (window as any).__swupScrollLockY = null;
-
-      setTimeout(() => {
-        const heightExtend = document.getElementById("page-height-extend");
-        if (heightExtend) {
-          heightExtend.classList.add("hidden");
-        }
-
-
-        document.documentElement.classList.remove("is-page-transitioning");
-      }, 200);
+      visitRunning = false;
+      finishTransition();
+    });
+    window.swup.hooks.on("visit:abort", () => {
+      (window as any).__swupScrollLockY = null;
+      visitRunning = false;
+      finishTransition();
     });
 
 

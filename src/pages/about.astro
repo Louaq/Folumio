@@ -117,7 +117,7 @@ const statistics = [
         <div class="statistics">
           {statistics.map((stat) => (
             <a aria-label={`${stat.value} ${stat.label}`}>
-              <strong aria-hidden="true"><about-counter data-value={stat.value} style={`min-width: ${String(stat.value).length}ch`}>{stat.value}</about-counter></strong>
+              <strong aria-hidden="true"><span style={`display: inline-block; min-width: ${String(stat.value).length}ch; font-variant-numeric: tabular-nums`}>{stat.value}</span></strong>
               <span>{stat.label}</span>
             </a>
           ))}
@@ -129,82 +129,7 @@ const statistics = [
   </div>
 </MainGridLayout>
 
-<script>
-  class AboutCounter extends HTMLElement {
-    frame = 0;
-    observer?: IntersectionObserver;
-    motion = window.matchMedia("(prefers-reduced-motion: reduce)");
-    finish = () => {
-      cancelAnimationFrame(this.frame);
-      this.textContent = this.dataset.value!;
-      this.observer?.disconnect();
-    };
-
-    connectedCallback() {
-      if (this.motion.matches) return;
-      this.textContent = "0";
-      this.motion.addEventListener("change", this.finish);
-      this.observer = new IntersectionObserver((entries) => {
-        if (!entries.some((entry) => entry.isIntersecting)) return;
-        this.observer!.disconnect();
-        const value = Number(this.dataset.value);
-        let start: number;
-        const tick = (time: number) => {
-          start ??= time;
-          const progress = Math.min((time - start) / 1400, 1);
-          this.textContent = String(Math.round(value * (1 - (1 - progress) ** 3)));
-          if (progress < 1) this.frame = requestAnimationFrame(tick);
-        };
-        this.frame = requestAnimationFrame(tick);
-      }, { threshold: 0.5 });
-      this.observer.observe(this);
-    }
-
-    disconnectedCallback() {
-      this.finish();
-      this.motion.removeEventListener("change", this.finish);
-    }
-  }
-
-  customElements.define("about-counter", AboutCounter);
-</script>
-
 <style>
-  about-counter {
-    display: inline-block;
-    font-variant-numeric: tabular-nums;
-  }
-  @media (prefers-reduced-motion: no-preference) {
-    .about-card {
-      animation: card-enter 650ms both;
-    }
-    .about-card:nth-child(2) { animation-delay: 100ms; }
-    .about-card:nth-child(3) { animation-delay: 200ms; }
-    .about-card:nth-child(4) { animation-delay: 300ms; }
-    .identity-card {
-      background-size: 200% 200%;
-      animation: card-enter 650ms both, gradient-drift 8s ease-in-out infinite alternate;
-    }
-    .avatar-status,
-    .keyword :global(svg) {
-      animation: gentle-float 4s ease-in-out infinite;
-    }
-    .keyword:nth-child(even) :global(svg) { animation-delay: -2s; }
-    .statistics a { transition: translate 250ms; }
-    .statistics a:focus-visible { translate: 0 -4px; }
-  }
-  @keyframes card-enter {
-    from { opacity: 0; transform: translateY(18px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
-  @keyframes gentle-float {
-    0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(-5px); }
-  }
-  @keyframes gradient-drift {
-    from { background-position: 0% 50%; }
-    to { background-position: 100% 50%; }
-  }
   .about-page {
     padding-bottom: 24px;
     color: var(--juejin-text-primary);

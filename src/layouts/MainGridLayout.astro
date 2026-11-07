@@ -84,7 +84,8 @@ const mainPanelTop = "5.5rem";
 
             {/* 主内容区 - 始终渲染，确保 Swup 容器存在 */}
             <main id="swup-container" class:list={[
-                "transition-swup-fade overflow-hidden w-full min-w-0 transition-main",
+                "overflow-hidden w-full min-w-0",
+                { "transition-swup-fade transition-main": !isPostPageCheck },
                 isSingleColumnLayout
                     ? wideContent
                         ? "max-w-none mx-auto"
@@ -97,7 +98,7 @@ const mainPanelTop = "5.5rem";
                 {isHomePageCheck && (
                         <h1 class="sr-only">{siteConfig.title}</h1>
                 )}
-                <div id="content-wrapper" class="onload-animation transition-leaving">
+                <div id="content-wrapper" class:list={{ "onload-animation": !isPostPageCheck }}>
                     <slot></slot>
                 </div>
             </main>

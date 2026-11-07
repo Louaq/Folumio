@@ -57,7 +57,7 @@ const hasActiveChild =
 	{hasChildren ? (
 		<button 
 			class:list={[
-				"btn-plain scale-animation rounded-lg h-11 px-5 active:scale-95 dropdown-trigger",
+				"btn-plain scale-animation rounded-lg h-11 px-5 dropdown-trigger",
 				hasActiveChild && "navbar-link-active",
 			]}
 			aria-expanded="false"
@@ -103,7 +103,7 @@ const hasActiveChild =
 			target={processedLink.external ? "_blank" : null}
 			data-nav-path={!processedLink.external ? processedLink.url : undefined}
 			class:list={[
-				"btn-plain scale-animation rounded-lg h-11 px-5 active:scale-95",
+				"btn-plain scale-animation rounded-lg h-11 px-5",
 				isCurrentLink && "navbar-link-active",
 			]}
 		>

@@ -255,6 +255,11 @@ const jsonLd = {
 </MainGridLayout>
 
 <style>
+  #post-container :global(.onload-animation) {
+    animation: none;
+    opacity: 1;
+  }
+
   @media (prefers-reduced-motion: no-preference) {
     .post-hero {
       animation: post-header-enter 600ms cubic-bezier(0.22, 1, 0.36, 1) backwards;

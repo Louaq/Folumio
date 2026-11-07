@@ -86,11 +86,11 @@ export default defineConfig({
 			// the default value `transition-` cause transition delay
 			// when the Tailwind class `transition-all` is used
 			containers: swupContainers,
-			smoothScrolling: false,
+			smoothScrolling: true,
 			// 开发模式下 Vite 依赖重优化会导致 swup 预加载/缓存命中旧的 deps，出现 504 (Outdated Optimize Dep)
 			cache: !isDev,
-			// 本站 HTML 体积较大，hover 预取容易在用户仅经过链接时浪费整页下载。
-			preload: false,
+			// 生产环境悬浮预加载；开发环境随缓存一起关闭，避免命中过期的 Vite 依赖。
+			preload: !isDev,
 			accessibility: false,
 			// Twikoo 的样式由脚本运行时注入 <style>，而脚本全局只加载一次；
 			// 默认 head diff 会把它们当作孤儿标签移除，二次 swup 进入评论页时样式永久丢失。
@@ -98,7 +98,7 @@ export default defineConfig({
 			// 搜索框是 client:only：dev 下它的样式由 Vite 运行时注入，不在服务端 HTML 的 head 里，
 			// 第一次换页就会被删掉，之后打开搜索弹窗完全没有样式（生产构建是每页都有的静态 <link>）。
 			updateHead: {
-				awaitAssets: true,
+				awaitAssets: false,
 				persistAssets: false,
 				persistTags:
 					'style[data-twikoo-style], link#twikoo-css, link#aplayer-css, style[data-vite-dev-id*="Search.svelte"]',

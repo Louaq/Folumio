@@ -77,10 +77,9 @@ const annualCounts = years.length
       const dark = document.documentElement.classList.contains("dark");
       const text = dark ? "#e2e8f0" : "#334155";
       const muted = dark ? "#94a3b8" : "#64748b";
-      const animation = !window.matchMedia("(prefers-reduced-motion: reduce)").matches;
       const values = JSON.parse(this.dataset.values!);
       const shared = {
-        animation,
+        animation: false,
         color: ["#5470c6", "#91cc75", "#fac858", "#ee6666", "#73c0de", "#9a60b4"],
         textStyle: { fontFamily: "inherit", color: text },
         tooltip: {

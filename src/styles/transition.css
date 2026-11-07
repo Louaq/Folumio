@@ -2,67 +2,49 @@
 @layer base {
 
 :root {
-    --swup-fade-duration: 100ms;
-    --swup-fade-easing: cubic-bezier(0.22, 1, 0.36, 1);
-    --swup-enter-y: 0;
-    --swup-leave-y: 0;
-    --swup-scale: 0.995;
+    --swup-fade-duration: 200ms;
+    --swup-fade-easing: cubic-bezier(0.2, 0, 0, 1);
+    --swup-enter-y: 1rem;
+    --onload-enter-y: 2rem;
 }
 
 @media (prefers-reduced-motion: reduce) {
     :root {
         --swup-fade-duration: 1ms;
         --swup-enter-y: 0;
-        --swup-leave-y: 0;
-        --swup-scale: 1; 
+        --onload-enter-y: 0;
+    }
+    .onload-animation {
+        animation-duration: 1ms !important;
     }
 }
 
 .transition-main {
-    transform: translate3d(0, 0, 0) scale(1);
-    transform-origin: 50% 0;
-    transition:
-        opacity var(--swup-fade-duration) var(--swup-fade-easing),
-        transform var(--swup-fade-duration) var(--swup-fade-easing),
-        filter var(--swup-fade-duration) var(--swup-fade-easing);
-    will-change: opacity, transform;
-}
-
-.transition-leaving {
+    transform: translate3d(0, 0, 0);
     transition:
         opacity var(--swup-fade-duration) var(--swup-fade-easing),
         transform var(--swup-fade-duration) var(--swup-fade-easing);
 }
 
-html.is-animating:not(.is-leaving) .transition-main {
+html.is-animating .transition-main {
     opacity: 0;
-    transform: translate3d(0, var(--swup-enter-y), 0) scale(var(--swup-scale));
-    filter: blur(0.5px);
-}
-
-html.is-animating.is-leaving .transition-main {
-    opacity: 0;
-    transform: translate3d(0, var(--swup-leave-y), 0) scale(var(--swup-scale));
-    filter: blur(0.5px);
-}
-
-/* State: Leaving */
-html.is-animating.is-leaving .transition-leaving {
-    opacity: 0;
+    transform: translate3d(0, var(--swup-enter-y), 0);
 }
 
 @keyframes fade-in-up {
     from {
         opacity: 0;
+        transform: translate3d(0, var(--onload-enter-y), 0);
     }
     to {
         opacity: 1;
+        transform: translate3d(0, 0, 0);
     }
 }
 
 .onload-animation {
     opacity: 0;
-    animation: fade-in-up 1ms linear forwards;
+    animation: fade-in-up 300ms var(--swup-fade-easing) both;
 }
 
 }

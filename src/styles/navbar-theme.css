@@ -40,6 +40,18 @@
   justify-content: center;
 }
 
+#navbar .navbar-menu-items > .dropdown-container > .navbar-link-active::after {
+  content: "";
+  position: absolute;
+  left: 0.75rem;
+  right: 0.75rem;
+  bottom: 0;
+  height: 3px;
+  border-radius: 999px;
+  background-color: var(--primary);
+  pointer-events: none;
+}
+
 #navbar .navbar-tools {
   gap: 4px;
   padding: 0 10px 0 4px;
@@ -188,6 +200,10 @@
   color: #fff !important;
 }
 
-#top-row #navbar .navbar-menu-items > .dropdown-container > .btn-plain:hover {
-  color: var(--primary) !important;
+#navbar .navbar-menu-items .dropdown-item:active {
+  scale: none;
+}
+
+#top-row #navbar .navbar-menu-items .btn-plain:hover {
+  background-color: var(--btn-plain-bg-hover) !important;
 }
