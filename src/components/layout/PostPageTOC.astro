@@ -81,9 +81,14 @@ const { headings: _headings = [], class: className, style } = Astro.props;
   transform: none;
 }
 
-@media (min-width: 1280px) {
+@media (min-width: 90rem) {
   .post-page-toc-wrap {
     display: block;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: -12.5rem;
+    width: 11rem;
     padding-top: 1.5rem;
   }
 }

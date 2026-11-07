@@ -165,16 +165,12 @@ const mainPanelTop = "5.5rem";
     margin-inline: auto;
   }
 
-  @media (min-width: 1280px) {
+  @media (min-width: 90rem) {
     body[data-page-type="post"] #swup-container {
-      max-width: none;
       overflow: visible;
     }
     .post-content-layout {
-      display: grid;
-      grid-template-columns: minmax(0, 1fr) 11rem;
-      gap: 2.5rem;
-      align-items: stretch;
+      position: relative;
     }
   }
 
