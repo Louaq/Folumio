@@ -42,7 +42,7 @@
 **页面与组件**
 - 🏠 首页轮播、顶部通知条、文章置顶
 - 🧭 侧边栏组件：个人资料、公告、音乐播放器、运行时间，可配置顺序与开关
-- 🎵 侧边栏音乐播放器（APlayer + 自建曲库，支持歌单搜索、定位当前播放，Swup 换页不中断）
+- 🎵 悬浮音乐播放器（唱片封面、播放列表、进度和音量控制，可展开收起，Swup 换页不中断）
 - 🏷️ 分类、标签、归档、RSS、站点地图
 - 🎬 追番 / 观影清单（动画、电影、剧集）、友链页面
 - 🔐 文章密码保护
@@ -135,13 +135,16 @@ lang: ""
 | `::pdf` | `src`（或 `url`）、`title`、`height` | 使用自托管的 pdf.js viewer，带翻页/缩放/搜索/下载工具栏；跨域 PDF 需源站开启 CORS；`height` 默认 `90vh` |
 | `::video` | `src`（或 `url`）、`poster`、`title` | Video.js 播放器，支持 mp4 / webm，`.m3u8` 自动走 hls.js；高度随视频比例自适应 |
 
-## 侧边栏音乐
+## 悬浮音乐
 
-- 开关与排序：`src/config/sidebarConfig.ts` 中 `type: "music"` 的组件
-- 接口地址：固定使用同源 `/ncm`，由服务器反向代理到网易云兼容接口（见 `src/components/widget/Music.astro`）
+- 入口：页面右下角音乐按钮，支持展开和收起；直接使用 [astro-koharu](https://github.com/cosZone/astro-koharu) 的 React 播放器组件和样式，源码位于 `src/vendor/koharu`（AGPL-3.0）
+- 播放：支持上一首、下一首、进度拖动、音量和播放列表；收起面板或站内切换页面时继续播放
+- 接口地址：固定使用同源 `/ncm`，由服务器反向代理到网易云兼容接口（适配层见 `src/utils/koharu-music-source.ts`）
 - 歌单：站点根路径 `/music.json`，由服务器上的 `scan.mjs` 生成，不在仓库内
 - 开发时 `/ncm`、`/music.json`、`/assets/music` 会被代理到线上站点（见 `astro.config.mjs`）
-- 移动端（≤ 768px）不加载播放器
+- 歌单在首次展开面板时加载，桌面端和移动端均可使用
+- 首次播放通过 `/ncm/token` 完成 PoW 会话认证，随后携带同源 Cookie 获取 `standard` 音源；401 时只重新认证并重试一次
+- 音源为短时签名地址，不缓存或记录；无音源的歌曲自动跳过，过期后重新取链；当前自有 API 不提供歌词
 
 ## 配置
 

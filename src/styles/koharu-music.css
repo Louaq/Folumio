@@ -1,0 +1,84 @@
+@import "../vendor/koharu/styles/theme/shoka-player-shared.css";
+@import "../vendor/koharu/styles/theme/shoka-audio-player.css";
+@import "../vendor/koharu/styles/components/bgm.css";
+
+/* Upstream HSL tokens, with the accent derived from the host site's theme color. */
+.koharu-music {
+  --primary: from var(--theme-color) h s l;
+  --card: 0 12% 99%;
+  --card-foreground: 340 12% 12%;
+  --popover: 0 12% 99%;
+  --muted: 340 22% 95.5%;
+  --muted-foreground: 340 6% 36%;
+  --border: 340 16% 90%;
+  position: relative;
+  width: 2.75rem;
+  height: 2.75rem;
+  pointer-events: auto;
+}
+.dark .koharu-music {
+  --card: 256 18% 15%;
+  --card-foreground: 300 14% 93%;
+  --popover: 257 20% 16%;
+  --muted: 258 16% 21%;
+  --muted-foreground: 262 10% 68%;
+  --border: 258 14% 25%;
+}
+.koharu-bgm-position {
+  position: fixed;
+  right: 4rem;
+  bottom: 5rem;
+  z-index: 1001;
+  width: 460px;
+  max-width: calc(100vw - 5rem);
+  font-size: 16px;
+  line-height: 1.5;
+}
+.koharu-music .bgm-panel {
+  position: relative;
+  border-radius: 1rem;
+  box-shadow: 0 10px 30px #0002;
+}
+.koharu-bgm-close {
+  position: absolute;
+  top: 0.5rem;
+  right: 0.5rem;
+  z-index: 10;
+  display: grid;
+  place-items: center;
+  width: 2rem;
+  height: 2rem;
+  border-radius: 50%;
+  background: hsl(var(--popover) / 0.8);
+  color: hsl(var(--muted-foreground));
+  cursor: pointer;
+}
+.koharu-bgm-close svg {
+  width: 1rem;
+  height: 1rem;
+}
+.koharu-music :is(button, [role="slider"]):focus-visible {
+  outline: 2px solid hsl(var(--primary));
+  outline-offset: 2px;
+}
+.koharu-playback-error {
+  padding: 0 1.2em 0.5em;
+  color: hsl(var(--primary));
+  font-size: 0.75rem;
+}
+@media (max-width: 600px) {
+  .koharu-bgm-position {
+    right: 0.75rem;
+    bottom: 8rem;
+    width: calc(100vw - 1.5rem);
+    max-width: none;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .koharu-music *,
+  .koharu-music *::before,
+  .koharu-music *::after {
+    animation: none !important;
+    transition: none !important;
+  }
+}

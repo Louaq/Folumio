@@ -352,9 +352,14 @@ a {
   background: rgba(255, 255, 255, 0.3);
 }
 
-:root.has-page-scrollbar, :root.has-page-scrollbar body { scrollbar-width: none; }
+:root.has-page-scrollbar,
+:root.has-page-scrollbar body {
+  scrollbar-width: none;
+}
 :root.has-page-scrollbar::-webkit-scrollbar,
-:root.has-page-scrollbar body::-webkit-scrollbar { display: none; }
+:root.has-page-scrollbar body::-webkit-scrollbar {
+  display: none;
+}
 .page-scrollbar {
   outline: none;
   position: fixed;
@@ -367,7 +372,9 @@ a {
   transition: opacity 200ms ease;
 }
 :root.is-page-scrolling .page-scrollbar,
-.page-scrollbar:is(:hover, :focus-visible, .dragging) { opacity: 1; }
+.page-scrollbar:is(:hover, :focus-visible, .dragging) {
+  opacity: 1;
+}
 .page-scrollbar-thumb {
   position: absolute;
   top: 0;
@@ -377,10 +384,16 @@ a {
   background: var(--primary);
   transition: width 180ms ease;
 }
-.page-scrollbar:is(:hover, :focus-visible, .dragging) .page-scrollbar-thumb { width: 5px; }
-@media (prefers-reduced-motion: reduce) {
-  .page-scrollbar, .page-scrollbar-thumb { transition: none; }
+.page-scrollbar:is(:hover, :focus-visible, .dragging) .page-scrollbar-thumb {
+  width: 5px;
 }
+@media (prefers-reduced-motion: reduce) {
+  .page-scrollbar,
+  .page-scrollbar-thumb {
+    transition: none;
+  }
+}
+
 
 .widget [class*="text-"] {
   letter-spacing: 0;

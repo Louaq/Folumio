@@ -49,21 +49,6 @@ export const sidebarLayoutConfig: SidebarLayoutConfig = {
 			// 动画延迟时间
 			animationDelay: 0,
 		},
-		{
-			// 组件类型：音乐播放器（自建曲库，接口为同源 /ncm）
-			type: "music",
-			// 是否启用该组件
-			enable: true,
-			showOnPostPage: false,
-			// 组件显示顺序
-			order: 4,
-			// 组件位置
-			position: "sticky",
-			// CSS 类名
-			class: "onload-animation",
-			// 动画延迟时间
-			animationDelay: 0,
-		},
 		// {
 		// 	// 组件类型：分类组件
 		// 	type: "categories",

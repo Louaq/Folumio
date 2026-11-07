@@ -27,14 +27,23 @@ function initMarkdownCopy(post: HTMLElement): void {
 	if (!button) return;
 	const actions = button.closest<HTMLElement>(".markdown-actions")!;
 	const menu = actions.querySelector("details")!;
-	actions.querySelector<HTMLButtonElement>("[data-download-markdown]")!.onclick = () => {
+	actions.querySelector<HTMLButtonElement>(
+		"[data-download-markdown]",
+	)!.onclick = () => {
 		downloadMarkdown(actions.dataset.markdown!, actions.dataset.title!);
 		menu.open = false;
 	};
-	actions.querySelector<HTMLAnchorElement>("[data-open-studio]")!.onclick = () => {
-		sessionStorage.setItem("studio-import", JSON.stringify({ title: actions.dataset.title, markdown: actions.dataset.markdown }));
-		menu.open = false;
-	};
+	actions.querySelector<HTMLAnchorElement>("[data-open-studio]")!.onclick =
+		() => {
+			sessionStorage.setItem(
+				"studio-import",
+				JSON.stringify({
+					title: actions.dataset.title,
+					markdown: actions.dataset.markdown,
+				}),
+			);
+			menu.open = false;
+		};
 	menu.addEventListener("keydown", (event) => {
 		if (event.key === "Escape") {
 			menu.open = false;
@@ -42,7 +51,8 @@ function initMarkdownCopy(post: HTMLElement): void {
 		}
 	});
 	const closeOutside = (event: MouseEvent) => {
-		if (!actions.isConnected) document.removeEventListener("click", closeOutside);
+		if (!actions.isConnected)
+			document.removeEventListener("click", closeOutside);
 		else if (!actions.contains(event.target as Node)) menu.open = false;
 	};
 	document.addEventListener("click", closeOutside);

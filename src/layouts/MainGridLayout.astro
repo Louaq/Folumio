@@ -3,7 +3,6 @@ import Footer from "@components/layout/Footer.astro";
 import LeftSideBar from "@components/layout/LeftSideBar.astro";
 import Navbar from "@components/layout/Navbar.astro";
 import type { MarkdownHeading } from "astro";
-import FloatingControls from "@/components/controls/FloatingControls.astro";
 import IconifyLoader from "@/components/misc/IconifyLoader.astro";
 import { siteConfig } from "@/config";
 import { isHomePage } from "@/utils/layout-utils";
@@ -114,13 +113,9 @@ const mainPanelTop = "5.5rem";
     </div>
 </div>
 
-<FloatingControls>
-    <div id="floating-toc-container" class="contents">
-        {PostPageTOC && <PostPageTOC headings={headings} />}
-    </div>
-</FloatingControls>
-
-
+  <div slot="floating-controls" id="floating-toc-container" class="contents">
+    {PostPageTOC && <PostPageTOC headings={headings} />}
+  </div>
 </Layout>
 
 <style is:global>

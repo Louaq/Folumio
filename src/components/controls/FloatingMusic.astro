@@ -1,0 +1,30 @@
+---
+import GlobalBGMPlayer from "@/vendor/koharu/components/bgm/GlobalBGMPlayer";
+import { Icon } from "astro-icon/components";
+import { url } from "@/utils/url-utils";
+import "@/styles/koharu-music.css";
+---
+
+<div class="koharu-music">
+  <button
+    id="music-toggle"
+    type="button"
+    class="koharu-music-toggle floating-control-button"
+    data-bgm-toggle
+    aria-label="音乐播放器"
+    aria-expanded="false"
+    aria-controls="koharu-bgm-panel"
+  >
+    <Icon name="ri:music-2-line" />
+  </button>
+  <GlobalBGMPlayer client:load songsUrl={url("/music.json")} />
+</div>
+
+<script>
+  import { $bgmPanelOpen, toggleBgmPanel } from "@/vendor/koharu/store/bgm";
+  const button = document.querySelector<HTMLButtonElement>("#music-toggle")!;
+  button.onclick = toggleBgmPanel;
+  $bgmPanelOpen.subscribe((open) =>
+    button.setAttribute("aria-expanded", String(open)),
+  );
+</script>

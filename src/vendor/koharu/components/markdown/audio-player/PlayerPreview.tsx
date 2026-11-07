@@ -1,0 +1,145 @@
+// Upstream: cosZone/astro-koharu, 329ce55513a8057708c93c11c5b8c096680ad83c.
+// AGPL-3.0; modified 2026-11-07: imports adapted to local vendor directory.
+/**
+ * PlayerPreview — vinyl disc with tonearm (left) + song info + centered lyrics (right).
+ */
+
+import { usePlaybackLrcIndex } from "@/vendor/koharu/hooks/usePlaybackTime";
+import type { MetingSong } from "@/vendor/koharu/lib/meting";
+import { resolveMusicCover } from "@/vendor/koharu/lib/music-cover";
+import type { PlaybackTimeStore } from "@/vendor/koharu/lib/playback-time-store";
+import { cn } from "@/vendor/koharu/lib/utils";
+import { memo, useEffect, useMemo, useState } from "react";
+import { parseLrc } from "./LrcParser";
+
+interface PlayerPreviewProps {
+	track: MetingSong | null;
+	playing: boolean;
+	timeStore: PlaybackTimeStore;
+	/** Line height in px — must match CSS `.audio-player-lrc p` height. @default 32 */
+	lrcLineHeight?: number;
+	/** Container height in px — must match CSS `.audio-player-lrc` height. @default 128 */
+	lrcContainerHeight?: number;
+	/** Keep the lyrics slot while fetching, so floating players don't shift their controls. */
+	reserveLyrics?: boolean;
+}
+
+/** Default line height and container height (match CSS values) */
+const DEFAULT_LRC_LINE_HEIGHT = 32;
+const DEFAULT_LRC_CONTAINER_HEIGHT = 128;
+
+/** Resolve LRC: if it's a URL, fetch it; otherwise use as-is. */
+function useLrcText(lrcSource: string | undefined): string {
+	const [text, setText] = useState("");
+
+	useEffect(() => {
+		if (!lrcSource) {
+			setText("");
+			return;
+		}
+
+		if (lrcSource.startsWith("http")) {
+			const controller = new AbortController();
+			fetch(lrcSource, { signal: controller.signal })
+				.then(async (r) => {
+					if (!r.ok) throw new Error("Lyrics unavailable");
+					return r.text();
+				})
+				.then(setText)
+				.catch((error: unknown) => {
+					if (!(error instanceof DOMException && error.name === "AbortError"))
+						setText("");
+				});
+			return () => controller.abort();
+		}
+
+		setText(lrcSource);
+	}, [lrcSource]);
+
+	return text;
+}
+
+export const PlayerPreview = memo(function PlayerPreview({
+	track,
+	playing,
+	timeStore,
+	lrcLineHeight = DEFAULT_LRC_LINE_HEIGHT,
+	lrcContainerHeight = DEFAULT_LRC_CONTAINER_HEIGHT,
+	reserveLyrics = false,
+}: PlayerPreviewProps) {
+	const source = track?.pic ?? "";
+	const [cover, setCover] = useState({ source: "", url: "" });
+	useEffect(() => {
+		if (!source) return;
+		const controller = new AbortController();
+		void resolveMusicCover(source, controller.signal).then((url) => {
+			if (!controller.signal.aborted) setCover({ source, url });
+		});
+		return () => controller.abort();
+	}, [source]);
+	const lrcText = useLrcText(track?.lrc);
+	const lrcLines = useMemo(() => parseLrc(lrcText), [lrcText]);
+	const currentLrcIndex = usePlaybackLrcIndex(timeStore, lrcLines);
+
+	const lrcCenterOffset = (lrcContainerHeight - lrcLineHeight) / 2;
+
+	return (
+		<div className="audio-player-preview">
+			{/* Disc wrapper: vinyl disc + tonearm */}
+			<div className="audio-player-disc-wrapper">
+				<div className={cn("audio-player-disc", playing && "spinning")}>
+					{cover.source === source && cover.url ? (
+						<img
+							src={cover.url}
+							alt={track?.name || ""}
+							width={200}
+							height={200}
+							className="audio-player-cover"
+							loading="lazy"
+							decoding="async"
+							draggable={false}
+						/>
+					) : (
+						<div className="audio-player-cover audio-player-cover-placeholder" />
+					)}
+				</div>
+				<div className={cn("audio-player-needle", playing && "playing")}>
+					<div className="audio-player-needle-arm">
+						<div className="audio-player-needle-head" />
+					</div>
+				</div>
+			</div>
+
+			{/* Song info + lyrics */}
+			<div className="audio-player-info">
+				<div className="audio-player-song-name" title={track?.name}>
+					{track?.name || "No track"}
+				</div>
+				<div className="audio-player-artist" title={track?.artist}>
+					{track?.artist || ""}
+				</div>
+
+				{/* Lyrics area — current line centered vertically */}
+				{(reserveLyrics || lrcLines.length > 0) && (
+					<div className="audio-player-lrc">
+						<div
+							className="audio-player-lrc-inner"
+							style={{
+								transform: `translateY(${lrcCenterOffset - Math.max(0, currentLrcIndex) * lrcLineHeight}px)`,
+							}}
+						>
+							{lrcLines.map((line, i) => (
+								<p
+									key={`${line.time}-${i}`}
+									className={cn(i === currentLrcIndex && "current")}
+								>
+									{line.text || "\u00A0"}
+								</p>
+							))}
+						</div>
+					</div>
+				)}
+			</div>
+		</div>
+	);
+});

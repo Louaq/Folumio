@@ -2,6 +2,7 @@
 import FontSetup from "@components/features/FontSetup.astro";
 import ImageLightboxManager from "@components/features/ImageLightboxManager.astro";
 import ConfigCarrier from "@components/layout/ConfigCarrier.astro";
+import FloatingControls from "@/components/controls/FloatingControls.astro";
 
 import {
 	expressiveCodeConfig,
@@ -60,7 +61,10 @@ const collapsiblePreviewLines =
 ---
 
 <!doctype html>
-<html lang={siteLang} class="bg-(--page-bg) text-[14px] md:text-[16px]">
+<html
+  lang={siteLang}
+  class="has-page-scrollbar bg-(--page-bg) text-[14px] md:text-[16px]"
+>
   <head>
     <title>{pageTitle}</title>
 
@@ -192,6 +196,7 @@ const collapsiblePreviewLines =
     <div id="page-height-extend" class="hidden h-[300vh]"></div>
 
     <ImageLightboxManager />
+    <FloatingControls><slot name="floating-controls" /></FloatingControls>
 
   </body>
 </html>

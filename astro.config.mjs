@@ -1,4 +1,5 @@
 import svelte from "@astrojs/svelte";
+import react from "@astrojs/react";
 import { pluginLineNumbers } from "@expressive-code/plugin-line-numbers";
 import swup from "@swup/astro";
 import tailwindcss from "@tailwindcss/vite";
@@ -184,6 +185,7 @@ export default defineConfig({
 			},
 		}),
 		svelte(),
+		react(),
 		mdx(),
 		meilisearch(),
 	],
@@ -256,9 +258,29 @@ export default defineConfig({
 						server.middlewares.stack.unshift({
 							route: "/ncm",
 							handle: async (req, res) => {
-								const r = await fetch(`${siteConfig.site_url}/ncm${req.url}`);
+								const headers = new Headers({
+									Origin: siteConfig.site_url,
+									Referer: `${siteConfig.site_url}/`,
+								});
+								for (const name of ["cookie", "content-type"]) {
+									if (typeof req.headers[name] === "string")
+										headers.set(name, req.headers[name]);
+								}
+								const chunks = [];
+								if (req.method === "POST")
+									for await (const chunk of req) chunks.push(chunk);
+								const r = await fetch(`${siteConfig.site_url}/ncm${req.url}`, {
+									method: req.method,
+									headers,
+									body:
+										req.method === "POST" ? Buffer.concat(chunks) : undefined,
+								});
 								res.statusCode = r.status;
-								res.setHeader("content-type", r.headers.get("content-type"));
+								for (const name of ["content-type", "cache-control"]) {
+									if (r.headers.has(name))
+										res.setHeader(name, r.headers.get(name));
+								}
+								res.setHeader("set-cookie", r.headers.getSetCookie());
 								res.end(Buffer.from(await r.arrayBuffer()));
 							},
 						});

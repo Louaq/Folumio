@@ -14,8 +14,20 @@ const { headings: _headings = [], class: className, style } = Astro.props;
 ---
 
 <details class:list={["post-page-toc-wrap", className]} style={style}>
-  <summary class="post-page-toc-toggle" aria-label={i18n(I18nKey.tableOfContents)} title={i18n(I18nKey.tableOfContents)}>
-    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" aria-hidden="true">
+  <summary
+    class="post-page-toc-toggle floating-control-button"
+    aria-label={i18n(I18nKey.tableOfContents)}
+    title={i18n(I18nKey.tableOfContents)}
+  >
+    <svg
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      stroke-width="3"
+      aria-hidden="true"
+    >
       <path d="M2 5h20M2 12h20M2 19h20" />
     </svg>
   </summary>
@@ -37,15 +49,7 @@ const { headings: _headings = [], class: className, style } = Astro.props;
 }
 
 .post-page-toc-toggle {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 3rem;
-  height: 3rem;
   list-style: none;
-  cursor: pointer;
-  background: transparent;
-  color: var(--primary);
 }
 
 .post-page-toc-toggle::-webkit-details-marker {
