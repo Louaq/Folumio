@@ -57,7 +57,6 @@ let links: NavBarLink[] = navBarConfig.links.map(
             ]}
         >
             <div class="navbar-menu-items space-x-1">
-                <span class="navbar-indicator" aria-hidden="true"></span>
                 {links.map((l) => {
                     return <DropdownMenu link={l} />;
                 })}
@@ -107,7 +106,6 @@ let links: NavBarLink[] = navBarConfig.links.map(
 
 <script>
 import { isNavPathActive } from "@/utils/navigation";
-import { setupNavbarGlide } from "@/utils/navbar-glide";
 
 const NAVBAR_ACTIVE_CLASS = "navbar-link-active";
 
@@ -219,7 +217,6 @@ function updateNavbarHeroOverlap() {
 }
 
 setupNavbarActiveSync();
-setupNavbarGlide();
 loadButtonScript();
 updateNavbarHeroOverlap();
 window.addEventListener("scroll", updateNavbarHeroOverlap, { passive: true });

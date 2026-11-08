@@ -68,20 +68,20 @@ export const sidebarLayoutConfig: SidebarLayoutConfig = {
 				collapseThreshold: 20,
 			},
 		},
-		{
-			//组件类型：标签组件
-			type: "tags",
-			//是否启用该组件
-			enable: true,
-			//组件显示顺序
-			order: 4,
-			//组件位置
-			position: "top",
-			//CSS 类名
-			class: "onload-animation",
-			//动画延迟时间
-			animationDelay: 0,
-		},
+		// {
+		// 	//组件类型：标签组件
+		// 	type: "tags",
+		// 	//是否启用该组件
+		// 	enable: true,
+		// 	//组件显示顺序
+		// 	order: 4,
+		// 	//组件位置
+		// 	position: "top",
+		// 	//CSS 类名
+		// 	class: "onload-animation",
+		// 	//动画延迟时间
+		// 	animationDelay: 0,
+		// },
 	],
 
 	// 默认动画配置
