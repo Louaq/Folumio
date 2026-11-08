@@ -53,7 +53,13 @@
 }
 
 #navbar .navbar-menu-items > .dropdown-container > .navbar-link-active::after {
-  content: none;
+  content: "";
+  position: absolute;
+  inset-inline: 1.5rem;
+  bottom: 0;
+  height: 3px;
+  border-radius: 2px;
+  background: currentColor;
 }
 
 #navbar .navbar-tools {
@@ -174,6 +180,7 @@
 #navbar .navbar-menu-items > .dropdown-container > .btn-plain {
   width: 7rem;
   justify-content: center;
+  border-radius: 4px !important;
 }
 
 .dropdown-item {
@@ -215,12 +222,12 @@
   scale: none;
 }
 
-#top-row #navbar .navbar-menu-items .btn-plain:hover {
-  background-color: transparent !important;
+#top-row #navbar .navbar-menu-items > .dropdown-container > .btn-plain:is(:hover, :focus-visible) {
+  background-color: color-mix(in oklch, currentColor 8%, transparent) !important;
 }
 
-#top-row[data-over-hero="true"] #navbar .navbar-menu-items .btn-plain:hover {
-  background-color: transparent !important;
+#top-row[data-over-hero="true"] #navbar .navbar-menu-items > .dropdown-container > .btn-plain:is(:hover, :focus-visible) {
+  background-color: color-mix(in oklch, currentColor 14%, transparent) !important;
 }
 
 #top-row #navbar .navbar-menu-items > .dropdown-container > .navbar-link-active {
