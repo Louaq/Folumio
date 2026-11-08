@@ -192,6 +192,10 @@
   height: 2.5rem !important;
   padding: 0 0.75rem !important;
 }
+#navbar .navbar-menu-items > .dropdown-container > .btn-plain {
+  width: 7rem;
+  justify-content: center;
+}
 
 .dropdown-item {
   border-radius: 4px !important;
@@ -247,4 +251,49 @@
 
 @media (prefers-reduced-motion: reduce) {
   #navbar .navbar-indicator { transition: none; }
+}
+
+#navbar .dropdown-menu .dropdown-content {
+  position: relative;
+  isolation: isolate;
+  min-width: 9rem;
+  padding: 6px;
+  border-radius: 18px !important;
+  border: 1px solid color-mix(in oklch, var(--primary) 15%, var(--line-divider));
+  background: color-mix(in oklch, var(--card-bg) 94%, transparent) !important;
+  box-shadow: 0 8px 24px rgb(0 0 0 / 10%) !important;
+}
+#navbar .dropdown-menu .dropdown-item {
+  width: 100%;
+  margin: 0;
+  height: 36px;
+  border-radius: 12px !important;
+  font-size: 14px !important;
+}
+#navbar .dropdown-menu .dropdown-item .navbar-icon {
+  font-size: 16px;
+  margin-right: 10px;
+}
+#top-row #navbar .dropdown-menu .dropdown-item:is(:hover, :focus-visible, .navbar-link-active) {
+  background: transparent !important;
+}
+#top-row #navbar .dropdown-menu .dropdown-item:is(:hover, :focus-visible) {
+  color: var(--primary) !important;
+}
+#navbar .dropdown-indicator {
+  position: absolute;
+  top: 0;
+  left: 6px;
+  width: calc(100% - 12px);
+  margin: 0;
+  border-radius: 12px;
+  background: color-mix(in oklch, var(--primary) 14%, transparent);
+  pointer-events: none;
+  z-index: -1;
+  opacity: 0;
+  transition: opacity 180ms ease;
+}
+#navbar .dropdown-indicator[data-visible="true"] { opacity: 1; }
+@media (prefers-reduced-motion: reduce) {
+  #navbar .dropdown-indicator { transition: none; }
 }

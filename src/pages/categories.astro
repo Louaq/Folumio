@@ -1,4 +1,4 @@
----
+﻿---
 import I18nKey from "@i18n/i18nKey";
 import { i18n } from "@i18n/translation";
 import MainGridLayout from "@layouts/MainGridLayout.astro";
@@ -6,36 +6,47 @@ import { Icon } from "astro-icon/components";
 import { getCategoryList } from "@/utils/content-utils";
 
 const categories = await getCategoryList();
+const postCount = categories.reduce((total, category) => total + category.count, 0);
 ---
 
-<MainGridLayout title={i18n(I18nKey.categories)} description={i18n(I18nKey.categories)} hideSidebar wideContent>
-	<div class="card-base card-plain px-8 py-6">
-		{
-			categories.length === 0 ? (
-				<p class="text-black/50 dark:text-white/50">
-					{i18n(I18nKey.uncategorized)}
-				</p>
-			) : (
-				<ul class="categories-page-list flex flex-wrap items-center gap-x-6 gap-y-3 md:gap-x-8 list-none m-0 p-0">
-					{categories.map((cat) => (
-						<li class="m-0 p-0">
-							<a
-								href={cat.url}
-								class="categories-page-chip group inline-flex items-center gap-1.5 py-0.5 rounded-md text-neutral-900 dark:text-neutral-100 hover:text-(--primary)"
-							>
-								<Icon
-									name="material-symbols:folder-rounded"
-									class="shrink-0 text-[1.0625rem] text-current opacity-90"
-									aria-hidden="true"
-								/>
-								<span class="text-[0.9375rem] md:text-base font-normal tabular-nums">
-									{cat.name}({cat.count})
-								</span>
-							</a>
-						</li>
-					))}
-				</ul>
-			)
-		}
+<MainGridLayout title={i18n(I18nKey.categories)} description={i18n(I18nKey.categories)}>
+	<div class="categories-page card-base card-plain px-8 py-6">
+		<p class="categories-summary">
+			<strong>{categories.length}</strong> 个分类
+			<span class="summary-divider">·</span>
+			<strong>{postCount}</strong> 篇文章
+		</p>
+		{categories.length === 0 ? (
+			<p class="empty-categories">{i18n(I18nKey.uncategorized)}</p>
+		) : (
+			<ul class="categories-page-list">
+				{categories.map((category) => (
+					<li>
+						<a href={category.url} class="category-row">
+							<Icon name="lucide:leaf" class="category-icon" aria-hidden="true" />
+							<span class="category-name">{category.name}</span>
+							<span class="category-leader" aria-hidden="true"></span>
+							<span class="category-count">{category.count}<span class="sr-only"> 篇文章</span></span>
+						</a>
+					</li>
+				))}
+			</ul>
+		)}
 	</div>
 </MainGridLayout>
+
+<style>
+	.categories-page { color: var(--juejin-text-primary); }
+	.categories-summary { margin-bottom: 2rem; color: var(--content-meta); font-size: .875rem; }
+	.categories-summary strong { color: var(--primary); font-size: 1.125rem; font-weight: 600; }
+	.summary-divider { margin-inline: .75rem; }
+	.categories-page-list { display: flex; flex-direction: column; gap: .75rem; list-style: none; margin: 0; padding: 0; }
+	.category-row { display: flex; align-items: center; gap: .65rem; padding-block: .75rem; }
+	.category-icon { color: var(--primary); width: .9rem; height: .9rem; flex-shrink: 0; }
+	.category-name { font-size: 1.0625rem; font-weight: 600; overflow-wrap: anywhere; }
+	.category-leader { flex: 1; min-width: 1rem; border-bottom: 2px dotted var(--line-divider); }
+	.category-count { color: var(--primary); font-weight: 600; font-variant-numeric: tabular-nums; }
+	.category-row:hover .category-name { color: var(--primary); }
+	.category-row:focus-visible { outline: 2px solid var(--primary); outline-offset: 4px; border-radius: 4px; }
+	.empty-categories { color: var(--content-meta); }
+</style>

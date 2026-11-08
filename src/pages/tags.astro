@@ -1,70 +1,96 @@
----
+﻿---
 import I18nKey from "@i18n/i18nKey";
 import { i18n } from "@i18n/translation";
 import MainGridLayout from "@layouts/MainGridLayout.astro";
-import { Icon } from "astro-icon/components";
 import { getTagList } from "@/utils/content-utils";
 import { getTagUrl } from "@/utils/navigation";
 
 const tags = await getTagList();
-
-/** 不按字母序：按文章数从多到少，同数再按名称稳定排序 */
-const sortedTags = [...tags].sort((a, b) => {
-	if (b.count !== a.count) return b.count - a.count;
-	return a.name.localeCompare(b.name, undefined, { sensitivity: "base" });
-});
-
-/** 图1：柔和底色轮换（含深色模式近似色） */
-const PASTEL_CHIP = [
-	"bg-[#f9e4e8] text-[#555e67] hover:brightness-[0.97] dark:bg-rose-950/38 dark:text-rose-50 dark:hover:bg-rose-950/52",
-	"bg-[#fdf6e3] text-[#555e67] hover:brightness-[0.97] dark:bg-amber-950/35 dark:text-amber-50 dark:hover:bg-amber-950/48",
-	"bg-[#eee8f5] text-[#555e67] hover:brightness-[0.97] dark:bg-violet-950/38 dark:text-violet-100 dark:hover:bg-violet-950/50",
-	"bg-[#e6f3f7] text-[#555e67] hover:brightness-[0.97] dark:bg-sky-950/38 dark:text-sky-50 dark:hover:bg-sky-950/50",
-	"bg-[#e6f4ea] text-[#555e67] hover:brightness-[0.97] dark:bg-emerald-950/35 dark:text-emerald-50 dark:hover:bg-emerald-950/48",
-	"bg-[#f0f0f0] text-[#555e67] hover:brightness-[0.97] dark:bg-neutral-800/55 dark:text-neutral-100 dark:hover:bg-neutral-800/70",
-] as const;
-
-/** 与标签名绑定，颜色不随排序变化 */
-function pastelChipClass(tagName: string): string {
-	let h = 0;
-	for (let i = 0; i < tagName.length; i++)
-		h = (h * 31 + tagName.charCodeAt(i)) | 0;
-	const idx = Math.abs(h) % PASTEL_CHIP.length;
-	return PASTEL_CHIP[idx];
-}
+const sortedTags = [...tags].sort((a, b) => b.count - a.count || a.name.localeCompare(b.name, undefined, { sensitivity: "base" }));
+const commonTags = sortedTags.filter((tag) => tag.count > 1);
+const singleTags = sortedTags.filter((tag) => tag.count === 1);
+const maxCount = sortedTags[0]?.count ?? 1;
+const groups = [commonTags, singleTags];
 ---
 
-<MainGridLayout title={i18n(I18nKey.tags)} description={i18n(I18nKey.tags)} hideSidebar wideContent>
-	<div class="card-base card-plain px-8 py-6">
-		{tags.length === 0 ? (
-			<p class="text-black/50 dark:text-white/50">{i18n(I18nKey.noTags)}</p>
-		) : (
-			<ul class="tags-page-cloud flex flex-wrap gap-2.5 md:gap-3 list-none m-0 p-0">
-				{sortedTags.map((tag) => {
-					const name = tag.name.trim();
-					return (
-						<li class="m-0 p-0">
-							<a
-								href={getTagUrl(tag.name)}
-								class:list={[
-									"tags-page-chip group inline-flex items-center gap-1.5 rounded-sm px-3 py-1 text-sm no-underline",
-									"transition-[filter,background-color] duration-150 focus-visible:outline-solid focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-(--primary)",
-									pastelChipClass(name),
-								]}
-							>
-								<Icon
-									name="material-symbols:tag-rounded"
-									class="shrink-0 text-[1rem] text-current opacity-85"
-									aria-hidden="true"
-								/>
-								<span class="font-normal tabular-nums leading-none">
-									{name}({tag.count})
-								</span>
+<MainGridLayout title={i18n(I18nKey.tags)} description={i18n(I18nKey.tags)}>
+	<section class="tags-page card-base px-5 py-7 sm:px-8 sm:py-9" data-tags-page aria-label={i18n(I18nKey.tags)}>
+		<div class="tags-header">
+			<p><strong>{tags.length}</strong> 个标签{sortedTags.length > 0 && <span> · 最常用 <a href={getTagUrl(sortedTags[0].name)}>{sortedTags[0].name}</a></span>}</p>
+			<label><span class="sr-only">搜索标签</span><input type="search" placeholder="输入标签名称" data-tag-search /></label>
+		</div>
+		{tags.length === 0 ? <p>{i18n(I18nKey.noTags)}</p> : groups.map((group, index) => {
+			const cloud = (
+				<ul class="tags-cloud">
+					{group.map((tag) => (
+						<li data-tag-name={tag.name.toLocaleLowerCase()}>
+							<a href={getTagUrl(tag.name)} class:list={["tag-link", { "popular-tag": tag.count > 1 && tag.count >= maxCount / 2 }]} style={`--tag-size: ${14 + 8 * (tag.count - 1) / Math.max(1, maxCount - 1)}px`}>
+								{tag.name}<sup>{tag.count}</sup>
 							</a>
 						</li>
-					);
-				})}
-			</ul>
-		)}
-	</div>
+					))}
+				</ul>
+			);
+			return index === 0 ? cloud : group.length > 0 && (
+				<details class="single-tags" data-single-tags>
+					<summary>还有 {singleTags.length} 个只出现过一次的标签</summary>
+					{cloud}
+				</details>
+			);
+		})}
+		<p class="no-results" data-no-results hidden role="status">没有找到匹配的标签</p>
+	</section>
 </MainGridLayout>
+
+<script>
+	function initTagSearch() {
+		document.querySelectorAll<HTMLElement>("[data-tags-page]").forEach((page) => {
+			if (page.dataset.initialized) return;
+			page.dataset.initialized = "true";
+			const input = page.querySelector<HTMLInputElement>("[data-tag-search]")!;
+			const items = page.querySelectorAll<HTMLElement>("[data-tag-name]");
+			const singles = page.querySelector<HTMLDetailsElement>("[data-single-tags]");
+			const noResults = page.querySelector<HTMLElement>("[data-no-results]")!;
+			let wasOpen = false;
+			let searching = false;
+			input.addEventListener("input", () => {
+				const query = input.value.trim().toLocaleLowerCase();
+				let matches = 0;
+				let singleMatches = 0;
+				items.forEach((item) => {
+					item.hidden = !item.dataset.tagName!.includes(query);
+					if (!item.hidden) {
+						matches++;
+						if (singles?.contains(item)) singleMatches++;
+					}
+				});
+				if (singles) {
+					if (query && !searching) wasOpen = singles.open;
+					singles.open = query ? true : wasOpen;
+					singles.hidden = query.length > 0 && singleMatches === 0;
+				}
+				searching = query.length > 0;
+				noResults.hidden = matches > 0;
+			});
+		});
+	}
+	initTagSearch();
+	document.addEventListener("astro:page-load", initTagSearch);
+</script>
+
+<style>
+	.tags-page { color: var(--content-meta); }
+	.tags-header { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem; margin-bottom: 2rem; font-size: 14px; }
+	.tags-header strong, .tags-header a { font-size: 18px; font-weight: 600; color: var(--primary); }
+	.tags-header input { width: 224px; max-width: 100%; padding: 8px 14px; border: 1px solid var(--line-divider); border-radius: 999px; background: var(--btn-regular-bg); color: var(--juejin-text-primary); font-size: 13px; }
+	.tags-cloud { display: flex; flex-wrap: wrap; align-items: baseline; gap: 12px 16px; list-style: none; margin: 0; padding: 0; }
+	.tag-link { font-size: var(--tag-size); line-height: 1.6; overflow-wrap: anywhere; transition: color 180ms ease; }
+	.tag-link sup { margin-left: 3px; font-size: 10px; font-weight: 400; color: var(--content-meta); }
+	.popular-tag { color: var(--primary); font-weight: 600; }
+	.tag-link:hover { color: var(--primary); }
+	.single-tags { margin-top: 2rem; font-size: 14px; }
+	summary { cursor: pointer; }
+	.single-tags .tags-cloud { margin-top: 1.25rem; }
+	.no-results { margin-top: 1.5rem; font-size: 14px; }
+	a:focus-visible, input:focus-visible, summary:focus-visible { outline: 2px solid var(--primary); outline-offset: 4px; }
+</style>

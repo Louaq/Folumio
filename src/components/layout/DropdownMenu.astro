@@ -137,6 +137,15 @@ const hasActiveChild =
 		@apply rotate-180;
 	}
 
+	.dropdown-container[data-dismissed] .dropdown-menu {
+		opacity: 0 !important;
+		visibility: hidden !important;
+		pointer-events: none !important;
+	}
+	.dropdown-container[data-dismissed] .dropdown-arrow {
+		transform: none !important;
+	}
+
 	.dropdown-content {
 		@apply min-w-[12rem];
 	}
@@ -159,6 +168,9 @@ const hasActiveChild =
 			const items = dropdown.querySelectorAll('.dropdown-item') as NodeListOf<HTMLElement>;
 			
 			if (!trigger || !menu) return;
+			dropdown.addEventListener('pointerleave', () => {
+				dropdown.removeAttribute('data-dismissed');
+			});
 			
 			trigger.addEventListener('keydown', function(e: KeyboardEvent) {
 				if (e.key === 'Enter' || e.key === ' ') {
@@ -176,6 +188,11 @@ const hasActiveChild =
 			});
 			
 			items.forEach((item, index) => {
+				item.addEventListener('click', () => {
+					dropdown.setAttribute('data-dismissed', '');
+					closeDropdown(dropdown, trigger, menu);
+					item.blur();
+				});
 				item.addEventListener('keydown', function(e: KeyboardEvent) {
 					if (e.key === 'ArrowDown') {
 						e.preventDefault();
@@ -217,6 +234,7 @@ const hasActiveChild =
 	}
 	
 	function openDropdown(_dropdown: Element, trigger: Element, menu: Element) {
+		_dropdown.removeAttribute('data-dismissed');
 		trigger.setAttribute('aria-expanded', 'true');
 		menu.classList.remove('opacity-0', 'invisible', 'pointer-events-none', 'translate-y-[-8px]');
 		menu.classList.add('opacity-100', 'visible', 'pointer-events-auto', 'translate-y-0');
