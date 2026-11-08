@@ -1,528 +1,137 @@
----
-
-import { getEntry, render } from "astro:content";
-import Markdown from "@components/common/Markdown.astro";
+﻿---
 import I18nKey from "@/i18n/i18nKey";
 import { i18n } from "@/i18n/translation";
 import MainGridLayout from "@/layouts/MainGridLayout.astro";
-import { Icon } from "astro-icon/components";
 import { aboutPageConfig } from "@/config/aboutConfig";
 import { profileConfig } from "@/config/profileConfig";
 import { siteConfig } from "@/config/siteConfig";
-import {
-	getCategoryList,
-	getSortedPosts,
-	getTagList,
-} from "@/utils/content-utils";
+import { getCategoryList, getSortedPosts, getTagList } from "@/utils/content-utils";
 import { url } from "@/utils/navigation";
 import ContentCharts from "@components/pages/about/ContentCharts.astro";
 
-const aboutPost = await getEntry("spec", "about");
-
-if (!aboutPost) {
-	throw new Error("About page content not found");
-}
-
-const { Content } = await render(aboutPost);
 const [posts, tags, categories] = await Promise.all([
 	getSortedPosts(),
 	getTagList(),
 	getCategoryList(),
 ]);
 const statistics = [
-	{ value: posts.length, label: "篇文章"},
-	{ value: tags.length, label: "个标签"},
-	{ value: categories.length, label: "个分类"},
+	{ value: posts.length, label: "篇文章" },
+	{ value: tags.length, label: "个标签" },
+	{ value: categories.length, label: "个分类" },
 ];
 ---
-<MainGridLayout
-  title={i18n(I18nKey.about)}
-  description={aboutPageConfig.introduction}
-  hideSidebar
-  wideContent
->
-  <div class="about-page">
-    <header class="about-header">
-      <div class="avatar-stage">
-        <div class="identity-tags tags-left" aria-hidden="true">
-          {aboutPageConfig.identityTags.slice(0, 3).map((tag) =>
-            <span>{tag}</span>
-          )}
-        </div>
-        <div class="avatar-ring">
-          <img
-            src={url(profileConfig.avatar!)}
-            alt={`${profileConfig.name}的头像`}
-            width="136"
-            height="136"
-            loading="eager"
-          />
-          <span class="avatar-status" aria-label="持续学习中">🌱</span>
-        </div>
-        <div class="identity-tags tags-right" aria-hidden="true">
-          {aboutPageConfig.identityTags.slice(3).map((tag) =>
-            <span>{tag}</span>
-          )}
-        </div>
-      </div>
-      <p class="eyebrow">ABOUT ME</p>
-      <h1>关于我</h1>
-      <p class="header-description">很高兴，在这里与你相遇。</p>
-    </header>
 
-    <div class="about-grid">
-      <section class="about-card identity-card span-7">
-        <p class="eyebrow">你好，欢迎来到我的小站 👋</p>
-        <h2>我是 <span>{profileConfig.name}</span></h2>
-        <p class="identity-role">{aboutPageConfig.role}</p>
-        <p class="card-description">{aboutPageConfig.introduction}</p>
-        <a class="text-link" href={url("/archive/")}>
-          看看我的记录 <Icon name="lucide:arrow-up-right" />
-        </a>
-      </section>
+<MainGridLayout title={i18n(I18nKey.about)} description={aboutPageConfig.introduction}>
+	<article class="about-page card-base">
+		<header class="about-header">
+			<img src={url(profileConfig.avatar!)} alt={`${profileConfig.name}的头像`} width="96" height="96" />
+			<div>
+				<p class="eyebrow">ABOUT ME</p>
+				<h1>你好，我是 {profileConfig.name}。</h1>
+				<p class="role">{aboutPageConfig.role}</p>
+			</div>
+		</header>
 
-      <section class="about-card pursuit-card span-5">
-        <p class="eyebrow">研究与探索</p>
-        <h2>{aboutPageConfig.pursuit.split("\n").map((line) => (
-          <span>{line}</span>
-        ))}</h2>
-        <div class="pursuit-footer">
-          <span>医学影像 × 人工智能</span>
-          <Icon name="lucide:sparkles" />
-        </div>
-      </section>
+		<div class="about-introduction">
+			<p>{aboutPageConfig.introduction}</p>
+			<p>很高兴，在这里与你相遇。</p>
+		</div>
 
-      <section class="about-card keywords-card span-6">
-        <p class="eyebrow">研究关键词</p>
-        <h2>从不同模态，看见更多。</h2>
-        <div class="keyword-grid">
-          {aboutPageConfig.keywords.map((keyword, index) => (
-            <div class:list={["keyword", `keyword-${index % 4}`]}>
-              <Icon name={[
-                "lucide:magnet", "lucide:scan", "lucide:activity", "lucide:layers",
-                "lucide:scissors", "lucide:combine", "lucide:box", "lucide:stethoscope",
-              ][index]} aria-hidden="true" />
-              <span>{keyword}</span>
-            </div>
-          ))}
-        </div>
-      </section>
+		<section class="about-section" aria-labelledby="research-title">
+			<p class="eyebrow">研究与探索</p>
+			<h2 id="research-title">{aboutPageConfig.pursuit.replace("\n", "")}</h2>
+			<p class="research-keywords">{aboutPageConfig.keywords.join(" · ")}</p>
+			<dl class="research-directions">
+				{aboutPageConfig.directions.map((direction) => (
+					<div>
+						<dt>{direction.title}</dt>
+						<dd>{direction.description}</dd>
+					</div>
+				))}
+			</dl>
+		</section>
 
-      <section class="about-card statistics-card span-6">
-        <p class="eyebrow">关于这个博客</p>
-        <h2>让知识慢慢积累。</h2>
-        <p class="card-description">
-          始于 {siteConfig.siteStartDate}，每一篇都是探索的足迹。
-        </p>
-        <div class="statistics">
-          {statistics.map((stat) => (
-            <a aria-label={`${stat.value} ${stat.label}`}>
-              <strong aria-hidden="true"><span style={`display: inline-block; min-width: ${String(stat.value).length}ch; font-variant-numeric: tabular-nums`}>{stat.value}</span></strong>
-              <span>{stat.label}</span>
-            </a>
-          ))}
-        </div>
-      </section>
+		<section class="about-section" aria-labelledby="blog-title">
+			<p class="eyebrow">关于这个博客</p>
+			<h2 id="blog-title">让知识慢慢积累。</h2>
+			<p>始于 {siteConfig.siteStartDate}，每一篇都是探索的足迹。</p>
+			<dl class="statistics">
+				{statistics.map((stat) => (
+					<div><dt>{stat.label}</dt><dd>{stat.value}</dd></div>
+				))}
+			</dl>
+			<a class="archive-link" href={url("/archive/")}>看看我的记录 <span aria-hidden="true">↗</span></a>
+		</section>
 
-      <ContentCharts posts={posts} categories={categories} />
-    </div>
-  </div>
+		<div class="about-charts">
+			<ContentCharts posts={posts} categories={categories} />
+		</div>
+	</article>
 </MainGridLayout>
 
 <style>
-  .about-page {
-    padding-bottom: 24px;
-    color: var(--juejin-text-primary);
-  }
-  .about-header {
-    text-align: center;
-    padding: 32px 16px 40px;
-  }
-  .avatar-stage {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 40px;
-    margin-bottom: 28px;
-  }
-  .avatar-ring {
-    position: relative;
-    flex-shrink: 0;
-    padding: 8px;
-    border-radius: 50%;
-    background: var(--card-bg);
-    border: 1px solid var(--line-divider);
-  }
-  .avatar-ring > img {
-    width: 136px;
-    height: 136px;
-    border-radius: 50%;
-    object-fit: cover;
-  }
-  .avatar-status {
-    position: absolute;
-    bottom: 4px;
-    right: 4px;
-    width: 40px;
-    height: 40px;
-    display: grid;
-    place-items: center;
-    border: 4px solid var(--page-bg);
-    border-radius: 50%;
-    background: var(--card-bg);
-  }
-  .identity-tags {
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-    width: 180px;
-  }
-  .identity-tags span {
-    padding: 8px 16px;
-    border: 1px solid var(--line-divider);
-    border-radius: 10px;
-    background: var(--card-bg);
-    font-size: 14px;
-    font-weight: 600;
-  }
-  .tags-left {
-    align-items: flex-end;
-    transform: rotate(-5deg);
-  }
-  .tags-right {
-    align-items: flex-start;
-    transform: rotate(5deg);
-  }
-  .identity-tags span:nth-child(2) {
-    transform: translateX(-12px);
-  }
-  .tags-right span:nth-child(2) {
-    transform: translateX(12px);
-  }
-  .eyebrow {
-    font-size: 12px;
-    font-weight: 600;
-    letter-spacing: 0.08em;
-    color: var(--content-meta);
-    margin-bottom: 12px;
-  }
-  h1 {
-    font-size: 36px;
-    font-weight: 750;
-    line-height: 1.3;
-  }
-  .header-description {
-    margin-top: 10px;
-    font-size: 14px;
-    color: var(--content-meta);
-  }
-  .about-grid {
-    display: grid;
-    grid-template-columns: repeat(12, minmax(0, 1fr));
-    gap: 10px;
-  }
-  .about-card {
-    padding: 28px 32px;
-    min-width: 0;
-    overflow: hidden;
-    border: 1px solid color-mix(in srgb, #8da7ff 28%, var(--line-divider));
-    border-radius: 12px;
-    background: var(--card-bg);
-  }
-  .span-6 {
-    grid-column: span 6;
-  }
-  .span-4 {
-    grid-column: span 4;
-  }
-  .span-5 {
-    grid-column: span 5;
-  }
-  .span-7 {
-    grid-column: span 7;
-  }
-  .span-8 {
-    grid-column: span 8;
-  }
-  h2 {
-    font-size: clamp(22px, 2.4vw, 30px);
-    font-weight: 700;
-    line-height: 1.4;
-    letter-spacing: -0.02em;
-  }
-  .identity-card {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    min-height: 240px;
-    background: linear-gradient(110deg, #528dff, #00c4e8);
-    color: white;
-  }
-  .identity-card .eyebrow {
-    color: white;
-    font-size: 15px;
-    letter-spacing: 0;
-    margin-bottom: 8px;
-  }
-  .identity-card h2 {
-    font-size: clamp(32px, 3vw, 40px);
-    line-height: 1.2;
-    margin-bottom: 10px;
-  }
-  .identity-role {
-    font-size: 16px;
-    font-weight: 500;
-  }
-  .identity-card .card-description {
-    color: white;
-  }
-  .card-description {
-    font-size: 14px;
-    line-height: 1.9;
-    color: var(--content-meta);
-    margin-top: 12px;
-  }
-  .text-link {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    color: white;
-    font-size: 14px;
-    font-weight: 600;
-    margin-top: 16px;
-  }
-  .text-link :global(svg) {
-    width: 18px;
-    height: 18px;
-  }
-  .pursuit-card {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-  }
-  .pursuit-card h2 {
-    margin-bottom: 20px;
-    font-size: clamp(28px, 2.8vw, 38px);
-    line-height: 1.15;
-    font-weight: 800;
-  }
-  .pursuit-card h2 span {
-    display: block;
-  }
-  .pursuit-card h2 span:last-child {
-    color: #f36b76;
-  }
-  .pursuit-footer {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 16px;
-    font-size: 13px;
-    color: var(--content-meta);
-  }
-  .pursuit-footer :global(svg) {
-    width: 28px;
-    height: 28px;
-  }
-  .keywords-card,
-  .statistics-card {
-    min-height: 420px;
-  }
-  .keywords-card {
-    display: flex;
-    flex-direction: column;
-  }
-  .keywords-card h2,
-  .statistics-card h2 {
-    font-size: clamp(26px, 2.8vw, 36px);
-    font-weight: 800;
-    line-height: 1.2;
-  }
-  .keyword-grid {
-    display: grid;
-    grid-template-columns: repeat(4, minmax(0, 1fr));
-    gap: 16px;
-    margin-top: auto;
-    padding-top: 40px;
-  }
-  .keyword {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 12px;
-    padding: 16px 8px;
-    min-height: 116px;
-    border-radius: 24px;
-    font-size: 13px;
-    font-weight: 600;
-    text-align: center;
-    box-shadow: 0 3px 12px #00000014;
-  }
-  .keyword :global(svg) {
-    width: 38px;
-    height: 38px;
-  }
-  .keyword-0 {
-    background: #2d343b;
-    color: #fff;
-  }
-  .keyword-1 {
-    background: #469deb;
-    color: #fff;
-  }
-  .keyword-2 {
-    background: #f5d77e;
-    color: #654e0b;
-  }
-  .keyword-3 {
-    background: #b1efa5;
-    color: #225c43;
-  }
-  .statistics-card {
-    display: flex;
-    flex-direction: column;
-  }
-  .statistics {
-    display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 12px;
-    margin-top: auto;
-    padding-top: 32px;
-  }
-  .statistics a {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-    border-top: 4px solid #2584ff;
-    padding-top: 16px;
-  }
-  .statistics strong {
-    font-size: clamp(36px, 4vw, 56px);
-    line-height: 1;
-    font-weight: 700;
-    color: #2584ff;
-    font-variant-numeric: tabular-nums;
-  }
-  .statistics a > span {
-    font-size: 13px;
-    color: var(--content-meta);
-  }
-  .motto-card {
-    display: flex;
-    flex-direction: column;
-    background-image: linear-gradient(
-      140deg,
-      color-mix(in srgb, #e6bb89 20%, var(--card-bg)),
-      var(--card-bg)
-    );
-  }
-  .quote-icon {
-    width: 40px;
-    height: 40px;
-    color: #c5a173;
-    margin: 20px 0 12px;
-  }
-  blockquote {
-    font-size: clamp(25px, 2.7vw, 34px);
-    font-weight: 650;
-    line-height: 1.7;
-    max-width: 9em;
-  }
-  .motto-signature {
-    margin-top: 24px;
-    color: var(--content-meta);
-    font-size: 14px;
-  }
-  .direction-list {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-    margin-top: 24px;
-  }
-  .direction {
-    display: flex;
-    align-items: flex-start;
-    gap: 16px;
-  }
-  .direction-icon {
-    display: grid;
-    place-items: center;
-    width: 44px;
-    height: 44px;
-    flex-shrink: 0;
-    border-radius: 12px;
-    background: var(--btn-regular-bg);
-    color: var(--primary);
-  }
-  .direction-icon :global(svg) {
-    width: 23px;
-    height: 23px;
-  }
-  h3 {
-    font-size: 15px;
-    font-weight: 650;
-    margin-bottom: 4px;
-  }
-  .direction p {
-    font-size: 13px;
-    color: var(--content-meta);
-    line-height: 1.8;
-  }
-  .about-story {
-    margin-top: 24px;
-  }
-  .story-card {
-    grid-column: 1 / -1;
-  }
-  @media (max-width: 1023px) {
-    .about-card {
-      padding: 24px;
-    }
-    .span-4,
-    .span-5,
-    .span-7,
-    .span-8 {
-      grid-column: span 6;
-    }
-    .keyword-grid {
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-    }
-  }
-  @media (max-width: 767px) {
-    .about-header {
-      padding: 24px 12px 32px;
-    }
-    .identity-tags {
-      display: none;
-    }
-    .avatar-ring > img {
-      width: 112px;
-      height: 112px;
-    }
-
-    .about-grid {
-      grid-template-columns: minmax(0, 1fr);
-      gap: 16px;
-    }
-    .about-card {
-      grid-column: auto;
-      padding: 24px;
-    }
-    .keywords-card,
-    .statistics-card {
-      min-height: auto;
-    }
-    .keyword-grid {
-      padding-top: 24px;
-      gap: 12px;
-    }
-    .keyword {
-      min-height: 104px;
-      border-radius: 20px;
-    }
-    .statistics strong {
-      font-size: 34px;
-    }
-  }
+	.about-page {
+		padding: clamp(24px, 5vw, 64px);
+		color: var(--juejin-text-primary);
+		line-height: 1.9;
+	}
+	.about-header {
+		display: flex;
+		align-items: center;
+		gap: 24px;
+	}
+	.about-header img {
+		flex-shrink: 0;
+		width: 96px;
+		height: 96px;
+		border-radius: 50%;
+		object-fit: cover;
+	}
+	.eyebrow {
+		margin-bottom: 8px;
+		font-size: 12px;
+		letter-spacing: 0.1em;
+		color: var(--primary);
+	}
+	h1 {
+		font-size: clamp(26px, 3vw, 38px);
+		font-weight: 700;
+		line-height: 1.4;
+	}
+	h2 {
+		margin-bottom: 16px;
+		font-size: clamp(22px, 2.3vw, 28px);
+		font-weight: 600;
+		line-height: 1.5;
+	}
+	.role, .research-keywords, dd, .about-section > p:not(.eyebrow) {
+		color: var(--content-meta);
+	}
+	.role { margin-top: 8px; }
+	.about-introduction { margin-top: 32px; font-size: 17px; }
+	.about-introduction p + p { margin-top: 8px; }
+	.about-section, .about-charts {
+		margin-top: 40px;
+		padding-top: 32px;
+		border-top: 1px solid var(--line-divider);
+	}
+	.research-keywords { font-size: 14px; }
+	.research-directions { margin-top: 24px; }
+	.research-directions div + div { margin-top: 20px; }
+	.research-directions dt { font-weight: 600; }
+	.research-directions dd { margin-top: 4px; }
+	.statistics { display: flex; flex-wrap: wrap; gap: 24px 48px; margin: 24px 0; }
+	.statistics div { display: flex; flex-direction: column-reverse; }
+	.statistics dt { font-size: 13px; color: var(--content-meta); }
+	.statistics dd { font-size: 32px; font-weight: 600; line-height: 1.4; color: var(--primary); font-variant-numeric: tabular-nums; }
+	.archive-link { color: var(--primary); text-underline-offset: 4px; }
+	.archive-link:hover { text-decoration: underline; }
+	.about-charts { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 32px; }
+	@media (max-width: 767px) {
+		.about-charts { grid-template-columns: minmax(0, 1fr); }
+	}
+	@media (max-width: 479px) {
+		.about-header { align-items: flex-start; flex-direction: column; gap: 16px; }
+		.about-header img { width: 72px; height: 72px; }
+	}
 </style>

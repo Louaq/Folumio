@@ -1,62 +1,217 @@
 ---
-import { friendSiteInfo } from "@/config";
-import "@/styles/code-block.css";
 import { Content as SiteInfo } from "./site-info.md";
-import { Content as ApplicationTemplate } from "./application-template.md";
 ---
 
-<section class="friend-application custom-md card-base card-plain px-5 py-7 sm:px-8 sm:py-9" aria-labelledby="friend-application-title">
-  <h2 id="friend-application-title">友链申请</h2>
-
-  <div class="application-grid">
-    <div class="application-column">
-      <h3>1. 我的友链</h3>
-      <p>欢迎交换友链，以下是本站信息：</p>
-      <SiteInfo />
-    </div>
-    <div class="application-column">
-      <h3>2. 申请格式</h3>
-      <p>请按以下格式填写信息，发送至 <a href={`mailto:${friendSiteInfo.email}`}>{friendSiteInfo.email}</a>，确认后会尽快添加。</p>
-      <ApplicationTemplate />
-    </div>
-  </div>
+<section class="friend-application px-5 py-7 sm:px-8 sm:py-9" aria-labelledby="friend-application-title">
+	<div class="application-panel" data-friend-application>
+		<div class="application-editor">
+			<h2 id="friend-application-title">申请友链</h2>
+			<p class="application-subtitle">在本页留言，格式如下</p>
+			<div class="application-fields">
+				<label>
+					站点名称
+					<input name="title" placeholder="我的博客" />
+				</label>
+				<label>
+					头像链接
+					<input name="imgurl" type="url" placeholder="https://example.com/avatar.jpg" />
+				</label>
+				<label class="full-width">
+					站点地址
+					<input name="siteurl" type="url" placeholder="https://your-site.com" />
+				</label>
+				<label class="full-width">
+					站点简介
+					<input name="desc" placeholder="一句话描述…" />
+				</label>
+			</div>
+		</div>
+		<div class="application-preview">
+			<div class="preview-heading">
+				<h3>配置预览</h3>
+				<button type="button" data-copy-config>复制配置</button>
+			</div>
+			<pre aria-label="友链配置预览"><code data-config-preview></code></pre>
+			<p class="application-tip" role="status" data-copy-status>提示：复制上方代码并在下方评论区粘贴发送即可。</p>
+		</div>
+	</div>
+	<details class="site-info custom-md" open>
+		<summary>本站友链信息</summary>
+		<SiteInfo />
+	</details>
 </section>
 
+<script>
+	function initFriendApplication() {
+		document
+			.querySelectorAll<HTMLElement>("[data-friend-application]")
+			.forEach((panel) => {
+				if (panel.dataset.initialized) return;
+				panel.dataset.initialized = "true";
+				const preview = panel.querySelector<HTMLElement>(
+					"[data-config-preview]",
+				)!;
+				const status = panel.querySelector<HTMLElement>("[data-copy-status]")!;
+				const copy =
+					panel.querySelector<HTMLButtonElement>("[data-copy-config]")!;
+				const defaults: Record<string, string> = {
+					title: "我的博客",
+					imgurl: "https://example.com/avatar.jpg",
+					desc: "一句话描述…",
+					siteurl: "https://example.com",
+				};
+				function updatePreview() {
+					const config = Object.fromEntries(
+						Object.keys(defaults).map((key) => {
+							const input = panel.querySelector<HTMLInputElement>(
+								`input[name="${key}"]`,
+							)!;
+							return [key, input.value || defaults[key]];
+						}),
+					);
+					preview.textContent = JSON.stringify(config, null, 2);
+				}
+				panel.addEventListener("input", () => {
+					updatePreview();
+					status.textContent = "提示：复制上方代码并在下方评论区粘贴发送即可。";
+				});
+				copy.addEventListener("click", async () => {
+					try {
+						await navigator.clipboard.writeText(preview.textContent!);
+						status.textContent = "配置已复制，请在下方评论区粘贴发送。";
+					} catch {
+						status.textContent = "复制失败，请选中上方配置手动复制。";
+					}
+				});
+				updatePreview();
+			});
+	}
+	initFriendApplication();
+	document.addEventListener("astro:page-load", initFriendApplication);
+</script>
+
 <style>
-  .friend-application {
-    min-width: 0;
-    line-height: 1.8;
-    overflow-wrap: anywhere;
-  }
-  .application-grid {
-    display: grid;
-    grid-template-columns: minmax(0, 1fr);
-    gap: 2rem;
-    margin-top: 1.75rem;
-  }
-  .application-column {
-    min-width: 0;
-  }
-  @media (min-width: 1024px) {
-    .application-grid {
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-    }
-  }
-  h2 {
-    font-size: 1.5rem;
-    font-weight: 700;
-  }
-  h3 {
-    margin: 0 0 1rem;
-    font-size: 1.125rem;
-    font-weight: 700;
-  }
-  p {
-    margin: 1rem 0;
-  }
-  a {
-    color: var(--primary);
-    text-decoration: underline;
-    text-underline-offset: 0.2em;
-  }
+	.friend-application {
+		color: var(--juejin-text-primary);
+		min-width: 0;
+	}
+	.application-panel {
+		display: grid;
+		grid-template-columns: minmax(0, 1fr);
+		gap: 2rem;
+		padding: 1.5rem;
+		border-radius: 1.5rem;
+	}
+	.application-editor,
+	.application-preview {
+		min-width: 0;
+	}
+	h2 {
+		font-size: 1.5rem;
+		font-weight: 700;
+	}
+	h2 span {
+		color: var(--primary);
+	}
+	.application-subtitle {
+		margin: 0.35rem 0 1.5rem;
+		color: var(--juejin-text-secondary);
+		font-size: 0.875rem;
+	}
+	.application-fields {
+		display: grid;
+		grid-template-columns: repeat(2, minmax(0, 1fr));
+		gap: 1rem;
+	}
+	label {
+		display: flex;
+		flex-direction: column;
+		gap: 0.4rem;
+		min-width: 0;
+		font-size: 0.8rem;
+		font-weight: 600;
+	}
+	.full-width {
+		grid-column: 1 / -1;
+	}
+	input {
+		width: 100%;
+		min-width: 0;
+		border: 1px solid color-mix(in oklch, var(--primary) 20%, var(--line-divider));
+		border-radius: 0.75rem;
+		background: var(--card-bg);
+		color: var(--juejin-text-primary);
+		padding: 0.65rem 0.9rem;
+		font: inherit;
+	}
+	input:focus {
+		outline: none;
+	}
+	summary:focus-visible {
+		outline: none;
+		outline-offset: 3px;
+	}
+	.application-preview {
+		padding: 1.5rem;
+		border-radius: 1rem;
+	}
+	.preview-heading {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		gap: 1rem;
+	}
+	h3 {
+		font-size: 1.125rem;
+		font-weight: 700;
+	}
+	button {
+		padding: 0.4rem 0.65rem;
+		border: 2px dashed var(--primary);
+		border-radius: 0.8rem;
+		color: var(--primary);
+		font-weight: 600;
+		cursor: pointer;
+	}
+	pre {
+		margin-top: 1rem;
+		min-height: 13rem;
+		padding: 1rem;
+		border: 1px solid color-mix(in oklch, var(--primary) 20%, var(--line-divider));
+		border-radius: 0.75rem;
+		background: var(--card-bg);
+		white-space: pre-wrap;
+		overflow-wrap: anywhere;
+		font-size: 0.75rem;
+		line-height: 1.8;
+	}
+	.application-tip {
+		margin-top: 1.5rem;
+		padding: 1rem;
+		border-radius: 0.75rem;
+		background: color-mix(in oklch, var(--primary) 12%, var(--card-bg));
+		color: var(--primary);
+		font-size: 0.8rem;
+	}
+	.site-info {
+		margin-top: 1.5rem;
+	}
+	summary {
+		cursor: pointer;
+		color: var(--primary);
+	}
+	@media (min-width: 1024px) {
+		.application-panel {
+			grid-template-columns: repeat(2, minmax(0, 1fr));
+		}
+	}
+	@media (max-width: 479px) {
+		.application-panel,
+		.application-preview {
+			padding: 1rem;
+		}
+		.application-fields {
+			grid-template-columns: minmax(0, 1fr);
+		}
+	}
 </style>

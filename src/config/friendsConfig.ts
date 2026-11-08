@@ -28,7 +28,7 @@ export const friendsPageConfig: FriendsPageConfig = {
 	showCustomContent: true,
 
 	// 是否显示评论区，需要先在commentConfig.ts启用评论系统
-	showComment: false,
+	showComment: true,
 
 	// 是否开启随机排序配置，如果开启，就会忽略权重，构建时进行一次随机排序
 	randomizeSort: false,
@@ -121,8 +121,7 @@ const friendGroups: FriendGroup[] = [
 			},
 			{
 				title: "linux DO",
-				imgurl:
-					"https://cdn3.ldstatic.com/optimized/4X/6/a/6/6a6affc7b1ce8140279e959d32671304db06d5ab_2_512x512.png",
+				imgurl: "https://cdn3.ldstatic.com/optimized/4X/6/a/6/6a6affc7b1ce8140279e959d32671304db06d5ab_2_512x512.png",
 				desc: "Where possible begins",
 				siteurl: "https://linux.do/",
 				weight: 8, // 权重，数字越大排序越靠前

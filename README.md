@@ -212,7 +212,7 @@ public/           # 静态资源（含自托管 pdf.js）
 
 ## 感谢
 
-参考样式：[Ru-yu Blog](https://www.chichu.chat/)、[安和鱼](https://blog.anheyu.com/)
+参考样式：[Ru-yu Blog](https://www.chichu.chat/)、[Cosine](https://blog.cosine.ren/)
 
 ## 许可证
 

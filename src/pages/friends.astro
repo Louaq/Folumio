@@ -29,7 +29,8 @@ const description =
 
 ---
 
-<MainGridLayout title={title} description={description} hideSidebar wideContent>
+<MainGridLayout title={title} description={description}>
+  <div class="card-base">
   <!-- 友链列表 -->
   <div class="card-base card-plain z-10 relative w-full overflow-hidden mb-4">
     <div class="relative px-5 py-7 sm:px-8 sm:py-9">
@@ -78,4 +79,5 @@ const description =
       z-index: 1;
     }
   </style>
+  </div>
 </MainGridLayout>

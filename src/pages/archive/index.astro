@@ -7,6 +7,8 @@ import { getArchivePostsList } from "@/utils/content-utils";
 
 const posts = await getArchivePostsList();
 ---
-<MainGridLayout title={i18n(I18nKey.archive)} hideSidebar wideContent>
-	<ArchiveList posts={posts} />
+<MainGridLayout title={i18n(I18nKey.archive)}>
+	<div class="card-base">
+		<ArchiveList posts={posts} />
+	</div>
 </MainGridLayout>

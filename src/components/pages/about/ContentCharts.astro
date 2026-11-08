@@ -23,7 +23,7 @@ const annualCounts = years.length
   : [];
 ---
 
-<section class="chart-card card-base" aria-labelledby="category-chart-title">
+<section class="chart-section" aria-labelledby="category-chart-title">
   <p class="eyebrow">内容分布</p>
   <h2 id="category-chart-title">探索的不同方向。</h2>
   <blog-content-chart
@@ -35,7 +35,7 @@ const annualCounts = years.length
   />
 </section>
 
-<section class="chart-card card-base" aria-labelledby="annual-chart-title">
+<section class="chart-section" aria-labelledby="annual-chart-title">
   <p class="eyebrow">写作足迹</p>
   <h2 id="annual-chart-title">每一年，都有新记录。</h2>
   <p class="chart-description">按文章发布日期统计每年的篇数。</p>
@@ -140,16 +140,11 @@ const annualCounts = years.length
 </script>
 
 <style>
-  .chart-card {
-    grid-column: span 6;
+  .chart-section {
     min-width: 0;
-    padding: 32px;
-    border: 1px solid var(--line-divider);
   }
   .eyebrow { font-size: 12px; font-weight: 600; letter-spacing: 0.08em; color: var(--content-meta); margin-bottom: 12px; }
   h2 { font-size: clamp(22px, 2.4vw, 30px); font-weight: 700; line-height: 1.4; }
   blog-content-chart { display: block; width: 100%; height: 300px; margin-top: 24px; }
   .chart-description { color: var(--content-meta); font-size: 13px; margin-top: 12px; }
-  @media (max-width: 1023px) { .chart-card { padding: 24px; } }
-  @media (max-width: 767px) { .chart-card { grid-column: 1 / -1; } }
 </style>
