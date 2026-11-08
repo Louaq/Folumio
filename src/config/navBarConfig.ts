@@ -13,10 +13,11 @@ const getDynamicNavBarConfig = (): NavBarConfig => {
 		{
 			...LinkPresets[LinkPreset.Archive],
 			name: "文章",
+			icon: "fluent-emoji-flat:books",
 			children: [
-				{ ...LinkPresets[LinkPreset.Archive], icon: "lucide:archive" },
-				{ ...LinkPresets[LinkPreset.Categories], icon: "lucide:grid-2x2" },
-				{ ...LinkPresets[LinkPreset.Tags], icon: "lucide:tags" },
+				LinkPreset.Archive,
+				LinkPreset.Categories,
+				LinkPreset.Tags,
 			],
 		},
 	];
