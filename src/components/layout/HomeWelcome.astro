@@ -4,7 +4,7 @@ import { homeWelcomeConfig } from "@/config/homeWelcomeConfig";
 import { url } from "@/utils/navigation";
 ---
 
-<section class="home-welcome card-base overflow-hidden rounded-2xl shadow-xs border border-black/6 dark:border-white/10" aria-label={homeWelcomeConfig.eyebrow}>
+<section class="home-welcome onload-animation card-base overflow-hidden rounded-2xl shadow-xs border border-black/6 dark:border-white/10" aria-label={homeWelcomeConfig.eyebrow}>
   <div class:list={["welcome-front", { "has-cover": !!homeWelcomeConfig.image }]}>
     {homeWelcomeConfig.image ? (
       <CoverImage src={homeWelcomeConfig.image} alt="" preview={true} class="welcome-cover" />

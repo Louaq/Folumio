@@ -7,6 +7,13 @@ import { i18n } from "@/i18n/translation";
 import { getCategoryList, getTagList } from "@/utils/content-utils";
 import { url } from "@/utils/navigation";
 
+interface Props {
+	class?: string;
+	style?: string;
+}
+
+const { class: className, style } = Astro.props;
+
 /** 站内路径走 BASE_URL，外链/raw mailto 原样 */
 function resolveProfileHref(href?: string): string | undefined {
 	const h = href?.trim();
@@ -45,7 +52,7 @@ const tagCount = tags.length;
 const categoryCount = categories.length;
 ---
 
-<div class="card-base profile-card-hero overflow-hidden p-0 rounded-2xl shadow-xs border border-black/6 dark:border-white/10">
+<div class:list={["card-base profile-card-hero overflow-hidden p-0 rounded-2xl shadow-xs border border-black/6 dark:border-white/10", className]} style={style}>
   <div class="profile-cover-wrap relative h-26">
     {
       coverSrc ? (

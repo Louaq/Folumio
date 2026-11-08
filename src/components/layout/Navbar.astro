@@ -24,7 +24,7 @@ let links: NavBarLink[] = navBarConfig.links.map(
 <div id="navbar" class="z-50" data-is-home={isHomePageCheck}>
     <div class:list={[
         className,
-        "overflow-visible! relative h-18 mx-auto w-full",
+        "overflow-visible! relative h-13 mx-auto w-full",
     ]}>
         <div class="flex h-full w-full min-w-0 px-2 md:px-4">
         <div
@@ -57,6 +57,7 @@ let links: NavBarLink[] = navBarConfig.links.map(
             ]}
         >
             <div class="navbar-menu-items space-x-1">
+                <span class="navbar-indicator" aria-hidden="true"></span>
                 {links.map((l) => {
                     return <DropdownMenu link={l} />;
                 })}
@@ -106,6 +107,7 @@ let links: NavBarLink[] = navBarConfig.links.map(
 
 <script>
 import { isNavPathActive } from "@/utils/navigation";
+import { setupNavbarGlide } from "@/utils/navbar-glide";
 
 const NAVBAR_ACTIVE_CLASS = "navbar-link-active";
 
@@ -217,6 +219,7 @@ function updateNavbarHeroOverlap() {
 }
 
 setupNavbarActiveSync();
+setupNavbarGlide();
 loadButtonScript();
 updateNavbarHeroOverlap();
 window.addEventListener("scroll", updateNavbarHeroOverlap, { passive: true });

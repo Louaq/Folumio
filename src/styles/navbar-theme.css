@@ -1,10 +1,20 @@
 
+/* Capsule layout adapted from cosZone/astro-koharu's Header and Navigator. */
+#navbar {
+  width: 100%;
+  max-width: var(--page-width);
+  margin-inline: auto;
+  padding: 8px;
+}
+@media (min-width: 768px) {
+  #navbar { padding-inline: 16px; }
+}
 #navbar > div {
-  background: #fdfeff !important;
-  border-radius: 0 !important;
-  border: none !important;
-  backdrop-filter: none !important;
-  box-shadow: 0 2px 6px rgb(0 0 0 / 8%);
+  background: color-mix(in oklch, var(--card-bg) 94%, transparent) !important;
+  border-radius: 999px !important;
+  border: 1px solid color-mix(in oklch, var(--primary) 25%, transparent) !important;
+  backdrop-filter: blur(16px) !important;
+  box-shadow: 0 4px 12px color-mix(in oklch, var(--primary) 10%, transparent);
 }
 
 :root.dark #navbar > div {
@@ -27,7 +37,7 @@
   padding: 0 16px;
   font-size: 20px;
   font-weight: 700;
-  color: var(--juejin-text-primary);
+  color: var(--primary);
   justify-self: start;
 }
 
@@ -36,20 +46,32 @@
 }
 
 #navbar .navbar-menu-items {
+  position: relative;
+  isolation: isolate;
   display: flex;
   justify-content: center;
 }
 
-#navbar .navbar-menu-items > .dropdown-container > .navbar-link-active::after {
-  content: "";
+#navbar .navbar-indicator {
   position: absolute;
-  left: 0.75rem;
-  right: 0.75rem;
-  bottom: 0;
-  height: 3px;
+  left: 0;
+  top: 0;
+  height: 100%;
+  margin: 0;
   border-radius: 999px;
-  background-color: var(--primary);
+  background: color-mix(in oklch, var(--primary) 14%, transparent);
   pointer-events: none;
+  z-index: -1;
+  opacity: 0;
+  transition: opacity 180ms ease;
+}
+#navbar .navbar-indicator[data-visible="true"] { opacity: 1; }
+#top-row[data-over-hero="true"] #navbar .navbar-indicator {
+  background: rgb(135 142 153 / 30%);
+}
+
+#navbar .navbar-menu-items > .dropdown-container > .navbar-link-active::after {
+  content: none;
 }
 
 #navbar .navbar-tools {
@@ -68,8 +90,9 @@
   }
   #navbar .navbar-row {
     display: grid;
-    grid-template-columns: minmax(0, 1fr) auto auto;
+    grid-template-columns: auto minmax(0, 1fr) auto;
   }
+  #navbar .navbar-links { justify-content: start; }
 }
 
 @media (max-width: 1023px) {
@@ -80,11 +103,14 @@
 }
 
 #navbar .btn-plain {
-  border-radius: 6px !important;
+  border-radius: 999px !important;
   color: #000000 !important;
   font-size: 16px !important;
   font-weight: 400 !important;
   transition: transform 250ms ease;
+}
+#navbar .navbar-menu-items .btn-plain {
+  transition: transform 250ms ease, background-color 200ms ease;
 }
 :root.dark #navbar .btn-plain {
   color: rgba(255, 255, 255, 0.85) !important;
@@ -188,7 +214,9 @@
 
 #top-row[data-over-hero="true"] #navbar > div {
   background: transparent !important;
-  box-shadow: none;
+  border: none !important;
+  backdrop-filter: none !important;
+  box-shadow: none !important;
 }
 
 #top-row[data-over-hero="true"] #navbar .navbar-brand-link,
@@ -205,5 +233,18 @@
 }
 
 #top-row #navbar .navbar-menu-items .btn-plain:hover {
-  background-color: var(--btn-plain-bg-hover) !important;
+  background-color: transparent !important;
+}
+
+#top-row[data-over-hero="true"] #navbar .navbar-menu-items .btn-plain:hover {
+  background-color: transparent !important;
+}
+
+#top-row #navbar .navbar-menu-items > .dropdown-container > .navbar-link-active {
+  color: var(--primary) !important;
+  background: transparent !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  #navbar .navbar-indicator { transition: none; }
 }

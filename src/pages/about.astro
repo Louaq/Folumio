@@ -24,17 +24,25 @@ const statistics = [
 <MainGridLayout title={i18n(I18nKey.about)} description={aboutPageConfig.introduction}>
 	<article class="about-page card-base">
 		<header class="about-header">
-			<img src={url(profileConfig.avatar!)} alt={`${profileConfig.name}的头像`} width="96" height="96" />
-			<div>
-				<p class="eyebrow">ABOUT ME</p>
-				<h1>你好，我是 {profileConfig.name}。</h1>
-				<p class="role">{aboutPageConfig.role}</p>
+			<div class="avatar-stage">
+				<div class="identity-tags tags-left" aria-hidden="true">
+					{aboutPageConfig.identityTags.slice(0, 3).map((tag) => <span>{tag}</span>)}
+				</div>
+				<div class="avatar-ring">
+					<img src={url(profileConfig.avatar!)} alt={`${profileConfig.name}的头像`} width="136" height="136" />
+					<span class="avatar-status" aria-label="持续学习中">🌱</span>
+				</div>
+				<div class="identity-tags tags-right" aria-hidden="true">
+					{aboutPageConfig.identityTags.slice(3).map((tag) => <span>{tag}</span>)}
+				</div>
 			</div>
+			<p class="eyebrow">ABOUT ME</p>
+			<h1>关于我</h1>
+			<p class="header-description">很高兴，在这里与你相遇。</p>
 		</header>
 
 		<div class="about-introduction">
 			<p>{aboutPageConfig.introduction}</p>
-			<p>很高兴，在这里与你相遇。</p>
 		</div>
 
 		<section class="about-section" aria-labelledby="research-title">
@@ -76,17 +84,47 @@ const statistics = [
 		line-height: 1.9;
 	}
 	.about-header {
+		text-align: center;
+		padding: 16px 0 32px;
+	}
+	.avatar-stage {
 		display: flex;
 		align-items: center;
-		gap: 24px;
+		justify-content: center;
+		gap: 40px;
+		margin-bottom: 28px;
 	}
-	.about-header img {
+	.avatar-ring {
+		position: relative;
 		flex-shrink: 0;
-		width: 96px;
-		height: 96px;
+		padding: 8px;
+		border: 1px solid var(--line-divider);
+		border-radius: 50%;
+	}
+	.avatar-ring img {
+		width: 136px;
+		height: 136px;
 		border-radius: 50%;
 		object-fit: cover;
 	}
+	.avatar-status {
+		position: absolute;
+		right: 0;
+		bottom: 8px;
+		display: grid;
+		place-items: center;
+		width: 36px;
+		height: 36px;
+		border-radius: 50%;
+		background: var(--card-bg);
+	}
+	.identity-tags { display: flex; flex-direction: column; gap: 12px; }
+	.identity-tags span { padding: 6px 16px; border: 1px solid var(--line-divider); border-radius: 10px; background: var(--card-bg); font-size: 14px; }
+	.tags-left { transform: rotate(-5deg); align-items: flex-end; }
+	.tags-left span:nth-child(2) { margin-right: 16px; }
+	.tags-right { transform: rotate(5deg); align-items: flex-start; }
+	.tags-right span:nth-child(2) { margin-left: 16px; }
+	.header-description { margin-top: 12px; color: var(--content-meta); font-size: 14px; }
 	.eyebrow {
 		margin-bottom: 8px;
 		font-size: 12px;
@@ -104,10 +142,9 @@ const statistics = [
 		font-weight: 600;
 		line-height: 1.5;
 	}
-	.role, .research-keywords, dd, .about-section > p:not(.eyebrow) {
+	.research-keywords, dd, .about-section > p:not(.eyebrow) {
 		color: var(--content-meta);
 	}
-	.role { margin-top: 8px; }
 	.about-introduction { margin-top: 32px; font-size: 17px; }
 	.about-introduction p + p { margin-top: 8px; }
 	.about-section, .about-charts {
@@ -131,7 +168,10 @@ const statistics = [
 		.about-charts { grid-template-columns: minmax(0, 1fr); }
 	}
 	@media (max-width: 479px) {
-		.about-header { align-items: flex-start; flex-direction: column; gap: 16px; }
-		.about-header img { width: 72px; height: 72px; }
+		.avatar-stage { gap: 12px; }
+		.avatar-ring img { width: 88px; height: 88px; }
+		.identity-tags span { padding: 4px 6px; font-size: 11px; }
+		.tags-left span:nth-child(2) { margin-right: 0; }
+		.tags-right span:nth-child(2) { margin-left: 0; }
 	}
 </style>

@@ -295,8 +295,13 @@ const collapsiblePreviewLines =
     });
     window.swup.hooks.replace("content:replace", (visit: {
       history?: { popstate?: boolean };
+      to: { url: string; hash?: string };
     }, args: unknown, replaceContent: (visit: unknown, args: unknown) => unknown) => {
       (window as any).__swupScrollLockY = null;
+
+      if (!visit.history?.popstate && !visit.to.hash && !new URL(visit.to.url, window.location.href).hash) {
+        window.scrollTo({ top: 0, left: 0, behavior: "instant" });
+      }
 
       return replaceContent(visit, args);
     });
@@ -337,16 +342,15 @@ const collapsiblePreviewLines =
     });
     window.swup.hooks.on("visit:start", (visit: {
       from?: { url: string; hash?: string };
-      to: { url: string };
+      to: { url: string; hash?: string };
       history?: { popstate?: boolean; direction?: string };
       scroll?: { reset?: boolean; animate?: boolean };
     }) => {
       visitRunning = true;
       clearTimeout(finishTimer);
       document.documentElement.classList.add("is-page-transitioning");
-      if (visit.scroll) {
-        const isPostPage = /\/posts\/.+/.test(new URL(visit.to.url, window.location.href).pathname);
-        visit.scroll.animate = !isPostPage && !window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      if (visit.scroll && !visit.history?.popstate && !visit.to.hash && !new URL(visit.to.url, window.location.href).hash) {
+        visit.scroll.animate = false;
       }
       const fromPath = visit.from?.url ?? (window.location.pathname + window.location.search);
       const fromHash = visit.from?.hash ?? window.location.hash;
