@@ -13,7 +13,7 @@ const getDynamicNavBarConfig = (): NavBarConfig => {
 		{
 			...LinkPresets[LinkPreset.Archive],
 			name: "文章",
-			icon: "fluent-emoji-flat:books",
+			icon: "material-symbols:article-outline",
 			children: [
 				LinkPreset.Archive,
 				LinkPreset.Categories,
@@ -35,7 +35,7 @@ const getDynamicNavBarConfig = (): NavBarConfig => {
 		name: "状态",
 		url: "https://status.louaq.io",
 		external: true,
-		icon: "fluent-emoji-flat:satellite-antenna",
+		icon: "material-symbols:satellite-alt-outline",
 	});
 
 	return { links } as NavBarConfig;

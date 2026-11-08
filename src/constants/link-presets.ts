@@ -6,36 +6,36 @@ export const LinkPresets: { [key in LinkPreset]: NavBarLink } = {
 	[LinkPreset.Home]: {
 		name: i18n(I18nKey.home),
 		url: "/",
-		icon: "fluent-emoji-flat:house",
+		icon: "material-symbols:home-outline",
 	},
 	[LinkPreset.About]: {
 		name: i18n(I18nKey.about),
 		url: "/about/",
-		icon: "fluent-emoji-flat:bust-in-silhouette",
+		icon: "material-symbols:person-outline",
 	},
 	[LinkPreset.Archive]: {
 		name: i18n(I18nKey.archive),
 		url: "/archive/",
-		icon: "fluent-emoji-flat:file-folder",
+		icon: "material-symbols:folder-outline",
 	},
 	[LinkPreset.Friends]: {
 		name: i18n(I18nKey.friends),
 		url: "/friends/",
-		icon: "fluent-emoji-flat:handshake",
+		icon: "material-symbols:handshake-outline",
 	},
 	[LinkPreset.Watchlist]: {
 		name: i18n(I18nKey.watchlist),
 		url: "/watchlist/",
-		icon: "fluent-emoji-flat:clapper-board",
+		icon: "material-symbols:movie-outline",
 	},
 	[LinkPreset.Categories]: {
 		name: i18n(I18nKey.categories),
 		url: "/categories/",
-		icon: "fluent-emoji-flat:open-file-folder",
+		icon: "material-symbols:folder-open-outline",
 	},
 	[LinkPreset.Tags]: {
 		name: i18n(I18nKey.tags),
 		url: "/tags/",
-		icon: "fluent-emoji-flat:label",
+		icon: "material-symbols:sell-outline",
 	},
 };

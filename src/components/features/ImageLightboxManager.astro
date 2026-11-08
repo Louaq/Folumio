@@ -1,90 +1,46 @@
 ---
-// 图片点击放大。必须在所有页面渲染：本组件的脚本会落在 swup 容器之外，
-// swup 导航时不会被替换也不会重新执行，只在文章页渲染的话，从列表点进文章就永远加载不到。
-// medium-zoom 的 JS 按需动态导入；样式则必须走静态表（见 src/styles/image-zoom.css 顶部说明），
-// 运行时注入的 <style> 会被 swup 的 head-plugin 在下次导航时删掉。
+// 全局监听图片点击，按需加载 astro-koharu 查看器；兼容 Swup 页面切换。
 ---
 
 <script>
-  const SELECTOR =
-    ".custom-md img, #post-cover img, .moment-images img";
+  import type { ImageLightboxData } from "@/vendor/koharu/image-preview/modal";
 
-  let zoom: import("medium-zoom").Zoom | null = null;
-  let anchorGuard: AbortController | null = null;
-  let libPromise: Promise<typeof import("medium-zoom").default> | null = null;
-  // 动态导入期间可能又发生了一次导航，用它作废过期的 setup
-  let runToken = 0;
+  const selector = ".custom-md img, #post-cover img, .moment-images img";
+  let viewer: typeof import("@/vendor/koharu/image-preview/client") | undefined;
+  let loading: Promise<typeof import("@/vendor/koharu/image-preview/client")> | undefined;
+  let visit = 0;
 
-  /** 首次真正需要时才拉取 medium-zoom */
-  function loadLib() {
-    if (!libPromise) {
-      libPromise = import("medium-zoom").then((mod) => mod.default);
-    }
-    return libPromise;
-  }
+  document.addEventListener("click", async (event) => {
+    const target = event.target;
+    if (!(target instanceof HTMLImageElement) || !target.matches(selector)) return;
+    event.preventDefault();
+    const token = ++visit;
+    const group = target.closest(".moment-images, .custom-md") ?? document;
+    const images: ImageLightboxData["images"] = Array.from(
+      group.querySelectorAll<HTMLImageElement>(selector),
+      (image) => {
+        const anchor = image.closest<HTMLAnchorElement>("a[data-fancybox]");
+        const box = image.getBoundingClientRect();
+        return {
+          src: image.dataset.zoomSrc || anchor?.dataset.src || anchor?.href || image.currentSrc || image.src,
+          alt: image.alt,
+          origin: {
+            box: { left: box.left, top: box.top, width: box.width, height: box.height },
+            naturalWidth: image.naturalWidth,
+            naturalHeight: image.naturalHeight,
+          },
+        };
+      },
+    );
+    const currentIndex = Array.from(group.querySelectorAll(selector)).indexOf(target);
+    loading ??= import("@/vendor/koharu/image-preview/client");
+    viewer = await loading;
+    if (token !== visit) return;
+    viewer.open({ ...images[currentIndex], images, currentIndex });
+  }, { capture: true });
 
-  function destroy() {
-    anchorGuard?.abort();
-    anchorGuard = null;
-    if (zoom) {
-      zoom.detach();
-      zoom = null;
-    }
-  }
-
-  /** 将 a[data-fancybox] 上的大图地址同步到内部 img 的 data-zoom-src */
-  function syncZoomSrcFromAnchors() {
-    for (const a of document.querySelectorAll<HTMLAnchorElement>(".moment-images a[data-fancybox]")) {
-      const img = a.querySelector("img");
-      if (!img) continue;
-      const hi = a.dataset.src || a.getAttribute("href");
-      if (hi && !img.dataset.zoomSrc) {
-        img.dataset.zoomSrc = hi;
-      }
-    }
-  }
-
-  /** 避免点击图片时触发外层 a[href] 跳转 */
-  function attachAnchorImageGuards(signal: AbortSignal) {
-    const handler = (e: Event) => {
-      const t = e.target;
-      if (t instanceof HTMLImageElement && t.closest("a")) {
-        e.preventDefault();
-      }
-    };
-    for (const root of [
-      document.querySelector(".moment-images"),
-    ]) {
-      root?.addEventListener("click", handler, { capture: true, signal });
-    }
-  }
-
-  async function setup() {
-    const token = ++runToken;
-    destroy();
-    syncZoomSrcFromAnchors();
-
-    const nodes = document.querySelectorAll(SELECTOR);
-    if (nodes.length === 0) return;
-
-    const mediumZoom = await loadLib();
-    // 等待期间又导航走了，丢弃这次结果
-    if (token !== runToken) return;
-
-    anchorGuard = new AbortController();
-    attachAnchorImageGuards(anchorGuard.signal);
-
-    zoom = mediumZoom(nodes, {
-      margin: 24,
-      background: "rgba(0, 0, 0, 0.88)",
-    });
-  }
-
-  function onVisitStart() {
-    void zoom?.close().catch(() => {});
-  }
-
-  void setup();
-  document.addEventListener("swup:content:replace", () => void setup());
-  document.addEventListener("swup:visit:start", onVisitStart);
+  document.addEventListener("swup:visit:start", () => {
+    visit++;
+    viewer?.close();
+  });
 </script>

@@ -19,3 +19,9 @@ Host adaptations (2026-11-07):
 - `src/styles/koharu-music.css` isolates upstream light/dark HSL theme tokens and positions the panel in this site's toolbar.
 
 The existing local library supplies one playlist. Multiple upstream playlist tabs appear only when multiple groups are supplied; sample songs and groups from the upstream demo are not copied.
+
+## Image preview
+
+`image-preview/` imports the image viewer, gesture and FLIP geometry code and required modal/hooks from https://github.com/cosZone/astro-koharu (revision `dc6e51b4ee04d6c26d4aae37b5c7940e30d2f572`, downloaded 2026-11-08). The same AGPL-3.0 license applies.
+
+Host adaptations: local imports; image-only modal store; Chinese translation excerpts; bundled Remix icons; system reduced-motion preference; Swup navigation events; modal stacking above the host toolbar. The host manager dynamically loads the viewer on image clicks and preserves moment-image original URLs. The existing music player is unchanged.
