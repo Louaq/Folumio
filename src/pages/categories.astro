@@ -9,7 +9,10 @@ const categories = await getCategoryList();
 const postCount = categories.reduce((total, category) => total + category.count, 0);
 ---
 
-<MainGridLayout title={i18n(I18nKey.categories)} description={i18n(I18nKey.categories)}>
+<MainGridLayout
+	title={i18n(I18nKey.categories)}
+	description={i18n(I18nKey.categories)}
+>
 	<div class="categories-page card-base px-8 py-6">
 		<p class="categories-summary">
 			<strong>{categories.length}</strong> 个分类
@@ -23,7 +26,11 @@ const postCount = categories.reduce((total, category) => total + category.count,
 				{categories.map((category) => (
 					<li>
 						<a href={category.url} class="category-row">
-							<Icon name="lucide:leaf" class="category-icon" aria-hidden="true" />
+							<Icon
+								name="lucide:leaf"
+								class="category-icon"
+								aria-hidden="true"
+							/>
 							<span class="category-name">{category.name}</span>
 							<span class="category-leader" aria-hidden="true"></span>
 							<span class="category-count">{category.count}<span class="sr-only"> 篇文章</span></span>
@@ -36,17 +43,66 @@ const postCount = categories.reduce((total, category) => total + category.count,
 </MainGridLayout>
 
 <style>
-	.categories-page { color: var(--juejin-text-primary); }
-	.categories-summary { margin-bottom: 2rem; color: var(--content-meta); font-size: .875rem; }
-	.categories-summary strong { color: var(--primary); font-size: 1.125rem; font-weight: 600; }
-	.summary-divider { margin-inline: .75rem; }
-	.categories-page-list { display: flex; flex-direction: column; gap: .75rem; list-style: none; margin: 0; padding: 0; }
-	.category-row { display: flex; align-items: center; gap: .65rem; padding-block: .75rem; }
-	.category-icon { color: var(--primary); width: .9rem; height: .9rem; flex-shrink: 0; }
-	.category-name { font-size: 1.0625rem; font-weight: 600; overflow-wrap: anywhere; }
-	.category-leader { flex: 1; min-width: 1rem; border-bottom: 2px dotted var(--line-divider); }
-	.category-count { color: var(--primary); font-weight: 600; font-variant-numeric: tabular-nums; }
-	.category-row:hover .category-name { color: var(--primary); }
-	.category-row:focus-visible { outline: 2px solid var(--primary); outline-offset: 4px; border-radius: 4px; }
-	.empty-categories { color: var(--content-meta); }
+	.categories-page {
+		color: var(--juejin-text-primary);
+	}
+	.categories-summary {
+		margin-bottom: 2rem;
+		color: var(--content-meta);
+		font-size: .875rem;
+	}
+	.categories-summary strong {
+		color: var(--primary);
+		font-size: 1.125rem;
+		font-weight: 600;
+	}
+	.summary-divider {
+		margin-inline: .75rem;
+	}
+	.categories-page-list {
+		display: flex;
+		flex-direction: column;
+		gap: .75rem;
+		list-style: none;
+		margin: 0;
+		padding: 0;
+	}
+	.category-row {
+		display: flex;
+		align-items: center;
+		gap: .65rem;
+		padding-block: .75rem;
+	}
+	.category-icon {
+		color: var(--primary);
+		width: .9rem;
+		height: .9rem;
+		flex-shrink: 0;
+	}
+	.category-name {
+		font-size: 1.0625rem;
+		font-weight: 600;
+		overflow-wrap: anywhere;
+	}
+	.category-leader {
+		flex: 1;
+		min-width: 1rem;
+		border-bottom: 2px dotted var(--line-divider);
+	}
+	.category-count {
+		color: var(--primary);
+		font-weight: 600;
+		font-variant-numeric: tabular-nums;
+	}
+	.category-row:hover .category-name {
+		color: var(--primary);
+	}
+	.category-row:focus-visible {
+		outline: 2px solid var(--primary);
+		outline-offset: 4px;
+		border-radius: 4px;
+	}
+	.empty-categories {
+		color: var(--content-meta);
+	}
 </style>

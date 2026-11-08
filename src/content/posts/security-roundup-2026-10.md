@@ -9,7 +9,6 @@ homeCarousel: true
 homeCarouselOrder: 4
 ---
 
-![封面图](https://pic1.imgdb.cn/i/034pQ8sylkcdgznae7R14n?h=600&w=720.webp)
 ## 事件速览
 
 下表中的版本是相应公告给出的修复版本，**不代表截至阅读时的最新版本，也不保证覆盖此后披露的其他漏洞**。更新时应选择所在受支持分支的适用安全版本；使用发行版软件包时，还需核对供应商的补丁记录。

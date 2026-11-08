@@ -1,10 +1,6 @@
 ﻿---
-import I18nKey from "@/i18n/i18nKey";
-import { i18n } from "@/i18n/translation";
 import MainGridLayout from "@/layouts/MainGridLayout.astro";
 import { aboutPageConfig } from "@/config/aboutConfig";
-import { profileConfig } from "@/config/profileConfig";
-import { siteConfig } from "@/config/siteConfig";
 import { getCategoryList, getSortedPosts, getTagList } from "@/utils/content-utils";
 import { url } from "@/utils/navigation";
 import ContentCharts from "@components/pages/about/ContentCharts.astro";
@@ -15,13 +11,16 @@ const [posts, tags, categories] = await Promise.all([
 	getCategoryList(),
 ]);
 const statistics = [
-	{ value: posts.length, label: "篇文章" },
-	{ value: tags.length, label: "个标签" },
-	{ value: categories.length, label: "个分类" },
+	{ value: posts.length, label: aboutPageConfig.statisticsLabels.posts },
+	{ value: tags.length, label: aboutPageConfig.statisticsLabels.tags },
+	{ value: categories.length, label: aboutPageConfig.statisticsLabels.categories },
 ];
 ---
 
-<MainGridLayout title={i18n(I18nKey.about)} description={aboutPageConfig.introduction}>
+<MainGridLayout
+	title={aboutPageConfig.pageTitle}
+	description={aboutPageConfig.introduction}
+>
 	<article class="about-page card-base">
 		<header class="about-header">
 			<div class="avatar-stage">
@@ -29,16 +28,23 @@ const statistics = [
 					{aboutPageConfig.identityTags.slice(0, 3).map((tag) => <span>{tag}</span>)}
 				</div>
 				<div class="avatar-ring">
-					<img src={url(profileConfig.avatar!)} alt={`${profileConfig.name}的头像`} width="136" height="136" />
-					<span class="avatar-status" aria-label="持续学习中">🌱</span>
+					<img
+						src={url(aboutPageConfig.avatar)}
+						alt={aboutPageConfig.avatarAlt}
+						width="136"
+						height="136"
+					/>
+					<span class="avatar-status" aria-label={aboutPageConfig.status.label}>
+						{aboutPageConfig.status.icon}
+					</span>
 				</div>
 				<div class="identity-tags tags-right" aria-hidden="true">
 					{aboutPageConfig.identityTags.slice(3).map((tag) => <span>{tag}</span>)}
 				</div>
 			</div>
-			<p class="eyebrow">ABOUT ME</p>
-			<h1>关于我</h1>
-			<p class="header-description">很高兴，在这里与你相遇。</p>
+			<p class="eyebrow">{aboutPageConfig.eyebrow}</p>
+			<h1>{aboutPageConfig.title}</h1>
+			<p class="header-description">{aboutPageConfig.headerDescription}</p>
 		</header>
 
 		<div class="about-introduction">
@@ -46,7 +52,7 @@ const statistics = [
 		</div>
 
 		<section class="about-section" aria-labelledby="research-title">
-			<p class="eyebrow">研究与探索</p>
+			<p class="eyebrow">{aboutPageConfig.researchLabel}</p>
 			<h2 id="research-title">{aboutPageConfig.pursuit.replace("\n", "")}</h2>
 			<p class="research-keywords">{aboutPageConfig.keywords.join(" · ")}</p>
 			<dl class="research-directions">
@@ -60,15 +66,18 @@ const statistics = [
 		</section>
 
 		<section class="about-section" aria-labelledby="blog-title">
-			<p class="eyebrow">关于这个博客</p>
-			<h2 id="blog-title">让知识慢慢积累。</h2>
-			<p>始于 {siteConfig.siteStartDate}，每一篇都是探索的足迹。</p>
+			<p class="eyebrow">{aboutPageConfig.blog.label}</p>
+			<h2 id="blog-title">{aboutPageConfig.blog.title}</h2>
+			<p>{aboutPageConfig.blog.description}</p>
 			<dl class="statistics">
 				{statistics.map((stat) => (
-					<div><dt>{stat.label}</dt><dd>{stat.value}</dd></div>
+					<div>
+						<dt>{stat.label}</dt>
+						<dd>{stat.value}</dd>
+					</div>
 				))}
 			</dl>
-			<a class="archive-link" href={url("/archive/")}>看看我的记录 <span aria-hidden="true">↗</span></a>
+			<a class="archive-link" href={url(aboutPageConfig.archiveLink.url)}>{aboutPageConfig.archiveLink.label} <span aria-hidden="true">↗</span></a>
 		</section>
 
 		<div class="about-charts">
@@ -118,13 +127,37 @@ const statistics = [
 		border-radius: 50%;
 		background: var(--card-bg);
 	}
-	.identity-tags { display: flex; flex-direction: column; gap: 12px; }
-	.identity-tags span { padding: 6px 16px; border: 1px solid var(--line-divider); border-radius: 10px; background: var(--card-bg); font-size: 14px; }
-	.tags-left { transform: rotate(-5deg); align-items: flex-end; }
-	.tags-left span:nth-child(2) { margin-right: 16px; }
-	.tags-right { transform: rotate(5deg); align-items: flex-start; }
-	.tags-right span:nth-child(2) { margin-left: 16px; }
-	.header-description { margin-top: 12px; color: var(--content-meta); font-size: 14px; }
+	.identity-tags {
+		display: flex;
+		flex-direction: column;
+		gap: 12px;
+	}
+	.identity-tags span {
+		padding: 6px 16px;
+		border: 1px solid var(--line-divider);
+		border-radius: 10px;
+		background: var(--card-bg);
+		font-size: 14px;
+	}
+	.tags-left {
+		transform: rotate(-5deg);
+		align-items: flex-end;
+	}
+	.tags-left span:nth-child(2) {
+		margin-right: 16px;
+	}
+	.tags-right {
+		transform: rotate(5deg);
+		align-items: flex-start;
+	}
+	.tags-right span:nth-child(2) {
+		margin-left: 16px;
+	}
+	.header-description {
+		margin-top: 12px;
+		color: var(--content-meta);
+		font-size: 14px;
+	}
 	.eyebrow {
 		margin-bottom: 8px;
 		font-size: 12px;
@@ -145,33 +178,88 @@ const statistics = [
 	.research-keywords, dd, .about-section > p:not(.eyebrow) {
 		color: var(--content-meta);
 	}
-	.about-introduction { margin-top: 32px; font-size: 17px; }
-	.about-introduction p + p { margin-top: 8px; }
+	.about-introduction {
+		margin-top: 32px;
+		font-size: 17px;
+	}
+	.about-introduction p + p {
+		margin-top: 8px;
+	}
 	.about-section, .about-charts {
 		margin-top: 40px;
 		padding-top: 32px;
 		border-top: 1px solid var(--line-divider);
 	}
-	.research-keywords { font-size: 14px; }
-	.research-directions { margin-top: 24px; }
-	.research-directions div + div { margin-top: 20px; }
-	.research-directions dt { font-weight: 600; }
-	.research-directions dd { margin-top: 4px; }
-	.statistics { display: flex; flex-wrap: wrap; gap: 24px 48px; margin: 24px 0; }
-	.statistics div { display: flex; flex-direction: column-reverse; }
-	.statistics dt { font-size: 13px; color: var(--content-meta); }
-	.statistics dd { font-size: 32px; font-weight: 600; line-height: 1.4; color: var(--primary); font-variant-numeric: tabular-nums; }
-	.archive-link { color: var(--primary); text-underline-offset: 4px; }
-	.archive-link:hover { text-decoration: underline; }
-	.about-charts { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 32px; }
+	.research-keywords {
+		font-size: 14px;
+	}
+	.research-directions {
+		margin-top: 24px;
+	}
+	.research-directions div + div {
+		margin-top: 20px;
+	}
+	.research-directions dt {
+		font-weight: 600;
+	}
+	.research-directions dd {
+		margin-top: 4px;
+	}
+	.statistics {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 24px 48px;
+		margin: 24px 0;
+	}
+	.statistics div {
+		display: flex;
+		flex-direction: column-reverse;
+	}
+	.statistics dt {
+		font-size: 13px;
+		color: var(--content-meta);
+	}
+	.statistics dd {
+		font-size: 32px;
+		font-weight: 600;
+		line-height: 1.4;
+		color: var(--primary);
+		font-variant-numeric: tabular-nums;
+	}
+	.archive-link {
+		color: var(--primary);
+		text-underline-offset: 4px;
+	}
+	.archive-link:hover {
+		text-decoration: underline;
+	}
+	.about-charts {
+		display: grid;
+		grid-template-columns: repeat(2, minmax(0, 1fr));
+		gap: 32px;
+	}
 	@media (max-width: 767px) {
-		.about-charts { grid-template-columns: minmax(0, 1fr); }
+		.about-charts {
+			grid-template-columns: minmax(0, 1fr);
+		}
 	}
 	@media (max-width: 479px) {
-		.avatar-stage { gap: 12px; }
-		.avatar-ring img { width: 88px; height: 88px; }
-		.identity-tags span { padding: 4px 6px; font-size: 11px; }
-		.tags-left span:nth-child(2) { margin-right: 0; }
-		.tags-right span:nth-child(2) { margin-left: 0; }
+		.avatar-stage {
+			gap: 12px;
+		}
+		.avatar-ring img {
+			width: 88px;
+			height: 88px;
+		}
+		.identity-tags span {
+			padding: 4px 6px;
+			font-size: 11px;
+		}
+		.tags-left span:nth-child(2) {
+			margin-right: 0;
+		}
+		.tags-right span:nth-child(2) {
+			margin-left: 0;
+		}
 	}
 </style>
