@@ -1,38 +1,113 @@
 ---
-
-import ButtonTag from "@/components/common/ButtonTag.astro";
+import { Icon } from "astro-icon/components";
 import WidgetLayout from "@/components/common/WidgetLayout.astro";
 import I18nKey from "@/i18n/i18nKey";
 import { i18n } from "@/i18n/translation";
 import { getTagList } from "@/utils/content-utils";
-import { getTagUrl } from "@/utils/navigation";
-import {
-	isCollapsed as isOverThreshold,
-	sidebarComponents,
-} from "@/utils/widget-manager";
+import { getTagUrl, url } from "@/utils/navigation";
 
 const tags = await getTagList();
-
-const COLLAPSED_HEIGHT = "7.5rem";
-
-const tagsComponent = sidebarComponents.find((c) => c.type === "tags");
-const isCollapsed = tagsComponent
-	? isOverThreshold(tagsComponent, tags.length)
-	: false;
+const cloudTags = tags.filter((tag) => tag.count > 1).sort((a, b) => b.count - a.count || a.name.localeCompare(b.name)).slice(0, 20);
 
 interface Props {
 	class?: string;
 	style?: string;
 }
-const className = Astro.props.class;
-const style = Astro.props.style;
+const { class: className, style } = Astro.props;
 ---
-<WidgetLayout name={i18n(I18nKey.tags)} id="tags" isCollapsed={isCollapsed} collapsedHeight={COLLAPSED_HEIGHT} class={className} style={style}>
-    <div class="flex gap-2 flex-wrap">
-        {tags.map(t => (
-            <ButtonTag href={getTagUrl(t.name)} label={`View all posts with the ${t.name.trim()} tag`}>
-                {t.name.trim()}
-            </ButtonTag>
-        ))}
-    </div>
+<WidgetLayout name={i18n(I18nKey.tags)} icon="material-symbols:sell" id="tags" class={className} style={style}>
+	<tag-cloud aria-label={i18n(I18nKey.tags)}>
+		{cloudTags.map((tag, index) => {
+			const y = 1 - 2 * (index + 0.5) / cloudTags.length;
+			const radius = Math.sqrt(1 - y * y);
+			const angle = index * Math.PI * (3 - Math.sqrt(5));
+			const x = Math.cos(angle) * radius;
+			const z = Math.sin(angle) * radius;
+			const initialY = y * Math.cos(0.35) - z * Math.sin(0.35);
+			const initialZ = y * Math.sin(0.35) + z * Math.cos(0.35);
+			return (
+			<a href={getTagUrl(tag.name)} title={`${tag.name.trim()} · ${tag.count}`}
+				data-x={x} data-y={y} data-z={z}
+				style={`--tag-hue: ${(index * 137.5) % 360}; transform: translate(-50%, -50%) translate(${x * 36}cqw, ${initialY * 36}cqw) scale(${0.55 + (initialZ + 1) * 0.225}); opacity: ${0.45 + (initialZ + 1) * 0.275}; z-index: ${Math.round((initialZ + 1) * 100)}`}>
+				<Icon name="material-symbols:sell" class="tag-icon" aria-hidden="true" /><span class="tag-label">{tag.name.trim()}</span>
+			</a>
+		);})}
+	</tag-cloud>
+	<a class="all-tags" href={url("/tags/")}>{i18n(I18nKey.more)} <span aria-hidden="true">→</span></a>
 </WidgetLayout>
+
+<style>
+	tag-cloud {
+		display: block;
+		container-type: inline-size;
+		position: relative;
+		aspect-ratio: 1;
+		margin: 0 -16px;
+		overflow: hidden;
+		border-radius: 12px;
+	}
+	tag-cloud a {
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		display: inline-flex;
+		align-items: center;
+		gap: 4px;
+		max-width: 136px;
+		padding: 3px 9px;
+		border: 1px solid hsl(var(--tag-hue) 65% 65%);
+		border-radius: 999px;
+		background: hsl(var(--tag-hue) 62% 45%);
+		color: white;
+		font-size: 12px;
+		font-weight: 600;
+		line-height: 1.4;
+		white-space: nowrap;
+		overflow: hidden;
+		text-overflow: ellipsis;
+		box-shadow: 0 1px 3px #00000012;
+	}
+	tag-cloud :global(.tag-icon) { width: 12px; height: 12px; color: #ffe89b; flex-shrink: 0; }
+	.tag-label { overflow: hidden; text-overflow: ellipsis; }
+	tag-cloud a:focus-visible { outline: 2px solid var(--primary); outline-offset: 3px; }
+	.all-tags { display: flex; justify-content: center; gap: 8px; margin-top: 10px; color: var(--primary); font-size: 14px; }
+</style>
+
+<script>
+	class TagCloud extends HTMLElement {
+		frame = 0;
+		connectedCallback() {
+			const links = [...this.querySelectorAll<HTMLAnchorElement>("a")];
+			const points = links.map((link) => ({
+				x: Number(link.dataset.x),
+				y: Number(link.dataset.y),
+				z: Number(link.dataset.z),
+			}));
+			const motion = matchMedia("(prefers-reduced-motion: reduce)");
+			let angle = 0;
+			let previous = 0;
+			const render = (time: number) => {
+				const paused = motion.matches || this.matches(":hover, :focus-within") || document.hidden;
+				if (!paused && previous) angle += Math.min(time - previous, 50) * 0.00018;
+				previous = time;
+				const radius = this.clientWidth * 0.36;
+				const tilt = 0.35 + angle * 0.6;
+				points.forEach((point, index) => {
+					const y = point.y * Math.cos(tilt) - point.z * Math.sin(tilt);
+					const tiltedZ = point.y * Math.sin(tilt) + point.z * Math.cos(tilt);
+					const x = point.x * Math.cos(angle) - tiltedZ * Math.sin(angle);
+					const z = point.x * Math.sin(angle) + tiltedZ * Math.cos(angle);
+					const scale = 0.55 + (z + 1) * 0.225;
+					const link = links[index];
+					link.style.transform = `translate(-50%, -50%) translate(${x * radius}px, ${y * radius}px) scale(${scale})`;
+					link.style.opacity = String(0.45 + (z + 1) * 0.275);
+					link.style.zIndex = String(Math.round((z + 1) * 100));
+				});
+				this.frame = requestAnimationFrame(render);
+			};
+			this.frame = requestAnimationFrame(render);
+		}
+		disconnectedCallback() { cancelAnimationFrame(this.frame); }
+	}
+	if (!customElements.get("tag-cloud")) customElements.define("tag-cloud", TagCloud);
+</script>
