@@ -42,7 +42,7 @@ const safeAutoplayMs = Math.max(0, autoplayMs);
 								<article class="carousel-slide min-w-full">
 									<a
 										href={slide.href}
-										class="carousel-slide-link group relative block h-[230px] md:h-[300px]"
+										class="carousel-slide-link group relative block h-[230px] lg:h-[300px]"
 										target={isExternal ? "_blank" : undefined}
 										rel={isExternal ? "noopener noreferrer" : undefined}
 									>
@@ -64,13 +64,13 @@ const safeAutoplayMs = Math.max(0, autoplayMs);
 											)
 										}
 										<div class="carousel-mask absolute inset-0" />
-										<div class="carousel-content absolute inset-0 p-4 md:p-6">
+										<div class="carousel-content absolute inset-0 p-4 lg:p-6">
 											{slide.category && (
 												<span class="carousel-category rounded-full px-3 py-1 text-xs font-bold text-white mb-3">
 													{slide.category}
 												</span>
 											)}
-											<h2 class="text-xl md:text-2xl font-bold leading-snug line-clamp-2 text-white">
+											<h2 class="text-xl lg:text-2xl font-bold leading-snug line-clamp-2 text-white">
 												{slide.title}
 											</h2>
 											{slide.description && (
@@ -343,7 +343,7 @@ const safeAutoplayMs = Math.max(0, autoplayMs);
 		background: var(--primary);
 	}
 
-	@media (max-width: 768px) {
+	@media (width < 1024px) {
 		.home-carousel .carousel-content {
 			padding-left: 2.2rem;
 			padding-right: 2.2rem;
@@ -351,7 +351,7 @@ const safeAutoplayMs = Math.max(0, autoplayMs);
 		}
 	}
 
-	@media (min-width: 768px) {
+	@media (min-width: 1024px) {
 		.home-carousel .carousel-track {
 			height: 300px;
 		}

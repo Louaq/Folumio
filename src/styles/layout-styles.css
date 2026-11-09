@@ -2,7 +2,7 @@
 @layer base {
 
 /* 移动端无侧边栏布局优化 */
-@media (max-width: 768px) {
+@media (width < 1024px) {
     .mobile-no-sidebar {
         display: block !important;
         width: 100% !important;

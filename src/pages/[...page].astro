@@ -82,8 +82,8 @@ const showHomeTopNotice = homeTopNoticeItems.length > 0;
 
 <MainGridLayout>
   {showCarousel && (
-    <div slot="featured" class:list={["home-featured grid gap-4 min-w-0", { "md:grid-cols-[17rem_minmax(0,1fr)]": homeWelcomeConfig.enable }]}>
-      <div class="min-w-0 md:order-2">
+    <div slot="featured" class:list={["home-featured grid gap-4 min-w-0", { "lg:grid-cols-[17rem_minmax(0,1fr)]": homeWelcomeConfig.enable }]}>
+      <div class="min-w-0 lg:order-2">
         <HomeCarousel
           slides={featuredSlides}
           autoplayMs={homeCarouselConfig.autoplayMs}
@@ -133,8 +133,7 @@ const showHomeTopNotice = homeTopNoticeItems.length > 0;
     if (typeof window === "undefined") return "desktop";
 
     const width = window.innerWidth;
-    if (width < 768) return "mobile";
-    if (width < 1024) return "tablet";
+    if (width < 1024) return "mobile";
     return "desktop";
   }
 </script>
