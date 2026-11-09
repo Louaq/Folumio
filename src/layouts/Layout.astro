@@ -244,6 +244,9 @@ const collapsiblePreviewLines =
   const setup = () => {
     if (navigationBound) return;
     navigationBound = true;
+    window.swup.options.animateHistoryBrowsing = true;
+    window.history.scrollRestoration = "manual";
+    window.swup.findPlugin("SwupScrollPlugin").options.animateScroll.betweenPages = false;
     let scrollStarted = false;
     let visitActive = false;
     let finishTimer: number | undefined;
@@ -256,11 +259,19 @@ const collapsiblePreviewLines =
       }, 200);
     }
     window.swup.hooks.on("link:click", () => document.documentElement.style.setProperty("--content-delay", "0ms"));
-    window.swup.hooks.on("visit:start", () => {
+    window.swup.hooks.on("visit:start", (visit: {
+      history: { popstate: boolean };
+      to: { hash: string };
+      scroll: { reset: boolean; target?: string | false };
+    }) => {
       window.clearTimeout(finishTimer);
       visitActive = true;
       scrollStarted = false;
       document.getElementById("page-height-extend")?.classList.remove("hidden");
+      if (!visit.history.popstate && visit.scroll.reset && !visit.to.hash && !visit.scroll.target) {
+        document.getElementById("navbar")!.classList.add("top-app-bar--transparent");
+        document.body.dataset.bannerScrolled = "false";
+      }
     });
     window.swup.hooks.on("visit:end", () => { if (!scrollStarted) finishVisit(); });
     window.swup.hooks.on("visit:abort", finishVisit);

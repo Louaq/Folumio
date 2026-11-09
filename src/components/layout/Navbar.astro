@@ -22,7 +22,7 @@ let links: NavBarLink[] = navBarConfig.links.map(
 	},
 );
 ---
-<div id="navbar" class="z-50" data-is-home={isHomePageCheck}>
+<div id="navbar" class="z-50 top-app-bar--transparent" data-is-home={isHomePageCheck}>
     <div class:list={[
         className,
         "overflow-visible! relative h-13 mx-auto w-full",
@@ -147,14 +147,16 @@ function loadButtonScript() {
     }
 }
 
+// Scroll-driven app bar state adapted from LyraVoid/Shirone Layout.astro (MIT).
 function updateNavbarHeroOverlap() {
-    const hero = document.querySelector(".banner-stage");
-    const topRow = document.getElementById("top-row")!;
-    const heroBottom = hero
-        ? hero.getBoundingClientRect().bottom
-        : 0;
-    topRow.dataset.overHero = String(heroBottom > topRow.offsetHeight);
-    document.documentElement.style.setProperty("--post-hero-bottom", `${heroBottom}px`);
+    const scrollTop = Math.max(document.body.scrollTop, document.documentElement.scrollTop);
+    const navbar = document.getElementById("navbar")!;
+    const banner = document.querySelector(".banner-stage")!;
+    const bannerHeight = banner.getBoundingClientRect().height;
+    const overBanner = scrollTop < Math.max(0, bannerHeight - 64);
+    document.body.dataset.bannerScrolled = String(!overBanner);
+    navbar.classList.toggle("top-app-bar--transparent", overBanner);
+    navbar.classList.toggle("top-app-bar--scrolled", scrollTop > 16);
 }
 
 setupNavbarActiveSync();
@@ -162,6 +164,7 @@ loadButtonScript();
 updateNavbarHeroOverlap();
 window.addEventListener("scroll", updateNavbarHeroOverlap, { passive: true });
 window.addEventListener("resize", updateNavbarHeroOverlap);
-document.addEventListener("astro:page-load", updateNavbarHeroOverlap);
+document.addEventListener("swup:page:view", updateNavbarHeroOverlap);
+document.addEventListener("swup:visit:abort", updateNavbarHeroOverlap);
 
 </script>
