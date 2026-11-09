@@ -67,7 +67,7 @@ const friendGroups: FriendGroup[] = [
 				imgurl: "https://q1.qlogo.cn/g?b=qq&nk=7618557&s=640",
 				desc: "飞萤之火自无梦的长夜亮起，绽放在终竟的明天。",
 				siteurl: "https://blog.cuteleaf.cn",
-				weight: 10, // 权重，数字越大排序越靠前
+				weight: 100, // 权重，数字越大排序越靠前
 				enabled: true, // 是否启用
 			},
 			{
@@ -75,7 +75,7 @@ const friendGroups: FriendGroup[] = [
 				imgurl: "https://s41.ax1x.com/2026/02/28/peSMkwt.png",
 				desc: "这是一个 Vue2 Vue3 与 SpringBoot 结合的产物",
 				siteurl: "https://poetize.cn/",
-				weight: 8,
+				weight: 99,
 				enabled: true,
 			},
 			{
@@ -83,7 +83,7 @@ const friendGroups: FriendGroup[] = [
 				imgurl: "https://q1.qlogo.cn/g?b=qq&nk=3311118881&s=640",
 				desc: "记录所学知识，缩短和大神的差距！",
 				siteurl: "https://liuyuyang.net",
-				weight: 7,
+				weight: 98,
 				enabled: true,
 			},
 			{
@@ -91,7 +91,23 @@ const friendGroups: FriendGroup[] = [
 				imgurl: "https://www.chichu.chat/blog-icon.svg",
 				desc: "一名造价筑基期的折腾散修",
 				siteurl: "https://www.chichu.chat/",
-				weight: 6,
+				weight: 97,
+				enabled: true,
+			},
+			{
+				title: "Cosine",
+				imgurl: "https://blog.cosine.ren/favicon.ico",
+				desc: "愿热情永存，愿热爱不灭，愿生活无憾",
+				siteurl: "https://blog.cosine.ren/",
+				weight: 96,
+				enabled: true,
+			},
+			{
+				title: "Mandarava23",
+				imgurl: "https://mandarava23.top/_astro/avatar.D8Zsjm0d_Z2sV6F3.webp",
+				desc: "There is no end in learning",
+				siteurl: "https://mandarava23.top/",
+				weight: 95,
 				enabled: true,
 			},
 		],
