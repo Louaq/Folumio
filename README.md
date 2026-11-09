@@ -6,28 +6,21 @@
 
 在线预览：<a href="https://louaq.io" target="_blank" rel="noopener noreferrer">https://louaq.io</a>
 
-<table>
-  <tr>
-    <td width="50%" align="center">
-      <img src="https://pic1.imgdb.cn/i/034seeA2DWUE38WjJddEez.webp" alt="首页"><br>
-      <sub><b>首页</b></sub>
-    </td>
-    <td width="50%" align="center">
-      <img src="https://pic1.imgdb.cn/i/034see7JZf3b2gBaiBf9CR.webp" alt="文章页"><br>
-      <sub><b>文章页</b></sub>
-    </td>
-  </tr>
-  <tr>
-    <td width="50%" align="center">
-      <img src="https://pic1.imgdb.cn/i/034see7ByMxufUpoecYJsU.webp" alt="归档页"><br>
-      <sub><b>归档页</b></sub>
-    </td>
-    <td width="50%" align="center">
-      <img src="https://pic1.imgdb.cn/i/034seeBsMea0xFZdGaUr1N.webp" alt="追番 / 观影清单"><br>
-      <sub><b>追番 / 观影清单</b></sub>
-    </td>
-  </tr>
-</table>
+**首页**
+
+![首页](https://pic1.imgdb.cn/i/034uLhQRXN4IgV8kbuFdYG.webp)
+
+**文章页**
+
+![文章页](https://pic1.imgdb.cn/i/034uLhQd8ZipVdbjrrK9yv.webp)
+
+**归档页**
+
+![归档页](https://pic1.imgdb.cn/i/034uLhUnAMJ03JGbN693ss.webp)
+
+**追番**
+
+![追番 / 观影清单](https://pic1.imgdb.cn/i/034uLhSNF4cMLr2igzdfDU.webp)
 
 ## 特性
 
