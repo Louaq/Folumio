@@ -60,7 +60,6 @@ const collapsiblePlugin =
 export default defineConfig({
 	site: siteConfig.site_url,
 
-	base: "/",
 	trailingSlash: "always",
 	// 代码字体通过 Astro Font API 自托管 + 子集化；正文字体（CJK）保留 CDN，见 FontSetup.astro
 	fonts: fontConfig.enable
@@ -80,31 +79,16 @@ export default defineConfig({
 		swup({
 			theme: false,
 			animationClass: "transition-swup-", // see https://swup.js.org/options/#animationselector
-			// the default value `transition-` cause transition delay
-			// when the Tailwind class `transition-all` is used
 			containers: swupContainers,
-			smoothScrolling: true,
-			// 开发模式下 Vite 依赖重优化会导致 swup 预加载/缓存命中旧的 deps，出现 504 (Outdated Optimize Dep)
 			cache: !isDev,
-			// 生产环境悬浮预加载；开发环境随缓存一起关闭，避免命中过期的 Vite 依赖。
-			preload: !isDev,
-			accessibility: true,
-			// Twikoo 的样式由脚本运行时注入 <style>，而脚本全局只加载一次；
-			// 默认 head diff 会把它们当作孤儿标签移除，二次 swup 进入评论页时样式永久丢失。
-			// 组件里给这些 style 打了 data-twikoo-style，这里声明保留（#twikoo-css 同理，侧边栏音乐播放器运行时插入的 #aplayer-css 也是）。
-			// 搜索框是 client:only：dev 下它的样式由 Vite 运行时注入，不在服务端 HTML 的 head 里，
-			// 第一次换页就会被删掉，之后打开搜索弹窗完全没有样式（生产构建是每页都有的静态 <link>）。
 			updateHead: {
 				// 与 Shirone 一致：保留基础样式，不等待样式资源后才切页。
 				awaitAssets: false,
-				persistAssets: false,
 				persistTags:
 					'link[rel=stylesheet]:not([data-swup-optional]), style:not([data-swup-optional])',
 			},
 			updateBodyClass: false,
 			globalInstance: true,
-			// 由 Layout.astro 自行重跑脚本：内建的 scripts 插件会把 Astro 内联的 type="module"
-			// 也每次重跑，导致其 astro:page-load 监听逐次叠加
 			reloadScripts: false,
 			// @swup/astro 仅合并 data-no-swup 与其「ignore」选项到 ignoreVisit，单独的 ignoreVisit 配置不会生效
 			ignore: (url) => {
@@ -115,25 +99,50 @@ export default defineConfig({
 					return false;
 				}
 			},
-			resolveUrl: (url) => url,
-			skipPopStateHandling: (event) => {
-				// 跳过锚点链接的处理，让浏览器原生处理
-				return event.state && event.state.url && event.state.url.includes("#");
-			},
 		}),
 		icon({
+			iconDir: "public/assets/images",
 			include: {
-				"fa6-brands": ["alipay", "creative-commons", "weixin"],
+				"fa6-brands": ["creative-commons"],
 				"fa6-regular": ["calendar"],
-				"fa6-solid": [
-					"arrow-right",
-					"arrow-rotate-left",
-					"arrow-up-right-from-square",
+				"fa6-solid": ["chevron-right"],
+				"lucide": ["leaf", "map", "rss"],
+				"material-symbols": [
+					"arrow-outward-rounded",
+					"article-outline",
+					"article-outline-rounded",
+					"book-2-outline-rounded",
+					"calendar-today-outline-rounded",
 					"chevron-left",
 					"chevron-right",
-					"user-shield",
-					"xmark",
+					"close-rounded",
+					"dark-mode-outline-rounded",
+					"edit-calendar-outline-rounded",
+					"folder-open-outline",
+					"folder-outline",
+					"handshake-outline",
+					"home-outline",
+					"keyboard-arrow-down-rounded",
+					"keyboard-arrow-right",
+					"keyboard-double-arrow-right-rounded",
+					"menu",
+					"more-horiz",
+					"movie-outline",
+					"person-outline",
+					"person-outline-rounded",
+					"pinboard",
+					"radio-button-partial-outline",
+					"satellite-alt-outline",
+					"schedule-outline-rounded",
+					"sell-outline",
+					"tag-rounded",
+					"visibility-outline-rounded",
+					"wb-sunny-outline-rounded",
+					"workspace-premium-rounded",
 				],
+				"mingcute": [],
+				"ri": ["music-2-line"],
+				"fluent-emoji-flat": ["hourglass-not-done"],
 			},
 		}),
 		expressiveCode({
@@ -187,8 +196,6 @@ export default defineConfig({
 		meilisearch(),
 	],
 	markdown: {
-		// Astro 7: 自定义 remark/rehype 流水线改为传入 unified() 处理器，
-		// 替代已弃用的 markdown.remarkPlugins / markdown.rehypePlugins
 		processor: unified({
 			remarkPlugins: [
 				remarkMath,
@@ -244,9 +251,6 @@ export default defineConfig({
 	vite: {
 		plugins: [
 			tailwindcss(),
-			// 音乐播放器的 /ncm 同源反代只在线上 openresty 里，dev 下转发过去。
-			// 不能用下面的 server.proxy：Astro 把 trailingSlash: "always" 的中间件 unshift 到最前，会把无扩展名的 /ncm/xxx 拦成 404。
-			// 这里同样在 post 钩子里 unshift，且 enforce: "post" 排在 Astro 插件之后执行，最终位于最前
 			{
 				name: "ncm-dev-proxy",
 				enforce: "post",
@@ -298,7 +302,6 @@ export default defineConfig({
 				"@swup/astro/client",
 				"@swup/astro/serialise",
 				"@swup/astro/idle",
-				"medium-zoom",
 			],
 		},
 		resolve: {
@@ -309,19 +312,6 @@ export default defineConfig({
 			},
 		},
 		build: {
-			rollupOptions: {
-				onwarn(warning, warn) {
-					if (
-						warning.message.includes("is dynamically imported by") &&
-						warning.message.includes("but also statically imported by")
-					) {
-						return;
-					}
-					warn(warning);
-				},
-			},
-			// Astro 7 / Vite 8 默认用 lightningcss 压缩 CSS，会对原生 `&` 嵌套等语法报错；
-			// 显式指定 esbuild 以保持旧的宽松行为
 			cssMinify: "esbuild",
 		},
 	},
