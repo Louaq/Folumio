@@ -1,0 +1,79 @@
+---
+// Ported from LyraVoid/Shirone BannerWaves.astro (MIT). Stylus converted to CSS.
+interface WavePathOptions {
+	amplitude: number;
+	baseline: number;
+	bottom: number;
+	end: number;
+	inverted?: boolean;
+	period: number;
+	start: number;
+}
+
+function buildWavePath({
+	amplitude,
+	baseline,
+	bottom,
+	end,
+	inverted = false,
+	period,
+	start,
+}: WavePathOptions): string {
+	const direction = inverted ? -1 : 1;
+	let path = `M ${start} ${baseline}`;
+
+	for (let x = start; x < end; x += period) {
+		path += ` C ${x + period / 8} ${baseline - amplitude * direction}`;
+		path += ` ${x + (period * 3) / 8} ${baseline - amplitude * direction}`;
+		path += ` ${x + period / 2} ${baseline}`;
+		path += ` C ${x + (period * 5) / 8} ${baseline + amplitude * direction}`;
+		path += ` ${x + (period * 7) / 8} ${baseline + amplitude * direction}`;
+		path += ` ${x + period} ${baseline}`;
+	}
+
+	return `${path} V ${bottom} H ${start} Z`;
+}
+
+const sharedWave = {
+	bottom: 60,
+	end: 1024,
+	period: 128,
+	start: -768,
+};
+const waveA = buildWavePath({ ...sharedWave, amplitude: 14, baseline: 18 });
+const waveB = buildWavePath({
+	...sharedWave,
+	amplitude: 12,
+	baseline: 20,
+	inverted: true,
+});
+---
+
+<div class="banner-waves" aria-hidden="true">
+	<svg viewBox="0 0 240 42" preserveAspectRatio="none" focusable="false">
+		<defs>
+			<path id="shirone-banner-wave-a" d={waveA} />
+			<path id="shirone-banner-wave-b" d={waveB} />
+		</defs>
+		<g class="banner-waves__layers">
+			<use href="#shirone-banner-wave-a" class="banner-waves__layer banner-waves__layer--haze" />
+			<use href="#shirone-banner-wave-b" class="banner-waves__layer banner-waves__layer--far" />
+			<use href="#shirone-banner-wave-a" class="banner-waves__layer banner-waves__layer--middle" />
+			<use href="#shirone-banner-wave-b" class="banner-waves__layer banner-waves__layer--near" />
+		</g>
+	</svg>
+</div>
+
+<style>
+.banner-waves { position:absolute; z-index:3; inset:auto 0 0; height:clamp(4.5rem,15vh,9.5rem); overflow:hidden; color:var(--page-bg); pointer-events:none; }
+.banner-waves svg { display:block; width:112%; height:100%; margin-inline:-6%; overflow:visible; }
+.banner-waves__layer { --banner-wave-period:-53.333333%; --banner-wave-scale-y:1; fill:currentColor; transform-box:view-box; transform-origin:50% 100%; transform:translate3d(var(--banner-wave-start),var(--banner-wave-y),0) scaleY(var(--banner-wave-scale-y)); animation:banner-wave-flow linear infinite; }
+.banner-waves__layer--haze { --banner-wave-start:var(--banner-wave-period); --banner-wave-end:0px; --banner-wave-y:0px; opacity:.25; animation-duration:7s; }
+.banner-waves__layer--far { --banner-wave-start:0px; --banner-wave-end:var(--banner-wave-period); --banner-wave-y:.25rem; opacity:.48; animation-duration:10s; }
+.banner-waves__layer--middle { --banner-wave-start:var(--banner-wave-period); --banner-wave-end:0px; --banner-wave-y:.5rem; opacity:.72; animation-duration:13s; }
+.banner-waves__layer--near { --banner-wave-start:0px; --banner-wave-end:var(--banner-wave-period); --banner-wave-y:.75rem; animation-duration:18s; }
+@keyframes banner-wave-flow { to { transform:translate3d(var(--banner-wave-end),var(--banner-wave-y),0) scaleY(var(--banner-wave-scale-y)); } }
+@media (max-width:767.98px) { .banner-waves { height:clamp(2.5rem,8vh,4.5rem); } .banner-waves__layer { --banner-wave-scale-y:.72; } .banner-waves__layer--haze { opacity:.18; } .banner-waves__layer--far { opacity:.36; } }
+@media (prefers-reduced-motion:reduce) { .banner-waves__layer { animation:none; } }
+</style>
+

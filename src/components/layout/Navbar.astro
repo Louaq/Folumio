@@ -148,10 +148,10 @@ function loadButtonScript() {
 }
 
 function updateNavbarHeroOverlap() {
-    const hero = document.querySelector(".post-hero");
+    const hero = document.querySelector(".banner-stage");
     const topRow = document.getElementById("top-row")!;
     const heroBottom = hero
-        ? document.getElementById("post-header-wrapper")!.getBoundingClientRect().bottom
+        ? hero.getBoundingClientRect().bottom
         : 0;
     topRow.dataset.overHero = String(heroBottom > topRow.offsetHeight);
     document.documentElement.style.setProperty("--post-hero-bottom", `${heroBottom}px`);

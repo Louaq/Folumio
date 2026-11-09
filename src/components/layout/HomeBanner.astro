@@ -1,0 +1,55 @@
+﻿---
+// Adapted from LyraVoid/Shirone BannerStage.astro (MIT).
+import type { ImageMetadata } from "astro";
+import { siteConfig } from "@/config";
+import BannerWaves from "./BannerWaves.astro";
+interface Props { title?: string; description?: string; metadata?: string; isPost?: boolean; }
+const { title, description, metadata, isPost } = Astro.props;
+const images = import.meta.glob<ImageMetadata>("/src/assets/**/*.{png,jpg,jpeg,webp,gif,avif,svg}", { import: "default" });
+async function resolveWallpaper(src: string): Promise<{ src: string; width?: number; height?: number }> {
+  if (src.startsWith("/") || /^https?:\/\//.test(src)) return { src };
+  return images[`/src/${src}`]();
+}
+const [desktop, mobile] = await Promise.all([
+  resolveWallpaper(siteConfig.homeBanner.desktop),
+  resolveWallpaper(siteConfig.homeBanner.mobile),
+]);
+---
+<section class="banner-stage" aria-label={title || siteConfig.title}>
+  <div class="banner-stage__media" aria-hidden="true">
+    <picture>
+      <source media="(max-width: 1023px)" srcset={mobile.src} />
+      <img class="banner-stage__image" src={desktop.src} width={desktop.width} height={desktop.height} alt="" fetchpriority="high" loading="eager" decoding="async" />
+    </picture>
+  </div>
+  <div class="banner-stage__scrim"></div>
+  <div class="banner-stage__copy">
+    <h1 class="banner-stage__title" id={isPost ? "post-title" : undefined}>{title || siteConfig.title}</h1>
+    <p>{description || siteConfig.subtitle}</p>
+    <div class="banner-stage__metadata" set:html={metadata} />
+  </div>
+  <BannerWaves />
+</section>
+<style>
+  .banner-stage { position:relative; height:65vh; margin-bottom:1rem; overflow:hidden; background:var(--page-bg); }
+  .banner-stage__media, .banner-stage__scrim, .banner-stage__copy { position:absolute; inset:0; }
+  .banner-stage__image { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; object-position:center; transform-origin:center; animation:banner-zoom 12s ease-out alternate infinite; }
+  .banner-stage__scrim { z-index:1; background:rgb(0 0 0 / calc(.24 * .55)); pointer-events:none; }
+  :global(html.dark) .banner-stage__scrim { background:rgb(0 0 0 / .24); }
+  .banner-stage__copy { z-index:2; display:flex; flex-direction:column; align-items:center; justify-content:center; padding:4rem 1.5rem 2rem; color:white; text-align:center; text-shadow:0 2px 12px rgb(0 0 0 / .48); pointer-events:none; }
+  .banner-stage__title { margin:0; font-size:5rem; font-weight:700; letter-spacing:0; line-height:1.1; }
+  .banner-stage__copy p { margin-top:.75rem; font-size:1.5rem; }
+  .banner-stage__metadata { pointer-events:auto; max-width:100%; }
+  .banner-stage__metadata:empty { display:none; }
+  .banner-stage__metadata :global(.banner-post-information) { display:flex; flex-wrap:wrap; justify-content:center; align-items:center; gap:.5rem 1rem; margin-top:1rem; font-size:.875rem; }
+  .banner-stage__metadata :global(.banner-post-meta) { justify-content:center; gap:.5rem 1rem; color:white; }
+  .banner-stage__metadata :global(.text-50), .banner-stage__metadata :global(.meta-icon) { color:white; }
+  .banner-stage__metadata :global(.meta-icon) { width:1rem; height:1rem; margin-right:.375rem; background:transparent; }
+  .banner-stage__metadata :global(.meta-icon svg) { font-size:1rem; }
+  .banner-stage__metadata :global(a[href*="/tags/"]) { padding:.125rem .5rem; border-radius:.25rem; background:rgb(255 255 255 / 20%); }
+  @keyframes banner-zoom { from { transform:scale(1.02); } to { transform:scale(1.10); } }
+  @media (max-width:1023.98px) { .banner-stage { height:max(70vh, 28rem); } .banner-stage__title { font-size:2.75rem; } .banner-stage__copy p { font-size:1.125rem; } }
+  @media (min-width:480px) and (max-width:767.98px) { .banner-stage { height:max(75vh, 31.25rem); } }
+  @media (min-width:768px) and (max-width:1023.98px) { .banner-stage { height:max(70vh, 31.25rem); } }
+  @media (prefers-reduced-motion:reduce) { .banner-stage__image { animation:none; } }
+</style>

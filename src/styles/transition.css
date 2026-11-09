@@ -1,50 +1,55 @@
+/* Ported from LyraVoid/Shirone src/styles/transition.css (MIT). */
+@reference "tailwindcss";
 
-@layer base {
-
-:root {
-    --swup-fade-duration: 200ms;
-    --swup-fade-easing: cubic-bezier(0.2, 0, 0, 1);
-    --swup-enter-y: 1rem;
-    --onload-enter-y: 2rem;
+/* Page transition animations with Swup */
+html.is-changing .transition-swup-fade {
+    transition: opacity 200ms cubic-bezier(0.2, 0, 0, 1), transform 200ms cubic-bezier(0.2, 0, 0, 1);
 }
-
-@media (prefers-reduced-motion: reduce) {
-    :root {
-        --swup-fade-duration: 1ms;
-        --swup-enter-y: 0;
-        --onload-enter-y: 0;
-    }
-    .onload-animation {
-        animation-duration: 1ms !important;
-    }
-}
-
-.transition-main {
-    transform: translate3d(0, 0, 0);
-    transition:
-        opacity var(--swup-fade-duration) var(--swup-fade-easing),
-        transform var(--swup-fade-duration) var(--swup-fade-easing);
-}
-
-html.is-animating .transition-main {
+html.is-animating .transition-swup-fade {
     opacity: 0;
-    transform: translate3d(0, var(--swup-enter-y), 0);
+    transform: translateY(1rem);
 }
 
+/* Fade-in animations for components */
 @keyframes fade-in-up {
-    from {
+    0% {
+        transform: translateY(2rem);
         opacity: 0;
-        transform: translate3d(0, var(--onload-enter-y), 0);
     }
-    to {
+    100% {
+        transform: translateY(0);
         opacity: 1;
-        transform: translate3d(0, 0, 0);
     }
 }
 
+/* Main components */
 .onload-animation {
     opacity: 0;
-    animation: fade-in-up 300ms var(--swup-fade-easing) both;
+    animation: 300ms fade-in-up;
+    animation-fill-mode: forwards;
+}
+#navbar {
+    animation-delay: 0ms
+}
+#sidebar {
+    animation-delay: 100ms
+}
+#sidebar-secondary {
+    animation-delay: 100ms
+}
+#swup-container {
+    outline: none;
+}
+#content-wrapper {
+    animation-delay: var(--content-delay);
+}
+.footer {
+    animation-delay: 250ms;
 }
 
+/* Respect the visitor's motion preference. */
+@media (prefers-reduced-motion: reduce) {
+    html.is-changing .transition-swup-fade { transition-duration: 1ms; }
+    html.is-animating .transition-swup-fade { transform: none; }
+    .onload-animation { animation-duration: 1ms; }
 }

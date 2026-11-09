@@ -1,21 +1,14 @@
 ---
 import type { GetStaticPaths } from "astro";
 import Pagination from "@/components/common/Pagination.astro";
-import HomeCarousel, {
-	type CarouselSlide,
-} from "@/components/layout/HomeCarousel.astro";
 import HomeTopNotice from "@/components/layout/HomeTopNotice.astro";
-import HomeWelcome from "@/components/layout/HomeWelcome.astro";
-import { homeWelcomeConfig } from "@/config/homeWelcomeConfig";
 import PostPage from "@/components/layout/PostPage.astro";
 import {
 	getNormalizedHomeTopNoticeItems,
-	homeCarouselConfig,
 	siteConfig,
 } from "@/config";
 import MainGridLayout from "@/layouts/MainGridLayout.astro";
 import { getSortedPosts } from "@/utils/content-utils";
-import { getFileDirFromPath, getPostUrlForEntry } from "@/utils/navigation";
 export const getStaticPaths = (async ({ paginate }) => {
 	const allBlogPosts = await getSortedPosts();
 	const pageSize = siteConfig.pagination.postsPerPage;
@@ -25,73 +18,12 @@ export const getStaticPaths = (async ({ paginate }) => {
 
 const { page } = Astro.props;
 
-const allPosts = await getSortedPosts();
-
-const manualSlides: CarouselSlide[] = homeCarouselConfig.manualItems.map(
-	(item) => {
-		return {
-			href: item.href,
-			title: item.title,
-			image: item.image,
-			basePath: "/",
-			category: item.category,
-			description: item.description,
-			date: item.published
-				? new Date(item.published).toLocaleDateString("zh-CN", {
-						year: "numeric",
-						month: "long",
-						day: "numeric",
-					})
-				: undefined,
-		};
-	},
-);
-
-const postSlides: CarouselSlide[] = allPosts
-	.filter((post) => post.data.homeCarousel)
-	.sort((a, b) => {
-		const orderA = a.data.homeCarouselOrder ?? Number.MAX_SAFE_INTEGER;
-		const orderB = b.data.homeCarouselOrder ?? Number.MAX_SAFE_INTEGER;
-		if (orderA !== orderB) return orderA - orderB;
-		return b.data.published.getTime() - a.data.published.getTime();
-	})
-	.map((post) => {
-		const finalImage = post.data.homeCarouselImage?.trim() || post.data.image;
-		return {
-			href: getPostUrlForEntry(post),
-			title: post.data.title,
-			image: finalImage,
-			basePath: getFileDirFromPath(post.filePath || ""),
-			category: post.data.category,
-			description: post.data.description,
-			date: post.data.published.toLocaleDateString("zh-CN", {
-				year: "numeric",
-				month: "long",
-				day: "numeric",
-			}),
-		};
-	});
-
-
-const featuredSlides: CarouselSlide[] = [...manualSlides, ...postSlides];
-const showCarousel = homeCarouselConfig.enable && featuredSlides.length > 0;
 const homeTopNoticeItems = getNormalizedHomeTopNoticeItems();
 
 const showHomeTopNotice = homeTopNoticeItems.length > 0;
 ---
 
 <MainGridLayout>
-  {showCarousel && (
-    <div slot="featured" class:list={["home-featured grid gap-4 min-w-0", { "lg:grid-cols-[17rem_minmax(0,1fr)]": homeWelcomeConfig.enable }]}>
-      <div class="min-w-0 lg:order-2">
-        <HomeCarousel
-          slides={featuredSlides}
-          autoplayMs={homeCarouselConfig.autoplayMs}
-        />
-      </div>
-      {homeWelcomeConfig.enable && <HomeWelcome />}
-    </div>
-  )}
   {showHomeTopNotice && <HomeTopNotice items={homeTopNoticeItems} />}
   <PostPage page={page} />
   {

@@ -1,7 +1,8 @@
-﻿---
+---
 import FontSetup from "@components/features/FontSetup.astro";
 import ImageLightboxManager from "@components/features/ImageLightboxManager.astro";
 import ConfigCarrier from "@components/layout/ConfigCarrier.astro";
+import StarlightBackground from "@components/layout/StarlightBackground.astro";
 import FloatingControls from "@/components/controls/FloatingControls.astro";
 
 import {
@@ -190,6 +191,7 @@ const collapsiblePreviewLines =
     data-white-bg={String(!!whiteBackground)}
   >
     <ConfigCarrier />
+    <StarlightBackground />
     <slot />
 
     <!-- increase the page height during page transition to prevent the scrolling animation from jumping -->
@@ -237,26 +239,35 @@ const collapsiblePreviewLines =
     "search-switch",
   ]);
 
+  // Navigation lifecycle ported from LyraVoid/Shirone Layout.astro (MIT).
+  let navigationBound = false;
   const setup = () => {
-    const MAX_SWUP_CACHE_PAGES = 6;
-    let visitRunning = false;
-    let scrollRunning = false;
-    let finishTimer: ReturnType<typeof setTimeout>;
-    const finishTransition = () => {
-      clearTimeout(finishTimer);
-      finishTimer = setTimeout(() => {
-        if (visitRunning || scrollRunning) return;
+    if (navigationBound) return;
+    navigationBound = true;
+    let scrollStarted = false;
+    let visitActive = false;
+    let finishTimer: number | undefined;
+    function finishVisit() {
+      if (!visitActive) return;
+      visitActive = false;
+      window.clearTimeout(finishTimer);
+      finishTimer = window.setTimeout(() => {
         document.getElementById("page-height-extend")?.classList.add("hidden");
-        document.documentElement.classList.remove("is-page-transitioning");
       }, 200);
-    };
-    window.swup.hooks.on("scroll:start", () => {
-      scrollRunning = true;
+    }
+    window.swup.hooks.on("link:click", () => document.documentElement.style.setProperty("--content-delay", "0ms"));
+    window.swup.hooks.on("visit:start", () => {
+      window.clearTimeout(finishTimer);
+      visitActive = true;
+      scrollStarted = false;
+      document.getElementById("page-height-extend")?.classList.remove("hidden");
     });
-    window.swup.hooks.on("scroll:end", () => {
-      scrollRunning = false;
-      finishTransition();
-    });
+    window.swup.hooks.on("visit:end", () => { if (!scrollStarted) finishVisit(); });
+    window.swup.hooks.on("visit:abort", finishVisit);
+    if (window.swup.hooks.exists("scroll:end")) {
+      window.swup.hooks.on("scroll:start", () => { if (visitActive) scrollStarted = true; });
+      window.swup.hooks.on("scroll:end", finishVisit);
+    }
     const moduleKey = (s: HTMLScriptElement) => s.src || s.textContent;
     const executedModules = new Set(
       Array.from(document.querySelectorAll<HTMLScriptElement>('script[type="module"]'), moduleKey),
@@ -278,31 +289,10 @@ const collapsiblePreviewLines =
         old.replaceWith(script);
       }
     });
-    window.swup.hooks.on("cache:set", () => {
-      const cachedUrls = Array.from(window.swup.cache.all.keys()) as string[];
-      while (cachedUrls.length > MAX_SWUP_CACHE_PAGES) {
-        const oldest = cachedUrls.shift();
-        if (oldest) window.swup.cache.delete(oldest);
-      }
-    });
-    window.swup.hooks.on("link:click", () => {
-      document.documentElement.style.setProperty("--content-delay", "0ms");
-
-     
-    });
-    window.swup.hooks.replace("content:replace", (visit: {
-      history?: { popstate?: boolean };
-      to: { url: string; hash?: string };
-    }, args: unknown, replaceContent: (visit: unknown, args: unknown) => unknown) => {
-      (window as any).__swupScrollLockY = null;
-
-      if (!visit.history?.popstate && !visit.to.hash && !new URL(visit.to.url, window.location.href).hash) {
-        window.scrollTo({ top: 0, left: 0, behavior: "instant" });
-      }
-
-      return replaceContent(visit, args);
-    });
     window.swup.hooks.on("content:replace", (visit: { to: { url: string } }) => {
+      // Swup animates both columns; first-load animations must not run again.
+      document.querySelectorAll("#left-sidebar .onload-animation, #swup-container .onload-animation")
+        .forEach((element) => element.classList.remove("onload-animation"));
       if (window.PostPageTOC) {
         window.PostPageTOC.manager?.cleanup();
         window.PostPageTOC.manager = null;
@@ -311,6 +301,19 @@ const collapsiblePreviewLines =
       const toPathname = new URL(visit.to.url, window.location.href).pathname;
       const isPostPage = /\/posts\/.+/.test(toPathname);
       document.body.dataset.pageType = isHomePage ? "home" : isPostPage ? "post" : "page";
+
+      document.body.classList.toggle("lg:is-home", isHomePage);
+      document.getElementById("navbar")?.setAttribute("data-is-home", String(isHomePage));
+      const banner = document.querySelector(".banner-stage")!;
+      const carrier = document.getElementById("grid-class-carrier")!;
+      banner.querySelector(".banner-stage__title")!.textContent = carrier.dataset.bannerTitle!;
+      const bannerTitle = banner.querySelector(".banner-stage__title")!;
+      if (isPostPage) bannerTitle.id = "post-title";
+      else bannerTitle.removeAttribute("id");
+      banner.querySelector(".banner-stage__copy p")!.textContent = carrier.dataset.bannerDescription!;
+      const metadata = document.getElementById("banner-metadata-template") as HTMLTemplateElement;
+      banner.querySelector(".banner-stage__metadata")!.replaceChildren(metadata.content.cloneNode(true));
+      banner.setAttribute("aria-label", carrier.dataset.bannerTitle!);
 
       const gridClassCarrier = document.getElementById("grid-class-carrier");
       if (gridClassCarrier) {
@@ -337,110 +340,7 @@ const collapsiblePreviewLines =
 
 
     });
-    window.swup.hooks.on("visit:start", (visit: {
-      from?: { url: string; hash?: string };
-      to: { url: string; hash?: string };
-      history?: { popstate?: boolean; direction?: string };
-      scroll?: { reset?: boolean; animate?: boolean };
-    }) => {
-      visitRunning = true;
-      clearTimeout(finishTimer);
-      document.documentElement.classList.add("is-page-transitioning");
-      if (visit.scroll && !visit.history?.popstate && !visit.to.hash && !new URL(visit.to.url, window.location.href).hash) {
-        visit.scroll.animate = false;
-      }
-      const fromPath = visit.from?.url ?? (window.location.pathname + window.location.search);
-      const fromHash = visit.from?.hash ?? window.location.hash;
-      const currentKey = "swup-scroll:" + fromPath + (fromHash || "");
-      try {
-        sessionStorage.setItem(currentKey, String(window.scrollY || document.documentElement.scrollTop));
-      } catch (_e) { /* ignore */ }
-
-      if (visit.history?.popstate) {
-        if (visit.scroll) visit.scroll.reset = false;
-        const scrollY = window.scrollY || document.documentElement.scrollTop;
-        if (scrollY > 0) {
-          (window as any).__swupScrollLockY = scrollY;
-          const tick = () => {
-            if ((window as any).__swupScrollLockY == null) return;
-            const current = window.scrollY || document.documentElement.scrollTop;
-            if (current !== (window as any).__swupScrollLockY) {
-              window.scrollTo(0, (window as any).__swupScrollLockY);
-            }
-            requestAnimationFrame(tick);
-          };
-          requestAnimationFrame(tick);
-        }
-      }
-
-      const bodyElement = document.querySelector("body");
-      const isHomePage = pathsEqual(visit.to.url, url("/"));
-
-      if (isHomePage) {
-        bodyElement!.classList.add("lg:is-home");
-      } else {
-        bodyElement!.classList.remove("lg:is-home");
-      }
-
-
-      document
-        .getElementById("navbar")
-        ?.setAttribute("data-is-home", isHomePage.toString());
-
-      const isMobile = window.innerWidth < 1024;
-      if (isMobile) {
-        const postListContainer = document.getElementById("post-list-container");
-        if (postListContainer) {
-          postListContainer.style.transition = "none";
-        }
-      }
-
-      // increase the page height during page transition to prevent the scrolling animation from jumping
-      const heightExtend = document.getElementById("page-height-extend");
-      if (heightExtend) {
-        heightExtend.classList.remove("hidden");
-      }
-
-    });
-    window.swup.hooks.on("page:view", (visit?: {
-      history?: { popstate?: boolean };
-    }) => {
-      const heightExtend = document.getElementById("page-height-extend");
-      if (heightExtend) {
-        heightExtend.classList.remove("hidden");
-      }
-      const isHistoryNav = visit?.history?.popstate === true;
-      const restoreKey = "swup-scroll:" + (window.location.pathname + window.location.search + window.location.hash);
-
-      if (isHistoryNav) {
-        let savedY: number | null = null;
-        try {
-          const stored = sessionStorage.getItem(restoreKey);
-          if (stored != null) {
-            savedY = parseInt(stored, 10);
-            sessionStorage.removeItem(restoreKey);
-          }
-        } catch (_e) { /* ignore */ }
-
-        if (savedY != null && !isNaN(savedY) && savedY > 0) {
-          const maxY = Math.max(0, document.documentElement.scrollHeight - window.innerHeight);
-          requestAnimationFrame(() => {
-            window.scrollTo(0, Math.min(savedY!, maxY));
-                });
-        }
-      }
-
-      const isMobile = window.innerWidth < 1024;
-      if (isMobile) {
-        setTimeout(() => {
-          const postListContainer = document.getElementById("post-list-container");
-          if (postListContainer) {
-            postListContainer.style.transition = "";
-          }
-        }, 600);
-      }
-
-
+    window.swup.hooks.on("page:view", () => {
       const storedTheme = localStorage.getItem("theme") || siteConfig.themeColor.defaultMode || "light";
       const isDark = storedTheme === "dark" || (storedTheme === "auto" && window.matchMedia("(prefers-color-scheme: dark)").matches);
       const expectedTheme = isDark
@@ -452,27 +352,9 @@ const collapsiblePreviewLines =
         document.documentElement.setAttribute("data-theme", expectedTheme);
       }
     });
-    window.swup.hooks.on("visit:end", (_visit: { to: { url: string } }) => {
-      (window as any).__swupScrollLockY = null;
-      visitRunning = false;
-      finishTransition();
-    });
-    window.swup.hooks.on("visit:abort", () => {
-      (window as any).__swupScrollLockY = null;
-      visitRunning = false;
-      finishTransition();
-    });
-
-
   };
-  if (window?.swup?.hooks) {
-    setup();
-  } else {
-    document.addEventListener("swup:enable", setup);
-  }
-
-
-
+  if (window.swup?.hooks) setup();
+  else document.addEventListener("swup:enable", setup, { once: true });
 
   import { initIconLoader } from "@/utils/icon-loader";
   const initOptionalRuntime = () => {

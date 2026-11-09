@@ -4,10 +4,6 @@
     will-change: transform;
 }
 
-.is-page-transitioning #navbar>div {
-    transition: none !important;
-}
-
 @media (min-width: 1024px) {
     #navbar-wrapper #navbar > div {
         width: 100% !important;

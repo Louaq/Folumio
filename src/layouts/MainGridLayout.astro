@@ -2,10 +2,10 @@
 import Footer from "@components/layout/Footer.astro";
 import LeftSideBar from "@components/layout/LeftSideBar.astro";
 import Navbar from "@components/layout/Navbar.astro";
+import HomeBanner from "@components/layout/HomeBanner.astro";
 import type { MarkdownHeading } from "astro";
 import IconifyLoader from "@/components/misc/IconifyLoader.astro";
 import { siteConfig } from "@/config";
-import { isHomePage } from "@/utils/navigation";
 import { showSidebarOnMobile } from "@/utils/widget-manager";
 import Layout from "./Layout.astro";
 
@@ -31,8 +31,8 @@ const {
 	wideContent = false,
 } = Astro.props;
 
-const isHomePageCheck = isHomePage(Astro.url.pathname);
 const isPostPageCheck = postSlug !== undefined;
+const bannerMetadata = await Astro.slots.render("banner-metadata");
 
 const isSingleColumnLayout = hideSidebar || isPostPageCheck;
 const PostPageTOC = isPostPageCheck
@@ -43,7 +43,6 @@ const gridCols = isSingleColumnLayout
 	? "grid-cols-1"
 	: "grid-cols-1 lg:grid-cols-[17rem_minmax(0,1fr)]";
 
-const mainPanelTop = "5.5rem";
 ---
 
 <Layout title={title} description={description} lang={lang} setOGTypeArticle={setOGTypeArticle} postSlug={postSlug} whiteBackground={hideSidebar}>
@@ -53,39 +52,34 @@ const mainPanelTop = "5.5rem";
 
 
 <slot slot="head" name="head"></slot>
-<div id="top-row" data-over-hero={String(isPostPageCheck)} class="z-50 pointer-events-none fixed top-0 left-0 right-0 transition-[opacity,transform] duration-700">
+<div id="top-row" data-over-hero="true" class="z-50 pointer-events-none fixed top-0 left-0 right-0 transition-[opacity,transform] duration-700">
     <div id="navbar-wrapper" class="pointer-events-auto transition-[opacity,transform] duration-700">
         <Navbar></Navbar>
     </div>
 </div>
 
 
-<div class="absolute w-full z-30 pointer-events-none no-banner-layout" style={`top: ${mainPanelTop}`}>
-    <div id="post-header-wrapper" class="pointer-events-auto">
-        <slot name="post-header" />
+<div class="absolute top-0 w-full z-30 pointer-events-none site-banner-layout">
+    <div id="home-banner-wrapper">
+        <HomeBanner title={title} description={description} metadata={bannerMetadata} isPost={isPostPageCheck} />
     </div>
     <!-- The pointer-events-none here prevent blocking the click event of the TOC -->
     <div class="relative w-full max-w-(--page-width) mx-auto pointer-events-auto">
         <div id="main-grid" class={`w-full left-0 right-0 grid ${gridCols} grid-rows-[auto_1fr_auto] lg:grid-rows-[auto] mx-auto gap-4 px-2 md:px-4 ${!showSidebarOnMobile ? 'mobile-no-sidebar' : ''}`}
         >
-            <div id="home-featured-wrapper" class="col-span-full min-w-0 transition-swup-fade transition-main">
-                <slot name="featured" />
-            </div>
-
             <div id="left-sidebar-wrapper" class="contents">
                 {!isSingleColumnLayout && (
                     <LeftSideBar
                         headings={headings}
                         isPostPage={isPostPageCheck}
-                        class="hidden lg:flex lg:flex-col lg:row-start-[var(--content-row)] lg:row-span-1 lg:col-start-1 lg:col-end-2 lg:self-stretch transition-main"
+                        class="hidden lg:flex lg:flex-col lg:row-start-[var(--content-row)] lg:row-span-1 lg:col-start-1 lg:col-end-2 lg:self-stretch transition-swup-fade transition-main"
                     />
                 )}
             </div>
 
             {/* 主内容区 - 始终渲染，确保 Swup 容器存在 */}
             <main id="swup-container" class:list={[
-                "overflow-hidden w-full min-w-0",
-                { "transition-swup-fade transition-main": !isPostPageCheck },
+                "overflow-hidden w-full min-w-0 transition-swup-fade transition-main",
                 isSingleColumnLayout
                     ? wideContent
                         ? "max-w-none mx-auto"
@@ -93,11 +87,8 @@ const mainPanelTop = "5.5rem";
                     : "lg:row-start-[var(--content-row)] lg:col-start-2 lg:col-end-3",
             ]}>
                 {/* 携带网格布局类名，用于JS更新父容器 */}
-                <div id="grid-class-carrier" data-grid-class={gridCols} data-white-bg={String(hideSidebar)} class="hidden"></div>
-                {/* 备用 h1 标题 - 当主页横幅文本未启用时，提供隐藏的主标题 */}
-                {isHomePageCheck && (
-                        <h1 class="sr-only">{siteConfig.title}</h1>
-                )}
+                <div id="grid-class-carrier" data-grid-class={gridCols} data-white-bg={String(hideSidebar)} data-banner-title={title || siteConfig.title} data-banner-description={description || siteConfig.subtitle} class="hidden"></div>
+                <template id="banner-metadata-template" set:html={bannerMetadata} />
                 <div id="content-wrapper" class:list={{ "onload-animation": !isPostPageCheck }}>
                     {isPostPageCheck ? (
                         <div class="post-content-layout">
@@ -122,23 +113,16 @@ const mainPanelTop = "5.5rem";
 </Layout>
 
 <style is:global>
-  #post-header-wrapper:empty {
-    display: none;
+  .site-banner-layout {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
   }
-  .no-banner-layout:has(.post-hero) {
-    grid-template-rows: auto 1fr auto;
+  .site-banner-layout > .relative {
+    flex: 1;
   }
   #main-grid {
     --content-row: 1;
-  }
-  #main-grid:has(.home-featured) {
-    --content-row: 2;
-  }
-  #home-featured-wrapper:not(:has(.home-featured)) {
-    display: none;
-  }
-  .home-featured .home-carousel {
-    margin-bottom: 0;
   }
 
   :root:not(.dark):has(body[data-page-type="post"]) {

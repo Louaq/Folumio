@@ -7,7 +7,6 @@ export {
 	friendsPageConfig,
 	getEnabledFriendGroups,
 } from "./friendsConfig"; 
-export { homeCarouselConfig } from "./homeCarouselConfig"; 
 export { getNormalizedHomeTopNoticeItems } from "./homeTopNoticeConfig"; 
 
 export { navBarConfig } from "./navBarConfig"; 
