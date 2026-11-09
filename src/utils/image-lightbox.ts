@@ -1,7 +1,5 @@
 // Fancybox configuration and styling adapted from LyraVoid/Shirone (MIT).
 import { Fancybox } from "@fancyapps/ui";
-import "@fancyapps/ui/dist/fancybox/fancybox.css";
-import "@/styles/fancybox-custom.css";
 import { getDefaultFancyboxConfig } from "./fancybox-config";
 
 export function open(images: { src: string; thumbSrc: string; thumbEl: HTMLImageElement; caption: string }[], startIndex: number) {
