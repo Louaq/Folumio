@@ -1,0 +1,77 @@
+---
+import WidgetLayout from "@/components/common/WidgetLayout.astro";
+
+interface Props {
+	class?: string;
+	style?: string;
+	cacheHours?: number;
+}
+
+const { class: className, style, cacheHours = 24 } = Astro.props;
+---
+
+<WidgetLayout id="jieqi-poster" name="节气海报" icon="material-symbols:calendar-month-outline-rounded" class={className} style={style}>
+  <jieqi-poster data-cache-hours={cacheHours}>
+    <img hidden width="1024" height="1536" alt="" class="w-full h-auto rounded-lg" data-poster />
+    <p class="text-sm text-neutral-500 py-4" role="status" data-status>正在加载海报…</p>
+    <p class="mt-2 text-center text-sm text-neutral-600 dark:text-neutral-300" data-term></p>
+  </jieqi-poster>
+</WidgetLayout>
+
+<script>
+  import { loadJieqiPoster } from "@/utils/jieqi";
+
+  class JieqiPoster extends HTMLElement {
+    private timer?: number;
+    private imageUrl?: string;
+    private loading = false;
+
+    connectedCallback() {
+      void this.load();
+      document.addEventListener("visibilitychange", this.onVisibility);
+    }
+
+    disconnectedCallback() {
+      window.clearTimeout(this.timer);
+      document.removeEventListener("visibilitychange", this.onVisibility);
+      if (this.imageUrl) URL.revokeObjectURL(this.imageUrl);
+    }
+
+    private onVisibility = () => {
+      if (document.visibilityState === "visible") void this.load();
+    };
+
+    private async load() {
+      if (this.loading) return;
+      this.loading = true;
+      window.clearTimeout(this.timer);
+      const image = this.querySelector<HTMLImageElement>("[data-poster]")!;
+      const status = this.querySelector<HTMLElement>("[data-status]")!;
+
+      try {
+        const { event, image: blob, refreshAt } = await loadJieqiPoster(
+          Number(this.dataset.cacheHours),
+        );
+        if (!this.isConnected) return;
+        if (this.imageUrl) URL.revokeObjectURL(this.imageUrl);
+        this.imageUrl = URL.createObjectURL(blob);
+        image.src = this.imageUrl;
+        image.alt = `${event.card.name}海报`;
+        image.hidden = false;
+        status.hidden = true;
+        this.querySelector<HTMLElement>("[data-term]")!.textContent =
+          `${event.card.name} · ${event.start}${event.end !== event.start ? ` — ${event.end}` : ""}`;
+        this.timer = window.setTimeout(() => void this.load(), refreshAt - Date.now());
+      } catch {
+        if (!this.isConnected) return;
+        image.hidden = true;
+        status.hidden = false;
+        status.textContent = "海报暂时无法加载";
+      } finally {
+        this.loading = false;
+      }
+    }
+  }
+
+  customElements.define("jieqi-poster", JieqiPoster);
+</script>

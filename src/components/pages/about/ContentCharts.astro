@@ -3,24 +3,27 @@ import type { CollectionEntry } from "astro:content";
 import type { Category } from "@/utils/content-utils";
 
 interface Props {
-  posts: CollectionEntry<"posts">[];
-  categories: Category[];
+	posts: CollectionEntry<"posts">[];
+	categories: Category[];
 }
 
 const { posts, categories } = Astro.props;
 const sortedCategories = [...categories].sort((a, b) => b.count - a.count);
 const yearCounts = new Map<number, number>();
 for (const post of posts) {
-  const year = post.data.published.getUTCFullYear();
-  yearCounts.set(year, (yearCounts.get(year) ?? 0) + 1);
+	const year = post.data.published.getUTCFullYear();
+	yearCounts.set(year, (yearCounts.get(year) ?? 0) + 1);
 }
 const years = [...yearCounts.keys()].sort((a, b) => a - b);
 const annualCounts = years.length
-  ? Array.from({ length: years[years.length - 1] - years[0] + 1 }, (_, index) => ({
-      year: years[0] + index,
-      count: yearCounts.get(years[0] + index) ?? 0,
-    }))
-  : [];
+	? Array.from(
+			{ length: years[years.length - 1] - years[0] + 1 },
+			(_, index) => ({
+				year: years[0] + index,
+				count: yearCounts.get(years[0] + index) ?? 0,
+			}),
+		)
+	: [];
 ---
 
 <section class="chart-section" aria-labelledby="category-chart-title">

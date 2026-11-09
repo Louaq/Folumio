@@ -31,6 +31,7 @@ enum I18nKey {
 	postsCount = "postsCount",
 
 	more = "more",
+	collapse = "collapse",
 
 	author = "author",
 	publishedAt = "publishedAt",
