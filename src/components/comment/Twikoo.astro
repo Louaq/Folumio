@@ -1,10 +1,10 @@
 ---
 import { commentConfig } from "@/config/commentConfig";
-import { url } from "@/utils/navigation";
 const config = commentConfig.twikoo;
 
-const twikooScriptUrl = url("/assets/js/twikoo-2.0.9.all.min.js");
-const twikooCssUrl = url("/assets/css/twikoo.css");
+const cdnBase = "https://cdn.jsdmirror.com/gh/Louaq/Folumio@838fc64ee40493e97742b9fe48ce5f4b1a21224e/public/assets";
+const twikooScriptUrl = `${cdnBase}/js/twikoo-2.0.9.all.min.js`;
+const twikooCssUrl = `${cdnBase}/css/twikoo.css`;
 ---
 
 <div id="tcomment"></div>

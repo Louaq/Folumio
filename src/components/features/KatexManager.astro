@@ -1,9 +1,6 @@
 ---
-import { url } from "@/utils/navigation";
-
-// KaTeX 样式自托管到 public/katex（构建期不再 import，避免 Astro 把其 CSS
-// 提升为全站渲染阻塞的 <link>）。仅在含公式的页面运行时注入一次。
-const katexCssHref = url("/katex/katex.min.css");
+// 样式和字体通过 CDN 加载，仅在含公式的页面注入样式。
+const katexCssHref = "https://cdn.jsdmirror.com/gh/Louaq/Folumio@869a57f2b3c7c0b1a8f434c581f6b374e591637e/public/katex/katex.min.css";
 ---
 <script is:inline define:vars={{ katexCssHref }}>
     // KaTeX 样式按需加载：仅当页面存在公式时才注入一次 <link>
