@@ -30,8 +30,8 @@
         display: flex;
         align-items: center;
         flex-shrink: 0;
-        width: 3.5rem;
-        min-width: 3.5rem;
+        width: 2.5rem;
+        min-width: 2.5rem;
         min-height: 2.75rem;
         box-sizing: border-box;
     }

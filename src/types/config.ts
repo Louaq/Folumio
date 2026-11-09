@@ -145,7 +145,7 @@ export type CommentConfig = {
 	};
 };
 
-export type LIGHT_DARK_MODE = typeof LIGHT_MODE | typeof DARK_MODE;
+export type LIGHT_DARK_MODE = typeof LIGHT_MODE | typeof DARK_MODE | "auto";
 
 export type ExpressiveCodeConfig = {
 	theme?: string;

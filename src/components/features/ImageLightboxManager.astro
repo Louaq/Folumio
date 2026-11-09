@@ -1,13 +1,11 @@
 ---
-// 全局监听图片点击，按需加载 astro-koharu 查看器；兼容 Swup 页面切换。
+// 全局监听图片点击，按需加载 Shirone 的 Fancybox 预览；兼容 Swup 页面切换。
 ---
 
 <script>
-  import type { ImageLightboxData } from "@/vendor/koharu/image-preview/modal";
-
   const selector = ".custom-md img, #post-cover img, .moment-images img";
-  let viewer: typeof import("@/vendor/koharu/image-preview/client") | undefined;
-  let loading: Promise<typeof import("@/vendor/koharu/image-preview/client")> | undefined;
+  let viewer: typeof import("@/utils/image-lightbox") | undefined;
+  let loading: Promise<typeof import("@/utils/image-lightbox")> | undefined;
   let visit = 0;
 
   document.addEventListener("click", async (event) => {
@@ -15,28 +13,24 @@
     if (!(target instanceof HTMLImageElement) || !target.matches(selector)) return;
     event.preventDefault();
     const token = ++visit;
-    const group = target.closest(".moment-images, .custom-md") ?? document;
-    const images: ImageLightboxData["images"] = Array.from(
-      group.querySelectorAll<HTMLImageElement>(selector),
+    const group = target.closest(".moment-images") ?? document;
+    const elements = Array.from(group.querySelectorAll<HTMLImageElement>(selector));
+    const images = elements.map(
       (image) => {
         const anchor = image.closest<HTMLAnchorElement>("a[data-fancybox]");
-        const box = image.getBoundingClientRect();
         return {
           src: image.dataset.zoomSrc || anchor?.dataset.src || anchor?.href || image.currentSrc || image.src,
-          alt: image.alt,
-          origin: {
-            box: { left: box.left, top: box.top, width: box.width, height: box.height },
-            naturalWidth: image.naturalWidth,
-            naturalHeight: image.naturalHeight,
-          },
+          thumbSrc: image.currentSrc || image.src,
+          thumbEl: image,
+          caption: image.alt.replaceAll("&", "&amp;").replaceAll("<", "&lt;").replaceAll(">", "&gt;"),
         };
       },
     );
-    const currentIndex = Array.from(group.querySelectorAll(selector)).indexOf(target);
-    loading ??= import("@/vendor/koharu/image-preview/client");
+    const currentIndex = elements.indexOf(target);
+    loading ??= import("@/utils/image-lightbox");
     viewer = await loading;
     if (token !== visit) return;
-    viewer.open({ ...images[currentIndex], images, currentIndex });
+    viewer.open(images, currentIndex);
   }, { capture: true });
 
   document.addEventListener("swup:visit:start", () => {

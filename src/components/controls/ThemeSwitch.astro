@@ -1,0 +1,104 @@
+---
+import { Icon } from "astro-icon/components";
+
+const modes = [
+    { value: "light", label: "亮色", icon: "material-symbols:wb-sunny-outline-rounded" },
+    { value: "dark", label: "暗色", icon: "material-symbols:dark-mode-outline-rounded" },
+    { value: "auto", label: "跟随系统", icon: "material-symbols:radio-button-partial-outline" },
+];
+---
+
+<div class="theme-switch-container">
+    <button id="scheme-switch" class="theme-switch" type="button" aria-label="切换深浅模式" aria-haspopup="menu" aria-controls="theme-mode-panel" aria-expanded="false">
+        {modes.map((mode) => <Icon name={mode.icon} class="theme-mode-icon" data-mode-icon={mode.value} />)}
+    </button>
+    <div id="theme-mode-panel" role="menu" aria-label="深浅模式" hidden>
+        {modes.map((mode) => (
+            <button type="button" role="menuitemradio" aria-checked="false" data-theme-option={mode.value}>
+                <Icon name={mode.icon} />
+                {mode.label}
+            </button>
+        ))}
+    </div>
+</div>
+
+<script>
+    const html = document.documentElement;
+    const trigger = document.getElementById("scheme-switch")!;
+    const panel = document.getElementById("theme-mode-panel")!;
+    const options = Array.from(panel.querySelectorAll<HTMLButtonElement>("[data-theme-option]"));
+    const systemDark = window.matchMedia("(prefers-color-scheme: dark)");
+    const desktop = window.matchMedia("(min-width: 1024px)");
+    const sequence = ["light", "dark", "auto"];
+
+    function closeMenu() {
+        panel.hidden = true;
+        trigger.setAttribute("aria-expanded", "false");
+    }
+
+    function syncMode() {
+        const mode = html.dataset.themeMode!;
+        const isDark = mode === "dark" || (mode === "auto" && systemDark.matches);
+        html.classList.toggle("dark", isDark);
+        html.dataset.theme = isDark ? html.dataset.expressiveDarkTheme! : html.dataset.expressiveLightTheme!;
+        options.forEach((option) => {
+            option.setAttribute("aria-checked", String(option.dataset.themeOption === mode));
+        });
+        window.dispatchEvent(new CustomEvent("theme-change"));
+    }
+
+    function selectMode(mode: string) {
+        html.dataset.themeMode = mode;
+        localStorage.setItem("theme", mode);
+        syncMode();
+        closeMenu();
+    }
+
+    trigger.onclick = () => {
+        if (desktop.matches) {
+            panel.hidden = !panel.hidden;
+            trigger.setAttribute("aria-expanded", String(!panel.hidden));
+        } else {
+            selectMode(sequence[(sequence.indexOf(html.dataset.themeMode!) + 1) % sequence.length]);
+        }
+    };
+    options.forEach((option) => {
+        option.onclick = () => {
+            selectMode(option.dataset.themeOption!);
+            trigger.focus();
+        };
+    });
+    trigger.addEventListener("keydown", (event) => {
+        if (desktop.matches && event.key === "ArrowDown") {
+            event.preventDefault();
+            panel.hidden = false;
+            trigger.setAttribute("aria-expanded", "true");
+            options[0].focus();
+        }
+    });
+    panel.addEventListener("keydown", (event) => {
+        const index = options.indexOf(document.activeElement as HTMLButtonElement);
+        if (event.key === "ArrowDown" || event.key === "ArrowUp") {
+            event.preventDefault();
+            options[(index + (event.key === "ArrowDown" ? 1 : -1) + options.length) % options.length].focus();
+        }
+    });
+    document.addEventListener("click", (event) => {
+        if (!trigger.contains(event.target as Node) && !panel.contains(event.target as Node)) closeMenu();
+    });
+    document.addEventListener("keydown", (event) => {
+        if (event.key === "Escape" && !panel.hidden) {
+            closeMenu();
+            trigger.focus();
+        }
+    });
+    systemDark.addEventListener("change", () => {
+        if (html.dataset.themeMode === "auto") syncMode();
+    });
+    desktop.addEventListener("change", closeMenu);
+    document.addEventListener("astro:page-load", () => {
+        syncMode();
+        closeMenu();
+    });
+    syncMode();
+</script>

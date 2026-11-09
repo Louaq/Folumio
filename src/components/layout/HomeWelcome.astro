@@ -59,12 +59,6 @@ import { url } from "@/utils/navigation";
     stroke-width: 9.000005555780529;
     stroke-linecap: round;
     stroke-linejoin: round;
-    stroke-dasharray: 1;
-    animation: hello-write 3s linear both;
-  }
-  @keyframes hello-write {
-    from { stroke-dashoffset: 1; }
-    to { stroke-dashoffset: 0; }
   }
   .home-welcome :global(.welcome-cover) {
     position: absolute;
@@ -121,8 +115,5 @@ import { url } from "@/utils/navigation";
   :global(:root.dark) .welcome-button { color: #f18ab0; }
   @media (max-width: 767px) {
     .home-welcome { display: none; }
-  }
-  @media (prefers-reduced-motion: reduce) {
-    .hello-stroke { animation: none; }
   }
 </style>

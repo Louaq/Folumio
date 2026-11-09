@@ -131,13 +131,12 @@ const collapsiblePreviewLines =
         lightTheme: expressiveCodeConfig.lightTheme,
       }}
     >
-      const LIGHT_MODE = "light";
       const DARK_MODE = "dark";
 
       const storedTheme = localStorage.getItem("theme") || defaultMode;
-      const theme = storedTheme === DARK_MODE ? DARK_MODE : LIGHT_MODE;
+      const theme = storedTheme;
       document.documentElement.setAttribute("data-theme-mode", theme);
-      const isDark = theme === DARK_MODE;
+      const isDark = theme === DARK_MODE || (theme === "auto" && window.matchMedia("(prefers-color-scheme: dark)").matches);
 
       if (isDark) {
         document.documentElement.classList.add("dark");
@@ -234,10 +233,6 @@ const collapsiblePreviewLines =
     "search-panel",
     "search-bar",
     "search-switch",
-  ]);
-  setClickOutsideToClose("theme-mode-panel", [
-    "theme-mode-panel",
-    "scheme-switch",
   ]);
 
   const setup = () => {
@@ -445,7 +440,7 @@ const collapsiblePreviewLines =
 
 
       const storedTheme = localStorage.getItem("theme") || siteConfig.themeColor.defaultMode || "light";
-      const isDark = storedTheme === "dark";
+      const isDark = storedTheme === "dark" || (storedTheme === "auto" && window.matchMedia("(prefers-color-scheme: dark)").matches);
       const expectedTheme = isDark
         ? expressiveCodeConfig.darkTheme
         : expressiveCodeConfig.lightTheme;

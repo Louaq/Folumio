@@ -55,7 +55,7 @@
 #navbar .navbar-menu-items > .dropdown-container > .navbar-link-active::after {
   content: "";
   position: absolute;
-  inset-inline: 1.5rem;
+  inset-inline: 0.75rem;
   bottom: 0;
   height: 3px;
   border-radius: 2px;
@@ -178,9 +178,17 @@
   padding: 0 0.75rem !important;
 }
 #navbar .navbar-menu-items > .dropdown-container > .btn-plain {
-  width: 7rem;
+  width: auto;
+  position: relative;
   justify-content: center;
+  font-size: 14px !important;
+  font-weight: 700 !important;
+  white-space: nowrap;
   border-radius: 4px !important;
+}
+
+#navbar .navbar-menu-items > .dropdown-container > .btn-plain .navbar-icon {
+  margin-right: 4px;
 }
 
 .dropdown-item {
@@ -214,6 +222,8 @@
 #top-row[data-over-hero="true"] #navbar .navbar-menu-items > .dropdown-container > a,
 #top-row[data-over-hero="true"] #navbar [data-dropdown-trigger],
 #top-row[data-over-hero="true"] #navbar .navbar-util-no-hover,
+#top-row[data-over-hero="true"] #navbar .search-trigger,
+#top-row[data-over-hero="true"] #navbar #scheme-switch,
 #top-row[data-over-hero="true"] #navbar #nav-menu-switch {
   color: #fff !important;
 }

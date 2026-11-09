@@ -33,7 +33,7 @@ const getDynamicNavBarConfig = (): NavBarConfig => {
 
 	links.push({
 		name: "状态",
-		url: "https://status.louaq.io",
+		url: "https://status.louaq.io/",
 		external: true,
 		icon: "material-symbols:satellite-alt-outline",
 	});

@@ -26,6 +26,7 @@
     "@astrojs/rss": "^4.0.19",
     "@astrojs/svelte": "^9.1.2",
     "@expressive-code/plugin-line-numbers": "^0.44.3",
+    "@fancyapps/ui": "6.1.15",
     "@floating-ui/react": "^0.27.16",
     "@iconify-json/fa6-brands": "^1.2.6",
     "@iconify-json/fa6-regular": "^1.2.4",

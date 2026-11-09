@@ -1,5 +1,6 @@
 ﻿---
 import { Icon } from "astro-icon/components";
+import ThemeSwitch from "@/components/controls/ThemeSwitch.astro";
 import SearchLazy from "@/components/controls/SearchLazy.astro";
 import { navBarConfig, siteConfig } from "@/config";
 import { LinkPresets } from "@/constants/link-presets";
@@ -71,28 +72,7 @@ let links: NavBarLink[] = navBarConfig.links.map(
         <div class="navbar-tools navbar-group">
         <SearchLazy />
         {(siteConfig.themeColor.showModeSwitch ?? true) && (
-            <button
-                aria-label="Toggle Light/Dark Mode"
-                class="navbar-util-no-hover theme-switch relative shrink-0 active:scale-95"
-                id="scheme-switch"
-                type="button"
-            >
-                <span class="switch-face switch-face-light" aria-hidden="true"></span>
-                <span class="switch-face switch-face-dark" aria-hidden="true">
-                    <i class="switch-star s1"></i>
-                    <i class="switch-star s2"></i>
-                    <i class="switch-star s3"></i>
-                    <i class="switch-star s4"></i>
-                </span>
-                <span class="switch-thumb" aria-hidden="true">
-                    <span class="theme-icon theme-icon-light">
-                        <Icon name="fluent-emoji-flat:sun" class="switch-icon" />
-                    </span>
-                    <span class="theme-icon theme-icon-dark">
-                        <Icon name="fluent-emoji-flat:crescent-moon" class="switch-icon" />
-                    </span>
-                </span>
-            </button>
+            <ThemeSwitch />
         )}
 
         </div>
@@ -156,7 +136,6 @@ function setupNavbarActiveSync() {
 
 function loadButtonScript() {
     const menuBtn = document.getElementById("nav-menu-switch");
-    const themeSwitchBtn = document.getElementById("scheme-switch");
 
     // 面板在点击时再查询：避免按钮已存在但面板尚未挂载（或被 swup 替换）时绑定失效。
     if (menuBtn) {
@@ -164,44 +143,6 @@ function loadButtonScript() {
             document
                 .getElementById("nav-menu-panel")
                 ?.classList.toggle("float-panel-closed");
-        };
-    }
-
-    if (themeSwitchBtn) {
-        themeSwitchBtn.onclick = function () {
-            const html = document.documentElement;
-            const LIGHT_MODE = "light";
-            const DARK_MODE = "dark";
-
-            const getStoredMode = () => {
-                const stored =
-                    html.getAttribute("data-theme-mode") ||
-                    localStorage.getItem("theme") ||
-                    LIGHT_MODE;
-                return stored === DARK_MODE ? DARK_MODE : LIGHT_MODE;
-            };
-
-            const applyResolvedTheme = (resolvedIsDark: boolean) => {
-                if (resolvedIsDark) html.classList.add("dark");
-                else html.classList.remove("dark");
-
-                // Layout 首屏内联脚本已写入这两个 dataset
-                const darkTheme = html.dataset.expressiveDarkTheme as string;
-                const lightTheme = html.dataset.expressiveLightTheme as string;
-                html.setAttribute("data-theme", resolvedIsDark ? darkTheme : lightTheme);
-            };
-
-            // 深浅色切换不做过渡动画：直接翻转主题类/属性，新主题即时到位
-            const setMode = (mode: string) => {
-                html.setAttribute("data-theme-mode", mode);
-                localStorage.setItem("theme", mode);
-                applyResolvedTheme(mode === DARK_MODE);
-                window.dispatchEvent(new CustomEvent("theme-change"));
-            };
-
-            const current = getStoredMode();
-            const next = current === LIGHT_MODE ? DARK_MODE : LIGHT_MODE;
-            setMode(next);
         };
     }
 }

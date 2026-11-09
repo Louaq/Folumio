@@ -1,88 +1,79 @@
-
 @layer utilities {
+  .theme-switch-container {
+    position: relative;
+  }
+
   #scheme-switch.theme-switch {
-    width: 52px;
-    height: 28px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
     padding: 0;
-    border-radius: 999px;
-    overflow: hidden;
-    box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.06);
-  }
-  :root.dark #scheme-switch.theme-switch {
-    box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.1);
-  }
-
-  #scheme-switch .switch-face {
-    position: absolute;
-    inset: 0;
-    opacity: 0;
-  }
-  #scheme-switch .switch-face-light {
-    background: linear-gradient(135deg, #6fb3e0 0%, #bfe3f7 55%, #fdf6e3 100%);
-  }
-  #scheme-switch .switch-face-dark {
-    background: linear-gradient(135deg, #0d1128 0%, #1c1a45 55%, #2f2264 100%);
-  }
-  html[data-theme-mode='light'] #scheme-switch .switch-face-light {
-    opacity: 1;
-  }
-  html[data-theme-mode='dark'] #scheme-switch .switch-face-dark {
-    opacity: 1;
+    border: none;
+    border-radius: 50%;
+    background: transparent;
+    color: inherit;
+    cursor: pointer;
   }
 
-  /* 星星：仅暗色模式可见 */
-  #scheme-switch .switch-star {
-    position: absolute;
+  #scheme-switch .theme-mode-icon {
+    display: none;
+    font-size: 20px;
+  }
+
+  html[data-theme-mode='light'] #scheme-switch [data-mode-icon='light'],
+  html[data-theme-mode='dark'] #scheme-switch [data-mode-icon='dark'],
+  html[data-theme-mode='auto'] #scheme-switch [data-mode-icon='auto'] {
     display: block;
-    width: 2px;
-    height: 2px;
-    border-radius: 50%;
-    background: #fff;
-    opacity: 0;
-  }
-  html[data-theme-mode='dark'] #scheme-switch .switch-star {
-    opacity: 0.9;
-  }
-  #scheme-switch .switch-star.s1 { top: 6px; left: 9px; }
-  #scheme-switch .switch-star.s2 { top: 15px; left: 16px; width: 3px; height: 3px; }
-  #scheme-switch .switch-star.s3 { top: 8px; left: 22px; }
-  #scheme-switch .switch-star.s4 { top: 18px; left: 7px; }
-
-  /* 滑块：圆形，随主题左右滑动，内含太阳/月亮图标交叉淡入淡出 */
-  #scheme-switch .switch-thumb {
-    position: absolute;
-    top: 3px;
-    left: 3px;
-    width: 22px;
-    height: 22px;
-    border-radius: 50%;
-    background: #fff9ec;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.25);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    z-index: 2;
-  }
-  html[data-theme-mode='dark'] #scheme-switch .switch-thumb {
-    transform: translateX(24px);
-    background: #241f42;
   }
 
-  #scheme-switch .switch-thumb .theme-icon {
+  #scheme-switch:hover,
+  #scheme-switch[aria-expanded='true'] {
+    background: color-mix(in oklch, currentColor 8%, transparent);
+  }
+
+  #scheme-switch:focus-visible {
+    outline: 2px solid currentColor;
+    outline-offset: 2px;
+  }
+
+  #theme-mode-panel {
     position: absolute;
-    inset: 0;
+    top: calc(100% + 4px);
+    right: 0;
+    z-index: 50;
+    min-width: 120px;
+    padding: 6px;
+    border-radius: 16px;
+    background: var(--card-bg);
+    color: var(--juejin-text-primary);
+    box-shadow: 0 8px 24px rgb(0 0 0 / 12%);
+  }
+
+  #theme-mode-panel button {
     display: flex;
     align-items: center;
-    justify-content: center;
-    opacity: 0;
-  }
-  html[data-theme-mode='light'] #scheme-switch .switch-thumb .theme-icon-light {
-    opacity: 1;
-  }
-  html[data-theme-mode='dark'] #scheme-switch .switch-thumb .theme-icon-dark {
-    opacity: 1;
-  }
-  #scheme-switch .switch-icon {
+    gap: 12px;
+    width: 100%;
+    min-height: 48px;
+    padding: 0 12px;
+    border-radius: 12px;
+    white-space: nowrap;
     font-size: 14px;
+    cursor: pointer;
+  }
+
+  #theme-mode-panel svg {
+    font-size: 20px;
+  }
+
+  #theme-mode-panel button:is(:hover, :focus-visible) {
+    background: color-mix(in oklch, currentColor 8%, transparent);
+  }
+
+  #theme-mode-panel button[aria-checked='true'] {
+    background: color-mix(in oklch, var(--primary) 22%, var(--card-bg));
+    color: var(--primary);
   }
 }
