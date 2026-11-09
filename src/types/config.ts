@@ -53,6 +53,7 @@ export type SiteConfig = {
 
 	navbar: {
 		logo?: {
+			enable: boolean; // 是否显示导航栏 Logo
 			type: "icon" | "image" | "url";
 			value: string; // icon 名称、本地图片路径或网络图片 url
 			alt?: string; // 图片alt文本

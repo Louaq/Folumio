@@ -39,6 +39,7 @@ let links: NavBarLink[] = navBarConfig.links.map(
             aria-label="Go to Home Page"
             class="navbar-brand-link navbar-group max-lg:hidden"
         >
+            {siteConfig.navbar.logo?.enable && (
             <div class="flex min-w-0 flex-row items-center justify-center text-[16px] dark:text-white">
                                 {siteConfig.navbar.logo?.type === "icon" ? (
                                     <Icon name={siteConfig.navbar.logo.value || "material-symbols:home-pin-outline"} class="shrink-0 text-[1.75rem]" />
@@ -50,6 +51,7 @@ let links: NavBarLink[] = navBarConfig.links.map(
                                     <Icon name="material-symbols:home-pin-outline" class="shrink-0 text-[1.75rem]" />
                                 )}
             </div>
+            )}
             <span>{siteConfig.title}</span>
         </a>
         <div

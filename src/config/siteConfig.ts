@@ -43,7 +43,7 @@ export const siteConfig: SiteConfig = {
 
 	favicon: [
 		{
-			src: "https://pic1.imgdb.cn/item/691c65bb3203f7be0013b576.png",
+			src: "/assets/images/index.webp",
 			theme: "light",
 			sizes: "32x32",
 		},
@@ -60,8 +60,9 @@ export const siteConfig: SiteConfig = {
 		// 2. 本地图片: { type: "image", value: "/assets/images/logo.webp", alt: "Firefly Logo" }
 		// 3. 网络图片: { type: "url", value: "https://example.com/logo.png", alt: "Firefly Logo" }
 		logo: {
+			enable: false, // 是否启用 Logo
 			type: "image",
-			value: "/assets/images/favicon.png",
+			value: "",
 			alt: "",
 		},
 	},
