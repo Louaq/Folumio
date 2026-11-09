@@ -38,6 +38,3 @@ Docs-Firefly/
 cache/
 package/
 .obsidian/
-
-# 正文字体的完整 TTF（~8MB），仅作 `pnpm subset-font` 的本地输入，不入库
-font-src/*.ttf

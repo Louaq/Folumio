@@ -52,7 +52,7 @@
 
 **性能**
 - ⚡ Swup 页面过渡；KaTeX、评论、PDF / 视频播放器等按需懒加载
-- 🔤 正文中文字体按全站用字子集化并分层切片
+- 🔤 正文中文字体按 unicode-range 加载切片
 
 ## 技术栈
 
@@ -84,11 +84,7 @@ pnpm preview   # 本地预览构建产物
 | `pnpm format` | 使用 Biome 格式化代码 |
 | `pnpm lint` | 使用 Biome 检查并修复代码 |
 | `pnpm new-post -- <文件名>` | 在 `src/content/posts/` 创建带 front-matter 的新文章 |
-| `pnpm subset-font` | 按全站用字子集化正文字体（需先把原始 TTF 放进 `font-src/`，依赖 Python fonttools） |
-| `pnpm split-font` | 在 `build` 之后运行，把子集字体按页面用字切成两层 woff2 |
 | `pnpm prune-pdfjs` | 裁剪 `public/pdfjs/` 中用不到的 pdf.js 资源（升级 pdf.js 后重跑） |
-
-新增生僻字后的字体流程：`pnpm subset-font` → `pnpm build` → `pnpm split-font` → 提交产物。
 
 ## 写文章
 
@@ -201,7 +197,6 @@ src/
 ├── plugins/      # remark/rehype 自定义插件
 └── styles/       # 全局样式
 scripts/          # 新建文章、字体子集化与切片、pdf.js 裁剪
-font-src/         # 字体子集化的中间产物
 public/           # 静态资源（含自托管 pdf.js）
 ```
 

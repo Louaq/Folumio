@@ -187,14 +187,12 @@ export type HomeTopNoticeConfig = {
 	switchInterval?: number;
 };
 
-// 正文字体（本地托管，由 scripts/split-font.js 分层切片后以样式表形式加载）
+// 正文字体（本地托管，以样式表形式加载）
 export type BodyFont = {
 	name: string; // 字体显示名称
 	family: string; // CSS font-family 名称
 	/**
-	 * 分层切片产物的样式表路径（含各层 @font-face 与 unicode-range）。
-	 * 由 `pnpm split-font` 生成，不再是单个字体文件——所以这里是 css 而非 src，
-	 * font-display / format 等也都写在生成的样式表里，无需在配置中重复。
+	 * 字体样式表路径，包含 @font-face、unicode-range 与 font-display。
 	 */
 	css: string;
 };

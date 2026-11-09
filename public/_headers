@@ -3,17 +3,10 @@
   Cache-Control: public, max-age=31536000, immutable
 
 # 字体文件：长缓存（含 _astro 之外的 woff2/woff）
-# 分层 woff2 由 scripts/split-font.js 产出，文件名带内容哈希（tier-a.<hash>.woff2），
-# 改字体必然换名，可安全 immutable；katex 字体随 katex 版本更新，实际同样稳定
 /*.woff2
   Cache-Control: public, max-age=31536000, immutable
 /*.woff
   Cache-Control: public, max-age=31536000, immutable
-
-# 分片字体的样式表：文件名固定不带哈希，重新切片后内容会变（指向新的哈希分片），
-# 必须允许重新校验，否则客户端会一直指向已经不存在的旧分片
-/font/harmony/result.css
-  Cache-Control: public, max-age=3600, must-revalidate
 
 # public/assets 下的图片/JS：30 天
 /assets/*

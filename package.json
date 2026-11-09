@@ -11,8 +11,6 @@
     "astro": "astro",
     "type-check": "tsc --noEmit --isolatedDeclarations",
     "new-post": "node scripts/new-post.js",
-    "subset-font": "node scripts/subset-font.js",
-    "split-font": "node scripts/split-font.js",
     "prune-pdfjs": "node scripts/prune-pdfjs.js",
     "format": "biome format --write ./src",
     "lint": "biome check --write ./src",
