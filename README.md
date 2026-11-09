@@ -8,19 +8,22 @@
 
 **首页**
 
-![首页](https://pic1.imgdb.cn/i/034uLhQRXN4IgV8kbuFdYG.webp)
+![首页](https://pic1.imgdb.cn/i/034uRnRIKFL5z4ahy4qmzm.webp)
 
 **文章页**
 
-![文章页](https://pic1.imgdb.cn/i/034uLhQd8ZipVdbjrrK9yv.webp)
+![文章页](https://pic1.imgdb.cn/i/034uRnX2K3cEnySMLqYuvJ.webp)
 
 **归档页**
 
-![归档页](https://pic1.imgdb.cn/i/034uLhUnAMJ03JGbN693ss.webp)
+![归档页](https://pic1.imgdb.cn/i/034uRnVSSD0Fm3fOBm1WVF.webp)
 
 **追番**
 
-![追番 / 观影清单](https://pic1.imgdb.cn/i/034uLhSNF4cMLr2igzdfDU.webp)
+![追番](https://pic1.imgdb.cn/i/034uRnUz0km9RT1DdzjVyh.webp)
+
+**404**
+![404](https://pic1.imgdb.cn/i/034uRqgBYH6EAVEfCARG0Y.webp)
 
 ## 特性
 
