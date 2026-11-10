@@ -3,14 +3,13 @@ import type { HomeTopNoticeConfig, HomeTopNoticeItem } from "../types/config";
 export const homeTopNoticeConfig: HomeTopNoticeConfig = {
 	enable: true,
 	// 轮播间隔（毫秒），只有多条通知时才有效
-	switchInterval: 10000,
+	switchInterval: 8000,
 	items: [
 		{
 			title: "最新动态",
 			content: "从2026年开始, 将会使用AI进行润色",
 			link: {
 				enable: false,
-				text: "",
 				url: "",
 				external: false,
 			},
@@ -20,8 +19,7 @@ export const homeTopNoticeConfig: HomeTopNoticeConfig = {
 			content: "天上白玉京, 十二楼五城",
 			link: {
 				enable: false,
-				text: "",
-				url: "",
+				url: "https://louaq.net",
 				external: false,
 			},
 		},

@@ -175,7 +175,6 @@ export type HomeTopNoticeItem = {
 	icon?: string;
 	link?: {
 		enable: boolean;
-		text: string;
 		url: string;
 		external?: boolean;
 	};
