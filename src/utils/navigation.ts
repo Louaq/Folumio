@@ -1,5 +1,3 @@
-import { siteConfig } from "@/config/siteConfig";
-
 /**
  * 移除文件扩展名（.md, .mdx, .markdown）
  * 用于将 Astro v5 Content Layer API 的 id 转换为 URL 友好的 slug
@@ -34,15 +32,12 @@ function getStablePostPathId(contentId: string): string {
 }
 
 /**
- * 文章在 /posts/… 下的路径段：优先 `slug`，其次由 postPathMode 决定 hash 或 legacy。
+ * 文章在 /posts/… 下的路径段：优先 `slug`，未设置时生成稳定短 hash。
  */
 export function getResolvedPostPath(id: string, data: PostPathSource): string {
 	const custom = data.slug?.trim();
 	if (custom) {
 		return custom.replace(/^[\\/]+|[\\/]+$/g, "").replace(/\\/g, "/");
-	}
-	if (siteConfig.postPathMode === "legacy") {
-		return removeFileExtension(id);
 	}
 	return getStablePostPathId(id);
 }

@@ -67,7 +67,7 @@ export type SiteConfig = {
 	};
 	outdatedThreshold?: number; // 过期提醒卡片：距上次编辑超过该天数才显示（元信息更新日期不受此限制）
 
-	postPathMode?: "hash" | "legacy";
+	postPathMode?: "hash";
 
 	// 页面开关配置
 	pages: {

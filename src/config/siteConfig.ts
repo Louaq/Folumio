@@ -102,7 +102,7 @@ export const siteConfig: SiteConfig = {
 	// 文章过期阈值（天数），超过此天数才显示过期提醒卡片（元信息里的更新日期不受此阈值影响）
 	outdatedThreshold: 10,
 
-	// 文章 URL：hash=自动生成稳定短 id；legacy=旧版「文件名去扩展名」长路径
+	// 文章 URL：默认 hash，自动生成稳定短 id
 	postPathMode: "hash",
 
 	// 页面开关配置 - 控制特定页面的访问权限，设为false会返回404
