@@ -1,6 +1,3 @@
-// 动漫观影清单配置
-// 用于配置最近观看的动漫作品
-
 import type { WatchlistItem } from "./types";
 
 export const animeItems: WatchlistItem[] = [

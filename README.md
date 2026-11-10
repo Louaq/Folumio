@@ -155,7 +155,7 @@ lang: ""
 | `commentConfig.ts` | 评论系统（Twikoo） |
 | `expressiveCodeConfig.ts` | 代码块主题 |
 | `fontConfig.ts` | 字体 |
-| `footerConfig.ts` / `FooterConfig.html` | 页脚 HTML 注入 |
+| `footerConfig.ts` | 页脚版权、导航、支持方、友链及访问统计 |
 | `friendsConfig.ts` | 友链 |
 | `watchlist/` | 追番 / 观影清单数据（动画、电影、剧集） |
 

@@ -28,6 +28,11 @@ export type SiteConfig = {
 	// 字体配置
 	font: FontConfig;
 
+	floatingControls: {
+		music: boolean;
+		backToTop: boolean;
+	};
+
 	// 站点开始日期，用于计算运行天数
 	siteStartDate?: string; // 格式: "YYYY-MM-DD"
 
@@ -222,7 +227,24 @@ export type FontConfig = {
 };
 
 export type FooterConfig = {
-	enable: boolean; // 是否启用Footer HTML注入功能
+	copyright: { name: string; url: string };
+	poweredBy: { name: string; url: string }[];
+	support: { name: string; url: string; image: string };
+	navigation: {
+		name: string;
+		url: string;
+		external?: boolean;
+		icon?: string;
+		noSwup?: boolean;
+	}[];
+	friendLinks: {
+		name: string;
+		url: string;
+		image: string;
+		alt: string;
+		width: number;
+		height: number;
+	}[];
 	visitorCount?: {
 		enable: boolean; // 是否在页脚显示访客计数
 		apiUrl?: string; // 统计接口地址（Vercount，接口与不蒜子兼容）

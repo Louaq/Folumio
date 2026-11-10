@@ -53,6 +53,12 @@ export const siteConfig: SiteConfig = {
 		border: true,
 	},
 
+	// 悬浮按钮开关（移动端沿用现有隐藏规则）
+	floatingControls: {
+		music: true, // 是否启用音乐播放器按钮及播放器
+		backToTop: true, // 是否启用返回顶部按钮
+	},
+
 	// 导航栏配置
 	navbar: {
 		// 支持三种类型：

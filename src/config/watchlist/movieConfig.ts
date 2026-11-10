@@ -1,6 +1,3 @@
-// 电影观影清单配置
-// 用于配置最近观看的电影作品
-
 import type { WatchlistItem } from "./types";
 
 export const movieItems: WatchlistItem[] = [

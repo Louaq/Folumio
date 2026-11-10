@@ -1,6 +1,3 @@
-// 电视剧观影清单配置
-// 用于配置最近观看的电视剧作品
-
 import type { WatchlistItem } from "./types";
 
 export const tvItems: WatchlistItem[] = [
