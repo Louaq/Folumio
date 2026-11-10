@@ -122,6 +122,7 @@ export default defineConfig({
 					"folder-open-outline",
 					"folder-outline",
 					"handshake-outline",
+					"group-outline",
 					"home-outline",
 					"keyboard-arrow-down-rounded",
 					"keyboard-arrow-right",

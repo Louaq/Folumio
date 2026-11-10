@@ -6,9 +6,8 @@ import { siteConfig } from "@/config/siteConfig";
 import { getFriendFeed } from "@/utils/friend-feed";
 import { url } from "@/utils/navigation";
 
-if (!siteConfig.pages.friends) return Astro.redirect("/404/");
-
 export const getStaticPaths = (async ({ paginate }) => {
+	if (!siteConfig.pages.circle) return [];
 	const { articles, sourceCount, failed } = await getFriendFeed();
 	return paginate(articles, {
 		pageSize: 24,
@@ -35,7 +34,7 @@ const formatDate = (date: string) =>
         <h2>朋友们的新文章</h2>
         <p class="circle-description">来自 {sourceCount} 个友链订阅源，按发布时间排序。</p>
       </div>
-      <a class="circle-friends" href={url("/friends/")}>查看友链 ↗</a>
+      {siteConfig.pages.friends && <a class="circle-friends" href={url("/friends/")}>查看友链 ↗</a>}
     </header>
 
     <div class="circle-meta">

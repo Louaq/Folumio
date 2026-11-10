@@ -15,8 +15,9 @@ export const GET: APIRoute = async ({ site }) => {
 		getTagList(),
 	]);
 	const paths = ["/", "/about/", "/archive/", "/categories/", "/tags/"];
-	if (siteConfig.pages.friends) {
-		paths.push("/friends/", "/circle/");
+	if (siteConfig.pages.friends) paths.push("/friends/");
+	if (siteConfig.pages.circle) {
+		paths.push("/circle/");
 		const { articles } = await getFriendFeed();
 		for (let page = 2; page <= Math.ceil(articles.length / 24); page++) {
 			paths.push(`/circle/${page}/`);

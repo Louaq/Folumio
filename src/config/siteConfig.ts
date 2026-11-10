@@ -108,6 +108,7 @@ export const siteConfig: SiteConfig = {
 	// 页面开关配置 - 控制特定页面的访问权限，设为false会返回404
 	pages: {
 		friends: true,
+		circle: true, 
 		watchlist: true, 
 	},
 

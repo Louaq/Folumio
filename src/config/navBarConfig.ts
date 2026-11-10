@@ -4,31 +4,18 @@ import {
 	type NavBarLink,
 } from "../types/config";
 import { siteConfig } from "./siteConfig";
-import { LinkPresets } from "../constants/link-presets";
 
 const getDynamicNavBarConfig = (): NavBarConfig => {
 	const links: (NavBarLink | LinkPreset)[] = [
-
 		LinkPreset.Home,
-		{
-			...LinkPresets[LinkPreset.Archive],
-			name: "文章",
-			icon: "material-symbols:article-outline",
-			children: [
-				LinkPreset.Archive,
-				LinkPreset.Categories,
-				LinkPreset.Tags,
-			],
-		},
+		LinkPreset.Articles,
 	];
 
 	if (siteConfig.pages.friends) {
 		links.push(LinkPreset.Friends);
-		links.push({
-			name: "朋友圈",
-			url: "/circle/",
-			icon: "material-symbols:calendar-month-outline-rounded",
-		});
+	}
+	if (siteConfig.pages.circle) {
+		links.push(LinkPreset.Circle);
 	}
 	if (siteConfig.pages.watchlist) {
 		links.push(LinkPreset.Watchlist);

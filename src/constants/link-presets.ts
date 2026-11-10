@@ -18,10 +18,21 @@ export const LinkPresets: { [key in LinkPreset]: NavBarLink } = {
 		url: "/archive/",
 		icon: "material-symbols:folder-outline",
 	},
+	[LinkPreset.Articles]: {
+		name: i18n(I18nKey.articles),
+		url: "/archive/",
+		icon: "material-symbols:article-outline",
+		children: [LinkPreset.Archive, LinkPreset.Categories, LinkPreset.Tags],
+	},
 	[LinkPreset.Friends]: {
 		name: i18n(I18nKey.friends),
 		url: "/friends/",
 		icon: "material-symbols:handshake-outline",
+	},
+	[LinkPreset.Circle]: {
+		name: i18n(I18nKey.circle),
+		url: "/circle/",
+		icon: "material-symbols:group-outline",
 	},
 	[LinkPreset.Watchlist]: {
 		name: i18n(I18nKey.watchlist),

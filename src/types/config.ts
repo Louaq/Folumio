@@ -72,6 +72,7 @@ export type SiteConfig = {
 	// 页面开关配置
 	pages: {
 		friends: boolean; // 友链页面开关
+		circle: boolean; // 朋友圈页面开关
 		watchlist: boolean; // 观影清单页面开关
 	};
 
@@ -95,6 +96,8 @@ export enum LinkPreset {
 	Watchlist = 7,
 	Categories = 8,
 	Tags = 9,
+	Circle = 10,
+	Articles = 11,
 }
 
 export type NavBarLink = {
