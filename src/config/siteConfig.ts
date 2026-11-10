@@ -49,10 +49,6 @@ export const siteConfig: SiteConfig = {
 		},
 	],
 
-	card: {
-		border: true,
-	},
-
 	// 悬浮按钮开关（移动端沿用现有隐藏规则）
 	floatingControls: {
 		music: true, // 是否启用音乐播放器按钮及播放器
@@ -93,11 +89,6 @@ export const siteConfig: SiteConfig = {
 
 	// 文章页「上次编辑」相关展示：false 时隐藏元信息里的更新日期 + 正文前的过期提醒卡片
 	showLastModified: true,
-
-	coverImage: {
-		// 是否在文章详情页显示封面图
-		enableInPost: false,
-	},
 
 	license: {
 		// 是否启用文章底部许可证信息显示

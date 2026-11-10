@@ -19,12 +19,6 @@ export type SiteConfig = {
 		defaultMode?: LIGHT_DARK_MODE; // 默认模式：浅色、深色或跟随系统
 	};
 
-	// 卡片样式配置
-	card: {
-		// 是否开启卡片边框和阴影立体效果
-		border: boolean;
-	};
-
 	// 字体配置
 	font: FontConfig;
 
@@ -66,9 +60,6 @@ export type SiteConfig = {
 	};
 
 	showLastModified: boolean; // 控制文章页元信息中的更新日期与正文前过期提醒卡片
-	coverImage: {
-		enableInPost: boolean; // 是否在文章详情页显示封面图
-	};
 	license: {
 		enable: boolean;
 		name: string;
