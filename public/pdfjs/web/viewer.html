@@ -28,9 +28,10 @@ See https://github.com/adobe-type-tools/cmap-resources
     <title>PDF.js viewer</title>
 
 <!-- This snippet is used in production (included from viewer.html) -->
-<link rel="resource" type="application/l10n" href="https://cdn.jsdmirror.com/gh/Louaq/Folumio@869a57f2b3c7c0b1a8f434c581f6b374e591637e/public/pdfjs/web/locale/locale.json">
+<link rel="resource" type="application/l10n" href="locale/locale.json">
+<script src="../build/pdf.mjs" type="module"></script>
 
-    <link rel="stylesheet" href="https://cdn.jsdmirror.com/gh/Louaq/Folumio@869a57f2b3c7c0b1a8f434c581f6b374e591637e/public/pdfjs/web/viewer.css">
+    <link rel="stylesheet" href="viewer.css">
 
     <!-- 自定义：禁用注释/打印/保存等功能，防止 PDF 被复制或下载 -->
     <style>
@@ -52,23 +53,7 @@ See https://github.com/adobe-type-tools/cmap-resources
       }
     </style>
 
-  <script type="module">
-    import "https://cdn.jsdmirror.com/gh/Louaq/Folumio@869a57f2b3c7c0b1a8f434c581f6b374e591637e/public/pdfjs/build/pdf.mjs";
-
-    const cdnBase = "https://cdn.jsdmirror.com/gh/Louaq/Folumio@869a57f2b3c7c0b1a8f434c581f6b374e591637e/public/pdfjs";
-    function configureViewer(event) {
-      if (event.detail.source !== window) return;
-      window.PDFViewerApplicationOptions.setAll({
-        workerSrc: `${cdnBase}/build/pdf.worker.mjs`,
-        cMapUrl: `${cdnBase}/web/cmaps/`,
-        standardFontDataUrl: `${cdnBase}/web/standard_fonts/`,
-        imageResourcesPath: `${cdnBase}/web/images/`,
-      });
-      parent.document.removeEventListener("webviewerloaded", configureViewer);
-    }
-    parent.document.addEventListener("webviewerloaded", configureViewer);
-    await import(`${cdnBase}/web/viewer.mjs`);
-  </script>
+  <script src="viewer.mjs" type="module"></script>
   </head>
 
   <body tabindex="0">
