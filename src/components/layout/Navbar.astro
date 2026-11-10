@@ -8,6 +8,7 @@ import { LinkPreset, type NavBarLink } from "@/types/config";
 import { isHomePage, url } from "@/utils/navigation";
 import DropdownMenu from "./DropdownMenu.astro";
 import NavMenuPanel from "./NavMenuPanel.astro";
+import RouteProgress from "./RouteProgress.astro";
 
 const className = Astro.props.class;
 
@@ -22,6 +23,7 @@ let links: NavBarLink[] = navBarConfig.links.map(
 	},
 );
 ---
+<RouteProgress />
 <div id="navbar" class="z-50 top-app-bar--transparent" data-is-home={isHomePageCheck}>
     <div class:list={[
         className,

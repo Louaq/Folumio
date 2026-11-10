@@ -1,0 +1,110 @@
+<!-- Adapted from LyraVoid/Shirone RouteProgress and ProgressIndicator (MIT). -->
+<div id="route-progress" aria-hidden="true">
+    <span class="route-progress-line route-progress-line--1"></span>
+    <span class="route-progress-line route-progress-line--2"></span>
+</div>
+
+<script>
+const progress = document.getElementById("route-progress")!;
+
+document.addEventListener("swup:visit:start", () => {
+    progress.classList.add("route-progress--visible");
+});
+
+function hideProgress() {
+    progress.classList.remove("route-progress--visible");
+}
+
+document.addEventListener("swup:page:view", hideProgress);
+document.addEventListener("swup:visit:abort", hideProgress);
+</script>
+
+<style>
+@property --route-head-1 {
+    syntax: "<number>";
+    inherits: true;
+    initial-value: 0;
+}
+@property --route-tail-1 {
+    syntax: "<number>";
+    inherits: true;
+    initial-value: 0;
+}
+@property --route-head-2 {
+    syntax: "<number>";
+    inherits: true;
+    initial-value: 0;
+}
+@property --route-tail-2 {
+    syntax: "<number>";
+    inherits: true;
+    initial-value: 0;
+}
+
+#route-progress {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    z-index: 65;
+    opacity: 0;
+    overflow: hidden;
+    pointer-events: none;
+    background: color-mix(in oklch, var(--primary) 20%, transparent);
+    transition: opacity 200ms cubic-bezier(0.2, 0, 0, 1);
+}
+
+#route-progress.route-progress--visible {
+    opacity: 1;
+}
+
+.route-progress-line {
+    position: absolute;
+    top: 0;
+    height: 100%;
+    border-radius: 999px;
+    background: var(--primary);
+    animation-play-state: paused !important;
+}
+
+.route-progress-line--1 {
+    left: calc(var(--route-tail-1) * 100% + 2px);
+    width: calc((var(--route-head-1) - var(--route-tail-1)) * 100% - 4px);
+    animation: route-head-1 1750ms linear infinite, route-tail-1 1750ms linear infinite;
+}
+
+.route-progress-line--2 {
+    left: calc(var(--route-tail-2) * 100% + 2px);
+    width: calc((var(--route-head-2) - var(--route-tail-2)) * 100% - 4px);
+    animation: route-head-2 1750ms linear infinite, route-tail-2 1750ms linear infinite;
+}
+
+.route-progress--visible .route-progress-line {
+    animation-play-state: running !important;
+}
+
+@keyframes route-head-1 {
+    0% { --route-head-1: 0; }
+    57.14%, 100% { --route-head-1: 1; }
+}
+@keyframes route-tail-1 {
+    0%, 14.29% { --route-tail-1: 0; }
+    71.43%, 100% { --route-tail-1: 1; }
+}
+@keyframes route-head-2 {
+    0%, 37.14% { --route-head-2: 0; }
+    85.71%, 100% { --route-head-2: 1; }
+}
+@keyframes route-tail-2 {
+    0%, 51.43% { --route-tail-2: 0; }
+    100% { --route-tail-2: 1; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    #route-progress { transition: none; }
+    .route-progress-line { animation: none; }
+    .route-progress-line--1 { left: 25%; width: 50%; }
+    .route-progress-line--2 { display: none; }
+}
+</style>
