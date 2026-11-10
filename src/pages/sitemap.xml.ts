@@ -1,4 +1,5 @@
 import type { APIRoute } from "astro";
+import { getFriendFeed } from "@/utils/friend-feed";
 import { siteConfig } from "@/config";
 import {
 	getCategoryList,
@@ -14,7 +15,13 @@ export const GET: APIRoute = async ({ site }) => {
 		getTagList(),
 	]);
 	const paths = ["/", "/about/", "/archive/", "/categories/", "/tags/"];
-	if (siteConfig.pages.friends) paths.push("/friends/");
+	if (siteConfig.pages.friends) {
+		paths.push("/friends/", "/circle/");
+		const { articles } = await getFriendFeed();
+		for (let page = 2; page <= Math.ceil(articles.length / 24); page++) {
+			paths.push(`/circle/${page}/`);
+		}
+	}
 	if (siteConfig.pages.watchlist) paths.push("/watchlist/");
 
 	const pageSize = siteConfig.pagination.postsPerPage;

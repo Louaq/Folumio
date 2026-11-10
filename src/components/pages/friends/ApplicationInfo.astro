@@ -1,5 +1,4 @@
 ---
-import { Content as SiteInfo } from "@/config/friend-info.md";
 import "@/styles/code-block.css";
 ---
 
@@ -22,6 +21,10 @@ import "@/styles/code-block.css";
 					<input name="siteurl" type="url" placeholder="https://your-site.com" />
 				</label>
 				<label class="full-width">
+					RSS / Atom 订阅地址（选填）
+					<input name="rss" type="url" placeholder="https://your-site.com/rss.xml" />
+				</label>
+				<label class="full-width">
 					站点简介
 					<input name="desc" placeholder="一句话描述…" />
 				</label>
@@ -36,10 +39,6 @@ import "@/styles/code-block.css";
 			<p class="application-tip" role="status" data-copy-status>提示：复制上方代码并在下方评论区粘贴发送即可。</p>
 		</div>
 	</div>
-	<details class="site-info custom-md" open>
-		<summary>本站友链信息</summary>
-		<SiteInfo />
-	</details>
 </section>
 
 <script>
@@ -59,6 +58,7 @@ import "@/styles/code-block.css";
 					title: "我的博客",
 					imgurl: "https://example.com/avatar.webp",
 					siteurl: "https://example.com",
+					rss: "",
 					desc: "一句话描述…",
 				};
 				function updatePreview() {
@@ -148,10 +148,6 @@ import "@/styles/code-block.css";
 	input:focus {
 		outline: none;
 	}
-	summary:focus-visible {
-		outline: none;
-		outline-offset: 3px;
-	}
 	.application-preview {
 		padding: 1.5rem;
 		border-radius: 1rem;
@@ -193,13 +189,6 @@ import "@/styles/code-block.css";
 		background: color-mix(in oklch, var(--primary) 12%, var(--card-bg));
 		color: var(--primary);
 		font-size: 0.8rem;
-	}
-	.site-info {
-		margin-top: 1.5rem;
-	}
-	summary {
-		cursor: pointer;
-		color: var(--primary);
 	}
 	@media (min-width: 1024px) {
 		.application-panel {

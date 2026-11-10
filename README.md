@@ -196,6 +196,14 @@ scripts/          # 新建文章、字体子集化与切片、pdf.js 裁剪
 public/           # 静态资源（含自托管 pdf.js）
 ```
 
+## 朋友圈
+
+导航栏的「朋友圈」对应 `/circle/`，构建时读取友链配置中的 RSS / Atom，按发布时间倒序展示文章标题、站点和日期。每站最多 10 篇，总计最多 60 篇；桌面端每行两篇、手机端单列，每页 24 篇，后续页面为 `/circle/2/` 等。
+
+在 `src/config/friendsConfig.ts` 的友链条目中添加 `rss: "https://example.com/rss.xml"` 即可参与聚合；未配置订阅源或已禁用的友链不参与。订阅源抓取失败会输出构建日志，并在页面说明未同步的站点。
+
+内容在每次 `pnpm build` 时同步，部署后不会自行刷新；需要再次构建并部署才能获取新的文章。
+
 ## 贡献
 
 欢迎提交 Issue / PR，提交前请阅读 [CONTRIBUTING.md](CONTRIBUTING.md)。

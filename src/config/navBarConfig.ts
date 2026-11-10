@@ -24,6 +24,11 @@ const getDynamicNavBarConfig = (): NavBarConfig => {
 
 	if (siteConfig.pages.friends) {
 		links.push(LinkPreset.Friends);
+		links.push({
+			name: "朋友圈",
+			url: "/circle/",
+			icon: "material-symbols:calendar-month-outline-rounded",
+		});
 	}
 	if (siteConfig.pages.watchlist) {
 		links.push(LinkPreset.Watchlist);

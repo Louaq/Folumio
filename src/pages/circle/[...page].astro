@@ -1,0 +1,208 @@
+---
+import MainGridLayout from "@/layouts/MainGridLayout.astro";
+import type { GetStaticPaths, InferGetStaticPropsType } from "astro";
+import Pagination from "@/components/common/Pagination.astro";
+import { siteConfig } from "@/config/siteConfig";
+import { getFriendFeed } from "@/utils/friend-feed";
+import { url } from "@/utils/navigation";
+
+if (!siteConfig.pages.friends) return Astro.redirect("/404/");
+
+export const getStaticPaths = (async ({ paginate }) => {
+	const { articles, sourceCount, failed } = await getFriendFeed();
+	return paginate(articles, {
+		pageSize: 24,
+		props: { sourceCount, failed, updatedAt: new Date().toISOString() },
+	});
+}) satisfies GetStaticPaths;
+
+type Props = InferGetStaticPropsType<typeof getStaticPaths>;
+const { page, sourceCount, failed, updatedAt } = Astro.props;
+const formatDate = (date: string) =>
+	new Intl.DateTimeFormat("zh-CN", {
+		year: "numeric",
+		month: "2-digit",
+		day: "2-digit",
+		timeZone: siteConfig.timezone,
+	}).format(new Date(date));
+---
+
+<MainGridLayout title="朋友圈" description="串门看看，友链站点最近都在写什么。">
+  <section class="card-base circle-page" aria-label="友链最近更新">
+    <header class="circle-header">
+      <div>
+        <p class="circle-eyebrow">FRIENDS' UPDATES</p>
+        <h2>朋友们的新文章</h2>
+        <p class="circle-description">来自 {sourceCount} 个友链订阅源，按发布时间排序。</p>
+      </div>
+      <a class="circle-friends" href={url("/friends/")}>查看友链 ↗</a>
+    </header>
+
+    <div class="circle-meta">
+      <span>最近收录 {page.total} 篇 · 第 {page.currentPage} / {page.lastPage} 页</span>
+      <span>更新于 <time datetime={updatedAt}>{formatDate(updatedAt)}</time></span>
+    </div>
+
+    {page.total > 0 ? (
+      <ol class="circle-list" start={page.start + 1}>
+        {page.data.map((article) => (
+          <li class="circle-item">
+            <img src={article.friend.imgurl} alt="" width="40" height="40" loading="lazy" />
+            <div class="circle-content">
+              <div class="circle-byline">
+                <a href={article.friend.siteurl} target="_blank" rel="noopener noreferrer">{article.friend.title}</a>
+                <time datetime={article.date}>{formatDate(article.date)}</time>
+              </div>
+              <a class="circle-title" href={article.url} target="_blank" rel="noopener noreferrer">{article.title}<span aria-hidden="true"> ↗</span></a>
+            </div>
+          </li>
+        ))}
+      </ol>
+    ) : (
+      <p class="circle-empty">暂时没有收录到文章，欢迎先去友链看看。</p>
+    )}
+
+    <Pagination page={page} pageUrlRoot="circle" class="my-6" />
+
+    <footer class="circle-note">
+      <p>内容随本站更新同步收录，每个站点最多展示 10 篇。点击标题前往原站阅读。</p>
+      {failed.length > 0 && <p>本次未能同步：{failed.join("、")}。</p>}
+    </footer>
+  </section>
+</MainGridLayout>
+
+<style>
+  .circle-page {
+    padding: 2rem;
+  }
+
+  .circle-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+  }
+
+  .circle-eyebrow {
+    font-size: .7rem;
+    letter-spacing: .12em;
+    color: var(--theme-color);
+    margin-bottom: .5rem;
+  }
+
+  h2 {
+    font-size: 1.5rem;
+    font-weight: 700;
+  }
+
+  .circle-description, .circle-meta, .circle-byline, .circle-note {
+    color: var(--juejin-text-secondary);
+    font-size: .875rem;
+  }
+
+  .circle-description {
+    margin-top: .5rem;
+  }
+
+  .circle-friends {
+    color: var(--theme-color);
+    white-space: nowrap;
+    font-size: .875rem;
+  }
+
+  .circle-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: .5rem 1.5rem;
+    margin: 1.5rem 0 .5rem;
+  }
+
+  .circle-list {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    column-gap: 1.5rem;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .circle-item {
+    min-width: 0;
+  }
+
+  .circle-item {
+    display: flex;
+    gap: 1rem;
+    padding: 1.25rem 0;
+    border-top: 1px solid var(--line-divider);
+  }
+
+  .circle-item img {
+    width: 2.5rem;
+    height: 2.5rem;
+    border-radius: 50%;
+    object-fit: cover;
+    flex-shrink: 0;
+  }
+
+  .circle-content {
+    min-width: 0;
+  }
+
+  .circle-byline {
+    display: flex;
+    flex-wrap: wrap;
+    gap: .25rem 1rem;
+    margin-bottom: .4rem;
+  }
+
+  .circle-title {
+    font-size: 1.05rem;
+    font-weight: 600;
+    line-height: 1.6;
+    overflow-wrap: anywhere;
+  }
+
+  .circle-title:hover, .circle-byline a:hover {
+    color: var(--theme-color);
+  }
+
+  a:focus-visible {
+    outline: 2px solid var(--theme-color);
+    outline-offset: 4px;
+  }
+
+  .circle-note {
+    border-top: 1px solid var(--line-divider);
+    padding-top: 1rem;
+    line-height: 1.8;
+  }
+
+  .circle-empty {
+    padding: 3rem 0;
+    text-align: center;
+  }
+
+  @media (max-width: 640px) {
+    .circle-list {
+      grid-template-columns: 1fr;
+    }
+
+    .circle-page {
+      padding: 1.25rem;
+    }
+
+    .circle-header {
+      align-items: flex-start;
+    }
+
+    h2 {
+      font-size: 1.25rem;
+    }
+
+    .circle-item {
+      gap: .75rem;
+    }
+
+  }
+</style>

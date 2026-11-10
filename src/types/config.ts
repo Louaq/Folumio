@@ -287,6 +287,7 @@ export type SidebarLayoutConfig = {
 
 // 友链配置
 export type FriendLink = {
+	rss?: string; // 朋友圈订阅源，支持 RSS / Atom；留空不参与聚合
 	title: string; // 友链标题
 	imgurl: string; // 头像图片URL
 	desc: string; // 友链描述
