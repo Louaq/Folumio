@@ -36,7 +36,7 @@ const paginationRoot = `categories/${categoryEncoded}`;
 const title = `${categoryParam} · ${i18n(I18nKey.categories)}`;
 ---
 
-<MainGridLayout title={title} description={title} hideSidebar wideContent>
+<MainGridLayout title={title} description={title}>
 	<ArchiveList posts={page.data} />
 	{
 		page.lastPage > 1 && (

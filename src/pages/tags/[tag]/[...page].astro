@@ -34,7 +34,7 @@ const paginationRoot = `tags/${tagEncoded}`;
 const title = `#${tagParam} · ${i18n(I18nKey.tags)}`;
 ---
 
-<MainGridLayout title={title} description={title} hideSidebar wideContent>
+<MainGridLayout title={title} description={title}>
 	<ArchiveList posts={page.data} />
 	{
 		page.lastPage > 1 && (
