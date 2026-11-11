@@ -43,10 +43,9 @@ const essays = [...essaysConfig.items].sort((a, b) =>
 							<p class="essay-content">{essay.content}</p>
 							{essay.images && essay.images.length > 0 && (
 								<div class="essay-images">
-									{essay.images.map((image, index) => (
+									{essay.images.map((image) => (
 										<img
 											src={image.startsWith("/") ? url(image) : image}
-											alt={`${essay.date} 随笔配图 ${index + 1}`}
 											loading="lazy"
 										/>
 									))}
