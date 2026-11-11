@@ -112,7 +112,6 @@ lang: ""
 
 首页 Banner 显示站点标题与副标题，图片由 `src/config/siteConfig.ts` 中的 `homeBanner.desktop` 和 `homeBanner.mobile` 配置。
 
-文章详情页的 Banner 使用文章的 `image` 封面图（桌面与移动端一致）；未设置封面时使用 `siteConfig.ts` 中的默认桌面与移动端 Banner。
 
 ### 自定义指令
 

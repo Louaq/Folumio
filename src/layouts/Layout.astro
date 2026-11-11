@@ -305,15 +305,6 @@ const collapsiblePreviewLines =
       document.getElementById("navbar")?.setAttribute("data-is-home", String(isHomePage));
       const banner = document.querySelector<HTMLElement>(".banner-stage")!;
       const carrier = document.getElementById("grid-class-carrier")!;
-      const cover = JSON.parse(carrier.dataset.bannerCover!);
-      const wallpaper = cover ?? JSON.parse(banner.dataset.defaultDesktop!);
-      const bannerImage = banner.querySelector<HTMLImageElement>(".banner-stage__default img")!;
-      bannerImage.src = wallpaper.src;
-      for (const attribute of ["width", "height"] as const) {
-        if (wallpaper[attribute] !== undefined) bannerImage.setAttribute(attribute, String(wallpaper[attribute]));
-        else bannerImage.removeAttribute(attribute);
-      }
-      banner.querySelector<HTMLSourceElement>(".banner-stage__default source")!.srcset = cover?.src ?? banner.dataset.defaultMobile!;
       banner.querySelector(".banner-stage__title")!.textContent = carrier.dataset.bannerTitle!;
       const bannerTitle = banner.querySelector(".banner-stage__title")!;
       if (isPostPage) bannerTitle.id = "post-title";

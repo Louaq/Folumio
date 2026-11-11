@@ -7,7 +7,7 @@ import I18nKey from "@i18n/i18nKey";
 import { i18n } from "@i18n/translation";
 import MainGridLayout from "@layouts/MainGridLayout.astro";
 import { getSortedPosts } from "@utils/content-utils";
-import { getFileDirFromPath, getResolvedPostPath } from "@utils/navigation";
+import { getResolvedPostPath } from "@utils/navigation";
 import { Icon } from "astro-icon/components";
 import qrcode from "qrcode-generator";
 import PostMetadata from "@/components/layout/PostMeta.astro";
@@ -88,8 +88,6 @@ const jsonLd = {
   lang={entry.data.lang}
   setOGTypeArticle={true}
   postSlug={getResolvedPostPath(entry.id, entry.data)}
-  bannerImage={entry.data.image}
-  bannerImageBasePath={`/src/${getFileDirFromPath(entry.filePath!)}`}
   headings={headings}
 >
   <script

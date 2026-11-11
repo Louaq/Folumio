@@ -1,31 +1,39 @@
 ﻿---
 // Adapted from LyraVoid/Shirone BannerStage.astro (MIT).
+import type { ImageMetadata } from "astro";
 import { siteConfig } from "@/config";
-import { type BannerImage, resolveBannerImage } from "@/utils/banner-image";
 import BannerWaves from "./BannerWaves.astro";
 interface Props {
 	title?: string;
 	description?: string;
 	metadata?: string;
 	isPost?: boolean;
-	cover?: BannerImage;
 }
-const { title, description, metadata, isPost, cover } = Astro.props;
+const { title, description, metadata, isPost } = Astro.props;
+const images = import.meta.glob<ImageMetadata>(
+	"/src/assets/**/*.{png,jpg,jpeg,webp,gif,avif,svg}",
+	{ import: "default" }
+);
+async function resolveWallpaper(
+	src: string
+): Promise<{ src: string; width?: number; height?: number }> {
+  if (src.startsWith("/") || /^https?:\/\//.test(src)) return { src };
+  return images[`/src/${src}`]();
+}
 const [desktop, mobile] = await Promise.all([
-  resolveBannerImage(siteConfig.homeBanner.desktop),
-  resolveBannerImage(siteConfig.homeBanner.mobile),
+  resolveWallpaper(siteConfig.homeBanner.desktop),
+  resolveWallpaper(siteConfig.homeBanner.mobile),
 ]);
-const wallpaper = cover ?? desktop;
 ---
-<section class="banner-stage" aria-label={title || siteConfig.title} data-default-desktop={JSON.stringify(desktop)} data-default-mobile={mobile.src}>
+<section class="banner-stage" aria-label={title || siteConfig.title}>
   <div class="banner-stage__media" aria-hidden="true">
     <picture>
-      <source media="(max-width: 1023px)" srcset={cover?.src ?? mobile.src} />
+      <source media="(max-width: 1023px)" srcset={mobile.src} />
       <img
         class="banner-stage__image"
-        src={wallpaper.src}
-        width={wallpaper.width}
-        height={wallpaper.height}
+        src={desktop.src}
+        width={desktop.width}
+        height={desktop.height}
         alt=""
         fetchpriority="high"
         loading="eager"
@@ -43,7 +51,6 @@ const wallpaper = cover ?? desktop;
   </div>
   <BannerWaves />
 </section>
-
 <style>
   .banner-stage {
     position: relative;
