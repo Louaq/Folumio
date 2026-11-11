@@ -16,7 +16,12 @@ export const essaysConfig: {
 		{
 			date: "2026-11-11",
 			content: "在这里写下一段随笔。\n也可以换行继续记录",
-			//images: ["https://pic1.imgdb.cn/i/034pQ8sylkcdgznae7R14n.webp&w=600px&h=650px"],
+			images: ["https://pic1.imgdb.cn/i/034ZNXV1j7FrOPsXhA8ARN.webp"],
+		},
+		{
+			date: "2026-11-07",
+			content: "立冬",
+			//images: ["https://pic1.imgdb.cn/i/034ZNXucDQ7W8ywH9ZrrrC.webp"],
 		},
 	],
 };

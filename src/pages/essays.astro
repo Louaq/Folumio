@@ -1,5 +1,5 @@
 ---
-import { siteConfig } from "@/config";
+import { profileConfig, siteConfig } from "@/config";
 import { essaysConfig } from "@/config/essaysConfig";
 import MainGridLayout from "@/layouts/MainGridLayout.astro";
 import { url } from "@/utils/navigation";
@@ -23,8 +23,23 @@ const essays = [...essaysConfig.items].sort((a, b) =>
 			<ol class="essays-list">
 				{essays.map((essay) => (
 					<li>
-						<article>
-							<time datetime={essay.date}>{essay.date}</time>
+						<article class="essay-entry">
+							<div class="essay-avatar">
+								{profileConfig.avatar && (
+									<img
+										src={profileConfig.avatar.startsWith("/") ? url(profileConfig.avatar) : profileConfig.avatar}
+										alt={profileConfig.name}
+										width="40"
+										height="40"
+										loading="lazy"
+									/>
+								)}
+							</div>
+							<div class="essay-body">
+								<header class="essay-author">
+									<span class="essay-author-name">{profileConfig.name}</span>
+									{profileConfig.level && <span class="essay-author-level">{profileConfig.level}</span>}
+								</header>
 							<p class="essay-content">{essay.content}</p>
 							{essay.images && essay.images.length > 0 && (
 								<div class="essay-images">
@@ -37,6 +52,8 @@ const essays = [...essaysConfig.items].sort((a, b) =>
 									))}
 								</div>
 							)}
+								<time datetime={essay.date}>{essay.date}</time>
+							</div>
 						</article>
 					</li>
 				))}
@@ -77,9 +94,42 @@ const essays = [...essaysConfig.items].sort((a, b) =>
 	.essays-list li + li {
 		border-top: 1px solid var(--line-divider);
 	}
-	time {
-		font-size: 0.875rem;
+	.essay-entry {
+		display: grid;
+		grid-template-columns: 40px minmax(0, 1fr);
+		gap: 14px;
+	}
+	.essay-avatar img {
+		display: block;
+		width: 40px;
+		height: 40px;
+		object-fit: cover;
+		border-radius: 4px;
+	}
+	.essay-author {
+		display: flex;
+		align-items: center;
+		flex-wrap: wrap;
+		gap: 8px;
+		min-height: 24px;
+	}
+	.essay-author-name {
 		color: var(--primary);
+		font-weight: 700;
+	}
+	.essay-author-level {
+		padding: 0 4px;
+		border: 1px solid currentColor;
+		border-radius: 3px;
+		color: var(--primary);
+		font-size: 0.75rem;
+		line-height: 1.5;
+	}
+	time {
+		display: block;
+		margin-top: 24px;
+		font-size: 0.875rem;
+		color: var(--juejin-text-secondary);
 	}
 	.essay-content {
 		margin-top: 12px;
@@ -93,6 +143,7 @@ const essays = [...essaysConfig.items].sort((a, b) =>
 		margin-top: 16px;
 	}
 	.essay-images img {
+		cursor: zoom-in;
 		display: block;
 		width: 100%;
 		height: auto;

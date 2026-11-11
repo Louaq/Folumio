@@ -3,7 +3,7 @@
 ---
 
 <script>
-  const selector = ".custom-md img, #post-cover img, .moment-images img";
+  const selector = ".custom-md img, #post-cover img, .moment-images img, .essay-images img";
   let viewer: typeof import("@/utils/image-lightbox") | undefined;
   let loading: Promise<typeof import("@/utils/image-lightbox")> | undefined;
   let visit = 0;
@@ -13,7 +13,7 @@
     if (!(target instanceof HTMLImageElement) || !target.matches(selector)) return;
     event.preventDefault();
     const token = ++visit;
-    const group = target.closest(".moment-images") ?? document;
+    const group = target.closest(".moment-images, .essay-images") ?? document;
     const elements = Array.from(group.querySelectorAll<HTMLImageElement>(selector));
     const images = elements.map(
       (image) => {
