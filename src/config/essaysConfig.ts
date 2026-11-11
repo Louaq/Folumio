@@ -18,9 +18,9 @@ export const essaysConfig: {
 			images: ["https://pic1.imgdb.cn/i/034ZMknGevJT4oWECLatyW.png?w=600"],
 		},
 		{
-			date: "2026-11-11",
-			content: "互联网基础设施",
-			images: ["https://pic1.imgdb.cn/i/034pQ8sylkcdgznae7R14n.webp?w=400"],
+			date: "2026-11-10",
+			content: "斗破苍穹完结（2017-2026）",
+			images: ["https://pic1.imgdb.cn/i/034ve1lhQ9s0jxW6U7U7To.webp?w=400"],
 		},
 		{
 			date: "2026-11-07",
