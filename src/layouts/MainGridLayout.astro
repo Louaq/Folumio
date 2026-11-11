@@ -8,6 +8,7 @@ import IconifyLoader from "@/components/misc/IconifyLoader.astro";
 import { siteConfig } from "@/config";
 import { showSidebarOnMobile } from "@/utils/widget-manager";
 import Layout from "./Layout.astro";
+import { resolveBannerImage } from "@/utils/banner-image";
 
 interface Props {
 	title?: string;
@@ -15,6 +16,8 @@ interface Props {
 	lang?: string;
 	setOGTypeArticle?: boolean;
 	postSlug?: string;
+	bannerImage?: string;
+	bannerImageBasePath?: string;
 	headings?: MarkdownHeading[];
 	hideSidebar?: boolean;
 	wideContent?: boolean;
@@ -26,6 +29,8 @@ const {
 	lang,
 	setOGTypeArticle,
 	postSlug,
+	bannerImage,
+	bannerImageBasePath,
 	headings = [],
 	hideSidebar = false,
 	wideContent = false,
@@ -33,6 +38,9 @@ const {
 
 const isPostPageCheck = postSlug !== undefined;
 const bannerMetadata = await Astro.slots.render("banner-metadata");
+const bannerCover = isPostPageCheck && bannerImage
+    ? await resolveBannerImage(bannerImage, bannerImageBasePath)
+    : null;
 
 const isSingleColumnLayout = hideSidebar || isPostPageCheck;
 const PostPageTOC = isPostPageCheck
@@ -61,7 +69,7 @@ const gridCols = isSingleColumnLayout
 
 <div class="absolute top-0 w-full z-30 pointer-events-none site-banner-layout">
     <div id="home-banner-wrapper">
-        <HomeBanner title={title} description={description} metadata={bannerMetadata} isPost={isPostPageCheck} />
+        <HomeBanner title={title} description={description} metadata={bannerMetadata} isPost={isPostPageCheck} cover={bannerCover ?? undefined} />
     </div>
     <!-- The pointer-events-none here prevent blocking the click event of the TOC -->
     <div class="relative w-full max-w-(--page-width) mx-auto pointer-events-auto">
@@ -87,7 +95,7 @@ const gridCols = isSingleColumnLayout
                     : "lg:row-start-[var(--content-row)] lg:col-start-2 lg:col-end-3",
             ]}>
                 {/* 携带网格布局类名，用于JS更新父容器 */}
-                <div id="grid-class-carrier" data-grid-class={gridCols} data-white-bg={String(hideSidebar)} data-banner-title={title || siteConfig.title} data-banner-description={description || siteConfig.subtitle} class="hidden"></div>
+                <div id="grid-class-carrier" data-grid-class={gridCols} data-white-bg={String(hideSidebar)} data-banner-title={title || siteConfig.title} data-banner-description={description || siteConfig.subtitle} data-banner-cover={JSON.stringify(bannerCover)} class="hidden"></div>
                 <template id="banner-metadata-template" set:html={bannerMetadata} />
                 <div id="content-wrapper" class:list={{ "onload-animation": !isPostPageCheck }}>
                     {isPostPageCheck ? (

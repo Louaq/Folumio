@@ -1,56 +1,46 @@
 ﻿---
 // Adapted from LyraVoid/Shirone BannerStage.astro (MIT).
-import type { ImageMetadata } from "astro";
-import { posix } from "node:path";
 import { siteConfig } from "@/config";
 import { getSortedPosts } from "@/utils/content-utils";
 import { getFileDirFromPath, getPostUrlForEntry, isHomePage } from "@/utils/navigation";
+import { type BannerImage, resolveBannerImage } from "@/utils/banner-image";
 import BannerWaves from "./BannerWaves.astro";
 interface Props {
 	title?: string;
 	description?: string;
 	metadata?: string;
 	isPost?: boolean;
+	cover?: BannerImage;
 }
-const { title, description, metadata, isPost } = Astro.props;
-const images = import.meta.glob<ImageMetadata>(
-	"/src/{assets,content}/**/*.{png,jpg,jpeg,webp,gif,avif,svg}",
-	{ import: "default" }
-);
-async function resolveWallpaper(
-	src: string,
-	basePath = "/src"
-): Promise<{ src: string; width?: number; height?: number }> {
-  if (src.startsWith("/") || /^https?:\/\//.test(src)) return { src };
-  return images[posix.join(basePath, src)]();
-}
+const { title, description, metadata, isPost, cover } = Astro.props;
 const [desktop, mobile] = await Promise.all([
-  resolveWallpaper(siteConfig.homeBanner.desktop),
-  resolveWallpaper(siteConfig.homeBanner.mobile),
+  resolveBannerImage(siteConfig.homeBanner.desktop),
+  resolveBannerImage(siteConfig.homeBanner.mobile),
 ]);
+const wallpaper = cover ?? desktop;
 const posts = (await getSortedPosts())
   .filter((post) => post.data.homeCarousel && !post.data.draft)
   .sort((a, b) => (a.data.homeCarouselOrder ?? 0) - (b.data.homeCarouselOrder ?? 0));
 const articleSlides = await Promise.all(posts.map(async (post) => {
   const image = post.data.homeCarouselImage
-    ? await resolveWallpaper(post.data.homeCarouselImage)
+    ? await resolveBannerImage(post.data.homeCarouselImage)
     : post.data.image
-      ? await resolveWallpaper(post.data.image, `/src/${getFileDirFromPath(post.filePath!)}`)
+      ? await resolveBannerImage(post.data.image, `/src/${getFileDirFromPath(post.filePath!)}`)
       : desktop;
   return { title: post.data.title, description: post.data.description, href: getPostUrlForEntry(post), image };
 }));
 const slides = [{ title: siteConfig.title, description: siteConfig.subtitle, href: "", image: desktop }, ...articleSlides];
 const showCarousel = isHomePage(Astro.url.pathname) && slides.length > 1;
 ---
-<section class:list={["banner-stage", { "banner-stage--carousel": slides.length > 1 }]} aria-label={title || siteConfig.title}>
+<section class:list={["banner-stage", { "banner-stage--carousel": slides.length > 1 }]} aria-label={title || siteConfig.title} data-default-desktop={JSON.stringify(desktop)} data-default-mobile={mobile.src}>
   <div class="banner-stage__media banner-stage__default" aria-hidden="true">
     <picture>
-      <source media="(max-width: 1023px)" srcset={mobile.src} />
+      <source media="(max-width: 1023px)" srcset={cover?.src ?? mobile.src} />
       <img
         class="banner-stage__image"
-        src={desktop.src}
-        width={desktop.width}
-        height={desktop.height}
+        src={wallpaper.src}
+        width={wallpaper.width}
+        height={wallpaper.height}
         alt=""
         fetchpriority={showCarousel ? "auto" : "high"}
         loading={showCarousel ? "lazy" : "eager"}

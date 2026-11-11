@@ -117,6 +117,8 @@ lang: ""
 
 `homeCarouselImage` 可填写 `public` 图片路径（如 `/assets/coverImage/2.webp`）、HTTPS 外链或相对 `src` 的资源路径（如 `assets/banner.webp`）。直接使用文章封面时，仍支持相对文章目录的图片路径。
 
+文章详情页的 Banner 使用文章的 `image` 封面图（桌面与移动端一致）；未设置封面时使用 `siteConfig.ts` 中的默认桌面与移动端 Banner。`homeCarouselImage` 仅影响首页轮播图。
+
 ### 自定义指令
 
 ```md
