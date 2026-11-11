@@ -7,8 +7,6 @@ category: 学术会议
 tags: [CCF]
 image: /assets/coverImage/2.webp
 pinned: true
-homeCarousel: true
-homeCarouselOrder: 2
 ---
 
 ## 按截稿时间排序

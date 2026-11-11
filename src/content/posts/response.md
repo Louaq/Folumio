@@ -8,8 +8,6 @@ tags: [Response Template]
 image: /assets/coverImage/3.webp
 description: 回复审稿人模板
 pinned: true
-homeCarousel: true
-homeCarouselOrder: 3
 ---
 
 ## point-to-point response
