@@ -8,10 +8,12 @@ import { isNavPathActive, url } from "@/utils/navigation";
 
 interface Props {
 	link: NavBarLink;
+	groupIndex: number;
+	active: boolean;
 	class?: string;
 }
 
-const { link, class: className } = Astro.props;
+const { link, groupIndex, active, class: className } = Astro.props;
 
 if (!link) {
 	return null;
@@ -46,19 +48,15 @@ const processedLink = {
 const hasChildren = processedLink.children && processedLink.children.length > 0;
 const currentPath = Astro.url.pathname;
 const isCurrentLink =
-	!processedLink.external && isNavPathActive(currentPath, processedLink.url);
-const hasActiveChild =
-	processedLink.children?.some(
-		(child) => !child.external && isNavPathActive(currentPath, child.url),
-	) ?? false;
+	active && !processedLink.external && isNavPathActive(currentPath, processedLink.url);
 ---
 
-<div class:list={["dropdown-container", className]} data-dropdown>
+<div class:list={["dropdown-container", className]} data-dropdown data-nav-group={groupIndex}>
 	{hasChildren ? (
 		<button 
 			class:list={[
 				"btn-plain scale-animation rounded-lg h-11 px-5 dropdown-trigger",
-				hasActiveChild && "navbar-link-active",
+				active && "navbar-link-active",
 			]}
 			aria-expanded="false"
 			aria-haspopup="true"
@@ -77,7 +75,7 @@ const hasActiveChild =
 						return null;
 					}
 					const isChildCurrent =
-						!child.external && isNavPathActive(currentPath, child.url);
+						active && !child.external && isNavPathActive(currentPath, child.url);
 					return (
 						<DropdownItem
 							href={child.external ? child.url : url(child.url)}

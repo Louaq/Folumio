@@ -9,6 +9,7 @@ import { isNavPathActive, url } from "@/utils/navigation";
 
 interface Props {
 	links: NavBarLink[];
+	activeGroup: number;
 }
 
 const processedLinks = Astro.props.links.map((link: NavBarLink) => ({
@@ -62,13 +63,12 @@ const stats = [
         </svg>
     </div>
     <div class="mobile-nav-links">
-    {processedLinks.map((link) => {
-        const isCurrentLink = !link.external && isNavPathActive(currentPath, link.url);
-        const hasActiveChild =
-            link.children?.some((child) => !child.external && isNavPathActive(currentPath, child.url)) ?? false;
+    {processedLinks.map((link, index) => {
+        const active = index === Astro.props.activeGroup;
+        const isCurrentLink = active && !link.external && isNavPathActive(currentPath, link.url);
 
         return (
-        <div class="mobile-menu-item">
+        <div class="mobile-menu-item" data-nav-group={index}>
             {link.children && link.children.length > 0 ? (
                 <div class="mobile-dropdown" data-mobile-dropdown>
                     <button
@@ -79,8 +79,8 @@ const stats = [
                     >
                         <div class:list={[
                             "flex items-center transition-transform text-base font-medium text-[#000000B3] dark:text-white/75",
-                            hasActiveChild && "navbar-link-active",
-                        ]}>
+                            active && "navbar-link-active",
+                        ]} data-nav-active-target>
                             {link.icon && <Icon icon={link.icon} class="text-[1.35rem] mr-3" />}
                             {link.name}
                         </div>
@@ -94,7 +94,7 @@ const stats = [
                                 return null;
                             }
                             const isChildCurrent =
-                                !child.external && isNavPathActive(currentPath, child.url);
+                                active && !child.external && isNavPathActive(currentPath, child.url);
                             return (
                                 <a href={child.external ? child.url : url(child.url)}
                                    class="group flex justify-between items-center py-2.5 pl-9 pr-3 rounded-xl gap-4

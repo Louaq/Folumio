@@ -5,7 +5,7 @@ import SearchLazy from "@/components/controls/SearchLazy.astro";
 import { navBarConfig, siteConfig } from "@/config";
 import { LinkPresets } from "@/constants/link-presets";
 import { LinkPreset, type NavBarLink } from "@/types/config";
-import { isHomePage, url } from "@/utils/navigation";
+import { getActiveNavGroup, isHomePage, url } from "@/utils/navigation";
 import DropdownMenu from "./DropdownMenu.astro";
 import NavMenuPanel from "./NavMenuPanel.astro";
 import RouteProgress from "./RouteProgress.astro";
@@ -22,6 +22,12 @@ let links: NavBarLink[] = navBarConfig.links.map(
 		return item;
 	},
 );
+const activeGroup = getActiveNavGroup(Astro.url.pathname, links.map((link) => {
+	const items = link.children?.length
+		? link.children.map((child) => typeof child === "number" ? LinkPresets[child] : child)
+		: [link];
+	return items.filter((item) => !item.external).map((item) => item.url);
+}));
 ---
 <RouteProgress />
 <div id="navbar" class="z-50 top-app-bar--transparent" data-is-home={isHomePageCheck}>
@@ -62,8 +68,8 @@ let links: NavBarLink[] = navBarConfig.links.map(
             ]}
         >
             <div class="navbar-menu-items space-x-1">
-                {links.map((l) => {
-                    return <DropdownMenu link={l} />;
+                {links.map((l, index) => {
+                    return <DropdownMenu link={l} groupIndex={index} active={index === activeGroup} />;
                 })}
             </div>
         </div>
@@ -84,12 +90,12 @@ let links: NavBarLink[] = navBarConfig.links.map(
         </div>
     </div>
     <nav aria-label="移动端导航">
-        <NavMenuPanel links={links}></NavMenuPanel>
+        <NavMenuPanel links={links} activeGroup={activeGroup}></NavMenuPanel>
     </nav>
 </div>
 
 <script>
-import { isNavPathActive } from "@/utils/navigation";
+import { getActiveNavGroup, isNavPathActive } from "@/utils/navigation";
 
 const NAVBAR_ACTIVE_CLASS = "navbar-link-active";
 
@@ -98,10 +104,16 @@ function applyNavbarActivePath(path: string) {
     if (!navbar) return;
 
     const currentPath = new URL(path, window.location.origin).pathname;
+    const groups = Array.from(navbar.querySelectorAll<HTMLElement>(".navbar-menu-items > [data-nav-group]"));
+    const activeGroup = getActiveNavGroup(currentPath, groups.map((group) =>
+        Array.from(group.querySelectorAll<HTMLElement>("[data-nav-path]"), (link) => link.dataset.navPath!),
+    ));
     const navLinks = navbar.querySelectorAll<HTMLElement>("[data-nav-path]");
 
     navLinks.forEach((link) => {
-        const isActive = isNavPathActive(currentPath, link.dataset.navPath!);
+        const group = link.closest<HTMLElement>("[data-nav-group]")!;
+        const isActive = Number(group.dataset.navGroup) === activeGroup
+            && isNavPathActive(currentPath, link.dataset.navPath!);
 
         link.classList.toggle(NAVBAR_ACTIVE_CLASS, isActive);
 
@@ -109,14 +121,10 @@ function applyNavbarActivePath(path: string) {
         activeTarget?.classList.toggle(NAVBAR_ACTIVE_CLASS, isActive);
     });
 
-    navbar.querySelectorAll<HTMLElement>("[data-dropdown]").forEach((dropdown) => {
-        const trigger = dropdown.querySelector<HTMLElement>("[data-dropdown-trigger]");
-        if (!trigger) return;
-
-        const hasActiveChild = !!dropdown.querySelector(
-            `.dropdown-menu [data-nav-path].${NAVBAR_ACTIVE_CLASS}`,
-        );
-        trigger.classList.toggle(NAVBAR_ACTIVE_CLASS, hasActiveChild);
+    navbar.querySelectorAll<HTMLElement>("[data-dropdown-trigger], [data-mobile-dropdown-trigger]").forEach((trigger) => {
+        const group = trigger.closest<HTMLElement>("[data-nav-group]")!;
+        const target = trigger.querySelector<HTMLElement>("[data-nav-active-target]") || trigger;
+        target.classList.toggle(NAVBAR_ACTIVE_CLASS, Number(group.dataset.navGroup) === activeGroup);
     });
 }
 

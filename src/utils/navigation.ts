@@ -48,18 +48,35 @@ export function pathsEqual(path1: string, path2: string) {
 	return normalizedPath1 === normalizedPath2;
 }
 
-export function isNavPathActive(currentPath: string, linkPath: string) {
-	const normalize = (path: string) =>
-		path
-			.split(/[?#]/)[0]
-			.replace(/^\/|\/$/g, "")
-			.toLowerCase();
+function normalizeNavPath(path: string) {
+	return new URL(path, "https://nav.local")
+		.pathname.replace(/^\/|\/$/g, "")
+		.toLowerCase();
+}
 
-	const current = normalize(currentPath);
-	const target = normalize(url(linkPath));
+export function isNavPathActive(currentPath: string, linkPath: string) {
+	const current = normalizeNavPath(currentPath);
+	const target = normalizeNavPath(url(linkPath));
 
 	if (!target) return !current;
 	return current === target || current.startsWith(`${target}/`);
+}
+
+/** 最具体路径所属的导航组优先；同路径时保留配置中靠前的一组。 */
+export function getActiveNavGroup(currentPath: string, groups: string[][]) {
+	let activeGroup = -1;
+	let longestPath = -1;
+	groups.forEach((paths, index) => {
+		for (const path of paths) {
+			if (!path || !isNavPathActive(currentPath, path)) continue;
+			const length = normalizeNavPath(url(path)).length;
+			if (length > longestPath) {
+				activeGroup = index;
+				longestPath = length;
+			}
+		}
+	});
+	return activeGroup;
 }
 
 function joinUrl(...parts: string[]): string {
