@@ -24,7 +24,7 @@ export const zh_CN: Translation = {
 	[Key.commentSection]: "评论区",
 	[Key.commentSubtitle]: "分享你的想法，与大家交流讨论",
 	[Key.friends]: "友链",
-	[Key.circle]: "朋友圈",
+	[Key.essays]: "随笔",
 	[Key.friendsDescription]: "这里是我的朋友们，欢迎互相访问交流",
 	[Key.uncategorized]: "未分类",
 	[Key.noTags]: "无标签",

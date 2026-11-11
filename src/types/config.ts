@@ -71,8 +71,8 @@ export type SiteConfig = {
 
 	// 页面开关配置
 	pages: {
+		essays: boolean; // 随笔页面开关
 		friends: boolean; // 友链页面开关
-		circle: boolean; // 朋友圈页面开关
 		watchlist: boolean; // 观影清单页面开关
 	};
 
@@ -96,8 +96,8 @@ export enum LinkPreset {
 	Watchlist = 7,
 	Categories = 8,
 	Tags = 9,
-	Circle = 10,
 	Articles = 11,
+	Essays = 12,
 }
 
 export type NavBarLink = {
@@ -290,7 +290,6 @@ export type SidebarLayoutConfig = {
 
 // 友链配置
 export type FriendLink = {
-	rss?: string; // 朋友圈订阅源，支持 RSS / Atom；留空不参与聚合
 	title: string; // 友链标题
 	imgurl: string; // 头像图片URL
 	desc: string; // 友链描述

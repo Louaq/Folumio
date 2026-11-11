@@ -110,6 +110,7 @@ export default defineConfig({
 				"material-symbols": [
 					"arrow-outward-rounded",
 					"article-outline",
+					"edit-note-outline",
 					"article-outline-rounded",
 					"book-2-outline-rounded",
 					"calendar-month-outline-rounded",

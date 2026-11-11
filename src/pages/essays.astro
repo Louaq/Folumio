@@ -1,0 +1,101 @@
+---
+import { siteConfig } from "@/config";
+import { essaysConfig } from "@/config/essaysConfig";
+import MainGridLayout from "@/layouts/MainGridLayout.astro";
+import { url } from "@/utils/navigation";
+
+if (!siteConfig.pages.essays) {
+	return Astro.redirect("/404/");
+}
+
+const essays = [...essaysConfig.items].sort((a, b) =>
+	b.date.localeCompare(a.date),
+);
+---
+
+<MainGridLayout title={essaysConfig.title} description={essaysConfig.description}>
+	<section class="essays-page card-base" aria-labelledby="essays-title">
+		<header class="essays-header">
+			<h1 id="essays-title">{essaysConfig.title}</h1>
+			<p>{essaysConfig.description}</p>
+		</header>
+		{essays.length > 0 ? (
+			<ol class="essays-list">
+				{essays.map((essay) => (
+					<li>
+						<article>
+							<time datetime={essay.date}>{essay.date}</time>
+							<p class="essay-content">{essay.content}</p>
+							{essay.images && essay.images.length > 0 && (
+								<div class="essay-images">
+									{essay.images.map((image, index) => (
+										<img
+											src={image.startsWith("/") ? url(image) : image}
+											alt={`${essay.date} 随笔配图 ${index + 1}`}
+											loading="lazy"
+										/>
+									))}
+								</div>
+							)}
+						</article>
+					</li>
+				))}
+			</ol>
+		) : (
+			<p class="essays-empty">暂时还没有随笔。</p>
+		)}
+	</section>
+</MainGridLayout>
+
+<style>
+	.essays-page {
+		padding: clamp(24px, 5vw, 48px);
+		color: var(--juejin-text-primary);
+	}
+	.essays-header {
+		padding-bottom: 24px;
+		border-bottom: 1px solid var(--line-divider);
+	}
+	h1 {
+		font-size: 1.75rem;
+		font-weight: 700;
+	}
+	.essays-header p,
+	.essays-empty {
+		margin-top: 12px;
+		color: var(--juejin-text-secondary);
+		line-height: 1.8;
+	}
+	.essays-list {
+		list-style: none;
+		margin: 0;
+		padding: 0;
+	}
+	.essays-list li {
+		padding: 28px 0;
+	}
+	.essays-list li + li {
+		border-top: 1px solid var(--line-divider);
+	}
+	time {
+		font-size: 0.875rem;
+		color: var(--primary);
+	}
+	.essay-content {
+		margin-top: 12px;
+		white-space: pre-wrap;
+		overflow-wrap: anywhere;
+		line-height: 1.9;
+	}
+	.essay-images {
+		display: grid;
+		gap: 12px;
+		margin-top: 16px;
+	}
+	.essay-images img {
+		display: block;
+		width: 100%;
+		height: auto;
+		border-radius: 8px;
+	}
+</style>

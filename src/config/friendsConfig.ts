@@ -66,7 +66,6 @@ const friendGroups: FriendGroup[] = [
 				title: "夏叶",
 				imgurl: "https://q1.qlogo.cn/g?b=qq&nk=7618557&s=640",
 				siteurl: "https://blog.cuteleaf.cn",
-				rss: "https://blog.cuteleaf.cn/rss.xml",
 				desc: "飞萤之火自无梦的长夜亮起，绽放在终竟的明天。",
 				weight: 100, // 权重，数字越大排序越靠前
 				enabled: true, // 是否启用
@@ -83,7 +82,6 @@ const friendGroups: FriendGroup[] = [
 				title: "宇阳",
 				imgurl: "https://q1.qlogo.cn/g?b=qq&nk=3311118881&s=640",
 				siteurl: "https://liuyuyang.net",
-				rss: "https://liuyuyang.net/api/rss",
 				desc: "记录所学知识，缩短和大神的差距！",
 				weight: 98,
 				enabled: true,
@@ -100,7 +98,6 @@ const friendGroups: FriendGroup[] = [
 				title: "Cosine",
 				imgurl: "https://blog.cosine.ren/favicon.ico",
 				siteurl: "https://blog.cosine.ren/",
-				rss: "https://blog.cosine.ren/rss.xml",
 				desc: "愿热情永存，愿热爱不灭，愿生活无憾",
 				weight: 96,
 				enabled: true,
@@ -109,7 +106,6 @@ const friendGroups: FriendGroup[] = [
 				title: "Mandarava23",
 				imgurl: "https://mandarava23.top/_astro/avatar.D8Zsjm0d_Z2sV6F3.webp",
 				siteurl: "https://mandarava23.top/",
-				rss: "https://mandarava23.top/rss.xml",
 				desc: "There is no end in learning",
 				weight: 95,
 				enabled: true,

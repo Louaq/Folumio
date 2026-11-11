@@ -196,13 +196,23 @@ scripts/          # 新建文章、字体子集化与切片、pdf.js 裁剪
 public/           # 静态资源（含自托管 pdf.js）
 ```
 
-## 朋友圈
+## 随笔
 
-导航栏的「朋友圈」对应 `/circle/`，构建时读取友链配置中的 RSS / Atom，按发布时间倒序展示文章标题、站点和日期。每站最多 10 篇，总计最多 60 篇；桌面端每行两篇、手机端单列，每页 24 篇，后续页面为 `/circle/2/` 等。
+导航栏的「随笔」对应 `/essays/`。编辑 `src/config/essaysConfig.ts` 可设置页面标题、简介和随笔列表：
 
-在 `src/config/friendsConfig.ts` 的友链条目中添加 `rss: "https://example.com/rss.xml"` 即可参与聚合；未配置订阅源或已禁用的友链不参与。订阅源抓取失败会输出构建日志，并在页面说明未同步的站点。
+```ts
+items: [
+  {
+    date: "2026-11-11", // YYYY-MM-DD，按日期倒序展示
+    content: "写下一段随笔。\n支持换行，内容按纯文本展示。",
+    images: ["/assets/images/photo.jpg", "https://example.com/photo.jpg"], // 可选，多张图片
+  },
+],
+```
 
-内容在每次 `pnpm build` 时同步，部署后不会自行刷新；需要再次构建并部署才能获取新的文章。
+图片展示在正文下方，按配置顺序排列。本地图片放在 `public` 目录中，例如 `public/assets/images/photo.jpg` 对应 `/assets/images/photo.jpg`；也可填写外链。不配 `images` 时仅展示文字。
+
+修改后重新构建并部署即可更新。`src/config/siteConfig.ts` 中的 `pages.essays` 控制页面和导航入口是否启用。
 
 ## 贡献
 

@@ -43,7 +43,7 @@ enum I18nKey {
 	postLinkCopied = "postLinkCopied",
 	postLinkCopyFailed = "postLinkCopyFailed",
 	friends = "friends",
-	circle = "circle",
+	essays = "essays",
 	friendsDescription = "friendsDescription",
 	watchlist = "watchlist",
 	watchlistTitle = "watchlistTitle",
@@ -141,7 +141,6 @@ enum I18nKey {
 	codeCollapsibleExpanded = "codeCollapsibleExpanded",
 	codeCollapsibleCollapsed = "codeCollapsibleCollapsed",
 
-	// 朋友圈
 }
 
 export default I18nKey;

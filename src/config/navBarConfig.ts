@@ -11,11 +11,11 @@ const getDynamicNavBarConfig = (): NavBarConfig => {
 		LinkPreset.Articles,
 	];
 
+	if (siteConfig.pages.essays) {
+		links.push(LinkPreset.Essays);
+	}
 	if (siteConfig.pages.friends) {
 		links.push(LinkPreset.Friends);
-	}
-	if (siteConfig.pages.circle) {
-		links.push(LinkPreset.Circle);
 	}
 	if (siteConfig.pages.watchlist) {
 		links.push(LinkPreset.Watchlist);

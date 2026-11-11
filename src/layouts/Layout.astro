@@ -2,7 +2,6 @@
 import FontSetup from "@components/features/FontSetup.astro";
 import ImageLightboxManager from "@components/features/ImageLightboxManager.astro";
 import ConfigCarrier from "@components/layout/ConfigCarrier.astro";
-import StarlightBackground from "@components/layout/StarlightBackground.astro";
 import FloatingControls from "@/components/controls/FloatingControls.astro";
 
 import {
@@ -181,7 +180,6 @@ const collapsiblePreviewLines =
     data-white-bg={String(!!whiteBackground)}
   >
     <ConfigCarrier />
-    <StarlightBackground />
     <slot />
 
     <!-- increase the page height during page transition to prevent the scrolling animation from jumping -->
