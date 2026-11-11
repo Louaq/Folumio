@@ -5,7 +5,6 @@ expires: 2026-08-21 23:59:59
 description: "催稿信"
 category: 投稿
 tags: [TMI]
-#homeCarouselImage: https://pic1.imgdb.cn/item/6919c43d3203f7be000aeb10.jpg
 ---
 
 ## 催稿信模板-主题：

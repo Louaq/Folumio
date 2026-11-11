@@ -7,7 +7,6 @@ excerpt: "现有的多模态医学图像分割研究往往在不加区分地聚�
 categories: 多模态医学图像分割
 tags: [Asymmetric encoding, adaptive heterogeneous graph fusion]
 top: true
-swiper: true
 img: "https://pic1.imgdb.cn/item/6919c43e3203f7be000aeb19.jpg"
 ---
 

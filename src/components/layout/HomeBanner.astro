@@ -1,8 +1,6 @@
 ﻿---
 // Adapted from LyraVoid/Shirone BannerStage.astro (MIT).
 import { siteConfig } from "@/config";
-import { getSortedPosts } from "@/utils/content-utils";
-import { getFileDirFromPath, getPostUrlForEntry, isHomePage } from "@/utils/navigation";
 import { type BannerImage, resolveBannerImage } from "@/utils/banner-image";
 import BannerWaves from "./BannerWaves.astro";
 interface Props {
@@ -18,22 +16,9 @@ const [desktop, mobile] = await Promise.all([
   resolveBannerImage(siteConfig.homeBanner.mobile),
 ]);
 const wallpaper = cover ?? desktop;
-const posts = (await getSortedPosts())
-  .filter((post) => post.data.homeCarousel && !post.data.draft)
-  .sort((a, b) => (a.data.homeCarouselOrder ?? 0) - (b.data.homeCarouselOrder ?? 0));
-const articleSlides = await Promise.all(posts.map(async (post) => {
-  const image = post.data.homeCarouselImage
-    ? await resolveBannerImage(post.data.homeCarouselImage)
-    : post.data.image
-      ? await resolveBannerImage(post.data.image, `/src/${getFileDirFromPath(post.filePath!)}`)
-      : desktop;
-  return { title: post.data.title, description: post.data.description, href: getPostUrlForEntry(post), image };
-}));
-const slides = [{ title: siteConfig.title, description: siteConfig.subtitle, href: "", image: desktop }, ...articleSlides];
-const showCarousel = isHomePage(Astro.url.pathname) && slides.length > 1;
 ---
-<section class:list={["banner-stage", { "banner-stage--carousel": slides.length > 1 }]} aria-label={title || siteConfig.title} data-default-desktop={JSON.stringify(desktop)} data-default-mobile={mobile.src}>
-  <div class="banner-stage__media banner-stage__default" aria-hidden="true">
+<section class="banner-stage" aria-label={title || siteConfig.title} data-default-desktop={JSON.stringify(desktop)} data-default-mobile={mobile.src}>
+  <div class="banner-stage__media" aria-hidden="true">
     <picture>
       <source media="(max-width: 1023px)" srcset={cover?.src ?? mobile.src} />
       <img
@@ -42,61 +27,23 @@ const showCarousel = isHomePage(Astro.url.pathname) && slides.length > 1;
         width={wallpaper.width}
         height={wallpaper.height}
         alt=""
-        fetchpriority={showCarousel ? "auto" : "high"}
-        loading={showCarousel ? "lazy" : "eager"}
+        fetchpriority="high"
+        loading="eager"
         decoding="async"
       />
     </picture>
   </div>
   <div class="banner-stage__scrim"></div>
-  <div class="banner-stage__copy banner-stage__default">
+  <div class="banner-stage__copy">
     <h1 class="banner-stage__title" id={isPost ? "post-title" : undefined}>
       {title || siteConfig.title}
     </h1>
     <p>{description || siteConfig.subtitle}</p>
     <div class="banner-stage__metadata" set:html={metadata} />
   </div>
-  {slides.length > 1 && (
-    <div class="banner-carousel" role="region" aria-roledescription="轮播图" aria-label="精选文章">
-      {slides.map((slide, index) => (
-        <div class="banner-carousel__slide" data-slide hidden={index !== 0} role="group" aria-roledescription="幻灯片" aria-label={`${index + 1} / ${slides.length}`}>
-          <div class="banner-stage__media" aria-hidden="true">
-            <picture>
-              {index === 0 && <source media="(max-width: 1023px)" srcset={mobile.src} />}
-            <img class="banner-stage__image" src={slide.image.src} width={slide.image.width} height={slide.image.height} alt="" loading={showCarousel && index === 0 ? "eager" : "lazy"} fetchpriority={showCarousel && index === 0 ? "high" : "auto"} decoding="async" />
-            </picture>
-          </div>
-          <div class:list={["banner-stage__copy", { "banner-carousel__copy": index > 0 }]}>
-            {slide.href ? <h2><a href={slide.href}>{slide.title}</a></h2> : <h2 class="banner-stage__title">{slide.title}</h2>}
-            <p>{slide.description}</p>
-            {slide.href && <a class="banner-carousel__read" href={slide.href}>阅读文章 →</a>}
-          </div>
-        </div>
-      ))}
-    </div>
-  )}
   <BannerWaves />
 </section>
 
-<script>
-  const carousel = document.querySelector<HTMLElement>(".banner-carousel");
-  if (carousel) {
-    const slides = Array.from(carousel.querySelectorAll<HTMLElement>("[data-slide]"));
-    if (slides.length > 1) {
-      let current = 0;
-      const paused = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-      function show(index: number) {
-        current = (index + slides.length) % slides.length;
-        slides.forEach((slide, i) => { slide.hidden = i !== current; });
-      }
-      window.setInterval(() => {
-        if (!paused && !document.hidden && document.body.dataset.pageType === "home" && !carousel.matches(":hover, :focus-within")) {
-          show(current + 1);
-        }
-      }, 12000);
-    }
-  }
-</script>
 <style>
   .banner-stage {
     position: relative;
@@ -111,49 +58,6 @@ const showCarousel = isHomePage(Astro.url.pathname) && slides.length > 1;
     inset: 0;
   }
 
-  .banner-carousel, .banner-carousel__slide {
-    position: absolute;
-    inset: 0;
-  }
-
-  .banner-carousel {
-    display: none;
-  }
-
-  :global(body[data-page-type="home"]) .banner-carousel {
-    display: block;
-  }
-
-  :global(body[data-page-type="home"]) .banner-stage--carousel .banner-stage__default {
-    visibility: hidden;
-  }
-
-  .banner-carousel__copy h2 {
-    max-width: 60rem;
-    font-size: clamp(1.75rem, 4vw, 3.5rem);
-    font-weight: 700;
-    line-height: 1.3;
-  }
-
-  .banner-carousel__copy p {
-    max-width: 48rem;
-    display: -webkit-box;
-    -webkit-box-orient: vertical;
-    -webkit-line-clamp: 2;
-    overflow: hidden;
-  }
-
-  .banner-carousel__copy a {
-    pointer-events: auto;
-  }
-
-  .banner-carousel__read {
-    margin-top: 1.25rem;
-    padding: .5rem 1rem;
-    border: 1px solid rgb(255 255 255 / 65%);
-    border-radius: .5rem;
-  }
-
   .banner-stage__image {
     position: absolute;
     inset: 0;
@@ -163,10 +67,6 @@ const showCarousel = isHomePage(Astro.url.pathname) && slides.length > 1;
     object-position: center;
     transform-origin: center;
     animation: banner-zoom 12s ease-out alternate infinite;
-  }
-
-  .banner-carousel__slide[hidden] .banner-stage__image {
-    animation: none;
   }
 
   .banner-stage__scrim {

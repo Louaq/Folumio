@@ -7,8 +7,6 @@ excerpt: "云想衣裳花想容，春风拂槛露华浓"
 categories: 医学图像分割
 tags: [Cross-Modality Medical Image Segmentation, Vision Transformers]
 top: true
-swiper: true
-swiperImg: https://vip.123pan.cn/1816472581/yk6baz03t0n000d6xujp024483w79ml0DIYPAqF0DqJ1DGxwDIiw.jpg
 ---
 
 Centre des Mat´eriaux、Centre de Mise en Forme des Mat´eriaux、Centre de Morphologie Math´ematique

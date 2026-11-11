@@ -3,7 +3,6 @@ title: vscode配置latex环境
 published: 2024-12-29 13:24:01
 expires: 2024-12-31 23:59:59
 mathjax: true
-swiper: true
 excerpt: "介绍vscode如何配置latex环境"
 tags: [vscode, latex]
 category: latex

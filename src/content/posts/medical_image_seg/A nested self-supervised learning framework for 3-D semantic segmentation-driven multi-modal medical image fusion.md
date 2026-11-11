@@ -7,7 +7,6 @@ excerpt: "3D多模态医学图像的成功融合依赖于每种成像模式独�
 categories: 多模态医学图像分割
 tags: [Medical Image Segmentation, Dual Attention Encoder, Unsupervised-Domain-Adaptation]
 top: true
-swiper: true
 ---
 
 > 云南大学、东南大学、紫金山实验室、阿利亚大学
