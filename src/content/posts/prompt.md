@@ -7,6 +7,8 @@ category: prompt
 image: /assets/coverImage/1.webp
 tags: [科研作图,润色]
 pinned: true
+homeCarousel: true
+homeCarouselOrder: 1
 ---
 
 

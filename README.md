@@ -105,11 +105,17 @@ sourceLink: ""
 licenseName: ""
 licenseUrl: ""
 homeCarousel: false        # 是否进入首页轮播
-homeCarouselOrder: 1
-homeCarouselImage: ""
+homeCarouselOrder: 1       # 轮播顺序，数字越小越靠前，未填写视为 0
+homeCarouselImage: ""      # 轮播专用图；留空使用文章封面，都未填写则使用默认 Banner
 lang: ""
 ---
 ```
+
+### 首页 Banner 轮播
+
+首页 Banner 始终以 `src/config/siteConfig.ts` 中的 `homeBanner.desktop` 和 `homeBanner.mobile` 作为第一张，显示站点标题与副标题；设置了 `homeCarousel: true` 的非草稿文章按顺序追加在其后。没有指定文章时仅静态展示默认 Banner；有指定文章时每 12 秒自动轮播，每张切入时重新播放与默认 Banner 相同的缩放动画，鼠标悬停或键盘焦点位于轮播内时暂停自动切换。点击文章标题或「阅读文章」进入对应文章，文章列表置顶仍由 `pinned` 单独控制。
+
+`homeCarouselImage` 可填写 `public` 图片路径（如 `/assets/coverImage/2.webp`）、HTTPS 外链或相对 `src` 的资源路径（如 `assets/banner.webp`）。直接使用文章封面时，仍支持相对文章目录的图片路径。
 
 ### 自定义指令
 
@@ -149,7 +155,6 @@ lang: ""
 | `profileConfig.ts` | 头像、简介、社交链接 |
 | `sidebarConfig.ts` | 侧边栏组件顺序与开关 |
 | `announcementConfig.ts` | 侧边栏公告 |
-| `homeCarouselConfig.ts` | 首页轮播手动项 |
 | `homeTopNoticeConfig.ts` | 首页顶部通知 |
 | `adConfig.ts` | 推广位 |
 | `commentConfig.ts` | 评论系统（Twikoo） |
