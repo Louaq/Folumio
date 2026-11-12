@@ -1,0 +1,129 @@
+---
+import { Icon } from "astro-icon/components";
+import { popupConfig } from "@/config/popupConfig";
+---
+
+{popupConfig.enable && (
+    <div data-announcement-popup data-show-mode={popupConfig.showMode} data-scheduled-at={popupConfig.scheduledAt}>
+        <button
+            type="button"
+            class="popup-trigger"
+            aria-label="打开网站公告"
+            title="网站公告"
+            aria-haspopup="dialog"
+            aria-controls="announcement-popup"
+            aria-expanded="false"
+            data-popup-open
+        >
+            <Icon name="material-symbols:campaign-outline-rounded" class="text-[1.5rem]" />
+        </button>
+        <dialog id="announcement-popup" aria-labelledby="announcement-popup-title">
+            <header class="flex items-center justify-between gap-4 mb-4">
+                <h2 id="announcement-popup-title" class="text-xl font-bold">{popupConfig.title}</h2>
+                <button type="button" class="btn-plain rounded-full w-10 h-10 shrink-0" aria-label="关闭公告并收起到右上角" data-popup-close autofocus>
+                    <Icon name="material-symbols:close-rounded" class="text-2xl" />
+                </button>
+            </header>
+            <div class="popup-content" set:html={popupConfig.content} />
+        </dialog>
+    </div>
+)}
+
+<style>
+    .popup-trigger {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 2.5rem;
+        height: 2.5rem;
+        border: none;
+        border-radius: 9999px;
+        background: none;
+        cursor: pointer;
+        transition: background-color 0.2s;
+    }
+
+    .popup-trigger:hover {
+        background: color-mix(in oklch, currentColor 8%, transparent);
+    }
+
+    .popup-trigger:active {
+        transform: scale(0.94);
+    }
+
+    dialog {
+        position: fixed;
+        inset: 0;
+        margin: auto;
+        width: min(32rem, calc(100vw - 2rem));
+        max-height: calc(100dvh - 2rem);
+        padding: 1.5rem;
+        border: none;
+        border-radius: 1rem;
+        background: var(--card-bg);
+        color: var(--deep-text);
+        box-shadow: 0 1rem 3rem rgb(0 0 0 / 20%);
+    }
+
+    dialog::backdrop {
+        background: rgb(0 0 0 / 40%);
+        backdrop-filter: blur(4px);
+    }
+
+    .popup-content {
+        line-height: 1.8;
+        overflow-wrap: anywhere;
+    }
+
+    .popup-content :global(p + p) { margin-top: 0.75rem; }
+    .popup-content :global(a) { color: var(--primary); text-decoration: underline; }
+    .popup-content :global(img) { max-width: 100%; height: auto; }
+    .popup-content :global(ul) { list-style: disc; padding-left: 1.5rem; }
+    .popup-content :global(ol) { list-style: decimal; padding-left: 1.5rem; }
+
+    :global(html:has(#announcement-popup[open])) { overflow: hidden; }
+</style>
+
+<script>
+    document.querySelectorAll<HTMLElement>("[data-announcement-popup]").forEach((popup) => {
+        const dialog = popup.querySelector<HTMLDialogElement>("dialog")!;
+        const trigger = popup.querySelector<HTMLButtonElement>("[data-popup-open]")!;
+        const close = popup.querySelector<HTMLButtonElement>("[data-popup-close]")!;
+        const mode = popup.dataset.showMode!;
+        const scheduledAt = Date.parse(popup.dataset.scheduledAt!);
+        const storageKey = mode === "scheduled"
+            ? `announcement-popup:scheduled:${scheduledAt}`
+            : "announcement-popup:once";
+        let timer: number | undefined;
+
+        function openPopup() {
+            dialog.showModal();
+            trigger.setAttribute("aria-expanded", "true");
+        }
+
+        function autoOpenPopup() {
+            window.clearTimeout(timer);
+            if (mode !== "always" && localStorage.getItem(storageKey)) return;
+            if (mode === "scheduled" && Date.now() < scheduledAt) {
+                // 浏览器单次定时器最多支持约 24.8 天，较远日期分段等待。
+                timer = window.setTimeout(autoOpenPopup, Math.min(scheduledAt - Date.now(), 2147483647));
+                return;
+            }
+            if (!dialog.open) openPopup();
+            if (mode !== "always") localStorage.setItem(storageKey, "shown");
+        }
+
+        trigger.addEventListener("click", openPopup);
+        close.addEventListener("click", () => dialog.close());
+        dialog.addEventListener("close", () => {
+            trigger.setAttribute("aria-expanded", "false");
+            trigger.focus();
+        });
+        dialog.addEventListener("click", (event) => {
+            if ((event.target as Element).closest("a[href]")) dialog.close();
+        });
+
+        autoOpenPopup();
+        document.addEventListener("astro:page-load", autoOpenPopup);
+    });
+</script>

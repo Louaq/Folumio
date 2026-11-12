@@ -115,6 +115,7 @@ export default defineConfig({
 					"book-2-outline-rounded",
 					"calendar-month-outline-rounded",
 					"calendar-today-outline-rounded",
+					"campaign-outline-rounded",
 					"chevron-left",
 					"chevron-right",
 					"close-rounded",

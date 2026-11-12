@@ -230,6 +230,7 @@
 #top-row #navbar.top-app-bar--transparent [data-dropdown-trigger],
 #top-row #navbar.top-app-bar--transparent .navbar-util-no-hover,
 #top-row #navbar.top-app-bar--transparent .search-trigger,
+#top-row #navbar.top-app-bar--transparent .popup-trigger,
 #top-row #navbar.top-app-bar--transparent #scheme-switch,
 #top-row #navbar.top-app-bar--transparent #nav-menu-switch {
   color: #fff !important;

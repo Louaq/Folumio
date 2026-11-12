@@ -2,6 +2,7 @@
 import { Icon } from "astro-icon/components";
 import ThemeSwitch from "@/components/controls/ThemeSwitch.astro";
 import SearchLazy from "@/components/controls/SearchLazy.astro";
+import AnnouncementPopup from "@/components/controls/AnnouncementPopup.astro";
 import { navBarConfig, siteConfig } from "@/config";
 import { LinkPresets } from "@/constants/link-presets";
 import { LinkPreset, type NavBarLink } from "@/types/config";
@@ -80,11 +81,11 @@ const activeGroup = getActiveNavGroup(Astro.url.pathname, links.map((link) => {
         </button>
         </div>
         <div class="navbar-tools navbar-group">
+        <AnnouncementPopup />
         <SearchLazy />
         {(siteConfig.themeColor.showModeSwitch ?? true) && (
             <ThemeSwitch />
         )}
-
         </div>
         </div>
         </div>
