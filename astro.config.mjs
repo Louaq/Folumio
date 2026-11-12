@@ -130,6 +130,7 @@ export default defineConfig({
 					"keyboard-arrow-right",
 					"keyboard-arrow-up-rounded",
 					"keyboard-double-arrow-right-rounded",
+					"lock-outline",
 					"menu",
 					"more-horiz",
 					"movie-outline",
