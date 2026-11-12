@@ -33,9 +33,8 @@
     background: color-mix(in oklch, currentColor 8%, transparent);
   }
 
-  #scheme-switch:focus-visible {
-    outline: 2px solid currentColor;
-    outline-offset: 2px;
+  #scheme-switch:focus {
+    outline: none;
   }
 
   #theme-mode-panel {

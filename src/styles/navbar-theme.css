@@ -189,6 +189,11 @@
   border-radius: 4px !important;
 }
 
+#navbar .navbar-brand-link:focus,
+#navbar .navbar-menu-items > .dropdown-container > .btn-plain:focus {
+  outline: none;
+}
+
 #navbar .navbar-menu-items > .dropdown-container > .btn-plain .navbar-icon {
   margin-right: 4px;
 }

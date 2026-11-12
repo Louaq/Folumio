@@ -696,6 +696,9 @@ onDestroy(() => {
 		cursor: pointer;
 		transition: background-color 0.2s;
 	}
+	.search-trigger:focus {
+		outline: none;
+	}
 	.search-trigger:hover {
 		background: color-mix(in oklch, currentColor 8%, transparent);
 	}

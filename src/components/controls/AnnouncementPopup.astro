@@ -30,6 +30,11 @@ import { popupConfig } from "@/config/popupConfig";
 )}
 
 <style>
+    .popup-trigger:focus,
+    [data-popup-close]:focus {
+        outline: none;
+    }
+
     .popup-trigger {
         display: flex;
         align-items: center;
