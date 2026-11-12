@@ -1,4 +1,4 @@
-## Folumio: 面向技术写作与深度阅读的 Astro 博客主题[![Deploy](https://github.com/Louaq/louaq.github.io/actions/workflows/deploy.yml/badge.svg)](https://github.com/Louaq/louaq.github.io/actions/workflows/deploy.yml)
+## Folumio: 面向技术写作与深度阅读的 Astro 博客主题[![Deploy](https://github.com/Louaq/Folumio/actions/workflows/deploy.yml/badge.svg?branch=master)](https://github.com/Louaq/Folumio/actions/workflows/deploy.yml)
 
 基于 [Firefly](https://github.com/CuteLeaf/Firefly) 主题二次开发的个人博客，专注于多模态医学图像分析领域的论文阅读笔记与技术分享。使用 [Astro](https://astro.build) 构建，站点内容全部为静态生成。
 
@@ -51,13 +51,13 @@
 - 📝 Markdown / MDX，KaTeX 数学公式、Expressive Code 代码高亮（可折叠、带标题栏工具条）
 - 💡 GitHub 风格提示块（`> [!NOTE]` 等）
 - 🧩 自定义指令：GitHub 仓库卡片、PDF 内嵌预览、视频播放（见下文）
-- 🖼️ 带 alt 的图片自动生成图注，点击放大（medium-zoom）
+- 🖼️ 带 alt 的图片自动生成图注，点击放大（Fancybox）
 - 🔗 外链自动新窗口打开，标题自动生成锚点
 - ⏱️ 字数统计与阅读时长、文章过期提醒
 
 **页面与组件**
 - 🏠 首页 Banner、顶部通知条、文章置顶
-- 🧭 侧边栏组件：个人资料、公告、音乐播放器、运行时间，可配置顺序与开关
+- 🧭 侧边栏组件：个人资料、公告、运行时间、分类、标签、站点统计、节气卡片，可配置顺序与开关
 - 🎵 悬浮音乐播放器（唱片封面、播放列表、进度和音量控制，可展开收起，Swup 换页不中断）
 - 🏷️ 分类、标签、归档、RSS、站点地图
 - 🎬 追番 / 观影清单（动画、电影、剧集）、友链页面
@@ -166,13 +166,15 @@ lang: ""
 
 | 文件 | 内容 |
 | --- | --- |
-| `siteConfig.ts` | 站点信息、主题色、文章 URL 模式、封面图显示、文章许可证信息、过期提醒阈值、页面开关、分页 |
+| `siteConfig.ts` | 站点信息、首页 Banner、主题色、悬浮按钮开关、文章 URL 模式、文章许可证信息、过期提醒阈值、页面开关、分页 |
 | `navBarConfig.ts` | 导航栏链接 |
 | `profileConfig.ts` | 头像、简介、社交链接 |
 | `sidebarConfig.ts` | 侧边栏组件顺序与开关 |
 | `announcementConfig.ts` | 侧边栏公告 |
+| `popupConfig.ts` | 公告弹窗开关、标题、HTML 内容及显示时机（每次进入、仅一次、定时） |
 | `homeTopNoticeConfig.ts` | 首页顶部通知 |
-| `adConfig.ts` | 推广位 |
+| `aboutConfig.ts` | 关于页内容 |
+| `essaysConfig.ts` | 随笔页标题、简介及随笔列表 |
 | `commentConfig.ts` | 评论系统（Twikoo） |
 | `expressiveCodeConfig.ts` | 代码块主题 |
 | `fontConfig.ts` | 字体 |
@@ -194,12 +196,12 @@ lang: ""
 
 ## 部署
 
-推送到 `master` 分支后，`.github/workflows/deploy.yml` 会自动构建，并通过 rsync 把 `dist/` 同步到自己的服务器。需要在仓库 Secrets 中配置：
+推送到 `master` 分支后，`.github/workflows/deploy.yml` 会自动构建，并通过 rsync 把 `dist/` 同步到自己的服务器。仅修改 `README.md` 不会触发部署，也可在 GitHub Actions 中手动运行该工作流。需要在仓库 Secrets 中配置：
 
 - 构建：`PASSWORD`、`MEILISEARCH_ADMIN_KEY`、`MEILISEARCH_INDEX_NAME`、`PUBLIC_MEILISEARCH_SEARCH_KEY`、`PUBLIC_MEILISEARCH_INDEX_NAME`
 - 部署：`SSH_KEY`、`SSH_HOST`、`SSH_PORT`、`SSH_USER`、`DEPLOY_PATH`
 
-仓库里也有 `vercel.json`、`netlify.toml`，可以直接托管 `dist/`。
+仓库里也有 `vercel.json`、`netlify.toml`，可以托管 `dist/` 静态页面。音乐功能还需要同源 `/ncm` 接口、`/music.json` 歌单及 `/assets/music` 封面资源；这两个托管配置未提供对应服务，需另行部署并配置代理。
 
 ## 目录结构（节选）
 
@@ -207,13 +209,13 @@ lang: ""
 src/
 ├── components/   # UI 组件（layout / widget / controls / misc …）
 ├── config/       # 站点配置
-├── content/      # posts/ 文章，spec/ 关于页等
+├── content/      # posts/ 文章
 ├── i18n/         # 多语言文案
 ├── layouts/      # 页面布局
-├── pages/        # 路由页面
+├── pages/        # 路由页面，含 about.astro 关于页（内容配置见 config/aboutConfig.ts）
 ├── plugins/      # remark/rehype 自定义插件
 └── styles/       # 全局样式
-scripts/          # 新建文章、字体子集化与切片、pdf.js 裁剪
+scripts/          # 新建文章、pdf.js 裁剪
 public/           # 静态资源（含自托管 pdf.js）
 ```
 
