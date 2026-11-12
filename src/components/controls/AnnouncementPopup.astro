@@ -91,11 +91,45 @@ const hasNotice = popupConfig.content.trim().length > 0;
         background: var(--card-bg);
         color: var(--deep-text);
         box-shadow: 0 1rem 3rem rgb(0 0 0 / 20%);
+        opacity: 0;
+        transform: translateY(0.75rem) scale(0.96);
+        transition: opacity 0.2s ease, transform 0.2s ease,
+            display 0.2s allow-discrete, overlay 0.2s allow-discrete;
+    }
+
+    dialog[open] {
+        opacity: 1;
+        transform: translateY(0) scale(1);
     }
 
     dialog::backdrop {
         background: rgb(0 0 0 / 40%);
         backdrop-filter: blur(4px);
+        opacity: 0;
+        transition: opacity 0.2s ease,
+            display 0.2s allow-discrete, overlay 0.2s allow-discrete;
+    }
+
+    dialog[open]::backdrop {
+        opacity: 1;
+    }
+
+    @starting-style {
+        dialog[open] {
+            opacity: 0;
+            transform: translateY(0.75rem) scale(0.96);
+        }
+
+        dialog[open]::backdrop {
+            opacity: 0;
+        }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+        dialog,
+        dialog::backdrop {
+            transition: none;
+        }
     }
 
     .popup-content {

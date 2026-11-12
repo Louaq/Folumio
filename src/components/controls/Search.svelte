@@ -1,6 +1,8 @@
 <script lang="ts">
 import { navigateToPage } from "@utils/navigation";
 import { onDestroy, onMount, tick } from "svelte";
+import { cubicInOut } from "svelte/easing";
+import { fade } from "svelte/transition";
 
 /**
  * 文案由 SearchLazy.astro 在服务端解析好后传进来，而不是在组件里 import
@@ -144,6 +146,9 @@ const openModal = async () => {
 
 const closeModal = () => {
 	isOpen = false;
+};
+
+const finishCloseModal = () => {
 	query = "";
 	results = [];
 	isSearching = false;
@@ -155,6 +160,18 @@ const closeModal = () => {
 	isLoadingMore = false;
 	unlockScroll();
 };
+
+const transitionDuration = () =>
+	window.matchMedia("(prefers-reduced-motion: reduce)").matches ? 0 : 200;
+
+function modalTransition() {
+	return {
+		duration: transitionDuration(),
+		easing: cubicInOut,
+		css: (t: number) =>
+			`opacity: ${t}; transform: translateX(-50%) translateY(${(1 - t) * 0.75}rem) scale(${0.96 + t * 0.04});`,
+	};
+}
 
 const handleResultClick = (event: Event, url: string): void => {
 	event.preventDefault();
@@ -464,6 +481,7 @@ onDestroy(() => {
 		<!-- svelte-ignore a11y_no_static_element_interactions -->
 		<div
 			class="search-backdrop"
+			transition:fade={{ duration: transitionDuration(), easing: cubicInOut }}
 			role="presentation"
 			onclick={(e) => { e.stopPropagation(); e.preventDefault(); closeModal(); }}
 			onmousedown={(e) => { e.stopPropagation(); e.preventDefault(); closeModal(); }}
@@ -472,6 +490,8 @@ onDestroy(() => {
 		<!-- 弹窗（portal 到 body，始终在视口顶层） -->
 		<div
 			class="search-modal"
+			transition:modalTransition
+			onoutroend={finishCloseModal}
 			role="dialog"
 			aria-modal="true"
 			aria-label="Search"
@@ -584,11 +604,9 @@ onDestroy(() => {
 	.search-backdrop {
 		position: fixed;
 		inset: 0;
-		background: rgba(0, 0, 0, 0.22);
+		background: rgb(0 0 0 / 40%);
+		backdrop-filter: blur(4px);
 		z-index: 2147483646;
-	}
-	:global(html.dark) .search-backdrop {
-		background: rgba(0, 0, 0, 0.55);
 	}
 
 	.search-portal-root {
