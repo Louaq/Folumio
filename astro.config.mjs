@@ -144,7 +144,7 @@ export default defineConfig({
 					"wb-sunny-outline-rounded",
 					"workspace-premium-rounded",
 				],
-				"mingcute": [],
+				"mingcute": ["heartbeat-line"],
 				"ri": ["netease-cloud-music-fill"],
 				"fluent-emoji-flat": ["hourglass-not-done"],
 			},
