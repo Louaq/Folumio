@@ -1,6 +1,8 @@
 ---
 import { Icon } from "astro-icon/components";
 import { popupConfig } from "@/config/popupConfig";
+
+const hasNotice = popupConfig.content.trim().length > 0;
 ---
 
 {popupConfig.enable && (
@@ -8,7 +10,7 @@ import { popupConfig } from "@/config/popupConfig";
         <button
             type="button"
             class="popup-trigger"
-            aria-label="打开网站公告"
+            aria-label={hasNotice ? "打开网站公告，1 条通知" : "打开网站公告"}
             title="网站公告"
             aria-haspopup="dialog"
             aria-controls="announcement-popup"
@@ -16,6 +18,7 @@ import { popupConfig } from "@/config/popupConfig";
             data-popup-open
         >
             <Icon name="material-symbols:campaign-outline-rounded" class="text-[1.5rem]" />
+            {hasNotice && <span class="popup-badge" aria-hidden="true">1</span>}
         </button>
         <dialog id="announcement-popup" aria-labelledby="announcement-popup-title">
             <header class="flex items-center justify-between gap-4 mb-4">
@@ -36,6 +39,7 @@ import { popupConfig } from "@/config/popupConfig";
     }
 
     .popup-trigger {
+        position: relative;
         display: flex;
         align-items: center;
         justify-content: center;
@@ -54,6 +58,25 @@ import { popupConfig } from "@/config/popupConfig";
 
     .popup-trigger:active {
         transform: scale(0.94);
+    }
+
+    .popup-badge {
+        position: absolute;
+        top: 0;
+        right: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        min-width: 1rem;
+        height: 1rem;
+        padding-inline: 0.2rem;
+        border-radius: 9999px;
+        background: #ef4444;
+        color: #fff;
+        font-size: 0.65rem;
+        font-weight: 700;
+        line-height: 1;
+        pointer-events: none;
     }
 
     dialog {

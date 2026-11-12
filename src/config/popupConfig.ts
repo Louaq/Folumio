@@ -17,6 +17,6 @@ export const popupConfig: PopupConfig = {
 	// 支持 HTML；仅填写站点维护者可信的内容。
 	content: `
 		<p>欢迎来到本站！</p>
-		<p>这里可以配置<strong>公告内容</strong>，支持链接、图片、列表等 HTML 标签。</p>
+		<p>这里可以配置<strong style="color: red">公告内容</strong>，支持链接、图片、列表等 HTML 标签。</p>
 	`,
 };
