@@ -67,12 +67,7 @@
     font-size: 20px;
   }
 
-  #theme-mode-panel button:is(:hover, :focus-visible) {
-    background: color-mix(in oklch, currentColor 8%, transparent);
-  }
-
   #theme-mode-panel button[aria-checked='true'] {
-    background: color-mix(in oklch, var(--primary) 22%, var(--card-bg));
     color: var(--primary);
   }
 }
