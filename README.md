@@ -1,5 +1,13 @@
 ## Folumio: 面向技术写作与深度阅读的 Astro 博客主题[![Deploy](https://github.com/Louaq/Folumio/actions/workflows/deploy.yml/badge.svg?branch=master)](https://github.com/Louaq/Folumio/actions/workflows/deploy.yml)
 
+[![Astro](https://img.shields.io/badge/Astro-7-BC52EE?logo=astro&logoColor=white)](https://astro.build)
+[![Svelte](https://img.shields.io/badge/Svelte-5-FF3E00?logo=svelte&logoColor=white)](https://svelte.dev)
+[![React](https://img.shields.io/badge/React-19-149ECA?logo=react&logoColor=white)](https://react.dev)
+[![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-4-06B6D4?logo=tailwindcss&logoColor=white)](https://tailwindcss.com)
+[![TypeScript](https://img.shields.io/badge/TypeScript-6-3178C6?logo=typescript&logoColor=white)](https://www.typescriptlang.org)
+[![pnpm](https://img.shields.io/badge/pnpm-9.14.4-F69220?logo=pnpm&logoColor=white)](https://pnpm.io)
+[![License](https://img.shields.io/badge/License-MIT-blue)](LICENSE)
+
 基于 [Firefly](https://github.com/CuteLeaf/Firefly) 主题二次开发的个人博客，专注于多模态医学图像分析领域的论文阅读笔记与技术分享。使用 [Astro](https://astro.build) 构建，站点内容全部为静态生成。
 
 ## 目录
