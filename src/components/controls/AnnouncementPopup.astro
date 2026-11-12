@@ -24,7 +24,7 @@ const hasNotice = popupConfig.content.trim().length > 0;
             <header class="flex items-center justify-between gap-4 mb-4">
                 <h2 id="announcement-popup-title" class="text-xl font-bold">{popupConfig.title}</h2>
                 <button type="button" class="btn-plain rounded-full w-10 h-10 shrink-0" aria-label="关闭公告并收起到右上角" data-popup-close autofocus>
-                    <Icon name="material-symbols:close-rounded" class="text-2xl" />
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#60606b" stroke-width="1.8" aria-hidden="true" class="svelte-1n2o1uz"><path d="m6 6 12 12M18 6 6 18" class="svelte-1n2o1uz"></path></svg>
                 </button>
             </header>
             <div class="popup-content" set:html={popupConfig.content} />

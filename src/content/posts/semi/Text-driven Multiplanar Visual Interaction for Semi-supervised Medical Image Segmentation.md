@@ -4,7 +4,7 @@ published: 2025-12-15 15:34:00
 expires: 2025-21-31 23:59:59
 mathjax: true
 description: "半监督医学图像分割"
-category: 半监督
+category: 半监督医学图像分割
 tags: [医学图像分割]
 ---
 ::github{repo="taozh2017/Text-SemiSeg"}
