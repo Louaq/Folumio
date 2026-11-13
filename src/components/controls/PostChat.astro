@@ -1,0 +1,70 @@
+---
+import { Icon } from "astro-icon/components";
+import { postChatConfig as aiConfig } from "@/config/postChatConfig";
+import { siteConfig } from "@/config/siteConfig";
+---
+
+<button
+  id="postchat-toggle"
+  type="button"
+  class="floating-control-button"
+  aria-label="AI 智能对话"
+  title="AI 智能对话"
+  disabled
+>
+  <Icon name="ri:robot-2-line" />
+</button>
+
+<link rel="stylesheet" href="https://ai.zhheo.com/static/public/postChatUser_summary.min.css" />
+<script is:inline define:vars={{ title: siteConfig.title, color: siteConfig.themeColor.color }}>
+  window.tianliGPT_postSelector = "#post-container > .markdown-content";
+  // 由下方 Swup 生命周期触发摘要，避免第三方 history 钩子读取换页前的正文。
+  window.tianliGPT_postURL = "/a^/";
+  window.tianliGPT_recommendation = true;
+  window.postChatConfig = {
+    userMode: "magic",
+    addButton: false,
+    backgroundColor: color,
+    userTitle: title + " AI 助手",
+    userDesc: "文章问答与站内搜索",
+  };
+
+  (() => {
+    const button = document.getElementById("postchat-toggle");
+
+    function syncTheme() {
+      const root = document.documentElement;
+      const codeTheme = root.dataset.theme;
+      window.postChatUser.setPostChatTheme(root.classList.contains("dark") ? "dark" : "light");
+      // 官方 API 会修改 data-theme；保留站点现有的代码高亮主题。
+      root.dataset.theme = codeTheme;
+    }
+
+    function refreshArticle() {
+      if (!window.postChatUser) return;
+      syncTheme();
+      if (document.querySelector(window.tianliGPT_postSelector) && !document.querySelector(".post-TianliGPT")) {
+        window.tianliGPTIsRunning = false;
+        window.tianliGPT.runTianliGPT();
+      }
+    }
+
+    document.addEventListener("postchat:ready", () => {
+      window.postChat_load();
+      button.disabled = false;
+      button.onclick = () => window.togglePostChatContainer();
+      refreshArticle();
+    }, { once: true });
+    document.addEventListener("astro:page-load", refreshArticle);
+    window.addEventListener("theme-change", () => {
+      if (window.postChatUser) syncTheme();
+    });
+  })();
+</script>
+<script
+  is:inline
+  defer
+  data-postChat_key={aiConfig.key}
+  src="https://ai.zhheo.com/static/public/postChatUser_summary.min.js"
+  onload="document.dispatchEvent(new Event('postchat:ready'))"
+></script>

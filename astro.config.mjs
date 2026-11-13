@@ -147,7 +147,7 @@ export default defineConfig({
 					"workspace-premium-rounded",
 				],
 				"mingcute": ["heartbeat-line"],
-				"ri": ["netease-cloud-music-fill"],
+				"ri": ["netease-cloud-music-fill", "robot-2-line"],
 				"fluent-emoji-flat": ["hourglass-not-done"],
 			},
 		}),

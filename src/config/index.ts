@@ -11,6 +11,7 @@ export { getNormalizedHomeTopNoticeItems } from "./homeTopNoticeConfig";
 
 export { navBarConfig } from "./navBarConfig"; 
 export { profileConfig } from "./profileConfig"; 
+export { postChatConfig } from "./postChatConfig";
 
 export { sidebarLayoutConfig } from "./sidebarConfig"; 
 export { siteConfig } from "./siteConfig";
