@@ -74,6 +74,16 @@ import { siteConfig } from "@/config/siteConfig";
         root.style.setProperty("--postchat-composer-height", `${entry.borderBoxSize[0].blockSize}px`);
       });
       resizeObserver.observe(composer);
+      composer.addEventListener("pointermove", (event) => {
+        if (event.pointerType !== "mouse") return;
+        const bounds = composer.getBoundingClientRect();
+        composer.style.setProperty("--postchat-glow-x", `${event.clientX - bounds.left}px`);
+        composer.style.setProperty("--postchat-glow-y", `${event.clientY - bounds.top}px`);
+        composer.style.setProperty("--postchat-glow-opacity", "1");
+      });
+      composer.addEventListener("pointerleave", () => {
+        composer.style.setProperty("--postchat-glow-opacity", "0");
+      });
       composerObserver.disconnect();
     });
     composerObserver.observe(document.body, { childList: true, subtree: true });
@@ -169,6 +179,8 @@ import { siteConfig } from "@/config/siteConfig";
   }
 
   body #postChatMagic .postChatMagic-input {
+    position: relative;
+    z-index: 1;
     align-self: stretch;
     min-height: 64px;
     max-height: 124px;
@@ -191,6 +203,7 @@ import { siteConfig } from "@/config/siteConfig";
 
   body #postChatMagic .postChatMagic-submit {
     position: absolute;
+    z-index: 1;
     right: 12px;
     bottom: 12px;
     width: 40px;
@@ -202,6 +215,34 @@ import { siteConfig } from "@/config/siteConfig";
   body #postChatMagic .postChatMagic-submit.disabled {
     background: rgb(255 255 255 / 20%);
     opacity: .6;
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    body #postChatMagic .postChatMagic-container::before,
+    body #postChatMagic .postChatMagic-container::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      border-radius: inherit;
+      pointer-events: none;
+      opacity: var(--postchat-glow-opacity, 0);
+      transition: opacity .2s ease;
+    }
+
+    body #postChatMagic .postChatMagic-container::before {
+      z-index: 0;
+      background: radial-gradient(ellipse 260px 140px at var(--postchat-glow-x, 50%) var(--postchat-glow-y, 50%), rgb(230 215 255 / 14%), transparent 75%);
+    }
+
+    body #postChatMagic .postChatMagic-container::after {
+      z-index: 2;
+      padding: 1px;
+      background: radial-gradient(180px circle at var(--postchat-glow-x, 50%) var(--postchat-glow-y, 50%), rgb(240 230 255 / 75%), transparent 75%);
+      -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+      mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+      -webkit-mask-composite: xor;
+      mask-composite: exclude;
+    }
   }
 
   body #postChatMagic .postChatMagic-input::placeholder {
