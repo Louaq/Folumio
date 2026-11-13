@@ -32,6 +32,12 @@ import { siteConfig } from "@/config/siteConfig";
   };
 
   (() => {
+    // 仅过滤官方脚本输出的正文日志。
+    const log = console.log.bind(console);
+    console.log = (...args) => {
+      if (typeof args[0] === "string" && args[0].startsWith("TianliGPT本次提交的内容为：")) return;
+      log(...args);
+    };
     const button = document.getElementById("postchat-toggle");
     // 官方面板按需创建，将现有工具栏放入输入框底部，保留其事件和状态。
     const composerObserver = new MutationObserver(() => {
