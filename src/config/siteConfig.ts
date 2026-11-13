@@ -51,12 +51,11 @@ export const siteConfig: SiteConfig = {
 		},
 	],
 
-	// 文章 AI 摘要开关，与 AI 对话独立控制。
+	// 文章 AI 摘要开关。
 	aiSummary: true,
 
 	// 悬浮按钮开关（移动端沿用现有隐藏规则）
 	floatingControls: {
-		ai: true, // 是否启用 AI 对话按钮
 		music: true, // 是否启用音乐播放器按钮及播放器
 		backToTop: true, // 是否启用返回顶部按钮
 	},

@@ -25,7 +25,6 @@ import { i18n } from "./src/i18n/translation";
 import { pluginHeaderToolbar } from "./src/plugins/expressive-code-header-toolbar.mjs"; /* mac 风格标题栏：把复制/折叠按钮挪进 header */
 import { GithubCardComponent } from "./src/plugins/rehype-component-github-card.mjs";
 import { PdfEmbedComponent } from "./src/plugins/rehype-component-pdf-embed.mjs";
-import { VideoEmbedComponent } from "./src/plugins/rehype-component-video-embed.mjs";
 import rehypeExternalLinks from "./src/plugins/rehype-external-links.mjs";
 import rehypeFigure from "./src/plugins/rehype-figure.mjs";
 import rehypeFileTree from "./src/plugins/rehype-file-tree.mjs";
@@ -84,9 +83,8 @@ export default defineConfig({
 			updateHead: {
 				// 与 Shirone 一致：保留基础样式，不等待样式资源后才切页。
 				awaitAssets: false,
-				// 保留聊天类脚本，避免换页移除标签后重复加载并声明 PostChatMagic。
 				persistTags:
-					'link[rel=stylesheet]:not([data-swup-optional]), style:not([data-swup-optional]), script[src*="/mode/postChatMagic/"]',
+					'link[rel=stylesheet]:not([data-swup-optional]), style:not([data-swup-optional])',
 			},
 			updateBodyClass: false,
 			globalInstance: true,
@@ -226,7 +224,6 @@ export default defineConfig({
 						components: {
 							github: GithubCardComponent,
 							pdf: PdfEmbedComponent,
-							video: VideoEmbedComponent,
 						},
 					},
 				],
@@ -299,14 +296,6 @@ export default defineConfig({
 		// 歌单 music.json 和封面 /assets/music 只在线上服务器，dev 下转发过去
 		server: {
 			proxy: {
-				// PostChat 在 localhost 下请求其开发资源，转发到官方发布的压缩文件。
-				"/src-static/public/mode/postChatMagic/": {
-					target: "https://ai.zhheo.com",
-					changeOrigin: true,
-					rewrite: (path) => path
-						.replace("/src-static/public/", "/static/public/")
-						.replace(/postChatMagic\.(js|css)$/, "postChatMagic.min.$1"),
-				},
 				"/music.json": { target: siteConfig.site_url, changeOrigin: true },
 				"/assets/music": { target: siteConfig.site_url, changeOrigin: true },
 			},

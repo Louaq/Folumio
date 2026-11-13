@@ -7,7 +7,7 @@ import PostChat from "./PostChat.astro";
 
 <div class="floating-controls-container">
   <slot />
-  {(siteConfig.floatingControls.ai || siteConfig.aiSummary) && <PostChat />}
+  {siteConfig.aiSummary && <PostChat />}
   {siteConfig.floatingControls.music && <FloatingMusic />}
   {siteConfig.floatingControls.backToTop && <BackToTop />}
 </div>
@@ -90,7 +90,6 @@ import PostChat from "./PostChat.astro";
       bottom: 4rem;
     }
     .floating-controls-container .koharu-music,
-    .floating-controls-container #postchat-toggle,
     .floating-controls-container #back-to-top-wrapper {
       display: none;
     }

@@ -25,7 +25,6 @@ export type SiteConfig = {
 
 	aiSummary: boolean;
 	floatingControls: {
-		ai: boolean;
 		music: boolean;
 		backToTop: boolean;
 	};

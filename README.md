@@ -60,7 +60,7 @@
 **写作**
 - 📝 Markdown / MDX，KaTeX 数学公式、Expressive Code 代码高亮（可折叠、带标题栏工具条）
 - 💡 GitHub 风格提示块（`> [!NOTE]` 等）
-- 🧩 自定义指令：GitHub 仓库卡片、PDF 内嵌预览、视频播放（见下文）
+- 🧩 自定义指令：GitHub 仓库卡片、PDF 内嵌预览（见下文）
 - 🖼️ 带 alt 的图片自动生成图注，点击放大（Fancybox）
 - 🔗 外链自动新窗口打开，标题自动生成锚点
 - ⏱️ 字数统计与阅读时长、文章过期提醒
@@ -77,7 +77,7 @@
 - 🌗 明暗主题切换
 
 **性能**
-- ⚡ Swup 页面过渡；KaTeX、评论、PDF / 视频播放器等按需懒加载
+- ⚡ Swup 页面过渡；KaTeX、评论、PDF 预览等按需懒加载
 - 🔤 正文中文字体按 unicode-range 加载切片
 
 ## 技术栈
@@ -161,15 +161,12 @@ homeBanner: {
 ::github{repo="owner/repo"}
 
 ::pdf{src="https://example.com/file.pdf" title="可选" height="660px"}
-
-::video{src="https://example.com/video.mp4" poster="https://example.com/cover.jpg" title="视频说明"}
 ```
 
 | 指令 | 属性 | 说明 |
 | --- | --- | --- |
 | `::github` | `repo` | GitHub 仓库卡片，格式 `owner/repo` |
 | `::pdf` | `src`（或 `url`）、`title`、`height` | 使用自托管的 pdf.js viewer，带翻页/缩放/搜索/下载工具栏；跨域 PDF 需源站开启 CORS；`height` 默认 `90vh` |
-| `::video` | `src`（或 `url`）、`poster`、`title` | Video.js 播放器，支持 mp4 / webm，`.m3u8` 自动走 hls.js；高度随视频比例自适应 |
 
 ## 悬浮音乐
 
@@ -184,11 +181,11 @@ homeBanner: {
 
 ## 洪墨 AI
 
-通过官方 PostChat 脚本接入右下角 AI 对话入口，公开文章正文顶部显示 AI 摘要。支持 Swup 换页和深浅主题切换，加密文章不生成摘要。
+通过官方 PostChat 脚本在公开文章正文顶部显示 AI 摘要。支持 Swup 换页和深浅主题切换，加密文章不生成摘要。
 
-在 `src/config/siteConfig.ts` 中统一配置：`floatingControls.ai` 控制 AI 对话按钮，`aiSummary` 独立控制文章 AI 摘要。两项都设为 `false` 时不加载 PostChat。后台「网站接入」生成的公开项目 `key` 在 `src/config/postChatConfig.ts` 中设置。不要填入模型密钥或管理密钥。
+在 `src/config/siteConfig.ts` 中通过 `aiSummary` 控制文章 AI 摘要，设为 `false` 时不加载 PostChat。后台「网站接入」生成的公开项目 `key` 在 `src/config/postChatConfig.ts` 中设置。不要填入模型密钥或管理密钥。
 
-正文选择器为 `#post-container > .markdown-content`。摘要会将公开正文提交给洪墨 AI 服务；聊天和搜索能力取决于后台项目权限及额度。正式使用前，在后台访问控制中绑定站点的 HTTPS 域名。本地 HTTP 预览无法验证线上摘要生成；`pnpm dev` 已将官方聊天脚本在 localhost 下请求的开发资源路径代理到官方线上文件，修改代理配置后需重启开发服务器。该代理仅处理 JS/CSS 资源，不改变聊天接口的域名权限校验。
+正文选择器为 `#post-container > .markdown-content`。摘要会将公开正文提交给洪墨 AI 服务。正式使用前，在后台访问控制中绑定站点的 HTTPS 域名。本地 HTTP 预览无法验证线上摘要生成。
 
 接入说明：[洪墨 AI 官方文档](https://ai.zhheo.com/docs/newUser.html)。
 
