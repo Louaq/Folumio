@@ -14,7 +14,6 @@ const { class: className, style, cacheHours = 24 } = Astro.props;
   <jieqi-poster data-cache-hours={cacheHours}>
     <img hidden width="1024" height="1536" alt="" class="w-full h-auto rounded-lg" data-poster />
     <p class="text-sm text-neutral-500 py-4" role="status" data-status>正在加载海报…</p>
-    <p class="mt-2 text-center text-sm text-neutral-600 dark:text-neutral-300" data-term></p>
   </jieqi-poster>
 </WidgetLayout>
 
@@ -59,15 +58,14 @@ const { class: className, style, cacheHours = 24 } = Astro.props;
         image.alt = `${event.card.name}海报`;
         image.hidden = false;
         status.hidden = true;
-        this.querySelector<HTMLElement>("[data-term]")!.textContent =
-          `${event.card.name} · ${event.start}${event.end !== event.start ? ` — ${event.end}` : ""}`;
-        this.timer = window.setTimeout(() => void this.load(), refreshAt - Date.now());
-      } catch {
+      } 
+      catch {
         if (!this.isConnected) return;
         image.hidden = true;
         status.hidden = false;
         status.textContent = "海报暂时无法加载";
-      } finally {
+      } 
+      finally {
         this.loading = false;
       }
     }
