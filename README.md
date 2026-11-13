@@ -51,8 +51,6 @@
 
 ![追番](https://pic1.imgdb.cn/i/034uRnUz0km9RT1DdzjVyh.webp)
 
-**404**
-![404](https://pic1.imgdb.cn/i/034uRqgBYH6EAVEfCARG0Y.webp)
 
 ## 特性
 
@@ -265,7 +263,7 @@ items: [
 
 ## 感谢
 
-参考样式：[宇阳](https://liuyuyang.net/)、[Ru-yu Blog](https://www.chichu.chat/)、[Cosine](https://blog.cosine.ren/)、[mandarava23](https://mandarava23.top/)、[张洪Heo](https://blog.zhheo.com/)
+参考样式：[宇阳](https://liuyuyang.net/)、[Ru-yu Blog](https://www.chichu.chat/)、[Cosine](https://blog.cosine.ren/)、[mandarava23](https://mandarava23.top/)
 
 ## 许可证
 
