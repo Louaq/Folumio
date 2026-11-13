@@ -40,6 +40,8 @@
     "@tailwindcss/vite": "^4.3.5",
     "@types/react": "^19.2.7",
     "@types/react-dom": "^19.2.3",
+    "@videojs/hlsjs-video": "10.3.0",
+    "@videojs/html": "10.3.0",
     "astro": "7.4.11",
     "astro-expressive-code": "^0.44.3",
     "astro-icon": "^1.2.0",

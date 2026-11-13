@@ -263,6 +263,17 @@ const collapsiblePreviewLines =
     });
     window.swup.hooks.on("visit:end", () => { if (!scrollStarted) finishVisit(); });
     window.swup.hooks.on("visit:abort", finishVisit);
+    window.swup.hooks.on("content:scroll", (visit: {
+      history: { popstate: boolean };
+      animation: { animate: boolean };
+      to: { url: string };
+    }) => {
+      // 无动画的历史导航会被 ScrollPlugin 跳过，需在 manual 模式下恢复缓存位置。
+      if (visit.history.popstate && !visit.animation.animate) {
+        const position = window.swup.findPlugin("SwupScrollPlugin").getCachedScrollPositions(visit.to.url);
+        if (position) window.swup.scrollTo(position.window.top, false);
+      }
+    });
     if (window.swup.hooks.exists("scroll:end")) {
       window.swup.hooks.on("scroll:start", () => { if (visitActive) scrollStarted = true; });
       window.swup.hooks.on("scroll:end", finishVisit);

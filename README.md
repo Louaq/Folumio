@@ -59,7 +59,7 @@
 **写作**
 - 📝 Markdown / MDX，KaTeX 数学公式、Expressive Code 代码高亮（可折叠、带标题栏工具条）
 - 💡 GitHub 风格提示块（`> [!NOTE]` 等）
-- 🧩 自定义指令：GitHub 仓库卡片、PDF 内嵌预览（见下文）
+- 🧩 自定义指令：GitHub 仓库卡片、PDF 内嵌预览、视频播放（见下文）
 - 🖼️ 带 alt 的图片自动生成图注，点击放大（Fancybox）
 - 🔗 外链自动新窗口打开，标题自动生成锚点
 - ⏱️ 字数统计与阅读时长、文章过期提醒
@@ -76,7 +76,7 @@
 - 🌗 明暗主题切换
 
 **性能**
-- ⚡ Swup 页面过渡；KaTeX、评论、PDF 预览等按需懒加载
+- ⚡ Swup 页面过渡；KaTeX、评论、PDF / 视频播放器等按需懒加载
 - 🔤 正文中文字体按 unicode-range 加载切片
 
 ## 技术栈
@@ -160,12 +160,15 @@ homeBanner: {
 ::github{repo="owner/repo"}
 
 ::pdf{src="https://example.com/file.pdf" title="可选" height="660px"}
+
+::video{src="https://example.com/video.mp4" poster="https://example.com/cover.jpg" title="视频说明"}
 ```
 
 | 指令 | 属性 | 说明 |
 | --- | --- | --- |
 | `::github` | `repo` | GitHub 仓库卡片，格式 `owner/repo` |
 | `::pdf` | `src`（或 `url`）、`title`、`height` | 使用自托管的 pdf.js viewer，带翻页/缩放/搜索/下载工具栏；跨域 PDF 需源站开启 CORS；`height` 默认 `90vh` |
+| `::video` | `src`（或 `url`）、`poster`、`title` | Video.js 播放器，支持 mp4 / webm，`.m3u8` 自动走 hls.js；高度随视频比例自适应 |
 
 ## 悬浮音乐
 

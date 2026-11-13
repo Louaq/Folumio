@@ -25,6 +25,7 @@ import { i18n } from "./src/i18n/translation";
 import { pluginHeaderToolbar } from "./src/plugins/expressive-code-header-toolbar.mjs"; /* mac 风格标题栏：把复制/折叠按钮挪进 header */
 import { GithubCardComponent } from "./src/plugins/rehype-component-github-card.mjs";
 import { PdfEmbedComponent } from "./src/plugins/rehype-component-pdf-embed.mjs";
+import { VideoEmbedComponent } from "./src/plugins/rehype-component-video-embed.mjs";
 import rehypeExternalLinks from "./src/plugins/rehype-external-links.mjs";
 import rehypeFigure from "./src/plugins/rehype-figure.mjs";
 import rehypeFileTree from "./src/plugins/rehype-file-tree.mjs";
@@ -224,6 +225,7 @@ export default defineConfig({
 						components: {
 							github: GithubCardComponent,
 							pdf: PdfEmbedComponent,
+							video: VideoEmbedComponent,
 						},
 					},
 				],
