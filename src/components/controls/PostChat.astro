@@ -4,7 +4,7 @@ import { postChatConfig as aiConfig } from "@/config/postChatConfig";
 import { siteConfig } from "@/config/siteConfig";
 ---
 
-<button
+{siteConfig.floatingControls.ai && <button
   id="postchat-toggle"
   type="button"
   class="floating-control-button"
@@ -13,10 +13,10 @@ import { siteConfig } from "@/config/siteConfig";
   disabled
 >
   <Icon name="ri:robot-2-line" />
-</button>
+</button>}
 
 <link rel="stylesheet" href="https://ai.zhheo.com/static/public/postChatUser_summary.min.css" />
-<script is:inline define:vars={{ title: siteConfig.title, color: siteConfig.themeColor.color }}>
+<script is:inline define:vars={{ title: siteConfig.title, color: siteConfig.themeColor.color, chatEnabled: siteConfig.floatingControls.ai, summaryEnabled: siteConfig.aiSummary }}>
   window.tianliGPT_postSelector = "#post-container > .markdown-content";
   // 由下方 Swup 生命周期触发摘要，避免第三方 history 钩子读取换页前的正文。
   window.tianliGPT_postURL = "/a^/";
@@ -96,7 +96,7 @@ import { siteConfig } from "@/config/siteConfig";
       });
       composerObserver.disconnect();
     });
-    composerObserver.observe(document.body, { childList: true, subtree: true });
+    if (chatEnabled) composerObserver.observe(document.body, { childList: true, subtree: true });
 
     function syncTheme() {
       const root = document.documentElement;
@@ -109,16 +109,18 @@ import { siteConfig } from "@/config/siteConfig";
     function refreshArticle() {
       if (!window.postChatUser) return;
       syncTheme();
-      if (document.querySelector(window.tianliGPT_postSelector) && !document.querySelector(".post-TianliGPT")) {
+      if (summaryEnabled && document.querySelector(window.tianliGPT_postSelector) && !document.querySelector(".post-TianliGPT")) {
         window.tianliGPTIsRunning = false;
         window.tianliGPT.runTianliGPT();
       }
     }
 
     document.addEventListener("postchat:ready", () => {
-      window.postChat_load();
-      button.disabled = false;
-      button.onclick = () => window.togglePostChatContainer();
+      if (chatEnabled) {
+        window.postChat_load();
+        button.disabled = false;
+        button.onclick = () => window.togglePostChatContainer();
+      }
       refreshArticle();
     }, { once: true });
     document.addEventListener("astro:page-load", refreshArticle);

@@ -186,7 +186,7 @@ homeBanner: {
 
 通过官方 PostChat 脚本接入右下角 AI 对话入口，公开文章正文顶部显示 AI 摘要。支持 Swup 换页和深浅主题切换，加密文章不生成摘要。
 
-在 `src/config/postChatConfig.ts` 中设置 `enable` 开关和后台「网站接入」生成的公开项目 `key`。不要填入模型密钥或管理密钥。
+在 `src/config/siteConfig.ts` 中统一配置：`floatingControls.ai` 控制 AI 对话按钮，`aiSummary` 独立控制文章 AI 摘要。两项都设为 `false` 时不加载 PostChat。后台「网站接入」生成的公开项目 `key` 在 `src/config/postChatConfig.ts` 中设置。不要填入模型密钥或管理密钥。
 
 正文选择器为 `#post-container > .markdown-content`。摘要会将公开正文提交给洪墨 AI 服务；聊天和搜索能力取决于后台项目权限及额度。正式使用前，在后台访问控制中绑定站点的 HTTPS 域名。本地 HTTP 预览无法验证线上摘要生成；`pnpm dev` 已将官方聊天脚本在 localhost 下请求的开发资源路径代理到官方线上文件，修改代理配置后需重启开发服务器。该代理仅处理 JS/CSS 资源，不改变聊天接口的域名权限校验。
 

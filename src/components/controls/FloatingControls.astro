@@ -3,12 +3,11 @@ import { siteConfig } from "@/config/siteConfig";
 import BackToTop from "./BackToTop.astro";
 import FloatingMusic from "./FloatingMusic.astro";
 import PostChat from "./PostChat.astro";
-import { postChatConfig } from "@/config/postChatConfig";
 ---
 
 <div class="floating-controls-container">
   <slot />
-  {postChatConfig.enable && <PostChat />}
+  {(siteConfig.floatingControls.ai || siteConfig.aiSummary) && <PostChat />}
   {siteConfig.floatingControls.music && <FloatingMusic />}
   {siteConfig.floatingControls.backToTop && <BackToTop />}
 </div>

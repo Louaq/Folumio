@@ -23,7 +23,9 @@ export type SiteConfig = {
 	// 字体配置
 	font: FontConfig;
 
+	aiSummary: boolean;
 	floatingControls: {
+		ai: boolean;
 		music: boolean;
 		backToTop: boolean;
 	};
