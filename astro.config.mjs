@@ -84,8 +84,9 @@ export default defineConfig({
 			updateHead: {
 				// 与 Shirone 一致：保留基础样式，不等待样式资源后才切页。
 				awaitAssets: false,
+				// 保留聊天类脚本，避免换页移除标签后重复加载并声明 PostChatMagic。
 				persistTags:
-					'link[rel=stylesheet]:not([data-swup-optional]), style:not([data-swup-optional])',
+					'link[rel=stylesheet]:not([data-swup-optional]), style:not([data-swup-optional]), script[src*="/mode/postChatMagic/"]',
 			},
 			updateBodyClass: false,
 			globalInstance: true,

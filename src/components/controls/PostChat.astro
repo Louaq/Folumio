@@ -32,10 +32,14 @@ import { siteConfig } from "@/config/siteConfig";
   };
 
   (() => {
-    // 仅过滤官方脚本输出的正文日志。
+    // 仅过滤正文日志及主动禁用自动摘要产生的规则提示。
     const log = console.log.bind(console);
     console.log = (...args) => {
-      if (typeof args[0] === "string" && args[0].startsWith("TianliGPT本次提交的内容为：")) return;
+      const message = args[0];
+      if (typeof message === "string" && (
+        message.startsWith("TianliGPT本次提交的内容为：") ||
+        (message.startsWith("洪墨摘要AI：当前 URL '") && message.includes("不符合规则 '/a^/'"))
+      )) return;
       log(...args);
     };
     const button = document.getElementById("postchat-toggle");
