@@ -179,6 +179,8 @@
 
 /* 元数据到达前整个播放器透明，就绪后淡入 */
 .custom-md .video-embed[data-loading] video-skin {
+  position: absolute;
+  inset: 0;
   opacity: 0;
 }
 
@@ -190,7 +192,7 @@
 
 .custom-md .video-embed[data-loading] {
   position: relative;
-  aspect-ratio: 16 / 9;
+  aspect-ratio: var(--video-aspect-ratio, 16 / 9);
   border-radius: 12px;
   background: var(--btn-regular-bg);
 }
