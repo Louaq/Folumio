@@ -1,0 +1,36 @@
+---
+import { Icon } from "astro-icon/components";
+---
+
+<div id="back-to-bottom-wrapper">
+  <button
+    id="back-to-bottom-btn"
+    type="button"
+    class="floating-control-button"
+    aria-label="返回底部"
+    title="返回底部"
+    onclick="backToBottom()"
+  >
+    <Icon name="ri:arrow-down-s-line" />
+  </button>
+</div>
+
+<script>
+  // Adapted from astro-koharu FloatingGroup (AGPL-3.0).
+  window.backToBottom = function () {
+    window.scrollTo({
+      top: document.documentElement.scrollHeight,
+      behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches
+        ? "instant"
+        : "smooth",
+    });
+  };
+</script>
+
+<style is:global>
+  #back-to-bottom-wrapper {
+    width: 2.5rem;
+    height: 2.5rem;
+    pointer-events: auto;
+  }
+</style>

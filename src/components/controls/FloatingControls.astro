@@ -1,6 +1,7 @@
 ---
 import { siteConfig } from "@/config/siteConfig";
 import BackToTop from "./BackToTop.astro";
+import BackToBottom from "./BackToBottom.astro";
 import FloatingMusic from "./FloatingMusic.astro";
 ---
 
@@ -8,6 +9,7 @@ import FloatingMusic from "./FloatingMusic.astro";
   <slot />
   {siteConfig.floatingControls.music && <FloatingMusic />}
   {siteConfig.floatingControls.backToTop && <BackToTop />}
+  {siteConfig.floatingControls.backToBottom && <BackToBottom />}
 </div>
 
 <style is:global>
@@ -88,7 +90,8 @@ import FloatingMusic from "./FloatingMusic.astro";
       bottom: 4rem;
     }
     .floating-controls-container .koharu-music,
-    .floating-controls-container #back-to-top-wrapper {
+    .floating-controls-container #back-to-top-wrapper,
+    .floating-controls-container #back-to-bottom-wrapper {
       display: none;
     }
   }

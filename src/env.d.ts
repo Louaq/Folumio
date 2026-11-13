@@ -9,6 +9,7 @@ declare global {
 
 	interface Window {
 		backToTop: () => void;
+		backToBottom: () => void;
 		__fireflyJumpTouchOutside: boolean;
 		// swup is defined in global.d.ts
 	}

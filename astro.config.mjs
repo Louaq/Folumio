@@ -147,7 +147,7 @@ export default defineConfig({
 					"workspace-premium-rounded",
 				],
 				"mingcute": ["heartbeat-line"],
-				"ri": ["arrow-up-s-line", "music-2-line", "music-2-fill", "robot-2-line"],
+				"ri": ["arrow-up-s-line", "arrow-down-s-line", "music-2-line", "music-2-fill", "robot-2-line"],
 				"fluent-emoji-flat": ["hourglass-not-done"],
 			},
 		}),

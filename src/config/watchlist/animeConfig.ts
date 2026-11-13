@@ -359,4 +359,14 @@ export const animeItems: WatchlistItem[] = [
 		tags: ["动作", "动画", "奇幻"],
 		enabled: true,
 	},
+	{
+		title: "灵境行者",
+		cover: "https://pic1.imgdb.cn/i/034wrWaK1u4COLFyFL0MTR.webp",
+		type: "anime",
+		status: "watching",
+		rating: 0,
+		startDate: "2026-09-03",
+		tags: ["动作", "动画", "奇幻"],
+		enabled: true,
+	},
 ];

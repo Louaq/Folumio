@@ -55,6 +55,7 @@ export const siteConfig: SiteConfig = {
 	floatingControls: {
 		music: true, // 是否启用音乐播放器按钮及播放器
 		backToTop: true, // 是否启用返回顶部按钮
+		backToBottom: true, // 是否启用返回底部按钮
 	},
 
 	// 导航栏配置

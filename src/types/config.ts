@@ -26,6 +26,7 @@ export type SiteConfig = {
 	floatingControls: {
 		music: boolean;
 		backToTop: boolean;
+		backToBottom: boolean;
 	};
 
 	// 站点开始日期，用于计算运行天数
