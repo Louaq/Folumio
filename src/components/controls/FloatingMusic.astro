@@ -15,19 +15,17 @@ import "@/styles/koharu-music.css";
     aria-expanded="false"
     aria-controls="koharu-bgm-panel"
   >
-    <Icon name="ri:netease-cloud-music-fill" />
+    <Icon name="ri:music-2-line" class="music-icon-closed" />
+    <Icon name="ri:music-2-fill" class="music-icon-open" />
   </button>
   <GlobalBGMPlayer client:load songsUrl={url("/music.json")} />
 </div>
 
 <script>
-  import { $bgmPanelOpen, $bgmPlaying, toggleBgmPanel } from "@/vendor/koharu/store/bgm";
+  import { $bgmPanelOpen, toggleBgmPanel } from "@/vendor/koharu/store/bgm";
   const button = document.querySelector<HTMLButtonElement>("#music-toggle")!;
   button.onclick = toggleBgmPanel;
   $bgmPanelOpen.subscribe((open) =>
     button.setAttribute("aria-expanded", String(open)),
-  );
-  $bgmPlaying.subscribe((playing) =>
-    button.classList.toggle("is-playing", playing),
   );
 </script>
