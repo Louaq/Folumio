@@ -27,10 +27,56 @@ import { siteConfig } from "@/config/siteConfig";
     backgroundColor: color,
     userTitle: title + " AI 助手",
     userDesc: "文章问答与站内搜索",
+    defaultChatQuestions: ["🔥 推荐几篇热门文章", "🧠 多模态医学图像分析有哪些文章？", "🔬 帮我了解医学图像分割", "👋 介绍一下这个博客"],
+    defaultSearchQuestions: ["多模态", "医学图像分割", "半监督学习", "论文阅读笔记"],
   };
 
   (() => {
     const button = document.getElementById("postchat-toggle");
+    // 官方面板按需创建，将现有工具栏放入输入框底部，保留其事件和状态。
+    const composerObserver = new MutationObserver(() => {
+      const composer = document.querySelector("#postChatMagic .postChatMagic-container");
+      const tools = document.querySelector("#postChatMagic .postChatMagic-Tools");
+      if (!composer || !tools) return;
+      composer.append(tools);
+      const root = document.getElementById("postChatMagic");
+      const actions = document.createElement("div");
+      actions.className = "postchat-window-actions";
+      actions.append(tools.querySelector(".clear-btn"), tools.querySelector(".close-btn"));
+      root.append(actions);
+
+      const modes = tools.querySelector(".mode-switch-container");
+      const menu = document.createElement("details");
+      menu.className = "postchat-mode-menu";
+      const trigger = document.createElement("summary");
+      trigger.setAttribute("aria-label", "切换聊天或搜索");
+      const syncModeLabel = () => {
+        trigger.textContent = modes.querySelector(".mode-switch-btn.active").textContent;
+      };
+      syncModeLabel();
+      const modeObserver = new MutationObserver(syncModeLabel);
+      modeObserver.observe(modes, { attributes: true, subtree: true, attributeFilter: ["class"] });
+      menu.append(trigger, modes);
+      tools.append(menu);
+      modes.addEventListener("click", (event) => {
+        if (event.target.closest(".mode-switch-btn")) menu.open = false;
+      });
+      document.addEventListener("click", (event) => {
+        if (!menu.contains(event.target)) menu.open = false;
+      });
+      document.addEventListener("keydown", (event) => {
+        if (event.key === "Escape" && menu.open) {
+          menu.open = false;
+          trigger.focus();
+        }
+      });
+      const resizeObserver = new ResizeObserver(([entry]) => {
+        root.style.setProperty("--postchat-composer-height", `${entry.borderBoxSize[0].blockSize}px`);
+      });
+      resizeObserver.observe(composer);
+      composerObserver.disconnect();
+    });
+    composerObserver.observe(document.body, { childList: true, subtree: true });
 
     function syncTheme() {
       const root = document.documentElement;
@@ -68,3 +114,254 @@ import { siteConfig } from "@/config/siteConfig";
   src="https://ai.zhheo.com/static/public/postChatUser_summary.min.js"
   onload="document.dispatchEvent(new Event('postchat:ready'))"
 ></script>
+
+<style is:global>
+  /* 官方样式会延迟加载并覆盖深色变量，因此这些展示变量固定为透明对话配色。 */
+  body #postChatMagic {
+    --postchat-composer-bottom: 56px;
+    --postchat-composer-height: 144px;
+    --magic-bg: linear-gradient(rgb(0 0 0 / 34%), rgb(0 0 0 / 82%)) !important;
+    --postchat-fontcolor: #f7f7fa !important;
+    --postchat-secondtext: rgb(255 255 255 / 65%) !important;
+    --postchat-card-bg: rgb(255 255 255 / 10%) !important;
+    --postchat-maskbgdeep: rgb(40 40 40 / 62%) !important;
+    --postchat-card-border: rgb(255 255 255 / 16%) !important;
+  }
+
+  body #postChatMagic .postChatMagic-overlay {
+    backdrop-filter: none;
+    transform: none;
+  }
+
+  body #postChatMagic .postChatMagic-container,
+  body #postChatMagic .postChatMagic-messages,
+  body #postChatMagic .postChatMagic-default-questions,
+  body #postChatMagic .postChatMagic-Tools,
+  body #postChatMagic .postChatMagic-Tips,
+  body #postChatMagic .postChatMagic-Info {
+    max-width: 960px;
+  }
+
+  body #postChatMagic .postChatMagic-Info {
+    display: none;
+  }
+
+  body #postChatMagic .info-icon {
+    display: none;
+  }
+
+  body #postChatMagic .info-title {
+    font-size: clamp(24px, 2.5vw, 32px);
+    line-height: 1.3;
+  }
+
+  body #postChatMagic .postChatMagic-container {
+    bottom: var(--postchat-composer-bottom);
+    min-height: 144px;
+    padding: 6px;
+    background: rgb(255 255 255 / 6%);
+    border: 1px solid var(--postchat-card-border);
+    border-radius: 20px;
+    backdrop-filter: blur(24px) saturate(1.3);
+    box-shadow: 0 8px 32px rgb(0 0 0 / 25%);
+    box-sizing: border-box;
+    overflow: visible;
+  }
+
+  body #postChatMagic .postChatMagic-input {
+    align-self: stretch;
+    min-height: 64px;
+    max-height: 124px;
+    margin: 0;
+    padding: 16px 20px 48px;
+    font-family: inherit;
+    line-height: 1.5;
+    box-sizing: content-box;
+  }
+
+  body #postChatMagic .postChatMagic-container .postChatMagic-Tools {
+    left: 12px;
+    bottom: 12px;
+    width: calc(100% - 76px);
+    max-width: none;
+    transform: none;
+    justify-content: flex-start;
+    pointer-events: auto;
+  }
+
+  body #postChatMagic .postChatMagic-submit {
+    position: absolute;
+    right: 12px;
+    bottom: 12px;
+    width: 40px;
+    height: 40px;
+    margin: 0;
+    border-radius: 50%;
+  }
+
+  body #postChatMagic .postChatMagic-submit.disabled {
+    background: rgb(255 255 255 / 20%);
+    opacity: .6;
+  }
+
+  body #postChatMagic .postChatMagic-input::placeholder {
+    color: rgb(255 255 255 / 60%);
+  }
+
+  body #postChatMagic .postChatMagic-messages,
+  body #postChatMagic .postChatMagic-default-questions {
+    bottom: calc(var(--postchat-composer-bottom) + var(--postchat-composer-height) + 54px);
+    max-height: calc(100dvh - var(--postchat-composer-bottom) - var(--postchat-composer-height) - 86px);
+  }
+
+  body #postChatMagic .postChatMagic-default-questions {
+    bottom: calc(var(--postchat-composer-bottom) + var(--postchat-composer-height) + 10px);
+    flex-direction: row;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    padding: 0;
+    border-radius: 0;
+    scrollbar-width: none;
+  }
+
+  body #postChatMagic .default-question-btn {
+    flex-shrink: 0;
+    padding: 8px 14px;
+    font-size: 14px;
+  }
+
+  body #postChatMagic .default-question-btn:hover {
+    transform: none;
+  }
+
+  body #postChatMagic .postchat-window-actions {
+    display: none;
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    z-index: 1200;
+    gap: 8px;
+  }
+
+  body #postChatMagic.active .postchat-window-actions {
+    display: flex;
+  }
+
+  body #postChatMagic .postchat-mode-menu {
+    position: relative;
+  }
+
+  body #postChatMagic .postchat-mode-menu summary {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    height: 40px;
+    padding: 0 12px;
+    border: 1px solid var(--postchat-card-border);
+    border-radius: 20px;
+    color: var(--postchat-fontcolor);
+    background: rgb(255 255 255 / 6%);
+    cursor: pointer;
+    list-style: none;
+  }
+
+  body #postChatMagic .postchat-mode-menu summary::-webkit-details-marker {
+    display: none;
+  }
+
+  body #postChatMagic .postchat-mode-menu summary::after {
+    content: "";
+    width: 6px;
+    height: 6px;
+    border-right: 1px solid currentColor;
+    border-bottom: 1px solid currentColor;
+    transform: translateY(-2px) rotate(45deg);
+    opacity: .6;
+  }
+
+  body #postChatMagic .postchat-mode-menu .mode-switch-container {
+    position: absolute;
+    left: 0;
+    bottom: calc(100% + 10px);
+    width: 220px;
+    padding: 6px;
+    flex-direction: column;
+    gap: 4px;
+    border-radius: 16px;
+    background: #191b24;
+    box-shadow: 0 12px 40px rgb(0 0 0 / 30%);
+  }
+
+  body #postChatMagic .postchat-mode-menu:not([open]) .mode-switch-container {
+    display: none;
+  }
+
+  body #postChatMagic .postchat-mode-menu .mode-switch-btn {
+    padding: 10px 12px;
+    border-radius: 10px;
+    text-align: left;
+  }
+
+  body #postChatMagic .postChatMagic-Tips {
+    bottom: 24px;
+  }
+
+  body #postChatMagic .default-question-btn,
+  body #postChatMagic .mode-switch-container,
+  body #postChatMagic .clear-btn,
+  body #postChatMagic .close-btn,
+  body #postChatMagic .ai-message .message-content,
+  body #postChatMagic .search-result {
+    border: 1px solid var(--postchat-card-border);
+    backdrop-filter: blur(12px);
+  }
+
+  body #postChatMagic .message {
+    max-width: 86%;
+    align-items: flex-end;
+  }
+
+  body #postChatMagic .message .message-content {
+    padding: 14px 16px;
+    font-size: 16px;
+    line-height: 1.6;
+    overflow-wrap: anywhere;
+    backdrop-filter: blur(20px) saturate(1.2);
+    box-shadow: 0 8px 32px rgb(0 0 0 / 25%);
+  }
+
+  body #postChatMagic .user-message .message-content {
+    background: color-mix(in srgb, var(--theme-color) 35%, transparent);
+    border: 1px solid rgb(255 255 255 / 15%);
+    border-radius: 20px 20px 6px 20px;
+  }
+
+  body #postChatMagic .ai-message .message-content {
+    background: rgb(0 0 0 / 40%);
+    border-color: rgb(255 255 255 / 10%);
+    border-radius: 20px 20px 20px 6px;
+    color: rgb(255 255 255 / 95%);
+  }
+
+  body #postChatMagic .ai-message .message-content p {
+    line-height: inherit;
+  }
+
+  body #postChatMagic .ai-message .message-content pre {
+    background: rgb(0 0 0 / 30%);
+    border-radius: 8px;
+    padding: 12px 16px;
+  }
+
+  body #postChatMagic .ai-message .message-content a {
+    color: #60a5fa;
+    text-decoration: underline;
+    text-underline-offset: 2px;
+  }
+
+  @media (max-width: 640px) {
+    body #postChatMagic .message {
+      max-width: 100%;
+    }
+  }
+</style>

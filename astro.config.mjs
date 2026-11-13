@@ -298,6 +298,14 @@ export default defineConfig({
 		// 歌单 music.json 和封面 /assets/music 只在线上服务器，dev 下转发过去
 		server: {
 			proxy: {
+				// PostChat 在 localhost 下请求其开发资源，转发到官方发布的压缩文件。
+				"/src-static/public/mode/postChatMagic/": {
+					target: "https://ai.zhheo.com",
+					changeOrigin: true,
+					rewrite: (path) => path
+						.replace("/src-static/public/", "/static/public/")
+						.replace(/postChatMagic\.(js|css)$/, "postChatMagic.min.$1"),
+				},
 				"/music.json": { target: siteConfig.site_url, changeOrigin: true },
 				"/assets/music": { target: siteConfig.site_url, changeOrigin: true },
 			},
