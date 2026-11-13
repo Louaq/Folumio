@@ -13,6 +13,10 @@ export const essaysConfig: {
 	description: "记录日常的片刻与想法。",
 	items: [
 		{
+			date: "2026-11-13",
+			content: "周五!",
+		},
+		{
 			date: "2026-11-11",
 			content: "斗破苍穹完结 (2017-2026)",
 			images: ["https://pic1.imgdb.cn/i/034ve1lhQ9s0jxW6U7U7To.webp?w=400"],

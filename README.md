@@ -141,6 +141,18 @@ lang: ""
 
 首页 Banner 显示站点标题与副标题，图片由 `src/config/siteConfig.ts` 中的 `homeBanner.desktop` 和 `homeBanner.mobile` 配置。
 
+两端均支持单张路径字符串或非空图片数组。多张时按顺序自动轮播，`switchInterval` 为间隔毫秒数，默认 `8000`，须大于 `0`。两端图片数量可不同，各自循环使用；单张保持静态。开启系统“减少动态效果”时仅显示第一张。
+
+```ts
+homeBanner: {
+  desktop: ["/assets/coverImage/2.webp", "/assets/coverImage/3.webp"],
+  mobile: "/assets/images/banner-mobile.webp",
+  switchInterval: 8000,
+},
+```
+
+图片路径支持 `src/assets` 下相对于 `src` 的路径、以 `/` 开头的 public 路径或 HTTPS URL。
+
 
 ### 自定义指令
 

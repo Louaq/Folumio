@@ -21,26 +21,38 @@ async function resolveWallpaper(
   return images[`/src/${src}`]();
 }
 const [desktop, mobile] = await Promise.all([
-  resolveWallpaper(siteConfig.homeBanner.desktop),
-  resolveWallpaper(siteConfig.homeBanner.mobile),
+  Promise.all([siteConfig.homeBanner.desktop].flat().map(resolveWallpaper)),
+  Promise.all([siteConfig.homeBanner.mobile].flat().map(resolveWallpaper)),
 ]);
 ---
 <section class="banner-stage" aria-label={title || siteConfig.title}>
-  <div class="banner-stage__media" aria-hidden="true">
-    <picture>
-      <source media="(max-width: 1023px)" srcset={mobile.src} />
-      <img
-        class="banner-stage__image"
-        src={desktop.src}
-        width={desktop.width}
-        height={desktop.height}
-        alt=""
-        fetchpriority="high"
-        loading="eager"
-        decoding="async"
-      />
-    </picture>
-  </div>
+  <banner-wallpapers
+    class="banner-stage__media"
+    aria-hidden="true"
+    data-desktop={JSON.stringify(desktop)}
+    data-mobile={JSON.stringify(mobile)}
+    data-switch-interval={siteConfig.homeBanner.switchInterval ?? 8000}
+  >
+    {Array.from({ length: desktop.length > 1 || mobile.length > 1 ? 2 : 1 }, (_, index) => {
+      const desktopImage = desktop[index % desktop.length];
+      const mobileImage = mobile[index % mobile.length];
+      return (
+        <picture class:list={["banner-stage__slide", { "is-active": index === 0 }]}>
+          <source media="(max-width: 1023px)" srcset={mobileImage.src} />
+          <img
+            class="banner-stage__image"
+            src={desktopImage.src}
+            width={desktopImage.width}
+            height={desktopImage.height}
+            alt=""
+            fetchpriority={index === 0 ? "high" : "auto"}
+            loading={index === 0 ? "eager" : "lazy"}
+            decoding="async"
+          />
+        </picture>
+      );
+    })}
+  </banner-wallpapers>
   <div class="banner-stage__scrim"></div>
   <div class="banner-stage__copy">
     <h1 class="banner-stage__title" id={isPost ? "post-title" : undefined}>
@@ -51,6 +63,41 @@ const [desktop, mobile] = await Promise.all([
   </div>
   <BannerWaves />
 </section>
+<script>
+  class BannerWallpapers extends HTMLElement {
+    timer?: number;
+
+    connectedCallback() {
+      const slides = this.querySelectorAll("picture");
+      if (slides.length === 1 || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+
+      const desktop: { src: string; width?: number; height?: number }[] = JSON.parse(this.dataset.desktop!);
+      const mobile: { src: string }[] = JSON.parse(this.dataset.mobile!);
+      let index = 0;
+      this.timer = window.setInterval(() => {
+        const current = slides[index % slides.length];
+        index += 1;
+        const next = slides[index % slides.length];
+        const image = next.querySelector("img")!;
+        const wallpaper = desktop[index % desktop.length];
+        next.querySelector("source")!.srcset = mobile[index % mobile.length].src;
+        image.src = wallpaper.src;
+        for (const dimension of ["width", "height"] as const) {
+          if (wallpaper[dimension] === undefined) image.removeAttribute(dimension);
+          else image.setAttribute(dimension, String(wallpaper[dimension]));
+        }
+        current.classList.remove("is-active");
+        next.classList.add("is-active");
+      }, Number(this.dataset.switchInterval));
+    }
+
+    disconnectedCallback() {
+      window.clearInterval(this.timer);
+    }
+  }
+
+  customElements.define("banner-wallpapers", BannerWallpapers);
+</script>
 <style>
   .banner-stage {
     position: relative;
@@ -74,6 +121,17 @@ const [desktop, mobile] = await Promise.all([
     object-position: center;
     transform-origin: center;
     animation: banner-zoom 12s ease-out alternate infinite;
+  }
+
+  .banner-stage__slide {
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    transition: opacity .8s ease;
+  }
+
+  .banner-stage__slide.is-active {
+    opacity: 1;
   }
 
   .banner-stage__scrim {
@@ -192,6 +250,9 @@ const [desktop, mobile] = await Promise.all([
   }
 
   @media (prefers-reduced-motion:reduce) {
+    .banner-stage__slide {
+      transition: none;
+    }
     .banner-stage__image {
       animation: none;
     }
