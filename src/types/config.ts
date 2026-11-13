@@ -23,7 +23,6 @@ export type SiteConfig = {
 	// 字体配置
 	font: FontConfig;
 
-	aiSummary: boolean;
 	floatingControls: {
 		music: boolean;
 		backToTop: boolean;

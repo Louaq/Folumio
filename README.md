@@ -22,7 +22,6 @@
   - [首页 Banner](#首页-banner)
   - [自定义指令](#自定义指令)
 - [悬浮音乐](#悬浮音乐)
-- [洪墨 AI](#洪墨-ai)
 - [配置](#配置)
 - [环境变量](#环境变量)
 - [部署](#部署)
@@ -178,16 +177,6 @@ homeBanner: {
 - 歌单在首次展开面板时加载，桌面端和移动端均可使用
 - 首次播放通过 `/ncm/token` 完成 PoW 会话认证，随后携带同源 Cookie 获取 `standard` 音源；401 时只重新认证并重试一次
 - 音源为短时签名地址，不缓存或记录；无音源的歌曲自动跳过，过期后重新取链；当前自有 API 不提供歌词
-
-## 洪墨 AI
-
-通过官方 PostChat 脚本在公开文章正文顶部显示 AI 摘要。支持 Swup 换页和深浅主题切换，加密文章不生成摘要。
-
-在 `src/config/siteConfig.ts` 中通过 `aiSummary` 控制文章 AI 摘要，设为 `false` 时不加载 PostChat。后台「网站接入」生成的公开项目 `key` 在 `src/config/postChatConfig.ts` 中设置。不要填入模型密钥或管理密钥。
-
-正文选择器为 `#post-container > .markdown-content`。摘要会将公开正文提交给洪墨 AI 服务。正式使用前，在后台访问控制中绑定站点的 HTTPS 域名。本地 HTTP 预览无法验证线上摘要生成。
-
-接入说明：[洪墨 AI 官方文档](https://ai.zhheo.com/docs/newUser.html)。
 
 ## 配置
 

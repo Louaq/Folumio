@@ -51,9 +51,6 @@ export const siteConfig: SiteConfig = {
 		},
 	],
 
-	// 文章 AI 摘要开关。
-	aiSummary: true,
-
 	// 悬浮按钮开关（移动端沿用现有隐藏规则）
 	floatingControls: {
 		music: true, // 是否启用音乐播放器按钮及播放器
