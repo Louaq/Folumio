@@ -276,7 +276,7 @@ items: [
 
 ## 感谢
 
-参考样式：[宇阳](https://liuyuyang.net/)、[Ru-yu Blog](https://www.chichu.chat/)、[Cosine](https://blog.cosine.ren/)、[mandarava23](https://mandarava23.top/)
+参考样式：[宇阳](https://liuyuyang.net/)、[Ru-yu Blog](https://www.chichu.chat/)、[Cosine](https://blog.cosine.ren/)、[mandarava23](https://mandarava23.top/)、[张洪Heo](https://blog.zhheo.com/)
 
 ## 许可证
 
