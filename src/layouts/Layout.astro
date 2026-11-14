@@ -71,18 +71,21 @@ const collapsiblePreviewLines =
 
     <meta charset="UTF-8" />
     <script is:inline>
-      // Restore full-page loads natively; Swup owns scrolling during client navigation.
+      // Restore reloads before the first paint; Swup owns client navigation.
       if (!window.swup) {
+        const scrollKey = "folumio:reload-scroll";
+        window.addEventListener("pagehide", () => {
+          sessionStorage.setItem(scrollKey, JSON.stringify({ url: location.href, top: scrollY }));
+        });
         history.scrollRestoration = "auto";
         if (performance.getEntriesByType("navigation")[0].type === "reload") {
-          document.documentElement.classList.add("is-reload", "is-restoring-scroll");
-          window.addEventListener("pageshow", () => {
-            document.fonts.ready.then(() => {
-              requestAnimationFrame(() => {
-                document.documentElement.classList.remove("is-restoring-scroll");
-              });
-            });
-          }, { once: true });
+          document.documentElement.classList.add("is-reload");
+          const saved = JSON.parse(sessionStorage.getItem(scrollKey) || "null");
+          if (saved?.url === location.href) {
+            history.scrollRestoration = "manual";
+            document.documentElement.dataset.reloadScroll = String(saved.top);
+            document.documentElement.classList.add("is-restoring-scroll");
+          }
         }
       }
     </script>
@@ -205,6 +208,17 @@ const collapsiblePreviewLines =
     <ImageLightboxManager />
     <FloatingControls><slot name="floating-controls" /></FloatingControls>
 
+    <script is:inline>
+      {
+        const root = document.documentElement;
+        if (root.dataset.reloadScroll !== undefined) {
+          window.scrollTo({ top: Number(root.dataset.reloadScroll), behavior: "instant" });
+          delete root.dataset.reloadScroll;
+          root.classList.remove("is-restoring-scroll");
+          history.scrollRestoration = "auto";
+        }
+      }
+    </script>
   </body>
 </html>
 
@@ -249,7 +263,6 @@ const collapsiblePreviewLines =
   const setup = () => {
     if (navigationBound) return;
     navigationBound = true;
-    window.history.scrollRestoration = "manual";
     window.swup.findPlugin("SwupScrollPlugin").options.animateScroll.betweenPages = false;
     let scrollStarted = false;
     let visitActive = false;

@@ -29,7 +29,7 @@ html.is-animating .transition-swup-fade {
     animation-fill-mode: forwards;
 }
 
-/* Start Shirone's entry effect only after restoring the reload viewport. */
+/* Start the entry effect at the restored viewport, without fading the banner. */
 html.is-reload:not(.is-restoring-scroll) :is(#top-row, #main-grid, .footer, .floating-controls-container) {
     animation: 200ms fade-in-up cubic-bezier(0.2, 0, 0, 1) backwards;
 }

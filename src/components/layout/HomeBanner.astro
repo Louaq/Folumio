@@ -48,7 +48,7 @@ const [desktop, mobile] = await Promise.all([
             alt=""
             fetchpriority={index === 0 ? "high" : "auto"}
             loading={index === 0 ? "eager" : "lazy"}
-            decoding="async"
+            decoding={index === 0 ? "sync" : "async"}
           />
         </picture>
       );
@@ -122,6 +122,10 @@ const [desktop, mobile] = await Promise.all([
     object-position: center;
     transform-origin: center;
     animation: banner-zoom 12s ease-out alternate infinite;
+  }
+
+  :global(html.is-reload) .banner-stage__image {
+    animation: none;
   }
 
   .banner-stage__slide {
