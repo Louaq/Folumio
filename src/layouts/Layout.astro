@@ -71,7 +71,6 @@ const collapsiblePreviewLines =
 
     <meta charset="UTF-8" />
     <script is:inline>
-      history.scrollRestoration = "auto";
       document.documentElement.classList.toggle(
         "is-reload",
         performance.getEntriesByType("navigation")[0].type === "reload",
@@ -239,12 +238,12 @@ const collapsiblePreviewLines =
   const setup = () => {
     if (navigationBound) return;
     navigationBound = true;
+    window.history.scrollRestoration = "manual";
     window.swup.findPlugin("SwupScrollPlugin").options.animateScroll.betweenPages = false;
     let scrollStarted = false;
     let visitActive = false;
     let finishTimer: number | undefined;
     function finishVisit() {
-      window.history.scrollRestoration = "auto";
       if (!visitActive) return;
       visitActive = false;
       window.clearTimeout(finishTimer);
@@ -253,13 +252,10 @@ const collapsiblePreviewLines =
       }, 200);
     }
     window.swup.hooks.on("history:popstate", (visit: {
-      history: { direction: string | null };
       animation: { animate: boolean };
       scroll: { reset: boolean };
     }) => {
       visit.animation.animate = true;
-      if (document.body.dataset.pageType !== "post" || visit.history.direction !== "backwards") return;
-      window.history.scrollRestoration = "manual";
       visit.scroll.reset = true;
     });
     window.swup.hooks.on("link:click", () => document.documentElement.style.setProperty("--content-delay", "0ms"));
