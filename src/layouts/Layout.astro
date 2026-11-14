@@ -257,9 +257,9 @@ const collapsiblePreviewLines =
       animation: { animate: boolean };
       scroll: { reset: boolean };
     }) => {
+      visit.animation.animate = true;
       if (document.body.dataset.pageType !== "post" || visit.history.direction !== "backwards") return;
       window.history.scrollRestoration = "manual";
-      visit.animation.animate = true;
       visit.scroll.reset = true;
     });
     window.swup.hooks.on("link:click", () => document.documentElement.style.setProperty("--content-delay", "0ms"));
