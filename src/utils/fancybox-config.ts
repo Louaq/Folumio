@@ -16,7 +16,7 @@ export const getDefaultFancyboxConfig = (): FancyboxConfig => ({
 	Carousel: {
 		infinite: true,
 		Lazyload: { preload: 3 },
-		Thumbs: { showOnStart: true },
+		Thumbs: { showOnStart: false },
 		Toolbar: {
 			display: {
 				left: ["counter"],
@@ -26,11 +26,12 @@ export const getDefaultFancyboxConfig = (): FancyboxConfig => ({
 					"toggle1to1",
 					"rotateCCW",
 					"rotateCW",
-					"flipX",
-					"flipY",
-					"reset",
+					//"flipX",
+					//"flipY",
+					//"reset",
 				],
-				right: ["autoplay", "fullscreen", "thumbs", "close"],
+				//right: ["autoplay", "fullscreen", "close"],
+				right: ["close"],
 			},
 		},
 		Zoomable: {
