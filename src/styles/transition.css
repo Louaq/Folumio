@@ -28,6 +28,15 @@ html.is-animating .transition-swup-fade {
     animation: 300ms fade-in-up;
     animation-fill-mode: forwards;
 }
+
+/* Animate page regions together without transforming the fixed elements' body. */
+@keyframes reload-fade-in-up {
+    from { opacity: 0; transform: translateY(12px); }
+    to { opacity: 1; transform: none; }
+}
+html.is-reload body > * {
+    animation: reload-fade-in-up 500ms cubic-bezier(0.22, 1, 0.36, 1) backwards;
+}
 html.is-reload .onload-animation,
 html.is-reload #post-container {
     animation: none;
@@ -54,6 +63,7 @@ html.is-reload #post-container {
 
 /* Respect the visitor's motion preference. */
 @media (prefers-reduced-motion: reduce) {
+    html.is-reload body > * { animation: none; }
     html.is-changing .transition-swup-fade { transition-duration: 1ms; }
     html.is-animating .transition-swup-fade { transform: none; }
     .onload-animation { animation-duration: 1ms; }
