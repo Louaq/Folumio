@@ -71,11 +71,22 @@ const collapsiblePreviewLines =
 
     <meta charset="UTF-8" />
     <script is:inline>
-      document.documentElement.classList.toggle(
-        "is-reload",
-        performance.getEntriesByType("navigation")[0].type === "reload",
-      );
+      // Restore full-page loads natively; Swup owns scrolling during client navigation.
+      if (!window.swup) {
+        history.scrollRestoration = "auto";
+        if (performance.getEntriesByType("navigation")[0].type === "reload") {
+          document.documentElement.classList.add("is-reload", "is-restoring-scroll");
+          window.addEventListener("pageshow", () => {
+            document.fonts.ready.then(() => {
+              requestAnimationFrame(() => {
+                document.documentElement.classList.remove("is-restoring-scroll");
+              });
+            });
+          }, { once: true });
+        }
+      }
     </script>
+    <style is:inline>html.is-restoring-scroll { visibility: hidden; }</style>
     <style is:inline>@layer properties, theme, base, components, utilities;</style>
 
     <link rel="preconnect" href="https://pic1.imgdb.cn" crossorigin />
