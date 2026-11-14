@@ -320,7 +320,7 @@ const collapsiblePreviewLines =
       const bannerTitle = banner.querySelector(".banner-stage__title")!;
       if (isPostPage) bannerTitle.id = "post-title";
       else bannerTitle.removeAttribute("id");
-      banner.querySelector(".banner-stage__copy p")!.textContent = carrier.dataset.bannerDescription!;
+      updateHomeBannerDescription(carrier.dataset.bannerDescription!, isHomePage);
       const metadata = document.getElementById("banner-metadata-template") as HTMLTemplateElement;
       banner.querySelector(".banner-stage__metadata")!.replaceChildren(metadata.content.cloneNode(true));
       banner.setAttribute("aria-label", carrier.dataset.bannerTitle!);
@@ -365,6 +365,10 @@ const collapsiblePreviewLines =
   else document.addEventListener("swup:enable", setup, { once: true });
 
   import { initIconLoader } from "@/utils/icon-loader";
+  import { updateHomeBannerDescription } from "@/utils/home-banner-description";
+  if (document.body.dataset.pageType === "home") {
+    updateHomeBannerDescription("", true);
+  }
   const initOptionalRuntime = () => {
     initIconLoader();
   };

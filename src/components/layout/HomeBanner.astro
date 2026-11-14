@@ -2,6 +2,7 @@
 // Adapted from LyraVoid/Shirone BannerStage.astro (MIT).
 import type { ImageMetadata } from "astro";
 import { siteConfig } from "@/config";
+import { isHomePage } from "@/utils/navigation";
 import BannerWaves from "./BannerWaves.astro";
 interface Props {
 	title?: string;
@@ -58,7 +59,7 @@ const [desktop, mobile] = await Promise.all([
     <h1 class="banner-stage__title" id={isPost ? "post-title" : undefined}>
       {title || siteConfig.title}
     </h1>
-    <p>{description || siteConfig.subtitle}</p>
+    <p>{isHomePage(Astro.url.pathname) ? "" : description || siteConfig.subtitle}</p>
     <div class="banner-stage__metadata" set:html={metadata} />
   </div>
   <BannerWaves />
@@ -168,6 +169,21 @@ const [desktop, mobile] = await Promise.all([
   .banner-stage__copy p {
     margin-top: .75rem;
     font-size: 1.5rem;
+    min-height: 1.5em;
+  }
+
+  .banner-stage__copy p.is-typing::after {
+    content: "";
+    display: inline-block;
+    height: 1em;
+    margin-left: .15em;
+    border-right: 2px solid currentColor;
+    vertical-align: -.1em;
+    animation: banner-caret 1s step-end infinite;
+  }
+
+  @keyframes banner-caret {
+    50% { opacity: 0; }
   }
 
   .banner-stage__metadata {
