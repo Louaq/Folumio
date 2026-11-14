@@ -8,6 +8,7 @@ export const siteConfig: SiteConfig = {
 	subtitle: "论文阅读笔记",
 	// 横幅壁纸：src/assets 下图片相对于 src 的路径、public 路径（以 / 开头）或 https URL。
 	homeBanner: {
+		waves: true, // 是否显示横幅底部波浪，false 关闭
 		// 单张使用字符串，多张使用非空数组，按顺序循环播放。
 		desktop: ["/assets/coverImage/2.webp", "/assets/coverImage/3.webp", "/assets/coverImage/5.webp", "/assets/coverImage/6.webp"],
 		mobile: "/assets/images/banner-mobile.webp",

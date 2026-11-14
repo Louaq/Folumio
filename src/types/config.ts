@@ -4,6 +4,7 @@ export type SiteConfig = {
 	title: string;
 	subtitle: string;
 	homeBanner: {
+		waves: boolean;
 		desktop: string | [string, ...string[]];
 		mobile: string | [string, ...string[]];
 		switchInterval?: number; // 多张壁纸的轮播间隔（毫秒），默认 8000，须大于 0

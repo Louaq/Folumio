@@ -62,7 +62,7 @@ const [desktop, mobile] = await Promise.all([
     <p>{isHomePage(Astro.url.pathname) ? "" : description || siteConfig.subtitle}</p>
     <div class="banner-stage__metadata" set:html={metadata} />
   </div>
-  <BannerWaves />
+  {siteConfig.homeBanner.waves && <BannerWaves />}
 </section>
 <script>
   class BannerWallpapers extends HTMLElement {
