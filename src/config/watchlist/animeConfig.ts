@@ -237,7 +237,7 @@ export const animeItems: WatchlistItem[] = [
 	},
 	{
 		title: "凡人修仙传 年番4",
-		cover: "https://pic1.imgdb.cn/item/69e4444e3c746ca9770a05ab.webp",
+		cover: "https://pic1.imgdb.cn/i/034xGGVyz0tgYxxmuUZmdu.webp",
 		type: "anime",
 		status: "watching",
 		rating: 0.0,
@@ -315,17 +315,6 @@ export const animeItems: WatchlistItem[] = [
 		startDate: "2026-08-08",
 		tags: ["动作", "动画", "奇幻"],
 		enabled: true,
-	},
-	{
-		title: "灵笼 第二季",
-		cover: "https://pic1.imgdb.cn/i/0347Y7KWU51cGQ8Z4mg96k.webp",
-		type: "anime",
-		status: "completed",
-		rating: 9.0,
-		startDate: "2025-05-23",
-		tags: ["动作", "动画", "奇幻"],
-		enabled: true,
-		pinned: true,
 	},
 	{
 		title: "画江湖之不良人7",
