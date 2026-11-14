@@ -11,9 +11,18 @@ html.is-animating .transition-swup-fade {
 }
 
 html.to-history-back .transition-swup-fade {
-    transition: none;
-    opacity: 1;
+    transition: opacity 200ms cubic-bezier(0.2, 0, 0, 1);
+    animation: none;
     transform: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+    html.to-history-back.is-rendering .transition-swup-fade {
+        transition-property: opacity, transform;
+    }
+    html.to-history-back.is-rendering.is-animating .transition-swup-fade {
+        transform: translateY(1rem);
+    }
 }
 
 /* Fade-in animations for components */

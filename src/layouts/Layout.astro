@@ -303,14 +303,13 @@ const collapsiblePreviewLines =
       }, 200);
     }
     window.swup.hooks.on("history:popstate", (visit: {
-      animation: { animate: boolean; name?: string; selector?: string | false };
+      animation: { animate: boolean; name?: string };
       history: { direction?: string };
       scroll: { reset: boolean };
     }) => {
       visit.animation.animate = true;
       if (visit.history.direction === "backwards") {
         visit.animation.name = "history-back";
-        visit.animation.selector = false;
       }
       visit.scroll.reset = true;
     });
