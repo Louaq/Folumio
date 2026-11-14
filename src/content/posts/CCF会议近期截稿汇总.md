@@ -1,7 +1,7 @@
 ---
 title: CCF会议近期截稿汇总
-published: 2026-08-12 17:57:00
-updated: 2026-11-06 14:38:00
+published: 2026-08-12
+updated: 2026-11-14
 description: "整理 CCFDDL 中人工智能、计算机图形学与多媒体、交叉/综合/新兴三个类别近期即将截稿的 CCF 会议。"
 category: 学术会议
 tags: [CCF]
@@ -11,14 +11,14 @@ pinned: true
 
 ## 按截稿时间排序
 
-> 汇总北京时间 2026-11-06 至 2026-12-31 的已公布截止日期；所有时间均为北京时间（UTC+8），显示到分钟。
+> 汇总北京时间 2026-11-14 至 2026-12-31 的已公布截止日期；所有时间均为北京时间（UTC+8），显示到分钟。
 
 | 北京时间截稿 | 会议 | CCF | 年份 | 地点 | 备注 | 官网 |
 | ---------------- | ------- | --- | ---- | ------- | ---- | ------------------------------------------------- |
-| 2026-11-10 19:59 | PacificVis | C | 2027 | Busan, South Korea | 摘要截止 2026-11-03 19:59（已截止）；Conference track | [link](https://pacificvis2027.github.io/) |
 | 2026-11-16 19:59 | ICDAR | C | 2027 | Kuala Lumpur, Malaysia | Journal track（IJDAR 期刊轨道，非主会论文截止）；时刻和时区按 CCFDDL 约定 | [link](https://icdar2027.org/call-for-journal-track) |
-| 2026-11-17 19:59 | CVPR | A | 2027 | Seattle, WA, United States | 摘要截止 2026-11-11 19:59 | [link](https://cvpr.thecvf.com/Conferences/2027) |
+| 2026-11-17 19:59 | CVPR | A | 2027 | Seattle, WA, United States | 论文注册截止 2026-11-11 19:59（已截止）；仅限已完成注册的论文 | [link](https://cvpr.thecvf.com/Conferences/2027/CallForPapers) |
 | 2026-12-03 19:59 | EuroVis | B | 2027 | Stuttgart, Germany | Full papers；摘要截止 2026-11-24 19:59 | [link](https://eurovis27.github.io/web/submissions/all-deadlines/) |
+| 2026-12-12 19:59 | AAMAS | B | 2027 | Hanoi, Vietnam | AAAI Fast Track；仅限符合官网评分要求的 AAAI-27 主轨未录用论文 | [link](https://warwick.ac.uk/fac/sci/dcs/aamas2027/calls/call-for-aaai-fast-track/) |
 | 2026-12-15 19:59 | ICAPS | B | 2027 | Columbia, SC, USA | 摘要截止 2026-12-08 19:59 | [link](https://icaps27.icaps-conference.org/) |
 | 2026-12-22 07:59 | GMP | C | 2027 | Singapore | 摘要截止 2026-12-15 07:59 | [link](https://gmp-conference-2027.github.io/gmp2027/) |
 | 2026-12-24 19:59 | COLING | B | 2027 | Macau SAR, China | ARR 审稿后 commitment 截止；仅限已获审稿的论文 | [link](https://2027.coling-iccl.org/) |
@@ -33,6 +33,7 @@ pinned: true
 | --- | --- | --- | --- |
 | 2026-11-16 19:59 | ICDAR 2027（Journal track） | C | Kuala Lumpur, Malaysia |
 | 2026-11-17 19:59 | CVPR 2027 | A | Seattle, WA, United States |
+| 2026-12-12 19:59 | AAMAS 2027（AAAI Fast Track） | B | Hanoi, Vietnam |
 | 2026-12-15 19:59 | ICAPS 2027 | B | Columbia, SC, USA |
 | 2026-12-24 19:59 | COLING 2027 | B | Macau SAR, China |
 | 2026-12-24 19:59 | NAACL 2027 | B | San Francisco, California, USA |
@@ -41,7 +42,6 @@ pinned: true
 
 | 截稿 | 会议 | CCF | 地点 |
 | --- | --- | --- | --- |
-| 2026-11-10 19:59 | PacificVis 2027 | C | Busan, South Korea |
 | 2026-12-03 19:59 | EuroVis 2027 | B | Stuttgart, Germany |
 | 2026-12-22 07:59 | GMP 2027 | C | Singapore |
 | 2026-12-31 19:59 | ICME 2027 | B | Xiamen, China |
@@ -53,7 +53,7 @@ pinned: true
 ## 已过截稿（历史记录）
 
 > [!note]- 已过截稿（历史记录）
-> 以下保留已收录且早于北京时间 2026-11-06 的截稿记录。COLING 2027、NAACL 2027 的历史条目为 ARR 提交节点，后续 commitment 节点仍列在上方。
+> 以下保留已收录且早于北京时间 2026-11-14 的截稿记录。COLING 2027、NAACL 2027 的历史条目为 ARR 提交节点，后续 commitment 节点仍列在上方；AAMAS 2027 的历史条目为主轨截止，后续 AAAI Fast Track 节点仍列在上方。
 
 | 北京时间截稿 | 会议 | CCF | 年份 | 地点 |
 | ---------------- | ------- | --- | ---- | ------- |
@@ -76,10 +76,11 @@ pinned: true
 | 2026-10-26 19:59 | WWW | A | 2027 | Dublin, Ireland |
 | 2026-10-27 07:59 | CVM | C | 2027 | Nanyang Technological University, Singapore |
 | 2026-11-05 19:59 | RECOMB | B | 2027 | Toronto, Canada |
+| 2026-11-10 19:59 | PacificVis（Conference track） | C | 2027 | Busan, South Korea |
 
 ## 说明
 
-> 数据获取时间：2026-11-06，参考 [CCFDDL](https://ccfddl.com/)，自其 [ccfddl/ccf-deadlines](https://github.com/ccfddl/ccf-deadlines/tree/32408be32b69d5479d20996d9335c0405d5cf710) 主分支采集，感谢开源社区的贡献🤗🤗。
+> 数据获取时间：2026-11-14，参考 [CCFDDL](https://ccfddl.com/)，自其 [ccfddl/ccf-deadlines](https://github.com/ccfddl/ccf-deadlines/tree/dae323c710347eb3d7dd40c5a29acb07229bb4a5) 主分支采集，并对照会议官网核验。COLING 2027 的 commitment 节点由[会议官网](https://2027.coling-iccl.org/)补充。感谢开源社区的贡献🤗🤗。
 
 > 仅收录人工智能、计算机图形学与多媒体、交叉/综合/新兴三个类别中 CCF A/B/C 级会议；未收录 N 级、截止日期待定或截止时间在 2027 年及以后的条目。
 
