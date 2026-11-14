@@ -3,7 +3,7 @@
 ---
 
 <script>
-  const selector = ".custom-md img, #post-cover img, .moment-images img, .essay-images img";
+  const selector = ".custom-md img:not(.link-preview-block img, [data-tweet-embed] img), #post-cover img, .moment-images img, .essay-images img";
   let viewer: typeof import("@/utils/image-lightbox") | undefined;
   let loading: Promise<typeof import("@/utils/image-lightbox")> | undefined;
   let visit = 0;

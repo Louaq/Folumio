@@ -4,10 +4,13 @@ import "@/styles/code-block.css";
 import "@/styles/file-tree.css";
 import "@/styles/article.css";
 import "@/styles/markdown.css";
+import "@/styles/link-embed.css";
 import "@rehype-callouts-theme";
 import KatexManager from "@/components/features/KatexManager.astro";
 import PdfEmbedRuntime from "@/components/misc/PdfEmbedRuntime.astro";
 import VideoEmbedRuntime from "@/components/misc/VideoEmbedRuntime.astro";
+import LinkEmbedRuntime from "@/components/misc/LinkEmbedRuntime.astro";
+import CodePenEmbed from "@/vendor/koharu/components/embed/CodePenEmbed.astro";
 
 // 代码字体（JetBrains Mono）已由 Astro Font API 统一加载，见 astro.config.mjs 的 `fonts`
 // 与 FontSetup.astro，此处无需再单独 import fontsource。
@@ -23,19 +26,5 @@ const className = Astro.props.class;
 <KatexManager />
 <PdfEmbedRuntime />
 <VideoEmbedRuntime />
-
-<script>
-  const wrapMarkdownTables = () => {
-    document.querySelectorAll(".custom-md table").forEach((table) => {
-      if (table.parentElement?.classList.contains("md-table-scroll")) return;
-
-      const wrapper = document.createElement("div");
-      wrapper.className = "md-table-scroll";
-      table.parentNode?.insertBefore(wrapper, table);
-      wrapper.appendChild(table);
-    });
-  };
-
-  wrapMarkdownTables();
-  document.addEventListener("astro:page-load", wrapMarkdownTables);
-</script>
+<LinkEmbedRuntime />
+<CodePenEmbed />

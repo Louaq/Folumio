@@ -1,0 +1,108 @@
+@import "react-tweet/theme.css";
+
+/* Host theme integration for astro-koharu's link preview markup. */
+.custom-md .link-preview-block {
+  margin: 1rem 0;
+}
+
+.custom-md .link-preview-block > a {
+  color: var(--deep-text);
+  text-decoration: none;
+}
+
+.custom-md .link-preview-block > a::before {
+  content: none;
+}
+
+.custom-md .link-preview-block img {
+  margin: 0;
+  border-radius: 0 !important;
+  cursor: pointer;
+}
+
+.link-preview-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  background: var(--card-bg);
+}
+
+.link-preview-layout:has(.link-preview-media) {
+  grid-template-columns: minmax(0, 1fr) min(34%, 20rem);
+}
+
+.link-preview-content {
+  min-width: 0;
+  padding: 1rem;
+}
+
+.link-preview-media {
+  position: relative;
+  min-height: 10.5rem;
+  overflow: hidden;
+  background: var(--btn-regular-bg);
+}
+
+.link-preview-media .link-preview-image {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.link-preview-image-error {
+  display: none;
+}
+
+.link-preview-media[data-image-error] .link-preview-image {
+  display: none;
+}
+
+.link-preview-media[data-image-error] .link-preview-image-error {
+  display: flex;
+  height: 100%;
+  min-height: inherit;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  color: var(--content-meta);
+  font-size: 0.75rem;
+}
+
+@media (max-width: 639px) {
+  .link-preview-layout:has(.link-preview-media) {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .link-preview-media {
+    min-height: 0;
+    aspect-ratio: 1200 / 630;
+  }
+}
+
+.custom-md .codepen-later {
+  display: grid;
+  min-height: 400px;
+  place-items: center;
+}
+
+.custom-md :is(.codepen-later, .cp_embed_wrapper, .tweet-embed) {
+  margin: 1.5rem 0;
+}
+
+.custom-md .tweet-embed {
+  display: flex;
+  justify-content: center;
+}
+
+.custom-md .tweet-embed img {
+  cursor: inherit;
+}
+
+.custom-md .react-tweet-theme {
+  --tweet-bg-color: var(--card-bg);
+  --tweet-bg-color-hover: var(--card-bg);
+  --tweet-border: 1px solid var(--line-color);
+  margin: 0;
+}

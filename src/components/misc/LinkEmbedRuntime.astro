@@ -1,0 +1,31 @@
+<script>
+  let cleanup: (() => void) | undefined;
+
+  function initializeLinkPreviews() {
+    document.querySelectorAll<HTMLImageElement>(".link-preview-image").forEach((image) => {
+      if (image.dataset.previewTracked) return;
+      image.dataset.previewTracked = "true";
+      const showError = () => {
+        image.parentElement!.dataset.imageError = "true";
+      };
+      image.addEventListener("error", showError, { once: true });
+      if (image.complete && image.naturalWidth === 0) showError();
+    });
+  }
+
+  async function initializeTweets() {
+    cleanup?.();
+    const elements = Array.from(document.querySelectorAll<HTMLElement>(".custom-md [data-tweet-embed]"));
+    if (elements.length === 0) return;
+    const { mountTweets } = await import("@/components/misc/TweetEmbeds");
+    if (elements.some((element) => !element.isConnected)) return;
+    cleanup?.();
+    cleanup = mountTweets(elements);
+  }
+
+  initializeTweets();
+  initializeLinkPreviews();
+  document.addEventListener("astro:page-load", initializeTweets);
+  document.addEventListener("astro:page-load", initializeLinkPreviews);
+  document.addEventListener("swup:visit:start", () => cleanup?.());
+</script>

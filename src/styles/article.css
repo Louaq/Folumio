@@ -19,16 +19,16 @@
   --_spoiler-mask: color-mix(in oklch, var(--primary) 55%, white 45%);
 }
 
-.custom-md img {
+.custom-md img:not(.tweet-embed img) {
   border-radius: 4px !important;
 }
 
-.custom-md a:not(.btn-regular):not(.btn-card):not(.btn-plain) {
+.custom-md a:not(.btn-regular):not(.btn-card):not(.btn-plain):not(.link-preview-block a, .tweet-embed a) {
   color: var(--juejin-primary);
   text-decoration: none;
 }
 
-.custom-md a[href]:not([href^="#"]):not(.anchor):not(.no-styling):not(.btn-regular):not(.btn-card):not(.btn-plain):not(:has(img, svg))::before {
+.custom-md a[href]:not([href^="#"]):not(.anchor):not(.no-styling):not(.btn-regular):not(.btn-card):not(.btn-plain):not(.tweet-embed a):not(:has(img, svg))::before {
   content: "";
   display: inline-block;
   width: 0.9em;
@@ -147,53 +147,7 @@
   color: #ff7b85 !important;
 }
 
-.custom-md table {
-  border-collapse: collapse;
-  border: 1px solid var(--juejin-border);
-  border-radius: 4px;
-  overflow: hidden;
-}
-.custom-md th {
-  background: var(--juejin-tag-bg);
-  font-weight: 600;
-}
-.custom-md th,
-.custom-md td {
-  border: 1px solid var(--juejin-border);
-  padding: 0.5rem 0.75rem;
-}
-
 @media (max-width: 767px) {
-  .custom-md table {
-    display: table !important;
-    max-width: 100% !important;
-    margin-left: 0;
-    margin-right: 0;
-    overflow: hidden;
-    font-size: 0.875rem;
-  }
-
-  .custom-md th,
-  .custom-md td {
-    padding: 0.5rem 0.625rem;
-    overflow-wrap: anywhere;
-  }
-
-  .custom-md th:first-child,
-  .custom-md td:first-child {
-    width: 5.75rem;
-  }
-
-  .custom-md th:last-child,
-  .custom-md td:last-child {
-    width: 5.75rem;
-  }
-
-  .custom-md td a {
-    overflow-wrap: anywhere;
-    word-break: break-word;
-  }
-
   .license-container {
     width: 100%;
     max-width: 100%;
@@ -211,13 +165,4 @@
     flex-wrap: wrap;
     gap: 0.75rem 1rem;
   }
-}
-
-:root.dark .custom-md table,
-:root.dark .custom-md th,
-:root.dark .custom-md td {
-  border-color: rgba(255, 255, 255, 0.1);
-}
-:root.dark .custom-md th {
-  background: rgba(255, 255, 255, 0.06);
 }

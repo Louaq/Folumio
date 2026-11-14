@@ -30,7 +30,7 @@
       }
     }
   
-    a:not(.no-styling) {
+    a:not(.no-styling):not(.tweet-embed a) {
       @apply relative bg-none font-medium text-(--primary) underline decoration-(--link-underline) decoration-1 decoration-dashed underline-offset-4;
       box-decoration-break: clone;
       -webkit-box-decoration-break: clone;
@@ -94,51 +94,14 @@
   }
   
   .custom-md {
-    .md-table-scroll {
-      width: 100%;
-      max-width: 100%;
-      margin: 1rem 0;
-      overflow-x: auto;
-      overflow-y: hidden;
-      border-radius: var(--radius-large);
-      -webkit-overflow-scrolling: touch;
-    }
-
+    /* Table layout from cosZone/astro-koharu, src/styles/theme/markdown.css
+       dc6e51b4ee04d6c26d4aae37b5c7940e30d2f572; colors use local theme tokens. */
     table {
-      display: table;
-      width: max-content !important;
-      min-width: 100% !important;
-      border-collapse: separate;
-      border-spacing: 0;
-      overflow: hidden;
-      table-layout: auto !important;
-    }
-    th,
-    td {
-      @apply text-left;
-      min-width: 120px;
-      white-space: nowrap !important;
-      word-break: normal !important;
-    }
-
-    th {
-      @apply bg-(--btn-regular-bg) font-semibold text-(--btn-content) border-b border-(--line-color);
-    }
-
-    td {
-      @apply bg-(--card-bg);
-    }
-
-    tr:nth-child(even) td {
-      @apply bg-(--btn-plain-bg-active);
-    }
-
-    @media (max-width: 767px) {
-      th,
-      td {
-        min-width: 120px !important;
-        max-width: none !important;
-      }
+      --tw-prose-th-borders: var(--line-color);
+      --tw-prose-td-borders: color-mix(in srgb, var(--line-color) 70%, transparent);
+      display: block;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
     }
   }
 

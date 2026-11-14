@@ -36,5 +36,6 @@ yarn.lock
 Docs-Firefly/
 
 cache/
+.cache/og-data.json
 package/
 .obsidian/

@@ -11,10 +11,8 @@ pinned: true
 
 ## 按截稿时间排序
 
-> 汇总北京时间 2026-11-14 至 2026-12-31 的已公布截止日期；所有时间均为北京时间（UTC+8），显示到分钟。
-
 | 北京时间截稿 | 会议 | CCF | 年份 | 地点 | 备注 | 官网 |
-| ---------------- | ------- | --- | ---- | ------- | ---- | ------------------------------------------------- |
+| ---------------- | ------- | --- | ---- | ------- | ---- |------------------------------------------------- |
 | 2026-11-16 19:59 | ICDAR | C | 2027 | Kuala Lumpur, Malaysia | Journal track（IJDAR 期刊轨道，非主会论文截止）；时刻和时区按 CCFDDL 约定 | [link](https://icdar2027.org/call-for-journal-track) |
 | 2026-11-17 19:59 | CVPR | A | 2027 | Seattle, WA, United States | 论文注册截止 2026-11-11 19:59（已截止）；仅限已完成注册的论文 | [link](https://cvpr.thecvf.com/Conferences/2027/CallForPapers) |
 | 2026-12-03 19:59 | EuroVis | B | 2027 | Stuttgart, Germany | Full papers；摘要截止 2026-11-24 19:59 | [link](https://eurovis27.github.io/web/submissions/all-deadlines/) |
