@@ -70,6 +70,13 @@ const collapsiblePreviewLines =
     <title>{pageTitle}</title>
 
     <meta charset="UTF-8" />
+    <script is:inline>
+      history.scrollRestoration = "auto";
+      document.documentElement.classList.toggle(
+        "is-reload",
+        performance.getEntriesByType("navigation")[0].type === "reload",
+      );
+    </script>
     <style is:inline>@layer properties, theme, base, components, utilities;</style>
 
     <link rel="preconnect" href="https://pic1.imgdb.cn" crossorigin />
@@ -232,13 +239,12 @@ const collapsiblePreviewLines =
   const setup = () => {
     if (navigationBound) return;
     navigationBound = true;
-    window.swup.options.animateHistoryBrowsing = true;
-    window.history.scrollRestoration = "manual";
     window.swup.findPlugin("SwupScrollPlugin").options.animateScroll.betweenPages = false;
     let scrollStarted = false;
     let visitActive = false;
     let finishTimer: number | undefined;
     function finishVisit() {
+      window.history.scrollRestoration = "auto";
       if (!visitActive) return;
       visitActive = false;
       window.clearTimeout(finishTimer);
@@ -246,6 +252,16 @@ const collapsiblePreviewLines =
         document.getElementById("page-height-extend")?.classList.add("hidden");
       }, 200);
     }
+    window.swup.hooks.on("history:popstate", (visit: {
+      history: { direction: string | null };
+      animation: { animate: boolean };
+      scroll: { reset: boolean };
+    }) => {
+      if (document.body.dataset.pageType !== "post" || visit.history.direction !== "backwards") return;
+      window.history.scrollRestoration = "manual";
+      visit.animation.animate = true;
+      visit.scroll.reset = true;
+    });
     window.swup.hooks.on("link:click", () => document.documentElement.style.setProperty("--content-delay", "0ms"));
     window.swup.hooks.on("visit:start", (visit: {
       history: { popstate: boolean };
@@ -263,17 +279,6 @@ const collapsiblePreviewLines =
     });
     window.swup.hooks.on("visit:end", () => { if (!scrollStarted) finishVisit(); });
     window.swup.hooks.on("visit:abort", finishVisit);
-    window.swup.hooks.on("content:scroll", (visit: {
-      history: { popstate: boolean };
-      animation: { animate: boolean };
-      to: { url: string };
-    }) => {
-      // 无动画的历史导航会被 ScrollPlugin 跳过，需在 manual 模式下恢复缓存位置。
-      if (visit.history.popstate && !visit.animation.animate) {
-        const position = window.swup.findPlugin("SwupScrollPlugin").getCachedScrollPositions(visit.to.url);
-        if (position) window.swup.scrollTo(position.window.top, false);
-      }
-    });
     if (window.swup.hooks.exists("scroll:end")) {
       window.swup.hooks.on("scroll:start", () => { if (visitActive) scrollStarted = true; });
       window.swup.hooks.on("scroll:end", finishVisit);
@@ -303,6 +308,7 @@ const collapsiblePreviewLines =
       // Swup animates both columns; first-load animations must not run again.
       document.querySelectorAll("#left-sidebar .onload-animation, #swup-container .onload-animation")
         .forEach((element) => element.classList.remove("onload-animation"));
+      document.documentElement.classList.remove("is-reload");
       if (window.PostPageTOC) {
         window.PostPageTOC.manager?.cleanup();
         window.PostPageTOC.manager = null;

@@ -28,6 +28,11 @@ html.is-animating .transition-swup-fade {
     animation: 300ms fade-in-up;
     animation-fill-mode: forwards;
 }
+html.is-reload .onload-animation,
+html.is-reload #post-container {
+    animation: none;
+    opacity: 1;
+}
 #navbar {
     animation-delay: 0ms
 }

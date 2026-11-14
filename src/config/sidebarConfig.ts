@@ -50,23 +50,12 @@ export const sidebarLayoutConfig: SidebarLayoutConfig = {
 			animationDelay: 0,
 		},
 		{
-			type: "jieqi",
-			enable: true,
-			showOnPostPage: false,
-			order: 4,
-			position: "top",
-			class: "onload-animation",
-			customProps: { 
-				cacheHours: 24 
-			},
-		},
-		{
 			// 组件类型：分类组件
 			type: "categories",
 			// 是否启用该组件
 			enable: true,
 			// 组件显示顺序
-			order: 5,
+			order: 4,
 			// 组件位置
 			position: "top",
 			// CSS 类名

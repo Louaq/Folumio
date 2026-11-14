@@ -2,7 +2,6 @@
 import type { MarkdownHeading } from "astro";
 import Announcement from "@/components/widget/Announcement.astro";
 import Categories from "@/components/widget/Categories.astro";
-import JieqiPoster from "@/components/widget/JieqiPoster.astro";
 import Profile from "@/components/widget/Profile.astro";
 import SiteRuntime from "@/components/widget/SiteRuntime.astro";
 import SiteStats from "@/components/widget/SiteStats.astro";
@@ -37,7 +36,6 @@ const componentMap = {
 	tags: Tags,
 	stats: SiteStats,
 	runtime: SiteRuntime,
-	jieqi: JieqiPoster,
 };
 
 function renderComponent(
@@ -61,8 +59,7 @@ function renderComponent(
 }
 ---
 
-<!-- 异步海报等侧栏内容不作为滚动锚点，避免加载后推移列表的回退位置。 -->
-<div id="left-sidebar" class:list={[className, "w-full gap-5 [overflow-anchor:none]"]}>
+<div id="left-sidebar" class:list={[className, "w-full gap-5"]}>
   <!-- 随页面滚动的组件区域 -->
   {
     scrollingComponents.length > 0 && (
