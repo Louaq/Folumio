@@ -1,6 +1,7 @@
 ---
 import FontSetup from "@components/features/FontSetup.astro";
 import ImageLightboxManager from "@components/features/ImageLightboxManager.astro";
+import PasswordProtectionManager from "@components/features/PasswordProtectionManager.astro";
 import ConfigCarrier from "@components/layout/ConfigCarrier.astro";
 import FloatingControls from "@/components/controls/FloatingControls.astro";
 
@@ -200,6 +201,7 @@ const collapsiblePreviewLines =
     data-white-bg={String(!!whiteBackground)}
   >
     <ConfigCarrier />
+    <PasswordProtectionManager />
     <slot />
 
     <!-- increase the page height during page transition to prevent the scrolling animation from jumping -->

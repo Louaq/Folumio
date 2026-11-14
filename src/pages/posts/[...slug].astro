@@ -13,7 +13,6 @@ import qrcode from "qrcode-generator";
 import PostMetadata from "@/components/layout/PostMeta.astro";
 import PostStaleNoticeBanner from "@/components/layout/PostStaleNoticeBanner.astro";
 import EncryptedContent from "@/components/misc/EncryptedContent.astro";
-import PasswordProtection from "@/components/misc/PasswordProtection.svelte";
 import { profileConfig } from "@/config/profileConfig";
 import { siteConfig } from "@/config/siteConfig";
 import { formatDateToYYYYMMDD } from "@/utils/date-utils";
@@ -132,10 +131,6 @@ const jsonLd = {
 
       {entry.data.password ? (
         <div id="password-protection-wrapper">
-          <PasswordProtection
-            client:idle
-            postId={entry.id}
-          />
           <EncryptedContent
             password={typeof entry.data.password === 'boolean' ? import.meta.env.PASSWORD : entry.data.password}
           >

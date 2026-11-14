@@ -87,7 +87,7 @@ const hasNotice = popupConfig.content.trim().length > 0;
         max-height: calc(100dvh - 2rem);
         padding: 1.5rem;
         border: none;
-        border-radius: 1rem;
+        border-radius: var(--radius-large);
         background: var(--card-bg);
         color: var(--deep-text);
         box-shadow: 0 1rem 3rem rgb(0 0 0 / 20%);
@@ -182,6 +182,13 @@ const hasNotice = popupConfig.content.trim().length > 0;
             trigger.focus();
         });
         dialog.addEventListener("click", (event) => {
+            if (event.target === dialog) {
+                const rect = dialog.getBoundingClientRect();
+                if (event.clientX < rect.left || event.clientX > rect.right ||
+                    event.clientY < rect.top || event.clientY > rect.bottom) {
+                    dialog.close();
+                }
+            }
             if ((event.target as Element).closest("a[href]")) dialog.close();
         });
 

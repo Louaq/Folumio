@@ -2,14 +2,19 @@
 import { onDestroy, onMount } from "svelte";
 
 export let postId: string;
+export let content: Promise<HTMLElement>;
+export let onUnlock: (html: string) => void;
+export let onCancel: () => void;
 
 let inputPassword = "";
 let errorMessage = "";
-let isUnlocked = false;
+let unlockedHtml: string | null = null;
+let destroyed = false;
 let isShaking = false;
 let isFrozen = false;
 let remainingTime = 0;
 let countdownInterval: number | null = null;
+let passwordDialog: HTMLDialogElement;
 
 const MAX_ATTEMPTS = 3; // 最大尝试次数
 const BASE_FREEZE_TIME = 5 * 60 * 1000; // 基础冻结时间：5分钟（毫秒）
@@ -107,8 +112,7 @@ function base64ToBytes(base64: string): Uint8Array {
 async function decryptProtectedContent(
 	candidatePassword: string,
 ): Promise<string | null> {
-	const el = document.getElementById("protected-content");
-	if (!el) return null;
+	const el = await content;
 
 	const { cipher, iv, salt, iterations } = el.dataset;
 	if (!cipher || !iv || !salt || !iterations) return null;
@@ -142,19 +146,6 @@ async function decryptProtectedContent(
 	return new TextDecoder().decode(plainBuffer);
 }
 
-// 通过 innerHTML 注入的 <script> 不会自动执行（浏览器安全限制），
-// 需要手动替换为新节点才能让正文里的脚本（表格滚动包裹等）生效
-function reviveScripts(container: HTMLElement) {
-	for (const oldScript of Array.from(container.querySelectorAll("script"))) {
-		const newScript = document.createElement("script");
-		for (const attr of Array.from(oldScript.attributes)) {
-			newScript.setAttribute(attr.name, attr.value);
-		}
-		newScript.textContent = oldScript.textContent;
-		oldScript.replaceWith(newScript);
-	}
-}
-
 async function verifyPassword() {
 	if (checkFrozen()) {
 		updateErrorMessage();
@@ -175,18 +166,8 @@ async function verifyPassword() {
 	if (decryptedHtml !== null) {
 		localStorage.removeItem(STORAGE_KEY);
 		errorMessage = "";
-		isUnlocked = true;
-
-		const el = document.getElementById("protected-content");
-		if (el) {
-			el.innerHTML = decryptedHtml;
-			reviveScripts(el);
-			el.style.display = "block";
-		}
-
-		// 正文是解锁后才注入 DOM 的，需要重新触发依赖 astro:page-load 的
-		// 初始化逻辑（表格滚动包裹、TOC、代码块复制按钮等）
-		document.dispatchEvent(new Event("astro:page-load"));
+		unlockedHtml = decryptedHtml;
+		passwordDialog.close();
 	} else {
 		const state = getFreezeState();
 		state.attempts++;
@@ -225,19 +206,39 @@ function handleKeyPress(event: KeyboardEvent) {
 	}
 }
 
+function handleBackdropClick(event: MouseEvent) {
+	if (event.target !== passwordDialog) return;
+	const rect = passwordDialog.getBoundingClientRect();
+	if (event.clientX < rect.left || event.clientX > rect.right ||
+		event.clientY < rect.top || event.clientY > rect.bottom) {
+		passwordDialog.close();
+	}
+}
+
+async function handleDialogClose() {
+	await Promise.allSettled(passwordDialog.getAnimations().map((animation) => animation.finished));
+	if (destroyed) return;
+	if (unlockedHtml !== null) onUnlock(unlockedHtml);
+	else onCancel();
+}
+
 onMount(() => {
 	checkFrozen();
+	updateErrorMessage();
+	passwordDialog.showModal();
+	passwordDialog.addEventListener("click", handleBackdropClick);
+	return () => passwordDialog.removeEventListener("click", handleBackdropClick);
 });
 
 onDestroy(() => {
+	destroyed = true;
 	if (countdownInterval) {
 		clearInterval(countdownInterval);
 	}
 });
 </script>
 
-{#if !isUnlocked}
-<div class="password-protection-container">
+<dialog bind:this={passwordDialog} class="password-dialog" aria-labelledby="password-dialog-title" on:close={handleDialogClose}>
   <div class="password-protection-card" class:shake={isShaking}>
     <div class="password-icon">
       <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -246,7 +247,7 @@ onDestroy(() => {
       </svg>
     </div>
 
-    <h2 class="password-title">请输入密码查看内容</h2>
+    <h2 id="password-dialog-title" class="password-title">请输入密码查看内容</h2>
 
     <div class="password-input-group">
       <input
@@ -254,6 +255,7 @@ onDestroy(() => {
         bind:value={inputPassword}
         on:keypress={handleKeyPress}
         placeholder="文章密码"
+        aria-label="文章密码"
         class="password-input"
         class:disabled={isFrozen}
         autocomplete="off"
@@ -267,6 +269,7 @@ onDestroy(() => {
       >
         {isFrozen ? '已冻结' : '确定'}
       </button>
+      <button class="password-cancel" on:click={() => passwordDialog.close()}>取消</button>
     </div>
 
     {#if errorMessage}
@@ -280,16 +283,64 @@ onDestroy(() => {
       </div>
     {/if}
   </div>
-</div>
-{/if}
+</dialog>
 
 <style>
-  .password-protection-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 400px;
-    padding: 2rem 1rem;
+  .password-dialog {
+    margin: auto;
+    padding: 0;
+    width: min(360px, calc(100% - 2rem));
+    max-height: calc(100% - 2rem);
+    border: none;
+    border-radius: var(--radius-large);
+    outline: none;
+    background: var(--card-bg);
+    color: var(--deep-text);
+    opacity: 0;
+    transform: translateY(0.75rem) scale(0.96);
+    transition: opacity 0.2s ease, transform 0.2s ease,
+      display 0.2s allow-discrete, overlay 0.2s allow-discrete;
+  }
+
+  .password-dialog[open] {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+
+  .password-dialog::backdrop {
+    background: rgba(0, 0, 0, 0.45);
+    backdrop-filter: blur(4px);
+    opacity: 0;
+    transition: opacity 0.2s ease,
+      display 0.2s allow-discrete, overlay 0.2s allow-discrete;
+  }
+
+  .password-dialog[open]::backdrop {
+    opacity: 1;
+  }
+
+  @starting-style {
+    .password-dialog[open] {
+      opacity: 0;
+      transform: translateY(0.75rem) scale(0.96);
+    }
+
+    .password-dialog[open]::backdrop {
+      opacity: 0;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .password-dialog,
+    .password-dialog::backdrop {
+      transition: none;
+    }
+  }
+
+  .password-cancel {
+    padding: 0.5rem;
+    color: var(--content-meta);
+    cursor: pointer;
   }
   
   .password-protection-card {

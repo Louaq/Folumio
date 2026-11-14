@@ -624,7 +624,7 @@ onDestroy(() => {
 		max-height: min(640px, calc(100vh - 2rem));
 		display: flex;
 		flex-direction: column;
-		border-radius: 16px;
+		border-radius: var(--radius-large);
 		overflow: hidden;
 		background: rgba(255, 255, 255, 0.98);
 		color: #111827;
