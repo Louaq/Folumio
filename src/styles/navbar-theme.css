@@ -19,6 +19,10 @@
   transition-timing-function: cubic-bezier(0.2, 0, 0, 1);
 }
 
+#navbar:not([data-ready]) > div {
+  transition: none;
+}
+
 :root.dark #navbar > div {
   background: var(--card-bg) !important;
 }

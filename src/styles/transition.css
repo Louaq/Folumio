@@ -30,7 +30,7 @@ html.is-animating .transition-swup-fade {
 }
 
 /* Start the entry effect at the restored viewport, without fading the banner. */
-html.is-reload:not(.is-restoring-scroll) :is(#top-row, #main-grid, .footer, .floating-controls-container) {
+html.is-reload:not(.is-restoring-scroll) :is(#main-grid, .footer, .floating-controls-container) {
     animation: 200ms fade-in-up cubic-bezier(0.2, 0, 0, 1) backwards;
 }
 html.is-reload .onload-animation,
@@ -59,7 +59,7 @@ html.is-reload #post-container {
 
 /* Respect the visitor's motion preference. */
 @media (prefers-reduced-motion: reduce) {
-    html.is-reload:not(.is-restoring-scroll) :is(#top-row, #main-grid, .footer, .floating-controls-container) { animation: none; }
+    html.is-reload:not(.is-restoring-scroll) :is(#main-grid, .footer, .floating-controls-container) { animation: none; }
     html.is-changing .transition-swup-fade { transition-duration: 1ms; }
     html.is-animating .transition-swup-fade { transform: none; }
     .onload-animation { animation-duration: 1ms; }

@@ -160,24 +160,7 @@ function loadButtonScript() {
     }
 }
 
-// Scroll-driven app bar state adapted from LyraVoid/Shirone Layout.astro (MIT).
-function updateNavbarHeroOverlap() {
-    const scrollTop = Math.max(document.body.scrollTop, document.documentElement.scrollTop);
-    const navbar = document.getElementById("navbar")!;
-    const banner = document.querySelector(".banner-stage")!;
-    const bannerHeight = banner.getBoundingClientRect().height;
-    const overBanner = scrollTop < Math.max(0, bannerHeight - 64);
-    document.body.dataset.bannerScrolled = String(!overBanner);
-    navbar.classList.toggle("top-app-bar--transparent", overBanner);
-    navbar.classList.toggle("top-app-bar--scrolled", scrollTop > 16);
-}
-
 setupNavbarActiveSync();
 loadButtonScript();
-updateNavbarHeroOverlap();
-window.addEventListener("scroll", updateNavbarHeroOverlap, { passive: true });
-window.addEventListener("resize", updateNavbarHeroOverlap);
-document.addEventListener("swup:page:view", updateNavbarHeroOverlap);
-document.addEventListener("swup:visit:abort", updateNavbarHeroOverlap);
 
 </script>

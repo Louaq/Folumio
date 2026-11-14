@@ -210,13 +210,38 @@ const collapsiblePreviewLines =
 
     <script is:inline>
       {
+        // Scroll-driven app bar state adapted from LyraVoid/Shirone Layout.astro (MIT).
+        function updateNavbarHeroOverlap() {
+          const scrollTop = Math.max(document.body.scrollTop, document.documentElement.scrollTop);
+          const navbar = document.getElementById("navbar");
+          if (!navbar) return; // The 404 layout has no app bar or banner.
+          const banner = document.querySelector(".banner-stage");
+          const bannerHeight = banner.getBoundingClientRect().height;
+          const overBanner = scrollTop < Math.max(0, bannerHeight - 64);
+          document.body.dataset.bannerScrolled = String(!overBanner);
+          navbar.classList.toggle("top-app-bar--transparent", overBanner);
+          navbar.classList.toggle("top-app-bar--scrolled", scrollTop > 16);
+        }
+
         const root = document.documentElement;
         if (root.dataset.reloadScroll !== undefined) {
           window.scrollTo({ top: Number(root.dataset.reloadScroll), behavior: "instant" });
           delete root.dataset.reloadScroll;
-          root.classList.remove("is-restoring-scroll");
           history.scrollRestoration = "auto";
         }
+        // Match the restored viewport before revealing it or waiting for modules.
+        updateNavbarHeroOverlap();
+        const navbar = document.getElementById("navbar");
+        if (navbar) {
+          // Commit the initial background before enabling scroll transitions.
+          getComputedStyle(navbar.firstElementChild).backgroundColor;
+          navbar.dataset.ready = "";
+        }
+        root.classList.remove("is-restoring-scroll");
+        window.addEventListener("scroll", updateNavbarHeroOverlap, { passive: true });
+        window.addEventListener("resize", updateNavbarHeroOverlap);
+        document.addEventListener("swup:page:view", updateNavbarHeroOverlap);
+        document.addEventListener("swup:visit:abort", updateNavbarHeroOverlap);
       }
     </script>
   </body>
