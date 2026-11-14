@@ -111,6 +111,20 @@ export default function GlobalBGMPlayer({ songsUrl }: GlobalBGMPlayerProps) {
 			if (!open) closeBgmPanel();
 		},
 	});
+	useEffect(() => {
+		if (!panelOpen || loading) return;
+		const list = refs.floating.current!.querySelector<HTMLDivElement>(
+			".audio-player-song-list",
+		);
+		const current = list?.querySelector<HTMLButtonElement>(
+			".audio-player-song-item.current",
+		);
+		if (!list || !current) return;
+		list.scrollTop =
+			current.offsetTop -
+			list.offsetTop -
+			(list.clientHeight - current.offsetHeight) / 2;
+	}, [panelOpen, loading, player.state.currentIndex, refs.floating]);
 	const dismiss = useDismiss(context, {
 		outsidePressEvent: "mousedown",
 		// Exclude the BGM toggle button in FloatingGroup to prevent toggle/dismiss race

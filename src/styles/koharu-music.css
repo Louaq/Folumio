@@ -61,6 +61,18 @@
 .koharu-music-toggle[aria-expanded="true"] .music-icon-closed {
   display: none;
 }
+.koharu-music-toggle svg {
+  animation: music-toggle-spin 8s linear infinite;
+  animation-play-state: paused;
+}
+.koharu-music-toggle.is-playing svg {
+  animation-play-state: running;
+}
+@keyframes music-toggle-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
 .koharu-music :is(button, [role="slider"]):focus-visible {
   outline: 2px solid hsl(var(--primary));
   outline-offset: 2px;
