@@ -10,6 +10,12 @@ html.is-animating .transition-swup-fade {
     transform: translateY(1rem);
 }
 
+html.to-history-back .transition-swup-fade {
+    transition: none;
+    opacity: 1;
+    transform: none;
+}
+
 /* Fade-in animations for components */
 @keyframes fade-in-up {
     0% {

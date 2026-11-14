@@ -288,6 +288,8 @@ const collapsiblePreviewLines =
   const setup = () => {
     if (navigationBound) return;
     navigationBound = true;
+    // Swup restores positions after replacing content, including history visits.
+    history.scrollRestoration = "manual";
     window.swup.findPlugin("SwupScrollPlugin").options.animateScroll.betweenPages = false;
     let scrollStarted = false;
     let visitActive = false;
@@ -301,10 +303,15 @@ const collapsiblePreviewLines =
       }, 200);
     }
     window.swup.hooks.on("history:popstate", (visit: {
-      animation: { animate: boolean };
+      animation: { animate: boolean; name?: string; selector?: string | false };
+      history: { direction?: string };
       scroll: { reset: boolean };
     }) => {
       visit.animation.animate = true;
+      if (visit.history.direction === "backwards") {
+        visit.animation.name = "history-back";
+        visit.animation.selector = false;
+      }
       visit.scroll.reset = true;
     });
     window.swup.hooks.on("link:click", () => document.documentElement.style.setProperty("--content-delay", "0ms"));
