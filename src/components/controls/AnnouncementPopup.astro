@@ -165,6 +165,7 @@ const hasNotice = popupConfig.content.trim().length > 0;
 
         function autoOpenPopup() {
             window.clearTimeout(timer);
+            if (mode === "none") return;
             if (mode !== "always" && localStorage.getItem(storageKey)) return;
             if (mode === "scheduled" && Date.now() < scheduledAt) {
                 // 浏览器单次定时器最多支持约 24.8 天，较远日期分段等待。
