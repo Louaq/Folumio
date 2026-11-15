@@ -4,6 +4,7 @@ export type SiteConfig = {
 	title: string;
 	subtitle: string;
 	homeBanner: {
+		hitokoto: boolean;
 		waves: boolean;
 		desktop: string | [string, ...string[]];
 		mobile: string | [string, ...string[]];

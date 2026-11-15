@@ -1,3 +1,5 @@
+import { siteConfig } from "@/config/siteConfig";
+
 let request: AbortController | undefined;
 let timer: number | undefined;
 
@@ -8,9 +10,10 @@ export async function updateHomeBannerDescription(
 	request?.abort();
 	window.clearTimeout(timer);
 	const element = document.querySelector<HTMLElement>(".banner-stage__copy p")!;
-	element.classList.toggle("is-typing", isHome);
-	element.textContent = isHome ? "" : description;
-	if (!isHome) return;
+	const useHitokoto = isHome && siteConfig.homeBanner.hitokoto;
+	element.classList.toggle("is-typing", useHitokoto);
+	element.textContent = useHitokoto ? "" : isHome ? siteConfig.subtitle : description;
+	if (!useHitokoto) return;
 
 	const controller = new AbortController();
 	request = controller;

@@ -59,7 +59,7 @@ const [desktop, mobile] = await Promise.all([
     <h1 class="banner-stage__title" id={isPost ? "post-title" : undefined}>
       {title || siteConfig.title}
     </h1>
-    <p>{isHomePage(Astro.url.pathname) ? "" : description || siteConfig.subtitle}</p>
+    <p>{isHomePage(Astro.url.pathname) ? (siteConfig.homeBanner.hitokoto ? "" : siteConfig.subtitle) : description || siteConfig.subtitle}</p>
     <div class="banner-stage__metadata" set:html={metadata} />
   </div>
   {siteConfig.homeBanner.waves && <BannerWaves />}
