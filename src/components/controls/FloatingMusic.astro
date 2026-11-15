@@ -22,13 +22,10 @@ import "@/styles/koharu-music.css";
 </div>
 
 <script>
-  import { $bgmPanelOpen, $bgmPlaying, toggleBgmPanel } from "@/vendor/koharu/store/bgm";
+  import { $bgmPanelOpen, toggleBgmPanel } from "@/vendor/koharu/store/bgm";
   const button = document.querySelector<HTMLButtonElement>("#music-toggle")!;
   button.onclick = toggleBgmPanel;
   $bgmPanelOpen.subscribe((open) =>
     button.setAttribute("aria-expanded", String(open)),
-  );
-  $bgmPlaying.subscribe((playing) =>
-    button.classList.toggle("is-playing", playing),
   );
 </script>
