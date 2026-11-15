@@ -10,7 +10,17 @@ export const siteConfig: SiteConfig = {
 	homeBanner: {
 		waves: true, // 是否显示横幅底部波浪，false 关闭
 		// 单张使用字符串，多张使用非空数组，按顺序循环播放。
-		desktop: ["/assets/coverImage/2.webp", "/assets/coverImage/1.webp", "/assets/coverImage/3.webp", "/assets/coverImage/5.webp", "/assets/coverImage/6.webp"],
+		desktop: [
+			"/assets/coverImage/2.webp", 
+			"/assets/coverImage/1.webp", 
+			"/assets/coverImage/3.webp", 
+			"/assets/coverImage/5.webp", 
+			"/assets/coverImage/6.webp",
+			"/assets/coverImage/7.webp",
+			"/assets/coverImage/8.webp",
+			"/assets/coverImage/9.webp",
+
+		],
 		mobile: "/assets/images/banner-mobile.webp",
 		switchInterval: 10000, // 轮播间隔，单位毫秒，须大于 0
 	},
