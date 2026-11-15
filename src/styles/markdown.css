@@ -1,6 +1,173 @@
 /* Tailwind v4：本文件经 Vite 作为独立 CSS 模块编译，@apply 需先 @reference 取得 utilities 上下文 */
 @reference "tailwindcss";
 
+/*剧透效果*/
+.custom-md spoiler {
+  --_spoiler-mask: var(--primary);
+  @apply hover:bg-transparent px-1 py-0.5 overflow-hidden rounded-md transition-all duration-150;
+  background-color: var(--_spoiler-mask);
+  box-decoration-break: clone;
+  &:not(:hover) {
+    color: var(--_spoiler-mask);
+    * {
+        color: var(--_spoiler-mask);
+    }
+  }
+}
+
+/* 浅色模式：使用更浅的主题色且完全不透明 */
+:root:not(.dark) .custom-md spoiler {
+  --_spoiler-mask: color-mix(in oklch, var(--primary) 55%, white 45%);
+}
+
+.custom-md img:not(.tweet-embed img) {
+  border-radius: 4px !important;
+}
+
+.custom-md a:not(.btn-regular):not(.btn-card):not(.btn-plain):not(.link-preview-block a, .tweet-embed a) {
+  color: var(--juejin-primary);
+  text-decoration: none;
+}
+
+.custom-md a[href]:not([href^="#"]):not(.anchor):not(.no-styling):not(.btn-regular):not(.btn-card):not(.btn-plain):not(.tweet-embed a):not(:has(img, svg))::before {
+  content: "";
+  display: inline-block;
+  width: 0.9em;
+  height: 0.9em;
+  margin-right: 0.2em;
+  vertical-align: -0.1em;
+  background-color: currentColor;
+  mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M15 3h6v6M10 14 21 3M21 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5'/%3E%3C/svg%3E") center / contain no-repeat;
+}
+
+.custom-md h1,
+.custom-md h2,
+.custom-md h3,
+.custom-md h4 {
+  color: var(--juejin-text-primary);
+}
+:root.dark .custom-md h1,
+:root.dark .custom-md h2,
+:root.dark .custom-md h3,
+:root.dark .custom-md h4 {
+  color: rgba(255, 255, 255, 0.95);
+}
+
+.custom-md h1 {
+  font-size: 1.875rem !important;
+  font-weight: 700 !important;
+  border-bottom: 1px solid var(--juejin-border);
+  padding-bottom: 0.5rem;
+  margin-top: 1.5rem;
+  margin-bottom: 1rem;
+}
+.custom-md h2 {
+  font-size: 1.5rem !important;
+  font-weight: 700 !important;
+  margin-top: 2rem;
+  margin-bottom: 0.75rem;
+}
+.custom-md h3 {
+  font-size: 1.25rem !important;
+  font-weight: 600 !important;
+  margin-top: 1.5rem;
+  margin-bottom: 0.5rem;
+}
+
+:root.dark .custom-md h1 {
+  border-bottom-color: rgba(255, 255, 255, 0.1);
+}
+
+/* 文章引用块：掘金风格的浅蓝左边框（左侧条用渐变条绘制，避免与 prose border 叠层或非整高条） */
+.custom-md blockquote {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  align-items: center;
+  column-gap: 0.75rem;
+  border-left: 4px solid var(--juejin-primary) !important;
+  border-inline-start: 4px solid var(--juejin-primary) !important;
+  background: color-mix(in oklch, var(--primary) 5%, white) !important;
+  border-radius: 3px !important;
+  margin: 1rem 0 !important;
+  padding: 0.75rem 1rem !important;
+  color: var(--juejin-text-secondary);
+}
+
+.custom-md blockquote::before {
+  content: "i";
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.125rem;
+  height: 1.125rem;
+  border-radius: 999px;
+  background: color-mix(in oklch, var(--primary) 70%, white);
+  color: #fff;
+  font-size: 0.75rem;
+  font-weight: 700;
+  font-style: normal;
+  line-height: 1;
+}
+
+.custom-md blockquote > * {
+  grid-column: 2;
+  margin-top: 0 !important;
+  margin-bottom: 0 !important;
+}
+
+.custom-md blockquote > * + * {
+  margin-top: 0.5rem !important;
+}
+
+/* 去掉 tailwind typography 给 blockquote 加的弯引号和斜体 */
+.custom-md blockquote p:first-of-type::before,
+.custom-md blockquote p:last-of-type::after {
+  content: none;
+}
+
+.custom-md blockquote p {
+  font-style: normal;
+}
+
+:root.dark .custom-md blockquote {
+  background: color-mix(in oklch, var(--primary) 12%, #111827) !important;
+  color: rgba(255, 255, 255, 0.75);
+}
+
+/* 文章内联代码 */
+.custom-md :not(pre) > code {
+  background: var(--juejin-tag-bg) !important;
+  color: #c7254e !important;
+  border-radius: 3px !important;
+  padding: 2px 6px !important;
+  font-size: 0.875em !important;
+  border: none !important;
+}
+:root.dark .custom-md :not(pre) > code {
+  background: rgba(255, 255, 255, 0.08) !important;
+  color: #ff7b85 !important;
+}
+
+@media (max-width: 767px) {
+  .license-container {
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+  }
+
+  .license-container > a {
+    display: block;
+    max-width: 100%;
+    overflow-wrap: anywhere;
+    word-break: break-all;
+  }
+
+  .license-container > .flex {
+    flex-wrap: wrap;
+    gap: 0.75rem 1rem;
+  }
+}
+
 @layer base {
 .custom-md {
     h1 {
