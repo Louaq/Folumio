@@ -106,6 +106,12 @@ type MeiliLogger = {
 	warn: (msg: string) => void;
 };
 
+async function meiliRequestJson(options: Parameters<typeof meiliRequest>[0]) {
+	const res = await meiliRequest(options);
+	const json = await res.json().catch(() => ({}));
+	return { res, json };
+}
+
 async function addDocumentsWithFallback(options: {
 	host: string;
 	indexUid: string;
@@ -120,17 +126,14 @@ async function addDocumentsWithFallback(options: {
 	// - 某些版本接受包装：POST /documents { documents: [...] }
 	const endpoint = `${host}/indexes/${indexUid}/documents`;
 
-	const tryAdd = async (body: unknown) => {
-		const res = await meiliRequest({
+	const tryAdd = (body: unknown) =>
+		meiliRequestJson({
 			url: endpoint,
 			method: "POST",
 			adminKey,
 			body,
 			logger,
 		});
-		const json = await res.json().catch(() => ({}));
-		return { res, json };
-	};
 
 	// 1) 优先：数组形式
 	let { res, json } = await tryAdd(documents);
@@ -217,6 +220,15 @@ export default function meilisearch(): AstroIntegration {
 				}
 
 				const host = normalizeHost(MEILISEARCH_HOST);
+				const waitForIndexTask = (
+					taskUid: string | number,
+					timeoutMs = 60_000,
+				) => waitForTask({
+					host,
+					adminKey: MEILISEARCH_ADMIN_KEY,
+					taskUid,
+					timeoutMs,
+				});
 
 				try {
 					logger.info(`Reading data from: ${indexFile.pathname}`);
@@ -236,7 +248,7 @@ export default function meilisearch(): AstroIntegration {
 
 					// 1) 尝试创建索引（如已存在会失败，这里忽略）
 					try {
-						const createRes = await meiliRequest({
+						const { res: createRes, json } = await meiliRequestJson({
 							url: `${host}/indexes`,
 							method: "POST",
 							adminKey: MEILISEARCH_ADMIN_KEY,
@@ -252,16 +264,11 @@ export default function meilisearch(): AstroIntegration {
 								`Meilisearch index may already exist: ${MEILISEARCH_INDEX_NAME}`,
 							);
 						} else {
-							const json = await createRes.json().catch(() => ({}));
 							if (json?.taskUid) {
 								logger.info(
 									`Waiting Meilisearch create-index task: ${json.taskUid}`,
 								);
-								await waitForTask({
-									host,
-									adminKey: MEILISEARCH_ADMIN_KEY,
-									taskUid: json.taskUid,
-								}).catch((e) => {
+								await waitForIndexTask(json.taskUid).catch((e) => {
 									// 索引已存在是常态；且 addDocuments 会自动建索引，这里失败不影响上传结果
 									logger.info(
 										`Meilisearch create-index task not applied (ignored): ${e instanceof Error ? e.message : String(e)}`,
@@ -300,7 +307,7 @@ export default function meilisearch(): AstroIntegration {
 					const filterableAttributes = ["type", "objectID"];
 
 					try {
-						const settingsRes = await meiliRequest({
+						const { res: settingsRes, json } = await meiliRequestJson({
 							url: `${host}/indexes/${MEILISEARCH_INDEX_NAME}/settings`,
 							method: "PATCH",
 							adminKey: MEILISEARCH_ADMIN_KEY,
@@ -310,15 +317,9 @@ export default function meilisearch(): AstroIntegration {
 								filterableAttributes,
 							},
 						});
-						const json = await settingsRes.json().catch(() => ({}));
 						if (settingsRes.ok && json?.taskUid) {
 							logger.info(`Waiting Meilisearch settings task: ${json.taskUid}`);
-							await waitForTask({
-								host,
-								adminKey: MEILISEARCH_ADMIN_KEY,
-								taskUid: json.taskUid,
-								timeoutMs: 30_000,
-							}).catch((e) => {
+							await waitForIndexTask(json.taskUid, 30_000).catch((e) => {
 								uploadSucceeded = false;
 								logger.warn(
 									`Meilisearch settings task failed (ignored): ${e instanceof Error ? e.message : String(e)}`,
@@ -334,7 +335,7 @@ export default function meilisearch(): AstroIntegration {
 
 					// 2.6) 清理已下线的观影索引（避免旧数据继续出现在搜索结果中）
 					try {
-						const deleteRes = await meiliRequest({
+						const { res: deleteRes, json: deleteJson } = await meiliRequestJson({
 							url: `${host}/indexes/${MEILISEARCH_INDEX_NAME}/documents/delete`,
 							method: "POST",
 							adminKey: MEILISEARCH_ADMIN_KEY,
@@ -342,17 +343,11 @@ export default function meilisearch(): AstroIntegration {
 								filter: 'type = "watchlist" OR objectID = "page:watchlist"',
 							},
 						});
-						const deleteJson = await deleteRes.json().catch(() => ({}));
 						if (deleteRes.ok && deleteJson?.taskUid) {
 							logger.info(
 								`Waiting Meilisearch delete-watchlist task: ${deleteJson.taskUid}`,
 							);
-							await waitForTask({
-								host,
-								adminKey: MEILISEARCH_ADMIN_KEY,
-								taskUid: deleteJson.taskUid,
-								timeoutMs: 30_000,
-							}).catch((e) => {
+							await waitForIndexTask(deleteJson.taskUid, 30_000).catch((e) => {
 								logger.warn(
 									`Meilisearch delete-watchlist task failed (ignored): ${e instanceof Error ? e.message : String(e)}`,
 								);
@@ -409,12 +404,7 @@ export default function meilisearch(): AstroIntegration {
 							continue;
 						}
 
-						await waitForTask({
-							host,
-							adminKey: MEILISEARCH_ADMIN_KEY,
-							taskUid: addJson.taskUid,
-							timeoutMs: 60_000,
-						})
+						await waitForIndexTask(addJson.taskUid, 60_000)
 							.then(() => {
 								taskSucceededBatchCount += 1;
 							})
@@ -455,20 +445,14 @@ export default function meilisearch(): AstroIntegration {
 								logger.info(
 									`Deleting ${staleIds.length} stale Meilisearch document(s) ...`,
 								);
-								const delRes = await meiliRequest({
+								const { res: delRes, json: delJson } = await meiliRequestJson({
 									url: `${host}/indexes/${MEILISEARCH_INDEX_NAME}/documents/delete-batch`,
 									method: "POST",
 									adminKey: MEILISEARCH_ADMIN_KEY,
 									body: staleIds,
 								});
-								const delJson = await delRes.json().catch(() => ({}));
 								if (delRes.ok && delJson?.taskUid) {
-									await waitForTask({
-										host,
-										adminKey: MEILISEARCH_ADMIN_KEY,
-										taskUid: delJson.taskUid,
-										timeoutMs: 60_000,
-									});
+									await waitForIndexTask(delJson.taskUid, 60_000);
 									logger.info(
 										`✓ Deleted ${staleIds.length} stale Meilisearch document(s).`,
 									);
