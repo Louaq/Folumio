@@ -10,17 +10,6 @@
   text-decoration: none;
 }
 
-.custom-md a[href]:not([href^="#"]):not(.anchor):not(.no-styling):not(.btn-regular):not(.btn-card):not(.btn-plain):not(.tweet-embed a):not(:has(img, svg))::before {
-  content: "";
-  display: inline-block;
-  width: 0.9em;
-  height: 0.9em;
-  margin-right: 0.2em;
-  vertical-align: -0.1em;
-  background-color: currentColor;
-  mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M15 3h6v6M10 14 21 3M21 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5'/%3E%3C/svg%3E") center / contain no-repeat;
-}
-
 .custom-md h1,
 .custom-md h2,
 .custom-md h3,
@@ -151,10 +140,6 @@
 
 @layer base {
 .custom-md {
-    h1 {
-      @apply text-3xl;
-    }
-  
     h1,
     h2,
     h3,
@@ -277,10 +262,6 @@
   aspect-ratio: auto !important;
 }
 
-.custom-md .pdf-embed .pdf-embed-error {
-  padding: 1rem;
-}
-
 /* ::video：播放器高度随视频比例，poster 比例不同时 contain 会在边缘露出容器黑底，改 cover 铺满
    （全屏时 skin 自己设回 contain） */
 .custom-md .video-embed video-skin {
@@ -360,14 +341,6 @@
 .custom-md .card-github:focus-visible {
   outline: 2px solid var(--primary);
   outline-offset: 3px;
-}
-
-.custom-md .card-github.fetch-waiting {
-  opacity: 1;
-}
-
-.custom-md .card-github.fetch-error {
-  border-color: transparent;
 }
 
 .custom-md .gc-titlebar,
