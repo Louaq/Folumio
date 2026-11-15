@@ -5,6 +5,7 @@
   --content-delay: 30ms;
 
   --radius-lg: 0.5rem;
+  --navbar-height: 4.5rem;  /* 导航栏高度，与 Navbar.astro 中 h-[4.5rem] 保持一致 */
 
   --juejin-primary: var(--theme-color);
   --juejin-primary-active: color-mix(in oklch, var(--theme-color) 85%, black);
@@ -16,9 +17,6 @@
   --juejin-border: #e4e6eb;
   --juejin-border-hover: #c2c8d1;
   --juejin-tag-bg: #f4f5f5;
-}
-
-:root {
   --primary: var(--juejin-primary);
   --page-bg: var(--juejin-bg-page);
   --card-bg: var(--juejin-bg-card);
@@ -58,11 +56,8 @@
   --juejin-border-hover: rgba(255, 255, 255, 0.22);
   --juejin-tag-bg: #2d2d35;
 
-  --page-bg: #17171a;
-  --card-bg: #22222a;
   --card-bg-transparent: rgba(34, 34, 42, 0.8);
 
-  --btn-regular-bg: #2d2d35;
   --btn-regular-bg-hover: #383841;
   --btn-regular-bg-active: #43434d;
 
@@ -78,10 +73,6 @@
 
   --link-underline: color-mix(in oklch, var(--primary) 45%, black);
   --link-hover: color-mix(in oklch, var(--primary) 45%, black);
-}
-
-:root {
-  --navbar-height: 4.5rem;  /* 导航栏高度，与 Navbar.astro 中 h-[4.5rem] 保持一致 */
 }
 
 }

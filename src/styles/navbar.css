@@ -1,4 +1,5 @@
-@layer base {
+/* 保留原先 layer(base) 导入与文件内 base 叠加后的层级。 */
+@layer base.base {
 #navbar>div {
     contain: layout style;
     will-change: transform;
@@ -36,4 +37,297 @@
     }
 }
 
+}
+
+/* Capsule layout adapted from cosZone/astro-koharu's Header and Navigator. */
+#navbar {
+  width: 100%;
+  max-width: var(--page-width);
+  margin-inline: auto;
+  padding: 8px;
+}
+@media (min-width: 768px) {
+  #navbar { padding-inline: 16px; }
+}
+#navbar > div {
+  background: color-mix(in oklch, var(--card-bg) 94%, transparent) !important;
+  border-radius: 999px !important;
+  border: none !important;
+  backdrop-filter: blur(16px) !important;
+  box-shadow: 0 4px 12px color-mix(in oklch, var(--primary) 10%, transparent);
+  transition: background-color 200ms, box-shadow 200ms, color 200ms;
+  transition-timing-function: cubic-bezier(0.2, 0, 0, 1);
+}
+
+#navbar:not([data-ready]) > div {
+  transition: none;
+}
+
+:root.dark #navbar > div {
+  background: var(--card-bg) !important;
+}
+
+#navbar .navbar-row {
+  justify-content: space-between;
+}
+
+#navbar .navbar-group {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+  min-height: 44px;
+}
+
+#navbar .navbar-brand-link {
+  gap: 8px;
+  padding: 0 16px;
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--primary);
+  justify-self: start;
+}
+
+#navbar .navbar-links {
+  padding: 2px 8px;
+}
+
+#navbar .navbar-menu-items {
+  position: relative;
+  isolation: isolate;
+  display: flex;
+  justify-content: center;
+}
+
+#navbar .navbar-menu-items > .dropdown-container > .navbar-link-active::after {
+  content: "";
+  position: absolute;
+  inset-inline: 0.75rem;
+  bottom: 0;
+  height: 3px;
+  border-radius: 2px;
+  background: currentColor;
+}
+
+#navbar .navbar-tools {
+  gap: 4px;
+  padding: 0 10px 0 4px;
+  margin-left: auto;
+  justify-self: end;
+}
+
+@media (min-width: 1024px) {
+  #navbar .navbar-tools {
+    margin-left: 0;
+  }
+  #navbar .navbar-links {
+    display: grid;
+  }
+  #navbar .navbar-row {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr) auto;
+  }
+  #navbar .navbar-links { justify-content: start; }
+}
+
+@media (max-width: 1023px) {
+  #navbar .navbar-brand-link,
+  #navbar .navbar-links {
+    display: none;
+  }
+}
+
+#navbar .btn-plain {
+  border-radius: 999px !important;
+  color: #000000 !important;
+  font-size: 16px !important;
+  font-weight: 400 !important;
+  transition: transform 250ms ease;
+}
+:root.dark #navbar .btn-plain {
+  color: rgba(255, 255, 255, 0.85) !important;
+}
+
+#navbar .btn-plain:hover,
+#navbar .btn-plain:active {
+  color: #000000 !important;
+  background-color: transparent !important;
+}
+:root.dark #navbar .btn-plain:hover,
+:root.dark #navbar .btn-plain:active {
+  color: rgba(255, 255, 255, 0.85) !important;
+  background-color: transparent !important;
+}
+#navbar .btn-plain:hover::before,
+#navbar .btn-plain:active::before {
+  background: none !important;
+}
+
+/* Logo / 站点标题：无悬浮背景与字色变化（字色与默认栏一致） */
+#navbar a.navbar-brand-link:hover,
+#navbar a.navbar-brand-link:active {
+  background-color: transparent !important;
+  color: #000000 !important;
+}
+:root.dark #navbar a.navbar-brand-link:hover,
+:root.dark #navbar a.navbar-brand-link:active {
+  color: rgba(255, 255, 255, 0.85) !important;
+}
+
+/* 深色：品牌链接仍带 .btn-plain，需高于 #navbar .btn-plain:hover/:active，彻底取消悬浮/点击底色与字色变化 */
+:root.dark #navbar a.navbar-brand-link.btn-plain:hover,
+:root.dark #navbar a.navbar-brand-link.btn-plain:active {
+  background-color: transparent !important;
+  color: rgba(255, 255, 255, 0.85) !important;
+}
+
+/* 主题选择器、明暗模式切换：无悬浮背景与字色变化（必须含 .btn-plain，否则盖不过 #navbar .btn-plain:hover） */
+#navbar button.navbar-util-no-hover:hover,
+#navbar button.navbar-util-no-hover:active,
+#navbar button.navbar-util-no-hover.btn-plain:hover,
+#navbar button.navbar-util-no-hover.btn-plain:active {
+  background-color: transparent !important;
+  color: #000000 !important;
+}
+:root.dark #navbar button.navbar-util-no-hover:hover,
+:root.dark #navbar button.navbar-util-no-hover:active,
+:root.dark #navbar button.navbar-util-no-hover.btn-plain:hover,
+:root.dark #navbar button.navbar-util-no-hover.btn-plain:active {
+  background-color: transparent !important;
+  color: rgba(255, 255, 255, 0.85) !important;
+}
+
+/* 移动端折叠菜单：双 ID 提高优先级，覆盖 .btn-plain/:active 与 scale-animation 的 ::before 底色 */
+#navbar #nav-menu-switch {
+  -webkit-tap-highlight-color: transparent;
+}
+#navbar #nav-menu-switch:hover,
+#navbar #nav-menu-switch:active,
+#navbar #nav-menu-switch:focus,
+#navbar #nav-menu-switch:focus-visible {
+  background-color: transparent !important;
+  color: #000000 !important;
+}
+:root.dark #navbar #nav-menu-switch:hover,
+:root.dark #navbar #nav-menu-switch:active,
+:root.dark #navbar #nav-menu-switch:focus,
+:root.dark #navbar #nav-menu-switch:focus-visible {
+  background-color: transparent !important;
+  color: rgba(255, 255, 255, 0.85) !important;
+}
+#navbar #nav-menu-switch:hover::before,
+#navbar #nav-menu-switch:active::before {
+  background: none !important;
+}
+
+#navbar .btn-plain.h-11 {
+  height: 2.5rem !important;
+  padding: 0 0.75rem !important;
+}
+#navbar .navbar-menu-items > .dropdown-container > .btn-plain {
+  width: auto;
+  position: relative;
+  justify-content: center;
+  font-size: 14px !important;
+  font-weight: 700 !important;
+  white-space: nowrap;
+  border-radius: 4px !important;
+}
+
+#navbar .navbar-brand-link:focus,
+#navbar .navbar-menu-items > .dropdown-container > .btn-plain:focus {
+  outline: none;
+}
+
+#navbar .navbar-menu-items > .dropdown-container > .btn-plain .navbar-icon {
+  margin-right: 4px;
+}
+
+.dropdown-item {
+  border-radius: 4px !important;
+  margin: 0 4px;
+}
+.dropdown-item:hover,
+.dropdown-item:active {
+  background-color: transparent !important;
+  color: #000000 !important;
+}
+:root.dark .dropdown-item:hover,
+:root.dark .dropdown-item:active {
+  background-color: transparent !important;
+  color: rgba(255, 255, 255, 0.85) !important;
+}
+
+.dropdown-item.current-theme-btn:hover {
+  color: var(--primary) !important;
+}
+
+#top-row #navbar.top-app-bar--transparent > div {
+  background: transparent !important;
+  backdrop-filter: none !important;
+  box-shadow: none !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  #navbar > div {
+    transition: none;
+  }
+}
+
+#top-row #navbar.top-app-bar--transparent .navbar-brand-link,
+#top-row #navbar.top-app-bar--transparent .navbar-brand-link:hover,
+#top-row #navbar.top-app-bar--transparent .navbar-menu-items > .dropdown-container > a,
+#top-row #navbar.top-app-bar--transparent [data-dropdown-trigger],
+#top-row #navbar.top-app-bar--transparent .navbar-util-no-hover,
+#top-row #navbar.top-app-bar--transparent .search-trigger,
+#top-row #navbar.top-app-bar--transparent .popup-trigger,
+#top-row #navbar.top-app-bar--transparent #scheme-switch,
+#top-row #navbar.top-app-bar--transparent #nav-menu-switch {
+  color: #fff !important;
+}
+
+#navbar .navbar-menu-items .dropdown-item:active {
+  scale: none;
+}
+
+#top-row #navbar .navbar-menu-items > .dropdown-container > .btn-plain:is(:hover, :focus-visible) {
+  background-color: color-mix(in oklch, currentColor 8%, transparent) !important;
+}
+
+#top-row #navbar.top-app-bar--transparent .navbar-menu-items > .dropdown-container > .btn-plain:is(:hover, :focus-visible) {
+  background-color: color-mix(in oklch, currentColor 14%, transparent) !important;
+}
+
+#top-row #navbar .navbar-menu-items > .dropdown-container > .navbar-link-active {
+  color: var(--primary) !important;
+}
+
+#navbar .dropdown-menu {
+  padding-top: 10px;
+}
+
+#navbar .dropdown-menu .dropdown-content {
+  position: relative;
+  top: 0;
+  isolation: isolate;
+  min-width: 9rem;
+  padding: 6px;
+  border-radius: 18px !important;
+  border: 1px solid color-mix(in oklch, var(--primary) 15%, var(--line-divider));
+  background: color-mix(in oklch, var(--card-bg) 94%, transparent) !important;
+  box-shadow: 0 8px 24px rgb(0 0 0 / 10%) !important;
+}
+#navbar .dropdown-menu .dropdown-item {
+  width: 100%;
+  margin: 0;
+  height: 36px;
+  border-radius: 12px !important;
+  font-size: 14px !important;
+}
+#navbar .dropdown-menu .dropdown-item .navbar-icon {
+  font-size: 16px;
+  margin-right: 10px;
+}
+#top-row #navbar .dropdown-menu .dropdown-item:is(:hover, :focus-visible) {
+  background: transparent !important;
+  color: var(--primary) !important;
 }

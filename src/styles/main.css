@@ -1,7 +1,6 @@
 @import 'tailwindcss';
 @import './variables-unified.css' layer(base);
 @import './layout-styles.css' layer(base);
-@import './navbar.css' layer(base);
 
 @plugin '@tailwindcss/typography';
 
