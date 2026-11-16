@@ -3,7 +3,6 @@ import MainGridLayout from "@/layouts/MainGridLayout.astro";
 import { aboutPageConfig } from "@/config/aboutConfig";
 import { getCategoryList, getSortedPosts, getTagList } from "@/utils/content-utils";
 import { url } from "@/utils/navigation";
-import ContentCharts from "./_about/ContentCharts.astro";
 
 const [posts, tags, categories] = await Promise.all([
 	getSortedPosts(),
@@ -79,10 +78,6 @@ const statistics = [
 			</dl>
 			<a class="archive-link" href={url(aboutPageConfig.archiveLink.url)}>{aboutPageConfig.archiveLink.label} <span aria-hidden="true">↗</span></a>
 		</section>
-
-		<div class="about-charts">
-			<ContentCharts posts={posts} categories={categories} />
-		</div>
 	</article>
 </MainGridLayout>
 
@@ -185,7 +180,7 @@ const statistics = [
 	.about-introduction p + p {
 		margin-top: 8px;
 	}
-	.about-section, .about-charts {
+	.about-section {
 		margin-top: 40px;
 		padding-top: 32px;
 		border-top: 1px solid var(--line-divider);
@@ -232,16 +227,6 @@ const statistics = [
 	}
 	.archive-link:hover {
 		text-decoration: underline;
-	}
-	.about-charts {
-		display: grid;
-		grid-template-columns: repeat(2, minmax(0, 1fr));
-		gap: 32px;
-	}
-	@media (max-width: 767px) {
-		.about-charts {
-			grid-template-columns: minmax(0, 1fr);
-		}
 	}
 	@media (max-width: 479px) {
 		.avatar-stage {
