@@ -5,7 +5,7 @@ const SITE_LANG = "zh_CN";
 
 export const siteConfig: SiteConfig = {
 	title: "Louaq",
-	subtitle: "论文阅读笔记",
+	subtitle: "",
 	// 横幅壁纸：src/assets 下图片相对于 src 的路径、public 路径（以 / 开头）或 https URL。
 	homeBanner: {
 		hitokoto: true, // 是否启用首页一言，false 时显示 subtitle
