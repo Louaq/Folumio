@@ -15,10 +15,12 @@ export const siteConfig: SiteConfig = {
 			"/assets/coverImage/1.webp", 
 			"/assets/coverImage/3.webp", 
 			"/assets/coverImage/5.webp", 
-			"/assets/coverImage/6.webp",
 			"/assets/coverImage/7.webp",
 			"/assets/coverImage/8.webp",
 			"/assets/coverImage/9.webp",
+			"/assets/coverImage/10.webp",
+			"/assets/coverImage/12.webp",
+			"/assets/coverImage/13.webp",
 
 		],
 		mobile: "/assets/images/banner-mobile.webp",
