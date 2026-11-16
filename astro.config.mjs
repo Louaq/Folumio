@@ -32,7 +32,6 @@ import { parseDirectiveNode } from "./src/plugins/remark-directive-rehype.js";
 import { remarkExcerpt } from "./src/plugins/remark-excerpt.js";
 import { remarkReadingTime } from "./src/plugins/remark-reading-time.mjs";
 import meilisearch from "./src/utils/meilisearch.ts";
-import { remarkLinkEmbed } from "./src/vendor/koharu/lib/markdown/remark-link-embed";
 
 const isDev = process.env.NODE_ENV === "development";
 const swupContainers = [
@@ -206,7 +205,6 @@ export default defineConfig({
 				remarkMath,
 				remarkReadingTime,
 				remarkExcerpt,
-				remarkLinkEmbed,
 				remarkDirective,
 				remarkSectionize,
 				parseDirectiveNode,

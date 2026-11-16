@@ -1,11 +1,11 @@
 /* Tailwind v4：本文件经 Vite 作为独立 CSS 模块编译，@apply 需先 @reference 取得 utilities 上下文 */
 @reference "tailwindcss";
 
-.custom-md img:not(.tweet-embed img) {
+.custom-md img {
   border-radius: 4px !important;
 }
 
-.custom-md a:not(.btn-regular):not(.btn-card):not(.btn-plain):not(.link-preview-block a, .tweet-embed a) {
+.custom-md a:not(.btn-regular):not(.btn-card):not(.btn-plain) {
   color: var(--juejin-primary);
   text-decoration: none;
 }
@@ -163,7 +163,7 @@
       }
     }
   
-    a:not(.no-styling):not(.tweet-embed a) {
+    a:not(.no-styling) {
       @apply relative bg-none font-medium text-(--primary) underline decoration-(--link-underline) decoration-1 decoration-dashed underline-offset-4;
       box-decoration-break: clone;
       -webkit-box-decoration-break: clone;

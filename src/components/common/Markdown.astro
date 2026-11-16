@@ -2,16 +2,10 @@
 // 正文专用样式只随渲染正文的页面下发，首页等列表页不加载
 import "@/styles/code-block.css";
 import "@/styles/markdown.css";
-import "@/styles/link-embed.css";
 import "@rehype-callouts-theme";
 import KatexManager from "@/components/features/KatexManager.astro";
 import PdfEmbedRuntime from "@/components/misc/PdfEmbedRuntime.astro";
 import VideoEmbedRuntime from "@/components/misc/VideoEmbedRuntime.astro";
-import LinkEmbedRuntime from "@/components/misc/LinkEmbedRuntime.astro";
-import CodePenEmbed from "@/vendor/koharu/components/embed/CodePenEmbed.astro";
-
-// 代码字体（JetBrains Mono）已由 Astro Font API 统一加载，见 astro.config.mjs 的 `fonts`
-// 与 FontSetup.astro，此处无需再单独 import fontsource。
 
 interface Props {
 	class: string;
@@ -24,5 +18,3 @@ const className = Astro.props.class;
 <KatexManager />
 <PdfEmbedRuntime />
 <VideoEmbedRuntime />
-<LinkEmbedRuntime />
-<CodePenEmbed />
