@@ -1,10 +1,3 @@
-/* Source: https://github.com/LyraVoid/Shirone (MIT).
-   Copyright and license: src/vendor/shirone/LICENSE
-   Fancybox v6 自定义样式 —— 匹配 Shirone 设计语言
-   v6 把 v5 的 .fancybox__toolbar / __button / __caption / __nav / __infobar
-   改为 .f-carousel__toolbar / .f-button / .f-caption / .f-button.is-arrow / .f-counter，
-   并通过 --f-* 变量暴露外观；这里优先覆盖变量，只在变量覆盖不到的地方写规则。 */
-
 .fancybox__container {
 	--fancybox-bg: rgba(0, 0, 0, 0.88);
 
@@ -37,9 +30,6 @@
 	--f-button-transition: background-color 0.2s ease;
 }
 
-.fancybox__container .f-carousel__toolbar__column:is(.is-middle, .is-right) {
-	background: rgba(48, 48, 48, 0.85);
-}
 
 .fancybox__container .f-carousel__toolbar .f-button:active {
 	transform: none;

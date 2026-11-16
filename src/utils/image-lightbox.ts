@@ -32,7 +32,7 @@ const getDefaultFancyboxConfig = (): FancyboxConfig => ({
 					//"reset",
 				],
 				//right: ["autoplay", "fullscreen", "close"],
-				right: ["close"],
+				right: ["fullscreen", "close"],
 			},
 		},
 		Zoomable: {
