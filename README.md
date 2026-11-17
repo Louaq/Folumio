@@ -6,7 +6,7 @@
 [![React](https://img.shields.io/badge/React-19-149ECA?logo=react&logoColor=white)](https://react.dev)
 [![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-4-06B6D4?logo=tailwindcss&logoColor=white)](https://tailwindcss.com)
 [![TypeScript](https://img.shields.io/badge/TypeScript-6-3178C6?logo=typescript&logoColor=white)](https://www.typescriptlang.org)
-[![pnpm](https://img.shields.io/badge/pnpm-9.14.4-F69220?logo=pnpm&logoColor=white)](https://pnpm.io)
+[![pnpm](https://img.shields.io/badge/pnpm-12.21.0-F69220?logo=pnpm&logoColor=white)](https://pnpm.io)
 [![License](https://img.shields.io/badge/License-MIT-blue)](LICENSE)
 
 基于 [Firefly](https://github.com/CuteLeaf/Firefly) 主题二次开发的个人博客，专注于多模态医学图像分析领域的论文阅读笔记与技术分享。使用 [Astro](https://astro.build) 构建，站点内容全部为静态生成。

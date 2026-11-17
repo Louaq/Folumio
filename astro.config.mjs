@@ -6,7 +6,6 @@ import tailwindcss from "@tailwindcss/vite";
 import { defineConfig, fontProviders } from "astro/config";
 import expressiveCode from "astro-expressive-code";
 import icon from "astro-icon";
-import katex from "katex";
 import rehypeAutolinkHeadings from "rehype-autolink-headings";
 import rehypeComponents from "rehype-components"; /* Render the custom directive content */
 import rehypeKatex from "rehype-katex";
@@ -210,7 +209,7 @@ export default defineConfig({
 				parseDirectiveNode,
 			],
 			rehypePlugins: [
-				[rehypeKatex, { katex }],
+				rehypeKatex,
 				[rehypeCallouts, { theme: siteConfig.rehypeCallouts.theme }],
 				rehypeSlug,
 				rehypeFigure,

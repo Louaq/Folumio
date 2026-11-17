@@ -1,0 +1,5 @@
+overrides:
+  katex: ^0.19.1
+
+allowBuilds:
+  esbuild: true
