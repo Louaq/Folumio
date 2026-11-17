@@ -5,15 +5,15 @@ export const homeTopNoticeConfig: HomeTopNoticeConfig = {
 	// 轮播间隔（毫秒），只有多条通知时才有效
 	switchInterval: 8000,
 	items: [
-		{
-			title: "最新动态",
-			content: "从2026年开始, 将会使用AI进行润色",
-			link: {
-				enable: false,
-				url: "",
-				external: false,
-			},
-		},
+		// {
+		// 	title: "最新动态",
+		// 	content: "从2026年开始, 将会使用AI进行润色",
+		// 	link: {
+		// 		enable: false,
+		// 		url: "",
+		// 		external: false,
+		// 	},
+		// },
 		{
 			title: "每日一言",
 			content: "天上白玉京, 十二楼五城",
