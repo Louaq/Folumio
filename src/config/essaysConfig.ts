@@ -23,14 +23,9 @@ export const essaysConfig: {
 			images: ["https://pic1.imgdb.cn/i/034ZMknGevJT4oWECLatyW.png?w=600"],
 		},
 		{
-			date: "2026-11-09",
-			content: "互联网基础设施",
-			images: ["https://pic1.imgdb.cn/i/034pQ8sylkcdgznae7R14n.webp?w=350"]
-
-		},
-		{
 			date: "2026-11-07",
 			content: "立冬",
+			images: ["https://pic1.imgdb.cn/i/034zdOj25kiJUVJpBrHyYe.webp?w=300"],
 		},
 	],
 };
