@@ -193,6 +193,67 @@
       }
     }
 
+    .code-tabs {
+      position: relative;
+      display: flex;
+      flex-wrap: wrap;
+      margin: 1rem 0;
+      border-radius: 0.5rem;
+      background: #d6e7f4;
+      color: #243646;
+    }
+
+    .code-tabs > input {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      opacity: 0;
+    }
+
+    .code-tabs > label {
+      padding: 0.35rem 0.75rem;
+      font-size: 0.875rem;
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    .code-tabs > input:checked + label {
+      border-radius: 0.5rem 0.5rem 0 0;
+      background: #eaf3fa;
+    }
+
+    .code-tabs > input:focus-visible + label {
+      outline: 2px solid currentColor;
+      outline-offset: -2px;
+    }
+
+    .code-tabs > .code-tab-panel {
+      display: none;
+      flex: 0 0 100%;
+      min-width: 0;
+      order: 1;
+      padding: 0.25rem;
+      border-radius: 0 0 0.5rem 0.5rem;
+      background: #eaf3fa;
+    }
+
+    .code-tabs > input:checked + label + .code-tab-panel {
+      display: block;
+    }
+
+    .code-tabs .expressive-code {
+      margin: 0;
+    }
+
+    :where(.dark) & .code-tabs {
+      background: #273d51;
+      color: #d9e7f3;
+    }
+
+    :where(.dark) & .code-tabs > :is(input:checked + label, .code-tab-panel) {
+      background: #1e3041;
+    }
+
     .expressive-code {
       @apply my-4;
       content-visibility: auto;

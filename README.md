@@ -13,6 +13,8 @@
 
 ## 目录
 
+完整使用指南：[Folumio 主题文档](src/content/posts/docs/index.md)。本地启动后访问 `/posts/docs/`。
+
 - [预览](#预览)
 - [特性](#特性)
 - [技术栈](#技术栈)

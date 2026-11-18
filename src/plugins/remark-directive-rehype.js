@@ -32,6 +32,7 @@ const ADMONITION_TYPES = [
 
 export function parseDirectiveNode() {
 	return (tree, file) => {
+		let codeTabGroup = 0;
 		visit(tree, (node, index, parent) => {
 			// 时间中的 :59 等纯数字行内指令应保留为原文。
 			if (node.type === "textDirective" && /^\d+$/.test(node.name)) {
@@ -51,7 +52,61 @@ export function parseDirectiveNode() {
 			) {
 				const name = node.name ? node.name.toLowerCase() : "";
 
-				// 检查是否是 Admonition 类型
+				if (node.type === "containerDirective" && name === "code-tabs") {
+					const tabs = [];
+					let tab;
+					for (const child of node.children) {
+						if (child.type === "paragraph") {
+							const source = file.toString().slice(
+								child.position.start.offset,
+								child.position.end.offset,
+							);
+							const marker = /^@tab(:active)?[ \t]+(.+)$/.exec(source);
+							if (marker) {
+								tab = { label: marker[2].trim(), active: Boolean(marker[1]) };
+								tabs.push(tab);
+							}
+						} else if (child.type === "code" && tab && !tab.code) {
+							tab.code = child;
+						}
+					}
+
+					const panels = tabs.filter(({ code }) => code);
+					if (panels.length === 0) return;
+
+					const groupName = `folumio-code-tabs-${++codeTabGroup}`;
+					const selected = panels.find(({ active }) => active) ?? panels[0];
+					node.data = {
+						hName: "div",
+						hProperties: { className: ["code-tabs"], role: "group", ariaLabel: "代码块分组" },
+					};
+					node.children = panels.flatMap((panel, index) => {
+						const { label, code } = panel;
+						const id = `${groupName}-${index + 1}`;
+						return [
+							{
+								type: "paragraph",
+								data: {
+									hName: "input",
+									hProperties: { type: "radio", name: groupName, id, checked: panel === selected },
+								},
+								children: [],
+							},
+							{
+								type: "paragraph",
+								data: { hName: "label", hProperties: { htmlFor: id } },
+								children: [{ type: "text", value: label }],
+							},
+							{
+								type: "paragraph",
+								data: { hName: "div", hProperties: { className: ["code-tab-panel"] } },
+								children: [code],
+							},
+						];
+					});
+					return SKIP;
+				}
+
 				// 仅对 containerDirective 进行 Admonition 转换
 				if (
 					node.type === "containerDirective" &&
