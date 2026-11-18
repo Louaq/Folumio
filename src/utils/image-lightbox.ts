@@ -22,17 +22,17 @@ const getDefaultFancyboxConfig = (): FancyboxConfig => ({
 			display: {
 				left: ["counter"],
 				middle: [
-					"zoomIn",
-					"zoomOut",
-					"toggle1to1",
-					"rotateCCW",
-					"rotateCW",
+					//"zoomIn",
+					//"zoomOut",
+					//"toggle1to1",
+					//"rotateCCW",
+					//"rotateCW",
 					//"flipX",
 					//"flipY",
 					//"reset",
 				],
 				//right: ["autoplay", "fullscreen", "close"],
-				right: ["fullscreen", "close"],
+				right: ["fullscreen", "autoplay", "close"],
 			},
 		},
 		Zoomable: {

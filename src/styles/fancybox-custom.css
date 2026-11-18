@@ -18,6 +18,14 @@
 	--f-caption-color: #fff;
 }
 
+/* 左右切换按钮 */
+.fancybox__container .f-button.is-arrow {
+	--f-button-bg: transparent;
+	--f-button-hover-bg: transparent;
+	--f-button-active-bg: transparent;
+	--f-button-backdrop-filter: none;
+}
+
 /* 工具栏 */
 .fancybox__container .f-carousel__toolbar {
 	padding: 0.5rem;
