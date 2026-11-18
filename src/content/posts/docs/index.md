@@ -1,9 +1,8 @@
 ---
+title: Folumio 主题完整使用指南
 published: 2026-11-18
 category: Folumio 文档
 tags: [Folumio, Astro]
-slug: docs
-title: Folumio 主题完整使用指南
 description: 从克隆项目、发布第一篇文章，到配置首页、独立页面、搜索、评论与部署。
 ---
 
@@ -530,7 +529,7 @@ PUBLIC_MEILISEARCH_SEARCH_KEY=限指定索引的搜索密钥
 
 ### 悬浮音乐
 
-`siteConfig.ts` 的 `floatingControls.music` 控制入口。播放器会在首次展开时读取站点根路径的 `/music.json`，通过同源 `/ncm` 调用音乐服务，并引用 `/assets/music` 下的封面等资源。
+`siteConfig.ts` 的 `floatingControls.music` 控制入口。播放器会在首次展开时读取站点根路径的 `/music.json`，通过同源 `/ncm` 调用音乐服务（私有服务，暂不开源，请理解！），并引用 `/assets/music` 下的封面等资源。
 
 > [!IMPORTANT]
 > Folumio 演示站的音乐 API 是作者自用的私有服务，不对外开放。主题仅提供播放器，歌单生成程序和音乐服务均不随仓库提供。
