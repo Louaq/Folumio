@@ -10,6 +10,7 @@ export {
 export { getNormalizedHomeTopNoticeItems } from "./homeTopNoticeConfig"; 
 
 export { navBarConfig } from "./navBarConfig"; 
+export { musicConfig } from "./musicConfig";
 export { profileConfig } from "./profileConfig"; 
 
 export { sidebarLayoutConfig } from "./sidebarConfig"; 

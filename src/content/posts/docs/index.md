@@ -528,12 +528,65 @@ PUBLIC_MEILISEARCH_SEARCH_KEY=限指定索引的搜索密钥
 
 ### 悬浮音乐
 
-`siteConfig.ts` 的 `floatingControls.music` 控制入口。播放器会在首次展开时读取站点根路径的 `/music.json`，通过同源 `/ncm` 调用音乐服务（私有服务，暂不开源，请理解！），并引用 `/assets/music` 下的封面等资源。
+音乐开关统一放在 `src/config/siteConfig.ts` 的 `floatingControls.music` 中。设为 `false` 会关闭悬浮按钮及播放器，其余悬浮按钮仍按各自开关显示。
+
+```ts
+floatingControls: {
+  music: true,
+  backToTop: true,
+  backToBottom: true,
+},
+```
+
+歌单来源、名称和接口地址在 `src/config/musicConfig.ts` 中配置，推荐选择网易云音乐歌单模式，配置方便，无需后期维护。
+
+
+
+> 网易云音乐歌单
+
+将 `source` 改为 `"netease"`，并在 `netease.playlistId` 填写歌单链接中 `id=` 后的数字，保留字符串引号。以下示例中的 ID 需替换为自己的歌单 ID：
+
+```ts
+source: "netease",
+playlistTitle: "我的网易云歌单",
+netease: {
+  playlistId: "2083845712",
+  apiUrl: "https://163.hyc.moe/",  //公共接口，不保证稳定性
+},
+```
+
+此模式通过 `netease.apiUrl` 指定的 Meting API 获取歌单，并使用返回的音源、封面和歌词地址，不调用自有服务的 `/music.json`、`/ncm`。`songsUrl`、`apiBase` 和 `audioQuality` 仅在 `custom` 模式使用。可将 `apiUrl` 替换为自己部署或可用的兼容 Meting 服务地址。
+
+
+> 自有服务
+
+保持 `source: "custom"`，按自己的部署修改以下字段：
+
+```ts
+source: "custom",
+playlistTitle: "本地歌单",
+songsUrl: "/music.json",
+apiBase: "/ncm",
+audioQuality: "standard",
+```
+
+`songsUrl` 是相对于站点根路径的歌单 JSON 地址。歌单为数组，每首歌包含数字 `id`、歌名 `name`、歌手 `artist` 和封面地址 `cover`，例如：
+
+```json
+[
+  {
+    "id": 123456,
+    "name": "歌曲名称",
+    "artist": "歌手名称",
+    "cover": "/assets/music/cover.webp"
+  }
+]
+```
+
+示例中的歌曲 ID 和封面需替换为实际资源。`apiBase` 不带末尾斜杠；播放器通过该前缀下的 `/token` 完成认证，再请求 `/song/url/v1` 获取音源，`audioQuality` 对应接口的 `level` 参数。需要部署与现有认证和响应格式兼容的服务。当前自有服务歌单格式不包含歌词。
 
 > [!IMPORTANT]
-> Folumio 演示站的音乐 API 是作者自用的私有服务，不对外开放。主题仅提供播放器，歌单生成程序和音乐服务均不随仓库提供。
-
-部署自己的博客时，请接入自有音乐服务，并在实际部署域名验证歌单、封面和音源能否加载。如果没有对应的代理与资源，可将 `floatingControls.music` 设为 `false` 隐藏播放器入口。
+> Folumio 演示站的自有音乐 API 是作者自用的私有服务，不对外开放，请自行选择**网易云音乐歌单模式**
 
 ### 访客统计
 
@@ -659,7 +712,7 @@ jobs:
 | 中文字体构建失败 | 确认构建日志中的 Python 可执行文件及字体依赖 |
 | 新文章不显示 | 检查文件位置、`title`、日期和 `draft` |
 | 更新后样式或图片还是旧的 | 先确认部署日志与文件，再检查浏览器和 CDN 缓存 |
-| 本地能播音乐，线上不能 | 检查同源的 `/ncm`、`/music.json` 和封面资源 |
+| 本地能播音乐，线上不能 | 先核对 `musicConfig.ts` 的 `source`；自有服务检查 `songsUrl`、`apiBase` 和封面资源，网易云模式检查歌单 ID、Meting API 及其返回资源的访问情况 |
 | 搜索为空 | 核对前后端索引是否一致，检查 Meilisearch 构建日志 |
 
 ### 更新主题

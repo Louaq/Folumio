@@ -10,6 +10,7 @@
  * Playlist resolution is lazy — only triggered on first panel open.
  */
 
+import { musicConfig } from "@/config/musicConfig";
 import { LazyMotionProvider } from "@/vendor/koharu/components/common/LazyMotionProvider";
 import {
 	PlayerPlaylist,
@@ -74,7 +75,11 @@ export default function GlobalBGMPlayer({ songsUrl }: GlobalBGMPlayerProps) {
 				if (!cancelled) {
 					setTracks(allTracks);
 					setGroups([
-						{ title: "本地歌单", startIndex: 0, count: allTracks.length },
+						{
+							title: musicConfig.playlistTitle,
+							startIndex: 0,
+							count: allTracks.length,
+						},
 					]);
 					setLoading(false);
 				}
@@ -212,6 +217,8 @@ export default function GlobalBGMPlayer({ songsUrl }: GlobalBGMPlayerProps) {
 					track={currentTrack}
 					playing={player.state.playing}
 					timeStore={player.timeStore}
+					lrcContainerHeight={64}
+					reserveLyrics
 				/>
 				<MediaControls
 					playing={player.state.playing}

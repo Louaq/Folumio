@@ -1,11 +1,20 @@
-import type { MetingSong } from "@/vendor/koharu/lib/meting";
+import { musicConfig } from "@/config/musicConfig";
+import { fetchMeting, type MetingSong } from "@/vendor/koharu/lib/meting";
 
 type LocalSong = { id: number; name: string; artist: string; cover: string };
-export type LocalMusicTrack = MetingSong & { id: number };
+export type LocalMusicTrack = MetingSong & { id?: number };
 
 export async function resolveLocalPlaylist(
 	source: string,
 ): Promise<LocalMusicTrack[]> {
+	if (musicConfig.source === "netease") {
+		return fetchMeting(
+			"netease",
+			"playlist",
+			musicConfig.netease.playlistId,
+			musicConfig.netease.apiUrl,
+		);
+	}
 	const response = await fetch(source);
 	if (!response.ok) throw new Error(`歌单加载失败 (${response.status})`);
 	const songs: LocalSong[] = await response.json();
@@ -14,7 +23,7 @@ export async function resolveLocalPlaylist(
 		name: song.name,
 		artist: song.artist,
 		pic: song.cover,
-		url: `/ncm/song/url/v1?id=${song.id}&level=standard`,
+		url: `${musicConfig.apiBase}/song/url/v1?id=${song.id}&level=${musicConfig.audioQuality}`,
 		lrc: "",
 	}));
 }
@@ -22,11 +31,15 @@ export async function resolveLocalPlaylist(
 export async function resolveLocalAudio(
 	track: LocalMusicTrack,
 ): Promise<string | null> {
+	if (musicConfig.source === "netease") return track.url;
 	const call = () =>
-		fetch(`/ncm/song/url/v1?id=${track.id}&level=standard`, {
-			credentials: "same-origin",
-			cache: "no-store",
-		});
+		fetch(
+			`${musicConfig.apiBase}/song/url/v1?id=${track.id}&level=${musicConfig.audioQuality}`,
+			{
+				credentials: "same-origin",
+				cache: "no-store",
+			},
+		);
 	await ensureMusicSession();
 	let response = await call();
 	if (response.status === 401) {
@@ -66,7 +79,7 @@ async function solveMusicChallenge(
 }
 
 async function createSession(): Promise<void> {
-	const challengeResponse = await fetch("/ncm/token", {
+	const challengeResponse = await fetch(`${musicConfig.apiBase}/token`, {
 		credentials: "same-origin",
 		cache: "no-store",
 	});
@@ -74,7 +87,7 @@ async function createSession(): Promise<void> {
 		throw new Error(`音乐认证失败 (${challengeResponse.status})`);
 	const { challenge, difficulty } = await challengeResponse.json();
 	const nonce = await solveMusicChallenge(challenge, difficulty);
-	const response = await fetch("/ncm/token", {
+	const response = await fetch(`${musicConfig.apiBase}/token`, {
 		method: "POST",
 		credentials: "same-origin",
 		cache: "no-store",

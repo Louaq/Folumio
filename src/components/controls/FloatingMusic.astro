@@ -1,5 +1,6 @@
 ---
 import GlobalBGMPlayer from "@/vendor/koharu/components/bgm/GlobalBGMPlayer";
+import { musicConfig } from "@/config/musicConfig";
 import { Icon } from "astro-icon/components";
 import { url } from "@/utils/navigation";
 import "@/styles/koharu-music.css";
@@ -18,7 +19,7 @@ import "@/styles/koharu-music.css";
     <Icon name="ri:music-2-line" class="music-icon-closed" />
     <Icon name="ri:music-2-fill" class="music-icon-open" />
   </button>
-  <GlobalBGMPlayer client:load songsUrl={url("/music.json")} />
+  <GlobalBGMPlayer client:load songsUrl={url(musicConfig.songsUrl)} />
 </div>
 
 <script>

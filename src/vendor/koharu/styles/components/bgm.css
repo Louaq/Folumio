@@ -92,7 +92,14 @@
   gap: 1em;
   flex-direction: row;
   text-align: left;
+  flex: 0 0 144px;
+  box-sizing: border-box;
+}
+
+.bgm-panel .audio-player-lrc {
+  height: 64px;
   flex-shrink: 0;
+  margin-top: 0.4em;
 }
 
 .bgm-panel .audio-player-disc-wrapper {
