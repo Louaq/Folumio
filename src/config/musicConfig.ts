@@ -3,8 +3,8 @@ export const musicConfig = {
 	source: "custom",
 	playlistTitle: "本地歌单",
 	// 自有服务配置，仅 custom 模式使用
-	songsUrl: "/music.json", 
-	apiBase: "/ncm", 
+	songsUrl: "https://ncm.louaq.com/music.json",
+	apiBase: "https://ncm.louaq.com",
 	audioQuality: "standard", 
 	// 网易云歌单配置，仅 netease 模式使用
 	netease: {

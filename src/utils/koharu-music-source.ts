@@ -22,7 +22,7 @@ export async function resolveLocalPlaylist(
 		id: song.id,
 		name: song.name,
 		artist: song.artist,
-		pic: song.cover,
+		pic: song.cover ? new URL(song.cover, musicConfig.apiBase).href : "",
 		url: `${musicConfig.apiBase}/song/url/v1?id=${song.id}&level=${musicConfig.audioQuality}`,
 		lrc: "",
 	}));
@@ -36,7 +36,7 @@ export async function resolveLocalAudio(
 		fetch(
 			`${musicConfig.apiBase}/song/url/v1?id=${track.id}&level=${musicConfig.audioQuality}`,
 			{
-				credentials: "same-origin",
+				credentials: "include",
 				cache: "no-store",
 			},
 		);
@@ -80,7 +80,7 @@ async function solveMusicChallenge(
 
 async function createSession(): Promise<void> {
 	const challengeResponse = await fetch(`${musicConfig.apiBase}/token`, {
-		credentials: "same-origin",
+		credentials: "include",
 		cache: "no-store",
 	});
 	if (!challengeResponse.ok)
@@ -89,7 +89,7 @@ async function createSession(): Promise<void> {
 	const nonce = await solveMusicChallenge(challenge, difficulty);
 	const response = await fetch(`${musicConfig.apiBase}/token`, {
 		method: "POST",
-		credentials: "same-origin",
+		credentials: "include",
 		cache: "no-store",
 		headers: { "Content-Type": "application/json" },
 		body: JSON.stringify({ nonce }),

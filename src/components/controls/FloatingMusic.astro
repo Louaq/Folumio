@@ -19,7 +19,10 @@ import "@/styles/koharu-music.css";
     <Icon name="ri:music-2-line" class="music-icon-closed" />
     <Icon name="ri:music-2-fill" class="music-icon-open" />
   </button>
-  <GlobalBGMPlayer client:load songsUrl={url(musicConfig.songsUrl)} />
+  <GlobalBGMPlayer
+    client:load
+    songsUrl={musicConfig.songsUrl.startsWith("https://") ? musicConfig.songsUrl : url(musicConfig.songsUrl)}
+  />
 </div>
 
 <script>
