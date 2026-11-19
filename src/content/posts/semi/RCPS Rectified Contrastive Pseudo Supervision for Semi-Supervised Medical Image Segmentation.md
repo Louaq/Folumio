@@ -33,7 +33,7 @@ method yields better segmentation performance compared with the state-of-the-art
 
 ## 提出的模型
 
-![Snipaste_2025-11-27_10-03-24](https://pic1.imgdb.cn/item/6927b19f3203f7be00352a54.png)
+![Snipaste_2025-11-27_10-03-24](https://ss1.tupinayun.cn/autoupload/pzwl0/20261119/jIjL/1040X649/3iCsSAu1fwtlK2VdNuIfb2.png)
 
 该研究提出了一种名为**Rectified Contrastive Pseudo Supervision（RCPS，整流对比伪监督）**的半监督医学图像分割方法，旨在解决现有方法中伪标签噪声和特征空间类分离不足的问题。
 
@@ -58,7 +58,7 @@ method yields better segmentation performance compared with the state-of-the-art
 ###  训练与优化 
 - **混合精度训练**和**梯度检查点**：减少显存占用，加速训练。 - **损失平衡**：通过超参数α和β平衡整流伪监督损失（Lrp）和双向对比损失（Lbc），整体无监督损失为：    \( ℓ_{unsup} = αL_{rp} + βL_{bc} \)。 
 
-![Snipaste_2025-11-27_10-09-44](https://pic1.imgdb.cn/item/6927b3143203f7be00353f59.png)
+![Snipaste_2025-11-27_10-09-44](https://ss1.tupinayun.cn/autoupload/pzwl0/20261119/AnMq/540X645/0B5aAWxqh2SuhqubMROS6P.png)
 
 
 
@@ -112,9 +112,9 @@ method yields better segmentation performance compared with the state-of-the-art
 - **20%标记数据**：DSC提升至91.21%，接近全监督上限（91.65%）。
 - **可视化结果**：RCPS对细小结构的分割更完整，边缘更贴合金标准。
 
-![Snipaste_2025-11-27_10-15-45](https://pic1.imgdb.cn/item/6927b4843203f7be00355357.png)
+![Snipaste_2025-11-27_10-15-45](https://ss1.tupinayun.cn/autoupload/pzwl0/20261119/9kOj/1058X309/2Sb0KbYo9ywK0f6P4pHnYa.png)
 
-![Snipaste_2025-11-27_10-16-08](https://pic1.imgdb.cn/item/6927b4933203f7be00355407.png)
+![Snipaste_2025-11-27_10-16-08](https://ss1.tupinayun.cn/autoupload/pzwl0/20261119/1yTb/712X462/53tXeZCuaSYS0GspUMx6FP.png)
 
 
 
@@ -132,7 +132,7 @@ method yields better segmentation performance compared with the state-of-the-art
 
 ## 实验（Ablation Experiments）​​
 
-![Snipaste_2025-11-27_10-18-03](https://pic1.imgdb.cn/item/6927b5103203f7be00355808.png)
+![Snipaste_2025-11-27_10-18-03](https://ss1.tupinayun.cn/autoupload/pzwl0/20261119/GH5N/529X235/5O6LRclkZChpngx5F3pqND.png)
 
 1. **核心组件有效性**
    - **校正伪监督（Lrp）**：单独使用提升DSC约5-7%；结合不确定性估计和一致性正则化效果最优。

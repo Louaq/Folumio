@@ -27,7 +27,7 @@ Automated brain tumor segmentation is crucial for aiding brain disease diagnosis
 -  **现有方法局限**：卷积神经网络（CNNs）在医学分割任务中取得显著成功，如U - Net及其变体，但现有多模态脑肿瘤分割方法存在不足。早期融合策略不能有效保留各模态特征和探索模态间联系；晚期融合模型虽提取独立特征，但未充分利用模态特征提升分割性能；部分方法学习融合信息时忽略了模态编码器特征的重要性。因此，如何有效融合多模态数据，同时挖掘共享信息和捕捉模态特定特征以获得良好的分割结果仍是挑战。 
 
 
-![Snipaste_2025-07-09_09-56-38](https://pic1.imgdb.cn/i/0343OV8rl1Zi0cRhvKBEZ4.webp)
+![Snipaste_2025-07-09_09-56-38](https://ss1.tupinayun.cn/autoupload/pzwl0/20261119/vx9g/0X0/0343OV8rl1Zi0cRhvKBEZ4.webp)
 
 ## 研究现状
 

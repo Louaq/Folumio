@@ -32,7 +32,7 @@ The precise segmentation of different **brain regions and tissues** is usually a
 
 ## 提出的模型
 
-![Snipaste_2025-07-10_20-51-30](https://pic1.imgdb.cn/i/0343OUGpx07tppJ7KFhTho.webp)
+![Snipaste_2025-07-10_20-51-30](https://ss1.tupinayun.cn/autoupload/pzwl0/20261119/0jsF/0X0/0343OUGpx07tppJ7KFhTho.webp)
 
 ![Snipaste_2025-07-10_20-51-36](https://yangyang666.oss-cn-chengdu.aliyuncs.com/images/Snipaste_2025-07-10_20-51-36.png)
 

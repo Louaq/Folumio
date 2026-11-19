@@ -42,7 +42,7 @@ Automated segmentation in medical image analysis is a challenging task that requ
 
 ## 提出的模型
 
-![Snipaste_2025-12-29_17-28-59](https://pic1.imgdb.cn/i/0343OW3SGEBvbv6XWW4ciA.webp)
+![Snipaste_2025-12-29_17-28-59](https://ss1.tupinayun.cn/autoupload/pzwl0/20261119/lkQS/0X0/0343OW3SGEBvbv6XWW4ciA.webp)
 
 
 
@@ -117,11 +117,11 @@ Automated segmentation in medical image analysis is a challenging task that requ
 
 > 对比实验
 
-![Snipaste_2025-12-29_19-03-48](https://pic1.imgdb.cn/item/69525fe5b4999e67a5a5263d.png)
+![Snipaste_2025-12-29_19-03-48](https://ss1.tupinayun.cn/autoupload/pzwl0/20261119/CUss/1095X650/7M57nfjI7mB3Yz9UwpkD5h.png)
 
-![Snipaste_2025-12-29_19-03-57](https://pic1.imgdb.cn/item/69525fefb4999e67a5a52681.png)
+![Snipaste_2025-12-29_19-03-57](https://ss1.tupinayun.cn/autoupload/pzwl0/20261119/HQDf/1169X425/7KqUN78PRGUUfolVESTjLy.png)
 
-![Snipaste_2025-12-29_19-04-30](https://pic1.imgdb.cn/item/69526007b4999e67a5a52722.png)
+![Snipaste_2025-12-29_19-04-30](https://ss1.tupinayun.cn/autoupload/pzwl0/20261119/6Ziw/1213X518/2LAUFCtfX7n5FNPdcC3E8b.png)
 
 SimCVD在20%标注下Dice提升0.91%，10%标注下提升2.22%，同时边界指标（95HD、ASD）显著改善，接近全监督模型性能。
 
@@ -140,9 +140,9 @@ SimCVD在20%标注下Dice提升0.91%，10%标注下提升2.22%，同时边界指
 2. **边界感知表示**：通过SDM和对比损失学习的边界特征，显著提升分割精度和边界平滑度。
 3. **少标注鲁棒性**：在10%标注比例下仍能稳定优于现有方法，证明其在临床数据稀缺场景的实用性。
 
-![Snipaste_2025-12-29_19-05-07](https://pic1.imgdb.cn/item/6952602fb4999e67a5a52831.png)
+![Snipaste_2025-12-29_19-05-07](https://ss1.tupinayun.cn/autoupload/pzwl0/20261119/pQ1C/1162X293/07BfOx9hJKWOizJTqJUuFb.png)
 
-![Snipaste_2025-12-29_19-05-11](https://pic1.imgdb.cn/item/69526032b4999e67a5a52842.png)
+![Snipaste_2025-12-29_19-05-11](https://ss1.tupinayun.cn/autoupload/pzwl0/20261119/pZuv/620X289/4pphhpA7ondvIzSAp0NxlG.png)
 
 ## 结论
 

@@ -3,7 +3,7 @@ import type { WatchlistItem } from "./types";
 export const tvItems: WatchlistItem[] = [
 	{
 		title: "三体",
-		cover: "https://pic1.imgdb.cn/item/694fc37d161224305eb307f3.webp",
+		cover: "https://ss1.tupinayun.cn/autoupload/pzwl0/20261119/ozl7/0X0/2E7WcQRyNMHKgnNfNlvYed.webp",
 		type: "tv",
 		status: "completed",
 		rating: 8.5,
@@ -14,7 +14,7 @@ export const tvItems: WatchlistItem[] = [
 	},
 	{
 		title: "唐朝诡事录之长安",
-		cover: "https://pic1.imgdb.cn/item/694fde44161224305eb30a13.webp",
+		cover: "https://ss1.tupinayun.cn/autoupload/pzwl0/20261119/QrDP/0X0/742lXi7W8Y1vPuhcFrw5Ny.webp",
 		type: "tv",
 		status: "completed",
 		rating: 8.0,
@@ -24,7 +24,7 @@ export const tvItems: WatchlistItem[] = [
 	},
 	{
 		title: "鹊刀门传奇 第二季",
-		cover: "https://pic1.imgdb.cn/item/694fdf2d161224305eb30a1c.webp",
+		cover: "https://ss1.tupinayun.cn/autoupload/pzwl0/20261119/nXLu/0X0/2nnhy00hpUWUAoQs1XR47W.webp",
 		type: "tv",
 		status: "completed",
 		rating: 8.2,
@@ -34,7 +34,7 @@ export const tvItems: WatchlistItem[] = [
 	},
 	{
 		title: "异人之下之决战！碧游村",
-		cover: "https://pic1.imgdb.cn/item/69509caf161224305eb311ea.webp",
+		cover: "https://ss1.tupinayun.cn/autoupload/pzwl0/20261119/2wFB/0X0/5eg1cOx1Dznb831zRo9X9Z.webp",
 		type: "tv",
 		status: "completed",
 		rating: 8.4,

@@ -4,7 +4,7 @@ published: 2025-03-04 12:00:00
 expires: 2025-08-21 23:59:59
 mathjax: true
 excerpt: "云想衣裳花想容，春风拂槛露华浓"
-cover: "https://pic1.imgdb.cn/i/0343Oc1IVcaZZAx9vnALV9.jpg"
+cover: "https://ss1.tupinayun.cn/autoupload/pzwl0/20261119/2Ste/4000X2328/0343Oc1IVcaZZAx9vnALV9.jpg"
 categories: 开放词汇语义分割
 tags: [SED]
 ---
@@ -62,7 +62,7 @@ tags: [SED]
 
 
 
-![Snipaste_2025-02-28_08-53-28](https://pic1.imgdb.cn/i/0343OVw7K5XraSDSIKFASd.webp)
+![Snipaste_2025-02-28_08-53-28](https://ss1.tupinayun.cn/autoupload/pzwl0/20261119/dKTt/0X0/0343OVw7K5XraSDSIKFASd.webp)
 
 
 

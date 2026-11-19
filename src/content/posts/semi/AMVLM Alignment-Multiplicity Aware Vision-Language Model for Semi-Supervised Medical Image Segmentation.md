@@ -27,7 +27,7 @@ Low-quality pseudo labels pose a significant obstacle in semi-supervised medical
 
 半监督医学图像分割（SSMIS）中，伪标签质量低下严重阻碍无标记数据的一致性学习。现有方法通过一致性正则化和交叉监督生成伪标签，但常因伪标签质量差导致模型学习错误特征。视觉语言模型（VLM）虽能利用文本提示描述分割区域以改善伪标签质量，但面临跨模态对齐不确定性问题——多图/文本可能对应同一文本/图像。现有VLM通过分布建模处理该问题，却因语义退化削弱跨模态语义关联。为此，本文提出对齐多样性感知视觉语言模型（AMVLM），通过新的相似度度量策略解决上述挑战，同时构建文本引导的SSMIS网络以补偿伪标签质量缺陷。
 
-![Snipaste_2025-12-19_19-46-36](https://pic1.imgdb.cn/i/0343OUEPvavr2XWjeBOYWY.webp)
+![Snipaste_2025-12-19_19-46-36](https://ss1.tupinayun.cn/autoupload/pzwl0/20261119/sDhb/0X0/0343OUEPvavr2XWjeBOYWY.webp)
 
 ## 研究现状
 
@@ -40,7 +40,7 @@ Low-quality pseudo labels pose a significant obstacle in semi-supervised medical
 
 ## 提出的模型
 
-![Snipaste_2025-12-19_19-48-09](https://pic1.imgdb.cn/item/69453b502ce92a4f93124cfd.png)
+![Snipaste_2025-12-19_19-48-09](https://ss1.tupinayun.cn/autoupload/pzwl0/20261119/iALX/1227X532/7gmdYxOXnCCgtzZlx5i0CT.png)
 
 #### **1. 核心目标**
 
@@ -92,7 +92,7 @@ AMVLM是一种新的VLM预训练范式，包含两种关键相似性度量策略
 - **优势**：AMVLM在所有数据集上优于传统半监督方法（如MT）和SAM基方法（如SemiSAM），平均Dice提升2.57%-4.46%。
 - **对比VLM**：优于MAP（分布建模方法）1.97%（Dice），证明其在避免语义退化的同时学习多模态对齐。
 
-![Snipaste_2025-12-19_19-52-36](https://pic1.imgdb.cn/item/69453c5d2ce92a4f93124ef9.png)
+![Snipaste_2025-12-19_19-52-36](https://ss1.tupinayun.cn/autoupload/pzwl0/20261119/mW6o/1237X464/5pvGnITQPrgX9xZsH5ntLM.png)
 
 ### 定量实验结果概括
 
@@ -103,9 +103,9 @@ AMVLM是一种新的VLM预训练范式，包含两种关键相似性度量策略
 
 ### 定性实验结果概括
 
-![Snipaste_2025-12-19_19-53-10](https://pic1.imgdb.cn/item/69453c912ce92a4f93124f2c.png)
+![Snipaste_2025-12-19_19-53-10](https://ss1.tupinayun.cn/autoupload/pzwl0/20261119/wBtI/999X738/4lw8d4ZgwJ6up7p4fr43CB.png)
 
-![Snipaste_2025-12-19_19-54-03](https://pic1.imgdb.cn/item/69453cb42ce92a4f93124f51.png)
+![Snipaste_2025-12-19_19-54-03](https://ss1.tupinayun.cn/autoupload/pzwl0/20261119/NA2U/556X779/5EBRWWvKxktFy5pseqySf0.png)
 
 - **伪标签质量**：AMVLM生成的伪标签边缘更清晰，与真实标签重叠度更高（图6）。
 - **注意力激活**：通过AblationCAM可视化，AMVLM对病变区域的注意力更精准，减少无关区域激活（图8）。
@@ -116,7 +116,7 @@ AMVLM是一种新的VLM预训练范式，包含两种关键相似性度量策略
 
 验证核心模块（CSS、ICL、Ltg）的贡献（25%标注数据，以QaTa-COV19为例）：
 
-![Snipaste_2025-12-19_19-55-17](https://pic1.imgdb.cn/item/69453cfa2ce92a4f93124f9d.png)
+![Snipaste_2025-12-19_19-55-17](https://ss1.tupinayun.cn/autoupload/pzwl0/20261119/pama/954X199/60NA6x3JwDxMIuITdoHeHr.png)
 
 - **CSS**：通过分布差异监督跨模态相似度，提升最显著。
 - **ICL**：模态内粗-细粒度对比学习，增强语义一致性。
@@ -126,7 +126,7 @@ AMVLM是一种新的VLM预训练范式，包含两种关键相似性度量策略
 
 ## 少样本分割实验
 
-![Snipaste_2025-12-19_19-56-47](https://pic1.imgdb.cn/item/69453d532ce92a4f9312507b.png)
+![Snipaste_2025-12-19_19-56-47](https://ss1.tupinayun.cn/autoupload/pzwl0/20261119/nwBB/1245X253/28s6mI3slypLa7GeD8tQUa.png)
 
 AMVLM在少样本场景下优于现有VLM方法，证明其预训练范式的高效性。
 
@@ -214,11 +214,11 @@ AMVLM在少样本场景下优于现有VLM方法，证明其预训练范式的高
 1. **对齐不确定性**：AMVLM对语义模糊的图像/文本对表现出更稳定的余弦相似度（图7），验证其处理多模态对齐不确定性的能力。
 2. **统计显著性**：通过t检验（p<0.05），AMVLM与对比方法的性能差异具有统计学意义（表VI）。
 
-![Snipaste_2025-12-19_19-57-52](https://pic1.imgdb.cn/item/69453d9d2ce92a4f931250e8.png)
+![Snipaste_2025-12-19_19-57-52](https://ss1.tupinayun.cn/autoupload/pzwl0/20261119/TwRg/1139X411/1NeZ5eWinO8YDzmGp9O97c.png)
 
 
 
-![Snipaste_2025-12-19_19-58-18](https://pic1.imgdb.cn/item/69453db32ce92a4f93125102.png)
+![Snipaste_2025-12-19_19-58-18](https://ss1.tupinayun.cn/autoupload/pzwl0/20261119/T1On/586X436/3qRMuEBeOTM1zn7NkRrvzz.png)
 
 ## 结论
 

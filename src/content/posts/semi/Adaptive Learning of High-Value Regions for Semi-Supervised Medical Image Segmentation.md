@@ -20,9 +20,9 @@ Existing semi-supervised learning methods typically mitigate the impact of unrel
 
 ## 研究背景
 
-![Snipaste_2026-01-19_20-45-14](https://pic1.imgdb.cn/i/0343OUBz1qPBfQH1AhZhOy.webp)
+![Snipaste_2026-01-19_20-45-14](https://ss1.tupinayun.cn/autoupload/pzwl0/20261119/MrRI/0X0/0343OUBz1qPBfQH1AhZhOy.webp)
 
-![Snipaste_2026-01-19_20-49-22](https://pic1.imgdb.cn/item/696e285f17fcb1e4ff50b895.png)
+![Snipaste_2026-01-19_20-49-22](https://ss1.tupinayun.cn/autoupload/pzwl0/20261119/tAH3/575X265/7kZDsuA3YPnhbICxdOhKKj.png)
 
 在半监督医学图像分割中，现有方法多通过抑制**低置信区域**减轻不可靠预测影响，但未能明确高值学习区域及针对性学习策略。医学图像组织解剖结构复杂，目标区域与周围组织边界模糊，导致模型在边界区域分割困难。单网络预测存在偏差，基于双网络预测的方法（如MCF、MLRP）虽尝试解决此问题，但仍存在处理双网络均错误预测的局限性，且缺乏对高价值区域（如组织边界等分割难点区域）的自适应学习策略。此外，现有方法依赖简单一致性损失，未针对不同区域数据特征设计差异化训练策略，限制了模型在关键区域的学习能力。因此，本文旨在通过分析双分支网络预测多样性，识别高价值区域并设计自适应学习策略，以提升半监督医学图像分割性能。
 
@@ -37,7 +37,7 @@ Existing semi-supervised learning methods typically mitigate the impact of unrel
 
 ## 提出的模型
 
-![Snipaste_2026-01-19_20-51-26](https://pic1.imgdb.cn/item/696e28d517fcb1e4ff50b9f1.png)
+![Snipaste_2026-01-19_20-51-26](https://ss1.tupinayun.cn/autoupload/pzwl0/20261119/Tnqe/1143X732/28KBVlBSqDhCCqoSkUS3yF.png)
 
 ### **1. 高值区域分类**
 
@@ -102,11 +102,11 @@ Existing semi-supervised learning methods typically mitigate the impact of unrel
 >   - **区域敏感**：Dice系数、Jaccard指数；
 >   - **边缘敏感**：95% Hausdorff距离（95HD）、平均表面距离（ASD）。
 
-![Snipaste_2026-01-19_20-55-44](https://pic1.imgdb.cn/item/696e29d617fcb1e4ff50bd4b.png)
+![Snipaste_2026-01-19_20-55-44](https://ss1.tupinayun.cn/autoupload/pzwl0/20261119/MlA9/688X594/5Rg4wQkXv7W8bEiqRmq3P3.png)
 
-![Snipaste_2026-01-19_20-55-59](https://pic1.imgdb.cn/item/696e29e417fcb1e4ff50bd78.png)
+![Snipaste_2026-01-19_20-55-59](https://ss1.tupinayun.cn/autoupload/pzwl0/20261119/5Vd0/708X604/22ELAVRIyAoprWOHny25XT.png)
 
-![Snipaste_2026-01-19_20-56-20](https://pic1.imgdb.cn/item/696e29f917fcb1e4ff50bdbc.png)
+![Snipaste_2026-01-19_20-56-20](https://ss1.tupinayun.cn/autoupload/pzwl0/20261119/suJw/887X470/0P3od1dxnsL1aylBXSzXQc.png)
 
 与10种主流半监督分割方法（如MT、CPS、MCF、EVIL等）对比，结果显示ALHVR在所有数据集上均显著优于现有方法：
 
@@ -116,15 +116,15 @@ Existing semi-supervised learning methods typically mitigate the impact of unrel
 
 
 
-![Snipaste_2026-01-19_20-57-48](https://pic1.imgdb.cn/item/696e2a5317fcb1e4ff50bee7.png)
+![Snipaste_2026-01-19_20-57-48](https://ss1.tupinayun.cn/autoupload/pzwl0/20261119/zyHR/687X699/1UaxQlo71QTrmVDA8ImnMm.png)
 
 在ACDC和AbdomenCT-1K数据集上，ALHVR对器官边界和精细结构的分割精度显著优于对比方法（如EVIL、MLRP），尤其在心肌、胰腺等复杂区域表现更优。
 
 ## 实验（Ablation Experiments）​​
 
-![Snipaste_2026-01-19_20-56-49](https://pic1.imgdb.cn/item/696e2a1c17fcb1e4ff50be3a.png)
+![Snipaste_2026-01-19_20-56-49](https://ss1.tupinayun.cn/autoupload/pzwl0/20261119/CjjG/582X349/6djJDHLdoN5Y0sZUSRII2R.png)
 
-![Snipaste_2026-01-19_20-56-55](https://pic1.imgdb.cn/item/696e2a1d17fcb1e4ff50be42.png)
+![Snipaste_2026-01-19_20-56-55](https://ss1.tupinayun.cn/autoupload/pzwl0/20261119/NYG2/579X187/03NmrfMEWXNP6bbYbwbfX6.png)
 
 
 

@@ -4,7 +4,7 @@ published: 2025-04-03 12:00:00
 expires: 2025-08-21 23:59:59
 mathjax: true
 excerpt: "云想衣裳花想容，春风拂槛露华浓"
-cover: "https://pic1.imgdb.cn/i/0343Oc1IVcaZZAx9vnALV9.jpg"
+cover: "https://ss1.tupinayun.cn/autoupload/pzwl0/20261119/2Ste/4000X2328/0343Oc1IVcaZZAx9vnALV9.jpg"
 categories: 自监督语义分割
 tags: [ViT, semantic segmentation]
 ---
@@ -31,7 +31,7 @@ Semantic segmentation is a fundamental task in computer vision and it is a build
 
 ## 提出的模型
 
-![Snipaste_2025-03-14_21-00-59](https://pic1.imgdb.cn/i/0343OVznEUCpn6ZQ3R1uhK.webp)
+![Snipaste_2025-03-14_21-00-59](https://ss1.tupinayun.cn/autoupload/pzwl0/20261119/RKzO/0X0/0343OVznEUCpn6ZQ3R1uhK.webp)
 
 
 

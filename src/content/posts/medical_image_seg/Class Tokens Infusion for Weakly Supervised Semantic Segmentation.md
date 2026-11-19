@@ -4,7 +4,7 @@ published: 2025-03-29 12:00:00
 expires: 2025-08-21 23:59:59
 mathjax: true
 excerpt: "云想衣裳花想容，春风拂槛露华浓"
-cover: "https://pic1.imgdb.cn/i/0343Oc1IVcaZZAx9vnALV9.jpg"
+cover: "https://ss1.tupinayun.cn/autoupload/pzwl0/20261119/2Ste/4000X2328/0343Oc1IVcaZZAx9vnALV9.jpg"
 categories: 弱监督语义分割
 tags: [Scribble-Supervised Semantic Segmentation]
 ---
@@ -48,7 +48,7 @@ ious deformations (i.e. view, color). In C-CTI, by infusing the class tokens fro
 
 
 
-![Snipaste_2025-03-29_21-01-48](https://pic1.imgdb.cn/i/0343OUYjH8DZBHRuLPpfiz.webp)
+![Snipaste_2025-03-29_21-01-48](https://ss1.tupinayun.cn/autoupload/pzwl0/20261119/8WVs/0X0/0343OUYjH8DZBHRuLPpfiz.webp)
 
 ## 实验（Compared with SOTA）
 

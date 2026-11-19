@@ -49,7 +49,7 @@ Medical image segmentation is a fundamental and critical step in many clinical a
 
 ## 提出的模型
 
-![Snipaste_2026-01-04_19-08-58](https://pic1.imgdb.cn/i/0343OW9NBIWO037B6Txj0J.webp)
+![Snipaste_2026-01-04_19-08-58](https://ss1.tupinayun.cn/autoupload/pzwl0/20261119/KTt0/0X0/0343OW9NBIWO037B6Txj0J.webp)
 
 
 
@@ -120,7 +120,7 @@ $L=L_{\mathrm{sup}}+\lambda_{i}L_{\mathrm{itc}}+\lambda_{c}L_{\mathrm{ctc}}$
 
 
 
-![Snipaste_2026-01-04_19-19-56](https://pic1.imgdb.cn/item/695a4c9ea6ed793b783a9dcc.png)
+![Snipaste_2026-01-04_19-19-56](https://ss1.tupinayun.cn/autoupload/pzwl0/20261119/nnNF/693X277/126tdgnDQsHX95TStnD1Xw.png)
 
 
 
@@ -131,7 +131,7 @@ $L=L_{\mathrm{sup}}+\lambda_{i}L_{\mathrm{itc}}+\lambda_{c}L_{\mathrm{ctc}}$
 - 提出方法在所有比例下均优于全监督基线和其他半监督方法。
 - 20%标记数据时，Dice较基线提升4.13%；5%标记数据时提升9.82%。
 
-![Snipaste_2026-01-04_19-20-54](https://pic1.imgdb.cn/item/695a4cd8a6ed793b783a9ddb.png)
+![Snipaste_2026-01-04_19-20-54](https://ss1.tupinayun.cn/autoupload/pzwl0/20261119/BcZN/1147X831/62o54Y7k3GorAjYwaBDNRz.png)
 
 
 
@@ -140,9 +140,9 @@ $L=L_{\mathrm{sup}}+\lambda_{i}L_{\mathrm{itc}}+\lambda_{c}L_{\mathrm{ctc}}$
 - **LA数据集（表3）**：提出方法Dice=90.16%，显著优于UA-MT（88.88%）、DTC（89.42%）等SOTA方法。
 - **BraTS数据集（表4）**：10%标记数据时Dice=82.82%（基线73.00%）；20%标记数据时Dice=83.61%（基线76.14%）。
 
-![Snipaste_2026-01-04_19-21-13](https://pic1.imgdb.cn/item/695a4cf9a6ed793b783a9de1.png)
+![Snipaste_2026-01-04_19-21-13](https://ss1.tupinayun.cn/autoupload/pzwl0/20261119/I9II/1140X480/1VDeurjhDPNDWsXDefYOyf.png)
 
-![Snipaste_2026-01-04_19-21-26](https://pic1.imgdb.cn/item/695a4cfca6ed793b783a9de3.png)
+![Snipaste_2026-01-04_19-21-26](https://ss1.tupinayun.cn/autoupload/pzwl0/20261119/ZVxE/1135X542/37MmdMuVuDIoHGaZCZxQlq.png)
 
 
 
@@ -151,9 +151,9 @@ $L=L_{\mathrm{sup}}+\lambda_{i}L_{\mathrm{itc}}+\lambda_{c}L_{\mathrm{ctc}}$
 - **左心房分割**：提出方法边界更清晰，区域更完整（图5）。
 - **脑肿瘤分割**：对不规则肿瘤区域分割更准确（图6）。
 
-![Snipaste_2026-01-04_19-21-44](https://pic1.imgdb.cn/item/695a4d16a6ed793b783a9df1.png)
+![Snipaste_2026-01-04_19-21-44](https://ss1.tupinayun.cn/autoupload/pzwl0/20261119/PSLf/1253X472/5eh0xohkBz7a6i9u7elwkF.png)
 
-![Snipaste_2026-01-04_19-21-54](https://pic1.imgdb.cn/item/695a4d18a6ed793b783a9df2.png)
+![Snipaste_2026-01-04_19-21-54](https://ss1.tupinayun.cn/autoupload/pzwl0/20261119/E3o8/1206X443/7TaYzrWS7WZKRIqgT10cmW.png)
 
 ## 结论
 

@@ -24,7 +24,7 @@ Semi-supervised learning has gained increasing attention in medical image segmen
 
 ## 研究背景
 
-![Snipaste_2026-01-27_19-33-48](https://pic1.imgdb.cn/i/0343OUqbunoPXnaExCecUU.webp)
+![Snipaste_2026-01-27_19-33-48](https://ss1.tupinayun.cn/autoupload/pzwl0/20261119/1sX3/0X0/0343OUqbunoPXnaExCecUU.webp)
 
 在医学影像分割领域，全自动分割为临床诊断提供关键支持，但3D医学影像的体素级标注高度依赖专家，耗时费力。半监督学习（SSL）通过少量标注数据引导大量未标注数据学习，有效缓解标注依赖。现有SSL方法多依赖通用一致性约束或伪标签策略，但缺乏标注与未标注数据间显式语义交互机制，在模糊区域或低置信度预测中性能受限。
 
@@ -38,7 +38,7 @@ Semi-supervised learning has gained increasing attention in medical image segmen
 
 ## 提出的模型
 
-![Snipaste_2026-01-27_19-35-53](https://pic1.imgdb.cn/item/6978a33a9ca240b15f5c1568.png)
+![Snipaste_2026-01-27_19-35-53](https://ss1.tupinayun.cn/autoupload/pzwl0/20261119/Yd9Y/891X886/7ci2xJfnj8NSmml17Jj4hc.png)
 
 ### **1. 核心架构**
 
@@ -78,11 +78,11 @@ Semi-supervised learning has gained increasing attention in medical image segmen
 
 将STLU-Net与七种最先进的半监督医学图像分割方法进行了比较，包括DTC、MC-Net+、MCF、TAC、ML、PPC和TraCoCo。在LA数据集、Pancreas数据集和BraTS-2019数据集上的实验结果均表明，STLU-Net在不同标记数据比例下均表现出优越性能，尤其在有限标注情况下，能实现接近全监督V-Net的性能，且在多个评估指标上优于其他对比方法。
 
-![Snipaste_2026-01-27_19-42-45](https://pic1.imgdb.cn/item/6978a5319ca240b15f5c1f88.png)
+![Snipaste_2026-01-27_19-42-45](https://ss1.tupinayun.cn/autoupload/pzwl0/20261119/PyKl/827X552/6ykVPokORWEGgQ8QO41TCb.png)
 
-![Snipaste_2026-01-27_19-42-50](https://pic1.imgdb.cn/item/6978a54b9ca240b15f5c2001.png)
+![Snipaste_2026-01-27_19-42-50](https://ss1.tupinayun.cn/autoupload/pzwl0/20261119/8RZk/838X557/41w2ZTx9jSp7VhYVIFYmdB.png)
 
-![Snipaste_2026-01-27_19-43-00](https://pic1.imgdb.cn/item/6978a5339ca240b15f5c1f92.png)
+![Snipaste_2026-01-27_19-43-00](https://ss1.tupinayun.cn/autoupload/pzwl0/20261119/jxnx/823X552/7XXI7iFKWVDwhsTNnnz6m0.png)
 
 ## 实验（Ablation Experiments）​​
 
@@ -91,7 +91,7 @@ Semi-supervised learning has gained increasing attention in medical image segmen
 3. **对称监督的消融实验**：比较了对称监督设计与两种不对称替代方案（仅特征混合流接收监督、仅语义增强流接收监督）。结果表明，对称策略在所有指标上显著优于不对称替代方案，证明双向一致性有助于减少未标记数据上的确认偏差。
 4. **通道dropout概率的敏感性分析**：分析了语义增强流中不同dropout概率p的影响。当p≤0.5时，模型性能对p的确切值不敏感，最终选择p=0.5作为通道dropout概率，其整体性能最佳。
 
-![Snipaste_2026-01-27_19-46-17](https://pic1.imgdb.cn/item/6978a5959ca240b15f5c216d.png)
+![Snipaste_2026-01-27_19-46-17](https://ss1.tupinayun.cn/autoupload/pzwl0/20261119/Vt8x/494X427/5qCqignyJ4NK67435MM79r.png)
 
 ### 其他实验
 

@@ -35,7 +35,7 @@ Medical image processing methods based on deep learning have gradually become ma
 
 ## 提出的模型
 
-![Snipaste_2025-07-31_09-14-14](https://pic1.imgdb.cn/i/0343OVW7UPfXIqUXuMpDnM.webp)
+![Snipaste_2025-07-31_09-14-14](https://ss1.tupinayun.cn/autoupload/pzwl0/20261119/R0wy/0X0/0343OVW7UPfXIqUXuMpDnM.webp)
 
 AdvTCUnet由Segmentor（分割器）和Critic（判别器）两部分组成。Segmentor采用改进的Unet网络TCUnet作为生成器完成分割任务，Critic用于将各模态的潜在表示与分层特征紧密融合。
 

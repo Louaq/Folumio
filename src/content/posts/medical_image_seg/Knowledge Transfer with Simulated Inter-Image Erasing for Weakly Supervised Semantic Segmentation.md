@@ -4,7 +4,7 @@ published: 2025-04-11 12:00:00
 expires: 2025-08-21 23:59:59
 mathjax: true
 excerpt: "云想衣裳花想容，春风拂槛露华浓"
-cover: "https://pic1.imgdb.cn/i/0343Oc1IVcaZZAx9vnALV9.jpg"
+cover: "https://ss1.tupinayun.cn/autoupload/pzwl0/20261119/2Ste/4000X2328/0343Oc1IVcaZZAx9vnALV9.jpg"
 categories: 弱监督语义分割
 tags: [模拟图像间擦除]
 ---
@@ -37,7 +37,7 @@ Though **adversarial erasing** has prevailed in **weakly supervised semantic seg
 
 ### 网络结构图
 
-![Snipaste_2025-04-11_09-25-53](https://pic1.imgdb.cn/i/0343OVGPB3985jTBRXzilF.webp)
+![Snipaste_2025-04-11_09-25-53](https://ss1.tupinayun.cn/autoupload/pzwl0/20261119/vkRN/0X0/0343OVGPB3985jTBRXzilF.webp)
 
 
 

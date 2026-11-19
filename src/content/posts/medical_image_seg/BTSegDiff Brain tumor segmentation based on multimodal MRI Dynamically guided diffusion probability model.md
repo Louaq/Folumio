@@ -23,7 +23,7 @@ In the treatment of brain tumors, accurate diagnosis and treatment heavily rely 
 
 本文聚焦于**脑肿瘤分割研究**，其背景源于脑肿瘤发病率上升，准确分割对诊断治疗至关重要。传统手动分割耗人力且依赖医生经验，计算机辅助自动分割方法具有重要临床价值，但面临诸多挑战。 早期基于区域生成、边缘检测和阈值分割的自动分割方法虽有进步，但需手动调参，难以处理多模态图像。深度学习发展使基于其的医学图像分割方法展现出强大特征学习能力，U - Net 提升了脑肿瘤分割性能，Transform 能更好学习全局信息。然而，这些方法仍存在不足，如 CNN 难以学习全局特征，Transform 需为不同数据集设计合适架构。 扩散概率模型（DPM）在生成任务和医学成像领域有一定成效，但现有基于 DPM 的脑肿瘤分割方法忽视了多模态信息提取和模型不确定性定量分析。为解决这些问题，作者提出基于 DPM 的脑肿瘤分割框架 BTSegDiff，旨在利用多模态 MRI 信息引导 DPM 生成高质量分割结果，减少噪声影响，解决 DPM 结果不唯一问题，提升分割准确性和稳定性。 
 
-![Snipaste_2025-07-06_20-39-04](https://pic1.imgdb.cn/i/0343OUTunGQcrQXRrFv9o1.webp)
+![Snipaste_2025-07-06_20-39-04](https://ss1.tupinayun.cn/autoupload/pzwl0/20261119/yZms/0X0/0343OUTunGQcrQXRrFv9o1.webp)
 
 ​                                                    Different modalities in the multimodal MRI dataset
 

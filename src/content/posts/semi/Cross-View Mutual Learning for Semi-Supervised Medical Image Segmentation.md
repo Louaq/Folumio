@@ -30,9 +30,9 @@ Semi-supervised medical image segmentation has gained increasing attention due t
 
 具体而言，Mean Teacher类方法依赖指数移动平均（EMA）更新教师网络，限制其独立推理能力；协同训练框架虽允许子网从不同视角学习，但缺乏显式约束来维持预测互补性，导致子网在交叉监督下逐渐趋同。作者通过实验观察到：EMA机制使教师网络性能受限于学生网络，浪费学习能力；传统协同训练方法在交叉监督下会丧失视角差异性。因此，如何促使双子网保持视角多样性并实现互补预测，成为提升半监督分割性能的关键问题。
 
-![Snipaste_2026-01-14_13-59-55](https://pic1.imgdb.cn/i/0343OUec96cB8wBrZQbBZk.webp)
+![Snipaste_2026-01-14_13-59-55](https://ss1.tupinayun.cn/autoupload/pzwl0/20261119/qMDp/0X0/0343OUec96cB8wBrZQbBZk.webp)
 
-![Snipaste_2026-01-14_14-00-27](https://pic1.imgdb.cn/item/696730b599f37a647f57509f.png)
+![Snipaste_2026-01-14_14-00-27](https://ss1.tupinayun.cn/autoupload/pzwl0/20261119/s1Cz/1149X403/3g3skcaAK46w9hJU80aDeZ.png)
 
 ## 研究现状
 
@@ -43,7 +43,7 @@ Semi-supervised medical image segmentation has gained increasing attention due t
 
 ## 提出的模型
 
-![Snipaste_2026-01-14_14-02-46](https://pic1.imgdb.cn/item/6967313d99f37a647f5756ac.png)
+![Snipaste_2026-01-14_14-02-46](https://ss1.tupinayun.cn/autoupload/pzwl0/20261119/cAH4/1146X862/20ZubVGHWcqgYnF0FTuGHV.png)
 
 本文提出的模型是**Cross-View Mutual Learning (CML)，一种用于半监督医学图像分割的双分支协同训练框架**。其核心设计目标是通过增强模型预测的互补性和一致性，充分利用未标记数据，缓解医学图像标注成本高的问题。
 
@@ -98,11 +98,11 @@ Semi-supervised medical image segmentation has gained increasing attention due t
 
 ## 实验（Ablation Experiments）​​
 
-![Snipaste_2026-01-14_14-09-30](https://pic1.imgdb.cn/item/696732d999f37a647f576385.png)
+![Snipaste_2026-01-14_14-09-30](https://ss1.tupinayun.cn/autoupload/pzwl0/20261119/A2Cl/566X448/3TH0opySZFx3TFy3mN4ZPw.png)
 
 
 
-![Snipaste_2026-01-14_14-08-01](https://pic1.imgdb.cn/item/696732a699f37a647f576205.png)
+![Snipaste_2026-01-14_14-08-01](https://ss1.tupinayun.cn/autoupload/pzwl0/20261119/B5eM/1077X359/0jsmKo9aHnCg67jgwl6PRR.png)
 
 
 

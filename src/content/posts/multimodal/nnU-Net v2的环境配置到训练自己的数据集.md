@@ -17,7 +17,7 @@ nnU-Net v2的环境配置到训练自己的数据集
 官方文档地址：[GitHub-nnUNet](https://github.com/MIC-DKFZ/nnUNet/blob/master/readme.md)  
 1. 版本要求：python >(或=) 3.9，pytorch>1.12.0 （之前使用的环境python版本为3.8.10，在安装nnU-Net时报错。torch最好的GPU版本的）  
 2. 创建虚拟环境：在pycharm中打开终端，输入命令行：`conda create -n nnUNet python=3.9`，创建一个名字为nnUNet的虚拟环境，并且指定python为3.9的版本  
-![创建虚拟环境](https://pic1.imgdb.cn/i/0343OVbv5jao0z28whOtmO.webp)  
+![创建虚拟环境](https://ss1.tupinayun.cn/autoupload/pzwl0/20261119/Kmsc/0X0/0343OVbv5jao0z28whOtmO.webp)  
 ![在这里插入图片描述](https://yangyang666.oss-cn-chengdu.aliyuncs.com/images/de8d37169baea59b927d6ca1da9b1a63.png)  
 ![在这里插入图片描述](https://yangyang666.oss-cn-chengdu.aliyuncs.com/images/0368fa13db18c6c5393c92574ccfa669.png)  
 3. 在虚拟环境中安装torch：  

@@ -13,7 +13,7 @@ tags: [BraTs数据集]
 BraTS 是MICCAI脑肿瘤分割比赛的数据集，BraTs 2018中的训练集( training set) 有285个病例
 每个病例有四个模态(t1、t2、flair、t1ce)，需要分割三个部分：whole tumor(WT), enhance tumor(ET), and tumor core(TC)，相当于三个label。
 每例病例中包含4种模态的MRI序列和1个seg文件,所有序列尺寸全部为(240, 240, 155)，如下图：  
-![在这里插入图片描述](https://pic1.imgdb.cn/i/0343OUPBHWoC5681DzWwTp.webp)
+![在这里插入图片描述](https://ss1.tupinayun.cn/autoupload/pzwl0/20261119/3Stw/0X0/0343OUPBHWoC5681DzWwTp.webp)
 
 MR图像属性信息：（240x240x155）一个MR序列有155张图片，每张图片的大小为240x240
 

@@ -19,7 +19,7 @@ Consistency learning is a central strategy to tackle unlabeled data in semi-supe
 
 ## 研究背景
 
-![Snipaste_2026-01-09_18-58-39](https://pic1.imgdb.cn/i/0343OU9eGzkXTrQytvUJxj.webp)
+![Snipaste_2026-01-09_18-58-39](https://ss1.tupinayun.cn/autoupload/pzwl0/20261119/xunU/0X0/0343OU9eGzkXTrQytvUJxj.webp)
 
 
 
@@ -33,7 +33,7 @@ Consistency learning is a central strategy to tackle unlabeled data in semi-supe
 
 ## 提出的模型
 
-![Snipaste_2026-01-09_19-01-23](https://pic1.imgdb.cn/item/6960dfc014866864fecce059.png)
+![Snipaste_2026-01-09_19-01-23](https://ss1.tupinayun.cn/autoupload/pzwl0/20261119/q9NU/1164X850/5WUHsqoHcBUDVUfoxVCGwg.png)
 
 ### **1. 模型核心创新**
 
@@ -67,7 +67,7 @@ Consistency learning is a central strategy to tackle unlabeled data in semi-supe
 
 原文中表述错误的地方：应该是未标记图像的数量远大于标记图像的数量，即N<<M，而不是N>>M。
 
-![Snipaste_2026-01-09_19-03-16](https://pic1.imgdb.cn/item/6960e03114866864fecce0c1.png)
+![Snipaste_2026-01-09_19-03-16](https://ss1.tupinayun.cn/autoupload/pzwl0/20261119/TOZg/588X132/0NZMMAHTbciaL1esvEoDng.png)
 
 :::
 
@@ -88,23 +88,23 @@ Consistency learning is a central strategy to tackle unlabeled data in semi-supe
 >   - 弱增强：随机旋转、翻转；
 >   - 强增强：颜色抖动、模糊、Cutout。
 
-![Snipaste_2026-01-09_19-07-52](https://pic1.imgdb.cn/item/6960e15014866864fecce1c2.png)
+![Snipaste_2026-01-09_19-07-52](https://ss1.tupinayun.cn/autoupload/pzwl0/20261119/EuL9/942X673/1mFAmm0wvZf9YkQdeUQczM.png)
 
 
 
-![Snipaste_2026-01-09_19-08-02](https://pic1.imgdb.cn/item/6960e15514866864fecce1c6.png)
+![Snipaste_2026-01-09_19-08-02](https://ss1.tupinayun.cn/autoupload/pzwl0/20261119/qFNR/585X386/4wTKuDou6YYs5oZZuaTDWB.png)
 
 （1）ABD在5%标记数据下较Cross Teaching提升20.75% DSC，较BCP提升1.37% DSC；10%标记数据下达到SOTA，95HD和ASD显著降低（如BCP基线95HD从3.98降至1.46）。
 
 （2）ABD较SCP-Net提升5.0% DSC，ASD从3.52降至1.33。
 
-![Snipaste_2026-01-09_19-09-06](https://pic1.imgdb.cn/item/6960e19314866864fecce21c.png)
+![Snipaste_2026-01-09_19-09-06](https://ss1.tupinayun.cn/autoupload/pzwl0/20261119/XGz1/872X799/6p45blXKWICZjEd4sZJHSL.png)
 
 ## 实验（Ablation Experiments）​​
 
-![Snipaste_2026-01-09_19-09-59](https://pic1.imgdb.cn/item/6960e1d014866864fecce262.png)
+![Snipaste_2026-01-09_19-09-59](https://ss1.tupinayun.cn/autoupload/pzwl0/20261119/hbsN/568X251/20JS41ZQrnbNCfVziKRdEk.png)
 
-![Snipaste_2026-01-09_19-10-10](https://pic1.imgdb.cn/item/6960e1d014866864fecce263.png)
+![Snipaste_2026-01-09_19-10-10](https://ss1.tupinayun.cn/autoupload/pzwl0/20261119/P7Er/576X629/5LSFBlYdMlsK5Wo1r7CFOp.png)
 
 BD通过双向位移策略解决了混合扰动导致的一致性学习不稳定问题，在半监督医学图像分割中实现SOTA性能，且可灵活嵌入不同基线框架（Cross Teaching/BCP），验证了其泛化性。
 

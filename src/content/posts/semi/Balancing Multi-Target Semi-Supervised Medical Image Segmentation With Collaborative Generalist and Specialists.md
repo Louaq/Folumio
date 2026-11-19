@@ -23,7 +23,7 @@ Despite the promising performance achieved by current semi-supervised models in 
 
 ## 研究背景
 
-![Snipaste_2026-01-23_16-02-12](https://pic1.imgdb.cn/i/0343OUJG4QSEMqKuIKrsna.webp)
+![Snipaste_2026-01-23_16-02-12](https://ss1.tupinayun.cn/autoupload/pzwl0/20261119/KNDm/0X0/0343OUJG4QSEMqKuIKrsna.webp)
 
 前半监督医学图像分割模型在单目标分割中表现出良好性能，但在多目标同时分割时性能显著下降。关键原因在于不同目标间的尺度不平衡：多目标分割中，大目标主导损失函数，导致小目标被误分类为大目标。
 
@@ -40,9 +40,9 @@ Despite the promising performance achieved by current semi-supervised models in 
 
 ## 提出的模型
 
-![Snipaste_2026-01-23_16-02-59](https://pic1.imgdb.cn/item/69732b3b370d83a1e2879408.png)
+![Snipaste_2026-01-23_16-02-59](https://ss1.tupinayun.cn/autoupload/pzwl0/20261119/ohnH/557X552/6N1SvYaI5T29nfePmJBcjJ.png)
 
-![Snipaste_2026-01-23_16-03-41](https://pic1.imgdb.cn/item/69732b62370d83a1e287940a.png)
+![Snipaste_2026-01-23_16-03-41](https://ss1.tupinayun.cn/autoupload/pzwl0/20261119/TIB0/1137X534/17YaaUARIhT432VcYWZq8x.png)
 
 CGS由两部分组成：
 
@@ -110,9 +110,9 @@ $$|p_i'-\frac{1}{K}|\leq|p_i-\frac{1}{K}|,$$
 - **SegTHOR（10%/20%标注数据）**：CGS在所有指标（DSC、Jaccard、95HD、ASD）上均显著领先，例如DSC比SOTA方法高3.2%。
 - **Synapse（3例标注数据）**：CGS的平均DSC达85.6%，对小器官（如食道）的分割性能提升明显，且优于SAM等大模型。
 
-![Snipaste_2026-01-23_16-10-02](https://pic1.imgdb.cn/item/69732cee370d83a1e28794d7.png)
+![Snipaste_2026-01-23_16-10-02](https://ss1.tupinayun.cn/autoupload/pzwl0/20261119/wIw3/1141X425/5QnLBws2SXd4XtgnwAg4cL.png)
 
-![Snipaste_2026-01-23_16-10-17](https://pic1.imgdb.cn/item/69732cf4370d83a1e28794d9.png)
+![Snipaste_2026-01-23_16-10-17](https://ss1.tupinayun.cn/autoupload/pzwl0/20261119/yzd2/1102X302/4UiRAERFk9IN9wruc1E9ZE.png)
 
 
 
@@ -142,7 +142,7 @@ $$|p_i'-\frac{1}{K}|\leq|p_i-\frac{1}{K}|,$$
 - **类别级性能**：对小目标（如SegTHOR中的食道）的DSC提升达5.7%，证明缓解尺度不平衡的有效性。
 - **与集成方法对比**：CGS性能优于4个基线模型的集成结果（Avg/Conf/Vot策略），且计算成本更低。
 
-![Snipaste_2026-01-23_16-12-14](https://pic1.imgdb.cn/item/69732d63370d83a1e28794f5.png)
+![Snipaste_2026-01-23_16-12-14](https://ss1.tupinayun.cn/autoupload/pzwl0/20261119/mwoS/571X269/0HQ49sdZTGZD5phvy2QIST.png)
 
 ## 结论
 

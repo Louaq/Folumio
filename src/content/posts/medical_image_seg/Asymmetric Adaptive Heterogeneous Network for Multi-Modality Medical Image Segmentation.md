@@ -1,13 +1,9 @@
 ---
 title: Asymmetric Adaptive Heterogeneous Network for Multi-Modality Medical Image Segmentation
 published: 2025-07-05 10:24:00
-expires: 2025-08-21 23:59:59
-mathjax: true
 excerpt: "现有的多模态医学图像分割研究往往在不加区分地聚合所有模态，并采用多个对称编码器或解码器进行特征提取和融合时"
 categories: 多模态医学图像分割
 tags: [Asymmetric encoding, adaptive heterogeneous graph fusion]
-top: true
-img: "https://pic1.imgdb.cn/item/6919c43e3203f7be000aeb19.jpg"
 ---
 
 重庆邮电大学、第三军医大学、重庆医科大学第二附属医院
@@ -22,7 +18,7 @@ Existing studies of **multi-modality medical image segmentation** tend to aggreg
 
 ## 研究背景
 
-![Snipaste_2025-07-05_16-28-08](https://pic1.imgdb.cn/i/0343OUFaAHZDnmlnGvn0Ox.webp)
+![Snipaste_2025-07-05_16-28-08](https://ss1.tupinayun.cn/autoupload/pzwl0/20261119/2zxc/0X0/0343OUFaAHZDnmlnGvn0Ox.webp)
 
 
 

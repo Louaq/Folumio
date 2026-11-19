@@ -28,7 +28,7 @@ Semi-supervised segmentation remains challenging in medical imaging since the am
 
 ## 研究背景
 
-![Snipaste_2026-01-14_19-04-52](https://pic1.imgdb.cn/i/0343OUta9VaIAmdgstDcfj.webp)
+![Snipaste_2026-01-14_19-04-52](https://ss1.tupinayun.cn/autoupload/pzwl0/20261119/Gtao/0X0/0343OUta9VaIAmdgstDcfj.webp)
 
 半监督分割在医学影像领域仍面临两大核心挑战：**一是标注数据稀缺**，获取像素级标注成本高昂且耗力；**二是医学图像中存在大量模糊像素**（如粘连边缘或低对比度区域），导致现有模型性能受限。现有方法虽基于平滑性和低熵假设，但在标注数据极少且目标边界模糊时，常出现特征流形交叠、决策边界不清晰的问题（如图1中γ值增大导致的类间混淆）。
 
@@ -42,7 +42,7 @@ Semi-supervised segmentation remains challenging in medical imaging since the am
 
 ## 提出的模型
 
-![Snipaste_2026-01-14_19-08-55](https://pic1.imgdb.cn/item/696778ff99f37a647f58e111.png)
+![Snipaste_2026-01-14_19-08-55](https://ss1.tupinayun.cn/autoupload/pzwl0/20261119/0JI6/933X677/6WxuX9NJ1oyIALde3j2XB3.png)
 
 ### **SS-Net的核心设计**
 
@@ -82,15 +82,15 @@ $$\mathcal{L}_{total}=\mathcal{L}_{seg}+\lambda_{lds}\times\mathcal{L}_{lds}+\la
 >
 > - UA-MT [28]、SASSNet [7]、DTC [10]、URPC [11]、MC-Net [21]
 
-![Snipaste_2026-01-14_19-14-10](https://pic1.imgdb.cn/item/69677a4e99f37a647f58e418.png)
+![Snipaste_2026-01-14_19-14-10](https://ss1.tupinayun.cn/autoupload/pzwl0/20261119/Eynz/943X461/18qZ4LH2JVhlMU20HmramA.png)
 
 
 
-![Snipaste_2026-01-14_19-14-15](https://pic1.imgdb.cn/item/69677a5199f37a647f58e41d.png)
+![Snipaste_2026-01-14_19-14-15](https://ss1.tupinayun.cn/autoupload/pzwl0/20261119/eyiE/943X456/7jHiIpSnDLKVXNXxDoP9rP.png)
 
 
 
-![Snipaste_2026-01-14_19-14-30](https://pic1.imgdb.cn/item/69677a5499f37a647f58e423.png)
+![Snipaste_2026-01-14_19-14-30](https://ss1.tupinayun.cn/autoupload/pzwl0/20261119/j7j1/936X469/6g2SU08Usp5WlpvUynsACR.png)
 
 ##### LA数据集（表1）
 
@@ -108,7 +108,7 @@ $$\mathcal{L}_{total}=\mathcal{L}_{seg}+\lambda_{lds}\times\mathcal{L}_{lds}+\la
 
 ## 实验（Ablation Experiments）​​
 
-![Snipaste_2026-01-14_19-15-30](https://pic1.imgdb.cn/item/69677a8b99f37a647f58e466.png)
+![Snipaste_2026-01-14_19-15-30](https://ss1.tupinayun.cn/autoupload/pzwl0/20261119/6lDt/930X467/2dsl15SjjdakVSWzhEcLdU.png)
 
 - **$L_{lds}$（像素级平滑性）**：单独使用时Dice提升11.76%（5%标注），验证对抗扰动的有效性。
 - **$L_{cs}$（类间分离）**：单独使用时Dice提升11.55%（5%标注），证明特征原型策略的作用。

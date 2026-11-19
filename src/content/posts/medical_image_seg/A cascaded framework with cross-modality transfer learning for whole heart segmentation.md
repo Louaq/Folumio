@@ -33,7 +33,7 @@ Automatic and accurate segmentation of the **whole heart structure** from 3D car
 
 ## 提出的模型
 
-![Snipaste_2025-07-23_09-14-09](https://pic1.imgdb.cn/i/0343OU2GhdSrkrOC0N5ZFz.webp)
+![Snipaste_2025-07-23_09-14-09](https://ss1.tupinayun.cn/autoupload/pzwl0/20261119/DSWV/0X0/0343OU2GhdSrkrOC0N5ZFz.webp)
 
 文提出了一种用于全心脏分割的级联框架CM-TranCaF，该框架由三个关键模块组成：
 

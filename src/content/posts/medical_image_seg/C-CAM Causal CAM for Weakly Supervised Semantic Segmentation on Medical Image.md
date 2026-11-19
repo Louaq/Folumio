@@ -4,7 +4,7 @@ published: 2025-04-16 12:00:00
 expires: 2025-08-21 23:59:59
 mathjax: true
 excerpt: "云想衣裳花想容，春风拂槛露华浓"
-cover: "https://pic1.imgdb.cn/i/0343Oc1IVcaZZAx9vnALV9.jpg"
+cover: "https://ss1.tupinayun.cn/autoupload/pzwl0/20261119/2Ste/4000X2328/0343Oc1IVcaZZAx9vnALV9.jpg"
 categories: 医学图像分割
 tags: [C-CAM, Weakly Supervised Semantic Segmentation]
 ---
@@ -39,7 +39,7 @@ ProMRI and DSC of87.54% on ACDC, which outperforms state-of-the-art WSSS methods
 
 ## 提出的模型
 
-![Snipaste_2025-04-16_13-28-49](https://pic1.imgdb.cn/i/0343OUV5JlAX9X48zKes16.webp)
+![Snipaste_2025-04-16_13-28-49](https://ss1.tupinayun.cn/autoupload/pzwl0/20261119/hjQo/0X0/0343OUV5JlAX9X48zKes16.webp)
 
 - **全局采样模块（Global Sampling Module）**：将训练图像输入纯CAM（P - CAM）模型生成粗分割掩码，该模块最终输出包含类别和解剖信息的全局上下文图$M_{GC}$。
 

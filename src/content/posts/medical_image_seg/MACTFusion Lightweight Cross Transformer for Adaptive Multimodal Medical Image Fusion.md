@@ -38,7 +38,7 @@ tags: [Multimodal Medical Image Fusion]
 
 ## 提出的模型
 
-![Snipaste_2025-07-07_19-47-08](https://pic1.imgdb.cn/i/0343OVL6FWW8KadAWj1hCT.webp)
+![Snipaste_2025-07-07_19-47-08](https://ss1.tupinayun.cn/autoupload/pzwl0/20261119/jbFF/0X0/0343OVL6FWW8KadAWj1hCT.webp)
 
 ![Snipaste_2025-07-07_19-49-14](https://yangyang666.oss-cn-chengdu.aliyuncs.com/images/Snipaste_2025-07-07_19-49-14.png)
 

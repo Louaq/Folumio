@@ -58,7 +58,7 @@ tags: [Continual Learning, Bayesian Fusion]
 
 基于不同模态的预测掩码，使用贝叶斯推理确定其可靠性，将可靠性值归一化为权重，结合预测概率计算背景样本分数，以提高多模态疾病分割的鲁棒性。
 
-![Snipaste_2025-07-31_16-07-48](https://pic1.imgdb.cn/i/0343OVUy2LjFLeNzV8Bisz.webp)
+![Snipaste_2025-07-31_16-07-48](https://ss1.tupinayun.cn/autoupload/pzwl0/20261119/eHqq/0X0/0343OVUy2LjFLeNzV8Bisz.webp)
 
 ![Snipaste_2025-07-31_16-08-15](https://yangyang666.oss-cn-chengdu.aliyuncs.com/images/Snipaste_2025-07-31_16-08-15.png)
 

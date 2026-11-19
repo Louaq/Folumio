@@ -60,11 +60,11 @@ In semi-supervised medical image segmentation, there exist empirical mismatch pr
 
 - **Dice系数**（重叠率，↑）、**Jaccard指数**（交并比，↑）、**95% Hausdorff距离**（边界距离，↓）、**平均表面距离**（ASD，↓）。
 
-![Snipaste_2026-01-06_20-27-07](https://pic1.imgdb.cn/i/0343OUKSXteA9FQ5jmMPwY.webp)
+![Snipaste_2026-01-06_20-27-07](https://ss1.tupinayun.cn/autoupload/pzwl0/20261119/9g1Y/0X0/0343OUKSXteA9FQ5jmMPwY.webp)
 
-![Snipaste_2026-01-06_20-27-27](https://pic1.imgdb.cn/item/695cff73a9c8408628b7819e.png)
+![Snipaste_2026-01-06_20-27-27](https://ss1.tupinayun.cn/autoupload/pzwl0/20261119/YLbU/542X766/3syfO9aQHeGVEMFw9PDHcz.png)
 
-![Snipaste_2026-01-06_20-27-57](https://pic1.imgdb.cn/item/695cff8da9c8408628b781b8.png)
+![Snipaste_2026-01-06_20-27-57](https://ss1.tupinayun.cn/autoupload/pzwl0/20261119/QljI/1010X477/7duxaPZtdXyUG2omtUZYY6.png)
 
 ## 实验（Ablation Experiments）​​
 
@@ -75,7 +75,7 @@ In semi-supervised medical image segmentation, there exist empirical mismatch pr
 - **混合系数β**：零值区域比例β=2/3时性能最优，平衡前景与背景信息融合（表7）。
 - **预训练策略**：带复制粘贴的标记数据预训练可提升模型初始化效果，降低过拟合（表9）。
 
-![Snipaste_2026-01-06_20-29-03](https://pic1.imgdb.cn/item/695cffd0a9c8408628b78202.png)
+![Snipaste_2026-01-06_20-29-03](https://ss1.tupinayun.cn/autoupload/pzwl0/20261119/FFQD/980X229/0OrDKF3aN1XC2a7P6Zs7q8.png)
 
 ## 结论
 

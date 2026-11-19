@@ -25,7 +25,7 @@ Semi-supervised learning in medical image segmentation leverages unlabeled data 
 
 ## 研究背景
 
-![Snipaste_2026-01-12_19-02-02](https://pic1.imgdb.cn/i/0343OUooV50W0OPZRFq1Y5.webp)
+![Snipaste_2026-01-12_19-02-02](https://ss1.tupinayun.cn/autoupload/pzwl0/20261119/zj0n/0X0/0343OUooV50W0OPZRFq1Y5.webp)
 
 在医学图像分割领域，半监督学习（SSL）通过利用未标记数据减轻标注负担，已成为重要研究方向。然而，现有方法在处理3D医学图像时面临两大核心挑战：一是**病理变化导致的高度不确定性**，二是**类别不平衡问题**（如病变体素远少于背景体素），这导致分割结果不准确、边界定义模糊。
 
@@ -61,7 +61,7 @@ Semi-supervised learning in medical image segmentation leverages unlabeled data 
 
 ## 提出的模型
 
-![Snipaste_2026-01-12_19-07-54](https://pic1.imgdb.cn/item/6964d5c451d5e4e5d5713d5c.png)
+![Snipaste_2026-01-12_19-07-54](https://ss1.tupinayun.cn/autoupload/pzwl0/20261119/H3ux/1128X580/3CAGsw057dptEhGcKEOoPx.png)
 
 本文提出的模型是**DyCON**（Dynamic Uncertainty-aware Consistency and Contrastive Learning），这是一个用于半监督医学图像分割的动态不确定性感知一致性与对比学习框架。其核心设计目标是解决医学图像分割中因类别不平衡和病理变化导致的高不确定性问题，提升模型对复杂病变区域的分割精度。
 
@@ -71,7 +71,7 @@ Semi-supervised learning in medical image segmentation leverages unlabeled data 
    - **动态权重调整**：基于体素级熵（不确定性度量）动态调整每个体素对一致性损失的贡献，而非过滤高不确定性区域。
    - **训练阶段自适应**：训练初期优先学习不确定性区域（低惩罚），随训练进展逐渐转向高置信区域（高惩罚），实现全局一致性。
    - **公式表达**：
-     ![Snipaste_2026-01-12_19-09-49](https://pic1.imgdb.cn/item/6964d63c51d5e4e5d5713db8.png)
+     ![Snipaste_2026-01-12_19-09-49](https://ss1.tupinayun.cn/autoupload/pzwl0/20261119/1sa0/572X157/7ffduBDjVzOGDKFqSFi0qH.png)
 2. **FeCL（Focal Entropy-aware Contrastive Loss，焦点熵感知对比损失）**
    - **双重焦点机制**：通过焦点权重，优先关注难分正负样本对（如低相似度正样本和高相似度负样本）。
    - **不确定性感知**：结合Gambling Softmax熵$H_{gs}$调整权重，增强对模糊边界区域的关注。
@@ -81,7 +81,7 @@ Semi-supervised learning in medical image segmentation leverages unlabeled data 
 
 - **基础架构**：基于Mean-Teacher（MT）范式，包含学生模型和教师模型（教师模型为学生模型的指数移动平均）。
 - **损失函数组合**：
-  ![Snipaste_2026-01-12_19-10-50](https://pic1.imgdb.cn/item/6964d67851d5e4e5d5713ddc.png)
+  ![Snipaste_2026-01-12_19-10-50](https://ss1.tupinayun.cn/autoupload/pzwl0/20261119/YjHY/536X82/4Lbl4PUClRvP81DJWBNagp.png)
 
 ### 核心优势：
 
@@ -103,19 +103,19 @@ Semi-supervised learning in medical image segmentation leverages unlabeled data 
 
 > 在四个数据集上的对比实验结果
 
-![Snipaste_2026-01-12_19-12-52](https://pic1.imgdb.cn/item/6964d72151d5e4e5d5713e64.png)
+![Snipaste_2026-01-12_19-12-52](https://ss1.tupinayun.cn/autoupload/pzwl0/20261119/Ty46/714X838/5ZkFU1LuIUXZUosl8MxzkS.png)
 
 
 
-![Snipaste_2026-01-12_19-12-59](https://pic1.imgdb.cn/item/6964d72551d5e4e5d5713e6a.png)
+![Snipaste_2026-01-12_19-12-59](https://ss1.tupinayun.cn/autoupload/pzwl0/20261119/pY1l/683X601/36iJaI6fVG1562S2Oylxw6.png)
 
 
 
-![Snipaste_2026-01-12_19-13-07](https://pic1.imgdb.cn/item/6964d72951d5e4e5d5713e81.png)
+![Snipaste_2026-01-12_19-13-07](https://ss1.tupinayun.cn/autoupload/pzwl0/20261119/Cxau/685X575/03ob8SiM6i2vWX45aZmiyK.png)
 
 
 
-![Snipaste_2026-01-12_19-13-12](https://pic1.imgdb.cn/item/6964d72c51d5e4e5d5713e84.png)
+![Snipaste_2026-01-12_19-13-12](https://ss1.tupinayun.cn/autoupload/pzwl0/20261119/TxzK/691X317/2Q5dXRG7LJhJkNYigb6x5J.png)
 
 
 
@@ -130,9 +130,9 @@ Semi-supervised learning in medical image segmentation leverages unlabeled data 
 
 ## 实验（Ablation Experiments）​​
 
-![Snipaste_2026-01-12_19-14-48](https://pic1.imgdb.cn/item/6964d77351d5e4e5d5713eb6.png)
+![Snipaste_2026-01-12_19-14-48](https://ss1.tupinayun.cn/autoupload/pzwl0/20261119/FDHI/838X475/3juC0fCYnJSprV0IKPp5XQ.png)
 
-![Snipaste_2026-01-12_19-15-04](https://pic1.imgdb.cn/item/6964d77951d5e4e5d5713ebc.png)
+![Snipaste_2026-01-12_19-15-04](https://ss1.tupinayun.cn/autoupload/pzwl0/20261119/zjuz/839X302/3tT9gCLtSMJooENdjsb7ln.png)
 
 
 
@@ -143,7 +143,7 @@ Semi-supervised learning in medical image segmentation leverages unlabeled data 
 
 
 
-![Snipaste_2026-01-12_19-16-10](https://pic1.imgdb.cn/item/6964d7b651d5e4e5d5713ee5.png)
+![Snipaste_2026-01-12_19-16-10](https://ss1.tupinayun.cn/autoupload/pzwl0/20261119/0fA4/1043X739/7CayIqpiXf08k3EhUwHRUI.png)
 
 ## 结论
 

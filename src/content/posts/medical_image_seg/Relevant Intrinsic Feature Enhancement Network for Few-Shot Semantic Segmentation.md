@@ -4,7 +4,7 @@ published: 2025-03-11 12:00:00
 expires: 2025-08-21 23:59:59
 mathjax: true
 excerpt: "云想衣裳花想容，春风拂槛露华浓"
-cover: "https://pic1.imgdb.cn/i/0343Oc1IVcaZZAx9vnALV9.jpg"
+cover: "https://ss1.tupinayun.cn/autoupload/pzwl0/20261119/2Ste/4000X2328/0343Oc1IVcaZZAx9vnALV9.jpg"
 categories: 少样本语义分割
 tags: [Feature Enhancement Network]
 ---
@@ -77,7 +77,7 @@ For few-shot semantic segmentation, the primary task is to extract class-specifi
 
 数据集：PASCAL-5${^i}$ 、COCO
 
-![Snipaste_2025-03-11_09-38-26](https://pic1.imgdb.cn/i/0343OVnIMekH6JKH2IjTb2.webp)
+![Snipaste_2025-03-11_09-38-26](https://ss1.tupinayun.cn/autoupload/pzwl0/20261119/iy2n/0X0/0343OVnIMekH6JKH2IjTb2.webp)
 
 
 

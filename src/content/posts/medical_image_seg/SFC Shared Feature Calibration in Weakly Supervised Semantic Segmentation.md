@@ -4,7 +4,7 @@ published: 2025-04-10 12:00:00
 expires: 2025-08-21 23:59:59
 mathjax: true
 excerpt: "云想衣裳花想容，春风拂槛露华浓"
-cover: "https://pic1.imgdb.cn/i/0343Oc1IVcaZZAx9vnALV9.jpg"
+cover: "https://ss1.tupinayun.cn/autoupload/pzwl0/20261119/2Ste/4000X2328/0343Oc1IVcaZZAx9vnALV9.jpg"
 categories: 弱监督语义分割
 tags: [SFC, semantic segmentation]
 ---
@@ -33,7 +33,7 @@ Existing methods mainly rely on **Class Activation Mapping (CAM)** to obtain pse
 
 ## 提出的模型
 
-![Snipaste_2025-04-10_13-57-44](https://pic1.imgdb.cn/i/0343OW2GfFEcKQ7lykrtzH.webp)
+![Snipaste_2025-04-10_13-57-44](https://ss1.tupinayun.cn/autoupload/pzwl0/20261119/55A6/0X0/0343OW2GfFEcKQ7lykrtzH.webp)
 
 本文提出了一种名为**共享特征校准**（**Shared Feature Calibration，SFC**）的方法，用于解决弱监督语义分割（Weakly Supervised Semantic Segmentation，WSSS）中因训练数据**长尾分布**导致的类激活映射（Class Activation Mapping，CAM）过激活和欠激活问题。以下是该模型的详细介绍：
 1. **模型背景**：图像级弱监督语义分割因标注成本低而受到广泛关注。现有方法主要依赖CAM获取伪标签来训练语义分割模型，但训练数据的长尾分布会使头类别的CAM过激活，尾类别的CAM欠激活，从而降低伪标签质量，影响最终分割性能。 

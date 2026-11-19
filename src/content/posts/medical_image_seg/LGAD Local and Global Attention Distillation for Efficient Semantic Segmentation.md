@@ -4,7 +4,7 @@ published: 2025-03-31 12:00:00
 expires: 2025-08-21 23:59:59
 mathjax: true
 excerpt: "云想衣裳花想容，春风拂槛露华浓"
-cover: "https://pic1.imgdb.cn/i/0343Oc1IVcaZZAx9vnALV9.jpg"
+cover: "https://ss1.tupinayun.cn/autoupload/pzwl0/20261119/2Ste/4000X2328/0343Oc1IVcaZZAx9vnALV9.jpg"
 categories: 语义分割
 tags: [注意力蒸馏]
 ---
@@ -42,7 +42,7 @@ Efficient **semantic segmentation** is essential for a wide array of computer vi
 
 ## 提出的模型
 
-![Snipaste_2025-03-31_10-44-32](https://pic1.imgdb.cn/i/0343OVInvbdt3Nn0Sq3DMK.webp)
+![Snipaste_2025-03-31_10-44-32](https://ss1.tupinayun.cn/autoupload/pzwl0/20261119/YJ23/0X0/0343OVInvbdt3Nn0Sq3DMK.webp)
 
 本文提出了用于高效**语义分割的局部和全局注意力蒸馏（Local and Global Attention Distillation，LGAD）**框架。
 

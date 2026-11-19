@@ -24,7 +24,7 @@ We consider the problem of volumetric (3D) unsupervised domain adaptation (UDA) 
 
 基于以上背景，作者提出了一种新颖的**3D无监督域适应框架**，以解决现有方法的问题。
 
-![Snipaste_2025-07-27_16-25-53](https://pic1.imgdb.cn/i/0343OU4jG70A9q1fXkF9eQ.webp)
+![Snipaste_2025-07-27_16-25-53](https://ss1.tupinayun.cn/autoupload/pzwl0/20261119/ZYAt/0X0/0343OU4jG70A9q1fXkF9eQ.webp)
 
 ## 研究现状
 

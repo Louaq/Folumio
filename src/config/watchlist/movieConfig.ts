@@ -3,7 +3,7 @@ import type { WatchlistItem } from "./types";
 export const movieItems: WatchlistItem[] = [
 	{
 		title: "星际穿越",
-		cover: "https://pic1.imgdb.cn/item/694fc3b6161224305eb307f5.webp",
+		cover: "https://ss1.tupinayun.cn/autoupload/pzwl0/20261119/drzq/0X0/5MfbTQe1YEk7TyEdKuI4T5.webp",
 		type: "movie",
 		status: "completed",
 		rating: 9.8,
@@ -15,7 +15,7 @@ export const movieItems: WatchlistItem[] = [
 	},
 	{
 		title: "肖申克的救赎 ",
-		cover: "https://pic1.imgdb.cn/item/694fdc86161224305eb309ff.webp",
+		cover: "https://ss1.tupinayun.cn/autoupload/pzwl0/20261119/AVTs/0X0/2Y3KAZJnoYXmBTHkNlBOcJ.webp",
 		type: "movie",
 		status: "completed",
 		rating: 9.7,
@@ -27,7 +27,7 @@ export const movieItems: WatchlistItem[] = [
 	},
 	{
 		title: "疯狂动物城",
-		cover: "https://pic1.imgdb.cn/item/694fdd58161224305eb30a0b.webp",
+		cover: "https://ss1.tupinayun.cn/autoupload/pzwl0/20261119/iZcz/0X0/1kXQ8yYFMuFmpjRh2ZwSjr.webp",
 		type: "movie",
 		status: "completed",
 		rating: 9.3,
@@ -38,7 +38,7 @@ export const movieItems: WatchlistItem[] = [
 	},
 	{
 		title: "疯狂动物城2",
-		cover: "https://pic1.imgdb.cn/item/69509ad0161224305eb311cd.webp",
+		cover: "https://ss1.tupinayun.cn/autoupload/pzwl0/20261119/hiZW/0X0/0v1QPDrLgzD9WBeJntA3e4.webp",
 		type: "movie",
 		status: "completed",
 		rating: 8.4,
@@ -49,7 +49,7 @@ export const movieItems: WatchlistItem[] = [
 	},
 	{
 		title: "哪吒之魔童闹海",
-		cover: "https://pic1.imgdb.cn/item/69509bd8161224305eb311de.webp",
+		cover: "https://ss1.tupinayun.cn/autoupload/pzwl0/20261119/ImhU/0X0/3XmXhrW2ZdGLBUizsisEgu.webp",
 		type: "movie",
 		status: "completed",
 		rating: 8.4,
@@ -60,7 +60,7 @@ export const movieItems: WatchlistItem[] = [
 	},
 	{
 		title: "飞驰人生3",
-		cover: "https://pic1.imgdb.cn/item/699561094e07536d0172302e.webp",
+		cover: "https://ss1.tupinayun.cn/autoupload/pzwl0/20261119/Ppe7/0X0/5yGp46WUfersb7LcEMy9Rf.webp",
 		type: "movie",
 		status: "completed",
 		rating: 7.6,
@@ -71,7 +71,7 @@ export const movieItems: WatchlistItem[] = [
 	},
 	{
 		title: "镖人：风起大漠",
-		cover: "https://pic1.imgdb.cn/item/6a3751e92830ce602a51fac4.webp",
+		cover: "https://ss1.tupinayun.cn/autoupload/pzwl0/20261119/VFs3/0X0/1BsR7VSJn8zlk5YkaIeaDZ.webp",
 		type: "movie",
 		status: "completed",
 		rating: 7.5,
@@ -82,7 +82,7 @@ export const movieItems: WatchlistItem[] = [
 	},
 	{
 		title: "放牛班的春天",
-		cover: "https://pic1.imgdb.cn/i/0346v80Vg1pUsPrjQCR93E.webp",
+		cover: "https://ss1.tupinayun.cn/autoupload/pzwl0/20261119/H3MA/0X0/0346v80Vg1pUsPrjQCR93E.webp",
 		type: "movie",
 		status: "completed",
 		rating: 9.3,

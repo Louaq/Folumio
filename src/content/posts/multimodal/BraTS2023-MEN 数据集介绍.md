@@ -22,7 +22,7 @@ tags: [BraTs2023数据集]
 
 ## 可视化
 
-![图片描述](https://pic1.imgdb.cn/i/0343OUQRec9dbd4FMsgnpk.webp)
+![图片描述](https://ss1.tupinayun.cn/autoupload/pzwl0/20261119/cvu0/0X0/0343OUQRec9dbd4FMsgnpk.webp)
 
 ## 文件结构
 

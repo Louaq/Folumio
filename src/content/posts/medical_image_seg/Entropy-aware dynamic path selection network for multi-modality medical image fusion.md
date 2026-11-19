@@ -31,7 +31,7 @@ Deep learning has achieved significant success in multi-modality medical image f
 
 **深度学习方法**：应用广泛且成果显著。如CNN、GAN等被用于图像融合，部分方法通过设计不同图像、模型结构或创新融合任务来提升效果。
 
-![Snipaste_2025-07-30_14-25-32](https://pic1.imgdb.cn/i/0343OUrs017jaODYylKi9f.webp)
+![Snipaste_2025-07-30_14-25-32](https://ss1.tupinayun.cn/autoupload/pzwl0/20261119/ZV8x/0X0/0343OUrs017jaODYylKi9f.webp)
 
 ## 提出的模型
 

@@ -4,7 +4,7 @@ published: 2025-03-10 12:00:00
 expires: 2025-08-21 23:59:59
 mathjax: true
 excerpt: "云想衣裳花想容，春风拂槛露华浓"
-cover: "https://pic1.imgdb.cn/i/0343Oc1IVcaZZAx9vnALV9.jpg"
+cover: "https://ss1.tupinayun.cn/autoupload/pzwl0/20261119/2Ste/4000X2328/0343Oc1IVcaZZAx9vnALV9.jpg"
 categories: 少样本语义分割
 tags: [Few-Shot Semantic Segmentation, Transformation]
 ---
@@ -48,7 +48,7 @@ Nanjing University of Aeronautics and Astronautics 、State Key Laboratory of In
 
 ## **提出的模型**
 
-![Snipaste_2025-03-10_10-05-44](https://pic1.imgdb.cn/i/0343OUcEkio5jPXL2cDbG8.webp)
+![Snipaste_2025-03-10_10-05-44](https://ss1.tupinayun.cn/autoupload/pzwl0/20261119/0GA6/0X0/0343OUcEkio5jPXL2cDbG8.webp)
 
 
 

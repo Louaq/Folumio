@@ -15,17 +15,16 @@ export const essaysConfig: {
 		{
 			date: "2026-11-16",
 			content: "双帝之战",
-			images: ["https://pic1.imgdb.cn/i/034yRWiovDnULU5JLBYnnN.webp?w=300"],
+			images: ["https://ss1.tupinayun.cn/autoupload/pzwl0/20261119/oHXB/0X0/034yRWiovDnULU5JLBYnnN.webp"],
 		},
 		{
 			date: "2026-11-10",
 			content: "在这里写下一段随笔。\n也可以换行继续记录",
-			images: ["https://pic1.imgdb.cn/i/034ZMknGevJT4oWECLatyW.png?w=600"],
+			images: ["https://ss1.tupinayun.cn/autoupload/pzwl0/20261119/6Vpt/1920X1080/034ZMknGevJT4oWECLatyW.png"],
 		},
 		{
 			date: "2026-11-07",
 			content: "立冬",
-			images: ["https://pic1.imgdb.cn/i/034zdOj25kiJUVJpBrHyYe.webp?w=300"],
 		},
 	],
 };

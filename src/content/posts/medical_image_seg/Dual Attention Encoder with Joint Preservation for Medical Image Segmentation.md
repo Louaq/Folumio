@@ -38,7 +38,7 @@ Transformers have recently gained considerable popularity for capturing long-ran
 
 ## 提出的模型
 
-![Snipaste_2025-05-26_11-18-01](https://pic1.imgdb.cn/i/0343OUkmebOjobbunTLDe5.webp)
+![Snipaste_2025-05-26_11-18-01](https://ss1.tupinayun.cn/autoupload/pzwl0/20261119/1Ca0/0X0/0343OUkmebOjobbunTLDe5.webp)
 
 
 

@@ -45,15 +45,15 @@ Medical image segmentation presents a formidable challenge, compounded by the sc
 - **扰动空间有限**：多数方法仅在图像层面施加扰动（如裁剪、颜色变换），未探索特征级或跨层级的扰动组合。
 - **扩散模型利用不足**：对扩散模型的特征挖掘多停留在单一层级或时间步，未整合多尺度、多时间步的语义信息。
 
-![Snipaste_2025-12-23_20-30-47](https://pic1.imgdb.cn/i/0343OVTi9LsTe6so4x3eMm.webp)
+![Snipaste_2025-12-23_20-30-47](https://ss1.tupinayun.cn/autoupload/pzwl0/20261119/vhqb/0X0/0343OVTi9LsTe6so4x3eMm.webp)
 
-![Snipaste_2025-12-23_20-30-52](https://pic1.imgdb.cn/item/694a8b5eb65a54c49ff24643.png)
+![Snipaste_2025-12-23_20-30-52](https://ss1.tupinayun.cn/autoupload/pzwl0/20261119/xsMQ/386X83/2KdSqshXvp6ONpaRxPctT2.png)
 
-![Snipaste_2025-12-23_20-30-58](https://pic1.imgdb.cn/item/694a8b62b65a54c49ff24664.png)
+![Snipaste_2025-12-23_20-30-58](https://ss1.tupinayun.cn/autoupload/pzwl0/20261119/jKU2/437X53/2FLiX97plBJ4LJ8TnWP9ji.png)
 
 ## 提出的模型
 
-![Snipaste_2025-12-23_20-32-34](https://pic1.imgdb.cn/item/694a8bb1b65a54c49ff2490f.png)
+![Snipaste_2025-12-23_20-32-34](https://ss1.tupinayun.cn/autoupload/pzwl0/20261119/FwPL/858X564/72CPnJyoNDsHqu2xfuVM3m.png)
 
 
 
@@ -94,13 +94,13 @@ Medical image segmentation presents a formidable challenge, compounded by the sc
 - 一致性正则化方法：UA-MT、URPC、CPS
 - 协同训练方法：CNN & Trans、MC-Net+、BCP
 
-![Snipaste_2025-12-23_20-37-04](https://pic1.imgdb.cn/item/694a8cc0b65a54c49ff2527a.png)
+![Snipaste_2025-12-23_20-37-04](https://ss1.tupinayun.cn/autoupload/pzwl0/20261119/qEbc/484X254/4oL2O1fNYyUD4zZgVno2H6.png)
 
 
 
-![Snipaste_2025-12-23_20-37-28](https://pic1.imgdb.cn/item/694a8ce6b65a54c49ff253c4.png)
+![Snipaste_2025-12-23_20-37-28](https://ss1.tupinayun.cn/autoupload/pzwl0/20261119/Wcy3/1047X714/5cEv4dw7Wuv3L62wuJ58vB.png)
 
-![Snipaste_2025-12-23_20-37-42](https://pic1.imgdb.cn/item/694a8cebb65a54c49ff253ef.png)
+![Snipaste_2025-12-23_20-37-42](https://ss1.tupinayun.cn/autoupload/pzwl0/20261119/Cfem/1216X533/67LkiIg2pcvHOL0Ssa2C7r.png)
 
 
 
@@ -110,9 +110,9 @@ Medical image segmentation presents a formidable challenge, compounded by the sc
 
 ## 实验（Ablation Experiments）​​
 
-![Snipaste_2025-12-23_20-38-40](https://pic1.imgdb.cn/item/694a8d1fb65a54c49ff255c6.png)
+![Snipaste_2025-12-23_20-38-40](https://ss1.tupinayun.cn/autoupload/pzwl0/20261119/5VE5/647X207/2OEofn0fz3TjvoHY1uLVS4.png)
 
-![Snipaste_2025-12-23_20-38-48](https://pic1.imgdb.cn/item/694a8d27b65a54c49ff25615.png)
+![Snipaste_2025-12-23_20-38-48](https://ss1.tupinayun.cn/autoupload/pzwl0/20261119/jNKq/658X256/6L12b2Oen8OvnPL2dJV1Mi.png)
 
 
 
@@ -126,11 +126,11 @@ Medical image segmentation presents a formidable challenge, compounded by the sc
 
 ## 参数敏感性分析
 
-![Snipaste_2025-12-23_20-39-43](https://pic1.imgdb.cn/item/694a8d6db65a54c49ff257d0.png)
+![Snipaste_2025-12-23_20-39-43](https://ss1.tupinayun.cn/autoupload/pzwl0/20261119/vfFk/668X255/0Z4fmz9JdX5JNycDTxeYQc.png)
 
 
 
-![Snipaste_2025-12-23_20-39-50](https://pic1.imgdb.cn/item/694a8d71b65a54c49ff257db.png)
+![Snipaste_2025-12-23_20-39-50](https://ss1.tupinayun.cn/autoupload/pzwl0/20261119/D4qW/675X341/1390W2bRjhVtRjw12u7haJ.png)
 
 
 

@@ -4,7 +4,7 @@ published: 2025-04-02 12:00:00
 expires: 2025-08-21 23:59:59
 mathjax: true
 excerpt: "云想衣裳花想容，春风拂槛露华浓"
-cover: "https://pic1.imgdb.cn/i/0343Oc1IVcaZZAx9vnALV9.jpg"
+cover: "https://ss1.tupinayun.cn/autoupload/pzwl0/20261119/2Ste/4000X2328/0343Oc1IVcaZZAx9vnALV9.jpg"
 categories: 少样本语义分割
 tags: [DSMF-Net, Semantic Segmentation]
 ---
@@ -70,7 +70,7 @@ tion mechanism to adaptively merge and couple the multisemantic information from
 - **SAID - 5i数据集**：将提出的模型与其他流行方法进行比较，结果表明该模型明显优于当代少样本分割模型，随着骨干网络的增强，性能提升。在不同设置下，模型在各折数据上均有显著的mIoU提升，且通过配对t检验验证了模型性能提升的显著性。
 - **DLRSD数据集**：在更具挑战性的DLRSD数据集上进行实验，结果显示该模型的mIoU得分高于其他方法，尤其在处理复杂场景和具有细微视觉差异的对象时表现出色。
 
-![Snipaste_2025-04-02_09-35-15](https://pic1.imgdb.cn/i/0343OUjfFZM7sja0cBgCFr.webp)
+![Snipaste_2025-04-02_09-35-15](https://ss1.tupinayun.cn/autoupload/pzwl0/20261119/IsKG/0X0/0343OUjfFZM7sja0cBgCFr.webp)
 
 
 

@@ -64,7 +64,7 @@ domain-invariant structure features, generating high-quality pseudo labels for t
 - **目的**：结合源域标记图像和带有伪标签的目标域图像进行联合训练，学习域不变特征，提高在目标域的分割性能。
 - **具体操作**：最终分割器$S$采用与伪标签生成器$G$相同的架构，基于双域批量归一化层设计。其训练损失结合了源域的Dice损失和目标域的加权Dice损失。为了加速训练，最终分割器$S$使用伪标签生成器$G$的权重进行初始化。在测试阶段，直接使用训练好的最终分割器$S$进行推理。
 
-![Snipaste_2025-07-18_16-50-38](https://pic1.imgdb.cn/i/0343OVA8iXdAal3u1rFnnL.webp)
+![Snipaste_2025-07-18_16-50-38](https://ss1.tupinayun.cn/autoupload/pzwl0/20261119/JOok/0X0/0343OVA8iXdAal3u1rFnnL.webp)
 
 ## 实验（Compared with SOTA）
 

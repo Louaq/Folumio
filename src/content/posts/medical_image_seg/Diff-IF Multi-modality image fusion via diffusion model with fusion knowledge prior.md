@@ -20,7 +20,7 @@ tags: [Multi-modality image fusion]
 
 ## 研究背景
 
-![Snipaste_2025-07-21_16-21-48](https://pic1.imgdb.cn/i/0343OUhI3LwXTHejmupDQq.webp)
+![Snipaste_2025-07-21_16-21-48](https://ss1.tupinayun.cn/autoupload/pzwl0/20261119/FWhM/0X0/0343OUhI3LwXTHejmupDQq.webp)
 
 文章聚焦于**多模态图像融合（MMIF）领域**，其研究背景源于现有方法的不足及扩散模型应用面临的挑战：
 1. **MMIF的重要性**：由于单一图像传感器成像原理的局限，MMIF技术应运而生，旨在整合不同源图像的互补信息，生成高质量融合图像。经典的MMIF任务包括红外 - 可见光图像融合（IVF）和医学图像融合（MIF）。

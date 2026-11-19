@@ -39,7 +39,7 @@ tags: [Multi-Modality Image Fusion]
 
 式中，$L_f$为结构相似损失，$F$为具有可学习参数ωf的多模态图像重构网络。$F$的网络结构如图图所示。$λ$是权衡参数。$x$为结构图像，包括可见光和MRI图像，$y$为功能图像，包括红外、SPECT、CT、PET图像。$u_Ψ$、$u_Φ$和$u_Υ$表示T的三个结果，T由三个网络组成(即跨模态知识强化网络Ψ、空间-频谱域优化网络Υ和边缘引导学习网络Φ)。这是一个混合损失，包括LΨ， LΥ和LΦ。ωt是关于T的一些可训练参数。
 
-![Snipaste_2025-07-03_19-52-50](https://pic1.imgdb.cn/i/0343OVR9eG9F63yVOwcQBd.webp)
+![Snipaste_2025-07-03_19-52-50](https://ss1.tupinayun.cn/autoupload/pzwl0/20261119/5DyM/0X0/0343OVR9eG9F63yVOwcQBd.webp)
 
 ![Snipaste_2025-07-03_19-49-49](https://yangyang666.oss-cn-chengdu.aliyuncs.com/images/Snipaste_2025-07-03_19-49-49.png)
 

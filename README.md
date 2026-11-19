@@ -39,19 +39,19 @@
 
 **首页**
 
-![首页](https://pic1.imgdb.cn/i/034uRnRIKFL5z4ahy4qmzm.webp)
+![首页](https://ss1.tupinayun.cn/autoupload/pzwl0/20261119/Mgue/0X0/034uRnRIKFL5z4ahy4qmzm.webp)
 
 **文章页**
 
-![文章页](https://pic1.imgdb.cn/i/034uRnX2K3cEnySMLqYuvJ.webp)
+![文章页](https://ss1.tupinayun.cn/autoupload/pzwl0/20261119/eQvq/0X0/034uRnX2K3cEnySMLqYuvJ.webp)
 
 **归档页**
 
-![归档页](https://pic1.imgdb.cn/i/034uRnVSSD0Fm3fOBm1WVF.webp)
+![归档页](https://ss1.tupinayun.cn/autoupload/pzwl0/20261119/Dehl/0X0/034uRnVSSD0Fm3fOBm1WVF.webp)
 
 **追番**
 
-![追番](https://pic1.imgdb.cn/i/034uRnUz0km9RT1DdzjVyh.webp)
+![追番](https://ss1.tupinayun.cn/autoupload/pzwl0/20261119/0hFM/0X0/034uRnUz0km9RT1DdzjVyh.webp)
 
 
 ## 特性

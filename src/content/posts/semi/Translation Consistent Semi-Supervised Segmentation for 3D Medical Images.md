@@ -39,7 +39,7 @@ tags: [TMI]
 
 ## 提出的模型
 
-![Snipaste_2026-01-08_19-30-56](https://pic1.imgdb.cn/i/0343OW8A7Tv4oWrSCdgiQX.webp)
+![Snipaste_2026-01-08_19-30-56](https://ss1.tupinayun.cn/autoupload/pzwl0/20261119/5Ps9/0X0/0343OW8A7Tv4oWrSCdgiQX.webp)
 
 ### **1. 平移一致性协同训练框架（TraCoCo核心机制）**
 
@@ -70,7 +70,7 @@ tags: [TMI]
 - **协同训练框架**：包含两个参数初始化不同的模型（如VNet或3D-UNet），互为监督生成伪标签。
 - **总损失函数**：结合有监督损失（交叉熵+Dice损失）、翻译一致性损失（ℓtra）和半监督CRC损失（ℓcrc），通过余弦退火函数平衡监督与无监督损失权重。
 
-![Snipaste_2026-01-08_19-32-26](https://pic1.imgdb.cn/item/695f958a3379dd736939256b.png)
+![Snipaste_2026-01-08_19-32-26](https://ss1.tupinayun.cn/autoupload/pzwl0/20261119/4JcQ/746X643/0sPOkXFYCKh1jv2N3Qealn.png)
 
 ## 实验（Compared with SOTA）
 
@@ -105,11 +105,11 @@ tags: [TMI]
 4. **计算效率**
    - 训练时间仅为对比方法CAC的一半，推理阶段无额外计算成本，适合临床部署。
 
-![Snipaste_2026-01-08_19-34-57](https://pic1.imgdb.cn/item/695f96203379dd73693926d8.png)
+![Snipaste_2026-01-08_19-34-57](https://ss1.tupinayun.cn/autoupload/pzwl0/20261119/THJy/1203X900/0xZ5uTf0r9uijnqJ4zQBVt.png)
 
-![Snipaste_2026-01-08_19-35-41](https://pic1.imgdb.cn/item/695f964d3379dd7369392749.png)
+![Snipaste_2026-01-08_19-35-41](https://ss1.tupinayun.cn/autoupload/pzwl0/20261119/15x5/1204X271/4EpdHmOI7pGg8vUd3ZTt6m.png)
 
-![Snipaste_2026-01-08_19-35-58](https://pic1.imgdb.cn/item/695f965e3379dd736939277d.png)
+![Snipaste_2026-01-08_19-35-58](https://ss1.tupinayun.cn/autoupload/pzwl0/20261119/htax/1211X510/1XuHYjMPlJ3zFjhyOcoxDM.png)
 
 ## 结论
 

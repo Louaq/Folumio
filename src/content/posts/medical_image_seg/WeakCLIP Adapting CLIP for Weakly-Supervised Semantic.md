@@ -4,7 +4,7 @@ published: 2025-04-09 12:00:00
 expires: 2025-08-21 23:59:59
 mathjax: true
 excerpt: "云想衣裳花想容，春风拂槛露华浓"
-cover: "https://pic1.imgdb.cn/i/0343Oc1IVcaZZAx9vnALV9.jpg"
+cover: "https://ss1.tupinayun.cn/autoupload/pzwl0/20261119/2Ste/4000X2328/0343Oc1IVcaZZAx9vnALV9.jpg"
 categories: 弱监督语义分割
 tags: [CLIP, Weakly Supervised Semantic Segmentation]
 ---
@@ -47,7 +47,7 @@ at https://github.com/hustvl/WeakCLIP.
 - **弱监督语义分割（WSSS）**：为减轻像素级标注负担，出现多种基于不同弱监督信息（如**边界框、涂鸦、点、图像级标签**）的算法。其中，基于**图像级标签**的WSSS最具挑战性，常使用类激活图（CAM）定位目标，但原始CAM噪声大、易出错，已有多种方法对其进行优化。
 - **大规模预训练模型**：大规模预训练模型在各领域广泛应用，如CLIP通过对比学习在大量图像-文本对上预训练，展现出强大的知识迁移能力。已有研究尝试将CLIP应用于WSSS，如CLIMS引入辅助损失，CLIP - ES利用文本提示和GradCAM提升CAM质量。
 
-![Snipaste_2025-04-09_08-44-06](https://pic1.imgdb.cn/i/0343OWDCXYrvAgyg2iVbbB.webp)
+![Snipaste_2025-04-09_08-44-06](https://ss1.tupinayun.cn/autoupload/pzwl0/20261119/R8ZZ/0X0/0343OWDCXYrvAgyg2iVbbB.webp)
 
 ## 提出的模型
 

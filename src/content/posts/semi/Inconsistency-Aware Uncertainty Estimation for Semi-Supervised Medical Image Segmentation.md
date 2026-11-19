@@ -42,7 +42,7 @@ In semi-supervised medical image segmentation,most previousworks drawon the comm
 
 ## 提出的模型
 
-![Snipaste_2025-11-26_09-43-28](https://pic1.imgdb.cn/item/69265b753203f7be00337417.png)
+![Snipaste_2025-11-26_09-43-28](https://ss1.tupinayun.cn/autoupload/pzwl0/20261119/t9b1/1265X424/7hzBIZ910PkXFbYzpbYqA2.png)
 
 
 

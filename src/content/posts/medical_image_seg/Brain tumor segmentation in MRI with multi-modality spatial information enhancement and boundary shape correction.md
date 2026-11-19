@@ -44,7 +44,7 @@ tags: [multi-modality spatial information, boundary shape correction]
 
 ## 提出的模型
 
-![Snipaste_2025-07-17_15-50-07](https://pic1.imgdb.cn/i/0343OUNzaR4vQsP9x1KWvq.webp)
+![Snipaste_2025-07-17_15-50-07](https://ss1.tupinayun.cn/autoupload/pzwl0/20261119/dFMQ/0X0/0343OUNzaR4vQsP9x1KWvq.webp)
 
 ![Snipaste_2025-07-17_15-52-09](https://yangyang666.oss-cn-chengdu.aliyuncs.com/images/Snipaste_2025-07-17_15-52-09.png)
 

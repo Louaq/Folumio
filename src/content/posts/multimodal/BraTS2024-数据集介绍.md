@@ -19,7 +19,7 @@ tags: [BraTs2024数据集]
 
 
 
-![图片描述](https://pic1.imgdb.cn/i/0343OURaoatkGBMh0oz2zD.webp)
+![图片描述](https://ss1.tupinayun.cn/autoupload/pzwl0/20261119/BMMT/0X0/0343OURaoatkGBMh0oz2zD.webp)
 
 
 

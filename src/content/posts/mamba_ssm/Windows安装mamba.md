@@ -28,7 +28,7 @@ pip install triton-2.0.0-cp310-cp310-win_amd64.whl
 
   做完这些之后，现在检查的电脑上的CUDA版本，请看[这篇文章](https://blog.csdn.net/ruvikm/article/details/133430914)，要确定你电脑上的CUDA和你系统环境里面的路径跟他描述的是一致的，并且是11.8，如果不一致，就跟着他的操作流程重新安装CUDA和cudnn。  
   进行完这一步后，如果你现在直接安装causal-conv1d，大概率会报这个错误：  
-![在这里插入图片描述](https://pic1.imgdb.cn/i/0343OWFRM7MRvCpk43bXlu.webp)  
+![在这里插入图片描述](https://ss1.tupinayun.cn/autoupload/pzwl0/20261119/Fvjm/0X0/0343OWFRM7MRvCpk43bXlu.webp)  
   这里有两个原因，一个是我上面提到的电脑上安装的CUDA的问题，安装的不对，如果这一步是对的，那就是VisualStudio的原因，要不你根本就没装VS，如果装了，仔细看报错的细节，你大概率会找到：  
 ![在这里插入图片描述](https://yangyang666.oss-cn-chengdu.aliyuncs.com/images/18a0de90b7554959a2c52707e8ceaff4.png)  
   这是因为你安装的VS版本可能太新了，CUDA不支持，现在VS官网上面直接下载的2022版本就是不支持的，建议安装2019版本，整个都是支持的，官网直接上去已经不能下载老版本了，我找到了一个地方，[2019版本下载](https://learn.microsoft.com/en-us/visualstudio/install/create-a-network-installation-of-visual-studio?view=vs-2019#download-the-visual-studio-bootstrapper-to-create-the-layout)，这里面可以下载2019版本的，没有社区版，不过我们不需要一定是社区版，因为我们不用它，只要安装了那个环境就可以，我下的是专业版，然后按[这个教程](https://zhuanlan.zhihu.com/p/165008313)，他打勾的你打勾，安装完就行了。  

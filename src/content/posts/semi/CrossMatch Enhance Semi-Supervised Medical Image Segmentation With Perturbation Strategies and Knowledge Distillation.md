@@ -46,11 +46,11 @@ Semi-supervised learning for medical image segmentation presents a unique challe
 
 rossMatch是一种用于半监督医学图像分割的创新框架，核心思想是通过**双重扰动策略**（图像级和特征级）与**自知识蒸馏**（Self-Knowledge Distillation）结合，充分利用有限标注数据和大量无标注数据，提升模型的鲁棒性和分割精度。
 
-![Snipaste_2026-01-22_09-11-08](https://pic1.imgdb.cn/i/0343OUg41BFQlvGqyIPtcS.webp)
+![Snipaste_2026-01-22_09-11-08](https://ss1.tupinayun.cn/autoupload/pzwl0/20261119/UGr3/0X0/0343OUg41BFQlvGqyIPtcS.webp)
 
-![Snipaste_2026-01-22_09-11-34](https://pic1.imgdb.cn/item/697179531404c8e205f1798d.png)
+![Snipaste_2026-01-22_09-11-34](https://ss1.tupinayun.cn/autoupload/pzwl0/20261119/I8kN/602X442/7H2NeE0ehnuOkQpwhpfTA7.png)
 
-![Snipaste_2026-01-22_09-11-40](https://pic1.imgdb.cn/item/697179591404c8e205f1798e.png)
+![Snipaste_2026-01-22_09-11-40](https://ss1.tupinayun.cn/autoupload/pzwl0/20261119/HcgP/578X534/2iIqI70ThYxG3646uYlWGm.png)
 
 ### **核心设计**
 
@@ -73,7 +73,7 @@ rossMatch是一种用于半监督医学图像分割的创新框架，核心思�
 2. **自知识蒸馏优化**：无需预训练教师模型，通过内部扰动流的互学习实现知识传递，降低对标注数据的依赖。
 3. **计算效率**：采用批量特征堆叠和并行处理，在不增加参数的前提下提升性能，单迭代时间仅210ms（低于同类方法如CAML的1057ms）。
 
-![Snipaste_2026-01-22_09-12-19](https://pic1.imgdb.cn/item/697179781404c8e205f1798f.png)
+![Snipaste_2026-01-22_09-12-19](https://ss1.tupinayun.cn/autoupload/pzwl0/20261119/5T7Z/597X576/7WOy6sR7FkMVlMEO8tAFAy.png)
 
 ## 实验（Compared with SOTA）
 
@@ -88,7 +88,7 @@ rossMatch是一种用于半监督医学图像分割的创新框架，核心思�
 >
 > **标签设置**：针对每个数据集，分别使用5%、10%、20%的标注数据进行半监督训练，并与全监督模型对比。
 
-![Snipaste_2026-01-22_09-14-20](https://pic1.imgdb.cn/item/697179f11404c8e205f17991.png)
+![Snipaste_2026-01-22_09-14-20](https://ss1.tupinayun.cn/autoupload/pzwl0/20261119/BPdi/691X784/7dBwJIoXXADVGG9wHrdLkS.png)
 
 
 
@@ -112,11 +112,11 @@ rossMatch是一种用于半监督医学图像分割的创新框架，核心思�
 - **阈值τ**：τ=0.85时性能最优，过低导致伪标签噪声，过高限制知识传递。
 - **平衡系数η**：η=0.3时Dice最高，平衡教师与解码器蒸馏损失的权重。
 
-![Snipaste_2026-01-22_09-15-20](https://pic1.imgdb.cn/item/69717a3b1404c8e205f17992.png)
+![Snipaste_2026-01-22_09-15-20](https://ss1.tupinayun.cn/autoupload/pzwl0/20261119/wPf1/572X371/0c1mag6KBiZ1kWPWqAu4Au.png)
 
-![Snipaste_2026-01-22_09-15-25](https://pic1.imgdb.cn/item/69717a3d1404c8e205f17993.png)
+![Snipaste_2026-01-22_09-15-25](https://ss1.tupinayun.cn/autoupload/pzwl0/20261119/leEy/574X318/3QG2TuZQPMVIJXWjTWUxMv.png)
 
-![Snipaste_2026-01-22_09-15-33](https://pic1.imgdb.cn/item/69717a401404c8e205f17994.png)
+![Snipaste_2026-01-22_09-15-33](https://ss1.tupinayun.cn/autoupload/pzwl0/20261119/LQ3A/558X401/1gDoz1zuO2DsZkFZPJkCyu.png)
 
 
 

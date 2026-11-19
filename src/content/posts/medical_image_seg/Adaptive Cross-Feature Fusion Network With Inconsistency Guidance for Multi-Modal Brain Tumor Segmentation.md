@@ -33,7 +33,7 @@ In the context of contemporary artificial intelligence, increasing deep learning
 
 ## 提出的模型
 
-![Snipaste_2025-07-16_15-13-41](https://pic1.imgdb.cn/i/0343OUAoPTIFhKCO80K4FC.webp)
+![Snipaste_2025-07-16_15-13-41](https://ss1.tupinayun.cn/autoupload/pzwl0/20261119/Z2iv/0X0/0343OUAoPTIFhKCO80K4FC.webp)
 
 ![Snipaste_2025-07-16_15-16-56](https://yangyang666.oss-cn-chengdu.aliyuncs.com/images/Snipaste_2025-07-16_15-16-56.png)
 

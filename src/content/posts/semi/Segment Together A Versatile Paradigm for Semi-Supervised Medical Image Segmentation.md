@@ -23,7 +23,7 @@ The scarcity of annotations has become a significant obstacle in training powerf
 
 ## 研究背景
 
-![Snipaste_2026-01-16_20-01-17](https://pic1.imgdb.cn/i/0343OVyZ6IEWSLftm4F8cE.webp)
+![Snipaste_2026-01-16_20-01-17](https://ss1.tupinayun.cn/autoupload/pzwl0/20261119/9jrI/0X0/0343OVyZ6IEWSLftm4F8cE.webp)
 
 
 
@@ -31,7 +31,7 @@ The scarcity of annotations has become a significant obstacle in training powerf
 
 通用模型虽能处理多任务，但需任务特定提示信息，无法直接利用无任务信息的未标注数据，且存在任务提示弱化现象（模型可能忽略提示而错误识别目标）。因此，本文提出VerSemi框架，旨在通过统一多任务标签空间、动态任务提示设计及合成任务构建，实现跨任务半监督学习，提升模型泛化能力与未标注数据利用率。
 
-![Snipaste_2026-01-16_20-01-54](https://pic1.imgdb.cn/item/696a2868242c448284be4f6c.png)
+![Snipaste_2026-01-16_20-01-54](https://ss1.tupinayun.cn/autoupload/pzwl0/20261119/AAzR/636X426/20X9xqoVoSt7UP5ZFDaW0Q.png)
 
 ## 研究现状
 
@@ -49,21 +49,21 @@ The scarcity of annotations has become a significant obstacle in training powerf
 
 ## 提出的模型
 
-![Snipaste_2026-01-16_20-04-19](https://pic1.imgdb.cn/item/696a28fb242c448284be50f6.png)
+![Snipaste_2026-01-16_20-04-19](https://ss1.tupinayun.cn/autoupload/pzwl0/20261119/uDjh/1246X676/1DBAIX0iRXISoDpAqjXolO.png)
 
 #### **1）动态任务提示头（Dynamic Task-Prompted Head）**
 
 - **设计**：采用动态卷积（Dynamic Convolution）生成任务特定的卷积核，通过任务提示（如独热编码`[Prompt#k]`）自适应处理不同分割任务（如胰腺、左心房、脾脏、肺肿瘤）。
 - **优势**：避免多任务场景下的计算冗余，无需为每个任务设计独立头部，仅通过动态参数生成实现多任务兼容。
 
-![Snipaste_2026-01-16_20-07-45](https://pic1.imgdb.cn/item/696a29c7242c448284be5348.png)
+![Snipaste_2026-01-16_20-07-45](https://ss1.tupinayun.cn/autoupload/pzwl0/20261119/KF2F/613X113/67CJhGz9IjbqTeyJwHcUa5.png)
 
 #### **（2）合成任务（Synthetic Task#5）**
 
 - **构建方法**：基于CutMix策略混合不同任务的有标签数据，生成包含多种前景目标的合成图像及标签
 - **作用**：引导模型学习跨任务的通用前景语义，为无标签数据学习提供统一的前景分割目标。
 
-![Snipaste_2026-01-16_20-08-12](https://pic1.imgdb.cn/item/696a29e7242c448284be539b.png)
+![Snipaste_2026-01-16_20-08-12](https://ss1.tupinayun.cn/autoupload/pzwl0/20261119/Pzc6/521X109/56GLjncjiOyvkNeTlhhys0.png)
 
 
 
@@ -78,19 +78,19 @@ The scarcity of annotations has become a significant obstacle in training powerf
 
 - **动机**：解决任务提示弱化问题（模型可能忽略提示而错误分割目标，如图2）。
 - **实现**：对合成数据（Task#5）施加任务特定的Dice和交叉熵损失，强化任务提示的唯一性：
-  ![Snipaste_2026-01-16_20-09-18](https://pic1.imgdb.cn/item/696a2a24242c448284be5439.png)
+  ![Snipaste_2026-01-16_20-09-18](https://ss1.tupinayun.cn/autoupload/pzwl0/20261119/63cd/613X131/2biQzbXY6ELmA5SnU6JgdG.png)
 
 ## 实验（Compared with SOTA）
 
-![Snipaste_2026-01-16_20-10-12](https://pic1.imgdb.cn/item/696a2a7a242c448284be5525.png)
+![Snipaste_2026-01-16_20-10-12](https://ss1.tupinayun.cn/autoupload/pzwl0/20261119/S3eC/1232X523/5eZvHeCkiPxTA8LhvdLZDM.png)
 
 
 
-![Snipaste_2026-01-16_20-10-21](https://pic1.imgdb.cn/item/696a2a7f242c448284be5535.png)
+![Snipaste_2026-01-16_20-10-21](https://ss1.tupinayun.cn/autoupload/pzwl0/20261119/U7EG/1212X533/1485VqSIov4sXOm7m4oE78.png)
 
-![Snipaste_2026-01-16_20-10-33](https://pic1.imgdb.cn/item/696a2a83242c448284be5541.png)
+![Snipaste_2026-01-16_20-10-33](https://ss1.tupinayun.cn/autoupload/pzwl0/20261119/TOgL/1203X540/0OGGyP9xtOiCN6HHagbFoe.png)
 
-![Snipaste_2026-01-16_20-10-43](https://pic1.imgdb.cn/item/696a2a87242c448284be554c.png)
+![Snipaste_2026-01-16_20-10-43](https://ss1.tupinayun.cn/autoupload/pzwl0/20261119/FpJR/1211X517/2hbeTLVW2UWRt42YznsXrT.png)
 
 
 
@@ -136,7 +136,7 @@ The scarcity of annotations has become a significant obstacle in training powerf
    - **合成任务（Task#5）**：通过CutMix生成混合数据，增强前景区域识别能力，Dice提升**2.1%**。
    - **动态卷积头**：相比多头部架构，参数减少30%，推理速度提升25%。
 
-![Snipaste_2026-01-16_20-13-38](https://pic1.imgdb.cn/item/696a2b28242c448284be56ea.png)
+![Snipaste_2026-01-16_20-13-38](https://ss1.tupinayun.cn/autoupload/pzwl0/20261119/oQ6X/622X359/16SPD6ScxnLcWkgo28IlW2.png)
 
 ## 结论
 

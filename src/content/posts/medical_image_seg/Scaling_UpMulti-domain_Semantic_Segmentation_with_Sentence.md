@@ -4,7 +4,7 @@ published: 2025-03-18 12:00:00
 expires: 2025-08-21 23:59:59
 mathjax: true
 excerpt: "云想衣裳花想容，春风拂槛露华浓"
-cover: "https://pic1.imgdb.cn/i/0343Oc1IVcaZZAx9vnALV9.jpg"
+cover: "https://ss1.tupinayun.cn/autoupload/pzwl0/20261119/2Ste/4000X2328/0343Oc1IVcaZZAx9vnALV9.jpg"
 categories: 多模态语义分割
 tags: [Sentence Embeddings]
 ---
@@ -54,7 +54,7 @@ The **state-of-the-art semantic segmentation methods** have achieved impressive 
 
 
 
-![Snipaste_2025-03-18_09-38-37](https://pic1.imgdb.cn/i/0343OVsVDdq6WhrKffKwRz.webp)
+![Snipaste_2025-03-18_09-38-37](https://ss1.tupinayun.cn/autoupload/pzwl0/20261119/8AGk/0X0/0343OVsVDdq6WhrKffKwRz.webp)
 
 
 

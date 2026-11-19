@@ -67,7 +67,7 @@ Popular semi-supervised medical image segmentation networksoften suffer fromerro
 
 ## 提出的模型
 
-![Snipaste_2025-12-17_19-24-48](https://pic1.imgdb.cn/i/0343OW17bPnt2j3FPwMW0y.webp)
+![Snipaste_2025-12-17_19-24-48](https://ss1.tupinayun.cn/autoupload/pzwl0/20261119/bccf/0X0/0343OW17bPnt2j3FPwMW0y.webp)
 
 
 
@@ -83,7 +83,7 @@ Popular semi-supervised medical image segmentation networksoften suffer fromerro
 
 
 
-![Snipaste_2025-12-17_19-25-10](https://pic1.imgdb.cn/item/69429306cf0d90563b3b0c16.png)
+![Snipaste_2025-12-17_19-25-10](https://ss1.tupinayun.cn/autoupload/pzwl0/20261119/I7GX/1269X696/0qxjKcz7phsnu88g3OEAm5.png)
 
 
 
@@ -123,9 +123,9 @@ Popular semi-supervised medical image segmentation networksoften suffer fromerro
 
 ### 2. 评估指标
 
-![Snipaste_2025-12-17_19-26-17](https://pic1.imgdb.cn/item/69429371cf0d90563b3b0fce.png)
+![Snipaste_2025-12-17_19-26-17](https://ss1.tupinayun.cn/autoupload/pzwl0/20261119/cPtT/598X307/6uL7K84RNHJz0q686YEz3C.png)
 
-![Snipaste_2025-12-17_19-26-23](https://pic1.imgdb.cn/item/69429376cf0d90563b3b1004.png)
+![Snipaste_2025-12-17_19-26-23](https://ss1.tupinayun.cn/autoupload/pzwl0/20261119/j7FV/648X230/1YrIT3mYYsdtTbKxg4FVDU.png)
 
 ### 3、实验设置
 
@@ -147,11 +147,11 @@ Popular semi-supervised medical image segmentation networksoften suffer fromerro
   - **皮肤镜（20%标记数据）**：ASE-Net的DI达87.21%，JA达79.25%，均为最优（表VII）。
   - **3D左心房（10%标记数据）**：ASE-Net的DI达87.83%，较MT提升3.59%（表VIII）。
 
-![Snipaste_2025-12-17_19-29-26](https://pic1.imgdb.cn/item/694293fbcf0d90563b3b1436.png)
+![Snipaste_2025-12-17_19-29-26](https://ss1.tupinayun.cn/autoupload/pzwl0/20261119/lrUG/619X545/6Z2062yskbMBrwLm7PGTC9.png)
 
-![Snipaste_2025-12-17_19-29-31](https://pic1.imgdb.cn/item/694293fbcf0d90563b3b1437.png)
+![Snipaste_2025-12-17_19-29-31](https://ss1.tupinayun.cn/autoupload/pzwl0/20261119/yFyI/673X559/013Ml8CGob2dDicaxOsC0K.png)
 
-![Snipaste_2025-12-17_19-29-38](https://pic1.imgdb.cn/item/694293fbcf0d90563b3b1439.png)
+![Snipaste_2025-12-17_19-29-38](https://ss1.tupinayun.cn/autoupload/pzwl0/20261119/oCry/1304X612/0XYv9AlB8nmfXcxbq65WVo.png)
 
 ## 实验（Ablation Experiments）​​
 
@@ -162,9 +162,9 @@ Popular semi-supervised medical image segmentation networksoften suffer fromerro
   - 替换标准卷积以动态调整核参数，减少过拟合。
   - 在皮肤镜数据集上，DyBAC使DI提升0.97%，并降低验证集损失波动（见图4）。
 
-![Snipaste_2025-12-17_19-28-10](https://pic1.imgdb.cn/item/694293a6cf0d90563b3b1197.png)
+![Snipaste_2025-12-17_19-28-10](https://ss1.tupinayun.cn/autoupload/pzwl0/20261119/wLhG/659X395/5lMtOx6nLnxTaCdFpULBsf.png)
 
-![Snipaste_2025-12-17_19-28-14](https://pic1.imgdb.cn/item/694293a6cf0d90563b3b1196.png)
+![Snipaste_2025-12-17_19-28-14](https://ss1.tupinayun.cn/autoupload/pzwl0/20261119/5ixO/653X380/5pZpH8TLJ2k32X3Zm7pxzJ.png)
 
 
 
@@ -175,11 +175,11 @@ Popular semi-supervised medical image segmentation networksoften suffer fromerro
 - **统计显著性**：
   - 配对t检验显示，ASE-Net与MT在LiTS和皮肤镜数据集上的Dice差异具有统计学意义（p<0.05，表XI）。
 
-![Snipaste_2025-12-17_19-30-29](https://pic1.imgdb.cn/item/69429431cf0d90563b3b1614.png)
+![Snipaste_2025-12-17_19-30-29](https://ss1.tupinayun.cn/autoupload/pzwl0/20261119/IL6V/662X352/2BmbjdfNU4VEbroRAX03UK.png)
 
 
 
-![Snipaste_2025-12-17_19-30-34](https://pic1.imgdb.cn/item/69429434cf0d90563b3b1626.png)
+![Snipaste_2025-12-17_19-30-34](https://ss1.tupinayun.cn/autoupload/pzwl0/20261119/eGsn/615X382/40RG2wdvomQHJdlJKLhJ57.png)
 
 ## 结论
 

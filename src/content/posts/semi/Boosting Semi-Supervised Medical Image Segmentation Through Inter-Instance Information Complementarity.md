@@ -27,7 +27,7 @@ The acquisition of expert-annotated data remains a critical bottleneck for medic
 
 医学图像分割在精准医疗中至关重要，但高质量标注数据的稀缺严重限制了深度学习模型的临床应用。尽管标注数据有限，人类解剖结构在群体中的内在同质性为利用实例间解剖互补性提升模型泛化能力和训练效率提供了基础。现有半监督分割方法（如伪标签和均值教师框架）虽有进展，但存在不足：一是现有复制粘贴策略局限于有标签-无标签数据交互，未充分利用实例间互补信息；二是缺乏对区域级不确定性的考量，影响半监督分割的语义一致性。因此，如何充分挖掘实例间信息互补性以提升半监督医学图像分割性能，成为本文研究的核心问题。
 
-![Snipaste_2026-01-29_14-26-51](https://pic1.imgdb.cn/i/0343OULe99KiBm67pqdRQn.webp)
+![Snipaste_2026-01-29_14-26-51](https://ss1.tupinayun.cn/autoupload/pzwl0/20261119/Ob3o/0X0/0343OULe99KiBm67pqdRQn.webp)
 
 ## 研究现状
 
@@ -37,7 +37,7 @@ The acquisition of expert-annotated data remains a critical bottleneck for medic
 
 ## 提出的模型
 
-![Snipaste_2026-01-29_14-30-27](https://pic1.imgdb.cn/item/697afe87681ba7926cd932be.png)
+![Snipaste_2026-01-29_14-30-27](https://ss1.tupinayun.cn/autoupload/pzwl0/20261119/5DgY/1126X831/36Jxpn4r959RAKrvsxnHWi.png)
 
 ### **1. 模型核心设计**
 
@@ -66,7 +66,7 @@ The acquisition of expert-annotated data remains a critical bottleneck for medic
   3. 损失函数分为标记区域损失（交叉熵+Dice损失）和未标记区域损失（伪标签监督）；
   4. TRCM通过校准未标记区域的训练掩码，优化未标记数据的学习信号。
 
-![Snipaste_2026-01-29_14-31-56](https://pic1.imgdb.cn/item/697afedf681ba7926cd932c1.png)
+![Snipaste_2026-01-29_14-31-56](https://ss1.tupinayun.cn/autoupload/pzwl0/20261119/yBAA/609X306/5OZtQYchRctPWScDSocc2w.png)
 
 ## 实验（Compared with SOTA）
 
@@ -101,9 +101,9 @@ The acquisition of expert-annotated data remains a critical bottleneck for medic
 - **BraTS2019数据集**（10%标记数据）：Our-All的Dice（85.48%）和Jaccard（76.21%）超越BCP和MLRP，尤其对肿瘤亚区域分割精度提升明显。
 - **Pancreas-NIH数据集**（20%标记数据）：CPAM单独使用已显著提升性能（Dice=78.3%），TRCM因伪标签质量较高增益有限，但整体仍优于对比方法。
 
-![Snipaste_2026-01-29_14-34-37](https://pic1.imgdb.cn/item/697aff89681ba7926cd932e3.png)
+![Snipaste_2026-01-29_14-34-37](https://ss1.tupinayun.cn/autoupload/pzwl0/20261119/gYnf/601X574/7bktnb8jrcZwEWr48crw7D.png)
 
-![Snipaste_2026-01-29_14-34-45](https://pic1.imgdb.cn/item/697aff8c681ba7926cd932e4.png)
+![Snipaste_2026-01-29_14-34-45](https://ss1.tupinayun.cn/autoupload/pzwl0/20261119/cZQ4/602X750/0oV5vSBaiuY4si6wnziGwJ.png)
 
 
 
@@ -115,11 +115,11 @@ The acquisition of expert-annotated data remains a critical bottleneck for medic
 - **TRCM的作用**：在标记数据稀缺时（如LA的5%标记），TRCM通过校准高置信区域，使Dice提升1.8%；标记数据充足时（如Pancreas的20%标记），增益减弱。
 - **参数γ**：γ=0.5时平衡标记与未标记数据损失，性能最优。
 
-![Snipaste_2026-01-29_14-35-14](https://pic1.imgdb.cn/item/697affb5681ba7926cd932e5.png)
+![Snipaste_2026-01-29_14-35-14](https://ss1.tupinayun.cn/autoupload/pzwl0/20261119/vfkf/619X417/2s9twZBYKiqcX73HnQo79A.png)
 
-![Snipaste_2026-01-29_14-35-23](https://pic1.imgdb.cn/item/697affb8681ba7926cd932e6.png)
+![Snipaste_2026-01-29_14-35-23](https://ss1.tupinayun.cn/autoupload/pzwl0/20261119/3QTC/608X320/1GQG4ZjrAd2egL84bXeXNe.png)
 
-![Snipaste_2026-01-29_14-35-29](https://pic1.imgdb.cn/item/697affba681ba7926cd932e7.png)
+![Snipaste_2026-01-29_14-35-29](https://ss1.tupinayun.cn/autoupload/pzwl0/20261119/C6Ak/601X339/2nxXKZRQCy3GYqVVJaozJ8.png)
 
 
 

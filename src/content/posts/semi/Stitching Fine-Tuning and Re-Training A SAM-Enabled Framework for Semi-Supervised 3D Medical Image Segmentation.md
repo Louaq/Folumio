@@ -34,7 +34,7 @@ Segment Anything Model（SAM）的微调在全监督模式下在医学图像分�
 
 为此，本文提出SFR框架，通过切片拼接（Stitching）、基础模型微调（Fine-tuning）和半监督重训练（Re-training）三阶段，在减少标注成本的同时保持高性能，解决上述有效性、效率与兼容性问题。
 
-![Snipaste_2025-12-16_14-54-19](https://pic1.imgdb.cn/i/0343OW4aXkgiyTlqdwVUaL.webp)
+![Snipaste_2025-12-16_14-54-19](https://ss1.tupinayun.cn/autoupload/pzwl0/20261119/SRwx/0X0/0343OW4aXkgiyTlqdwVUaL.webp)
 
 ## 研究现状
 
@@ -44,7 +44,7 @@ Segment Anything Model（SAM）的微调在全监督模式下在医学图像分�
 
 ## 提出的模型
 
-![Snipaste_2025-12-16_14-57-31](https://pic1.imgdb.cn/item/694102b30dd29e7e2245e88f.png)
+![Snipaste_2025-12-16_14-57-31](https://ss1.tupinayun.cn/autoupload/pzwl0/20261119/Q95M/1270X507/4LMyIb9uctAHKsNJPQ0zEw.png)
 
 #### 1. **拼接模块（Stitching Module）**
 
@@ -52,7 +52,7 @@ Segment Anything Model（SAM）的微调在全监督模式下在医学图像分�
 - **方法**：将3D医学图像的切片按`d×d`网格（`d=⌈√D⌉`，D为切片总数）拼接成2D图像（1024×1024），使输入分辨率匹配SAM的预训练需求。若切片数不足，用零填充补全网格。
 - **优势**：相比传统的切片缩放（如直接上采样或降采样），拼接策略能同时保留多切片上下文信息和单个切片的细节，缓解领域差异。
 
-![Snipaste_2025-12-16_14-59-43](https://pic1.imgdb.cn/item/6941033c0dd29e7e2245ece6.png)
+![Snipaste_2025-12-16_14-59-43](https://ss1.tupinayun.cn/autoupload/pzwl0/20261119/UGD1/782X599/2E83BlYwTUqeUCddPf4Iyb.png)
 
 #### 2. **微调模块（Fine-Tuning Module）**
 
@@ -62,7 +62,7 @@ Segment Anything Model（SAM）的微调在全监督模式下在医学图像分�
   - 微调损失函数为Dice损失与交叉熵损失的加权平均
 - **输出**：通过SAM对未标注数据生成伪标签，并通过逆拼接转换为3D体积。
 
-![Snipaste_2025-12-16_15-00-59](https://pic1.imgdb.cn/item/694103830dd29e7e22460ebc.png)
+![Snipaste_2025-12-16_15-00-59](https://ss1.tupinayun.cn/autoupload/pzwl0/20261119/g1od/784X529/1DzBjF4MNDvIhs9XPl3Lp6.png)
 
 #### 3. **重训练模块（Re-Training Module）**
 
@@ -81,7 +81,7 @@ Segment Anything Model（SAM）的微调在全监督模式下在医学图像分�
      - 低置信样本：用于重训练模块，通过伪标签引导模型学习。
 - **效果**：缓解伪标签误差传播，进一步提升分割精度。
 
-![Snipaste_2025-12-16_15-01-57](https://pic1.imgdb.cn/item/694103c20dd29e7e224610c0.png)
+![Snipaste_2025-12-16_15-01-57](https://ss1.tupinayun.cn/autoupload/pzwl0/20261119/ha55/780X350/4skiA8uStjws5FDsdidMcw.png)
 
 ## 实验（Compared with SOTA）
 
@@ -119,7 +119,7 @@ Segment Anything Model（SAM）的微调在全监督模式下在医学图像分�
   - BTCV数据集：SFR+MagicNet平均Dice提升13.57%，尤其主动脉区域提升近30%（表IV）。
   - AbdomenCT-1K数据集：20%标注下，SFRMT平均Dice达88.73%，较基线提升13.57%（表III）。
 
-![Snipaste_2025-12-16_15-08-16](https://pic1.imgdb.cn/item/6941054d0dd29e7e22461dfb.png)
+![Snipaste_2025-12-16_15-08-16](https://ss1.tupinayun.cn/autoupload/pzwl0/20261119/3WVU/512X393/6XBdaXkfWVY7L0yhtF2V95.png)
 
 #### 3. **稀缺标注量实验（1-2例标注数据）**
 
@@ -130,7 +130,7 @@ Segment Anything Model（SAM）的微调在全监督模式下在医学图像分�
   - MACT数据集：SFR使Mean Teacher在脾脏区域Dice提升37.33%，右肾提升34.53%（表XI）。
   - BTCV数据集：SFR+MagicNet在1例标注下平均Dice达66.16%，较基线提升10.13%（表X）。
 
-![Snipaste_2025-12-16_15-08-37](https://pic1.imgdb.cn/item/694105570dd29e7e22461e52.png)
+![Snipaste_2025-12-16_15-08-37](https://ss1.tupinayun.cn/autoupload/pzwl0/20261119/sn2J/535X193/4BbFqcI5D7P6gOV3Lelxh1.png)
 
 #### 4. **SFR+框架增强实验**
 

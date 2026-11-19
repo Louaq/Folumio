@@ -26,7 +26,7 @@ Semi-supervised medical image segmentation (SSMIS) leverages unlabeled data to r
 
 ## 研究背景
 
-![Snipaste_2026-01-26_19-48-09](https://pic1.imgdb.cn/i/0343OUI2idWqOgHwBwheSU.webp)
+![Snipaste_2026-01-26_19-48-09](https://ss1.tupinayun.cn/autoupload/pzwl0/20261119/G4MW/0X0/0343OUI2idWqOgHwBwheSU.webp)
 
 半监督医学图像分割（SSMIS）旨在利用有限标注数据和大量无标注数据降低标注成本，但现有方法存在显著局限：主流模型过度聚焦**前景区域建模**，普遍忽视**背景区域**的潜在价值，甚至将背景视为干扰因素。研究发现，在某些区域（如前景与背景边界），背景建模预测置信度反而高于前景建模，这种高确定性背景预测可有效提升对应前景区域的分割置信度。传统方法因仅依赖前景建模，常导致边界区域预测不确定性高，伪标签可靠性降低。针对这一问题，本文提出通过显式建模背景区域，构建前景与背景的双向一致性约束，以增强前景分割性能，为解决SSMIS中低标注数据下的分割精度问题提供新思路。
 
@@ -46,7 +46,7 @@ Semi-supervised medical image segmentation (SSMIS) leverages unlabeled data to r
 
 ## 提出的模型
 
-![Snipaste_2026-01-26_19-50-12](https://pic1.imgdb.cn/item/697754fd9c48e6126bda26f1.png)
+![Snipaste_2026-01-26_19-50-12](https://ss1.tupinayun.cn/autoupload/pzwl0/20261119/NGLw/818X520/037PAsS5jbvPS8urZtgWM1.png)
 
 
 
@@ -54,11 +54,11 @@ Semi-supervised medical image segmentation (SSMIS) leverages unlabeled data to r
 
 现有半监督分割方法多聚焦于**前景区域建模**，忽视了背景区域的潜在价值。本文通过理论和实证分析表明：**背景区域的高置信度预测能增强对应前景区域的建模信心**。例如，在器官边缘等模糊区域，背景模型往往比前景模型具有更高的预测确定性，可辅助修正前景分割的不确定性。
 
-![Snipaste_2026-01-26_19-50-51](https://pic1.imgdb.cn/item/6977553b9c48e6126bda272c.png)
+![Snipaste_2026-01-26_19-50-51](https://ss1.tupinayun.cn/autoupload/pzwl0/20261119/wxnn/1334X353/0Ipv8Bhu55S6a5rkUBYQFO.png)
 
 
 
-![Snipaste_2026-01-26_19-51-07](https://pic1.imgdb.cn/item/6977553e9c48e6126bda2730.png)
+![Snipaste_2026-01-26_19-51-07](https://ss1.tupinayun.cn/autoupload/pzwl0/20261119/WxkB/1074X495/5uHIN7NSx3g3gt9E35EtOz.png)
 
 ### **2. 模型架构**
 
@@ -72,7 +72,7 @@ CVBM 框架通过**跨视角双向建模**整合前景与背景信息，具体�
   - **教师模型**：使用少量标记数据预训练，生成高质量前景/背景伪标签。
   - **学生模型**：结合标记数据和伪标签训练，通过双向一致性优化提升分割性能。
 
-![Snipaste_2026-01-26_19-52-55](https://pic1.imgdb.cn/item/697755a99c48e6126bda2795.png)
+![Snipaste_2026-01-26_19-52-55](https://ss1.tupinayun.cn/autoupload/pzwl0/20261119/3uxu/693X423/3IF08jaeNTxNTMktHw8UyU.png)
 
 ### **3. 双向一致性优化机制**
 
@@ -98,11 +98,11 @@ CVBM 框架通过**跨视角双向建模**整合前景与背景信息，具体�
    - **ACDC数据集**：3/67标签设置下，DSC达89.98%，优于BCP（87.59%）和SS-Net（65.83%），且在95HD和ASD指标上超越全监督模型。
    - **HRF数据集**：1/26标签设置下，95HD较BCP降低3.26，小血管分割精度显著提升。
 
-![Snipaste_2026-01-26_19-54-51](https://pic1.imgdb.cn/item/697756109c48e6126bda27c6.png)
+![Snipaste_2026-01-26_19-54-51](https://ss1.tupinayun.cn/autoupload/pzwl0/20261119/wdx0/1211X673/7AJaSgeEa1UY0VFMckEDVL.png)
 
-![Snipaste_2026-01-26_19-55-08](https://pic1.imgdb.cn/item/6977562d9c48e6126bda27c9.png)
+![Snipaste_2026-01-26_19-55-08](https://ss1.tupinayun.cn/autoupload/pzwl0/20261119/zOxZ/1199X648/00axhF5uMMS52BGUZXq8Qv.png)
 
-![Snipaste_2026-01-26_19-55-19](https://pic1.imgdb.cn/item/697756319c48e6126bda27ca.png)
+![Snipaste_2026-01-26_19-55-19](https://ss1.tupinayun.cn/autoupload/pzwl0/20261119/rw8e/1196X653/5ly9z7VvHhFckub1vln2lg.png)
 
 ## 实验（Ablation Experiments）​​
 
@@ -115,7 +115,7 @@ CVBM 框架通过**跨视角双向建模**整合前景与背景信息，具体�
    - **标签比例影响**：低标签比例（10%）下性能提升最显著（DSC+0.62%），高标签比例（60%-100%）性能趋于稳定。
    - **超参数敏感性**：权重因子α=0.5时模型性能最优，平衡标注与未标注数据的贡献。
 
-![Snipaste_2026-01-26_19-59-16](https://pic1.imgdb.cn/item/697757189c48e6126bda4ab7.png)
+![Snipaste_2026-01-26_19-59-16](https://ss1.tupinayun.cn/autoupload/pzwl0/20261119/LTSF/534X354/7DTpgg47guQDIQOsDLGsOM.png)
 
 ## 结论
 

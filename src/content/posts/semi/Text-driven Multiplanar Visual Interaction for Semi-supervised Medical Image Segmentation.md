@@ -31,7 +31,7 @@ Semi-supervised medical image segmentation plays a critical method in mitigating
 
 ## 提出的模型
 
-![Snipaste_2025-12-15_15-38-05](https://pic1.imgdb.cn/i/0343OW71jmJzlPMzdx2VDV.webp)
+![Snipaste_2025-12-15_15-38-05](https://ss1.tupinayun.cn/autoupload/pzwl0/20261119/Bj1j/0X0/0343OW71jmJzlPMzdx2VDV.webp)
 
 
 
@@ -70,13 +70,13 @@ Semi-supervised medical image segmentation plays a critical method in mitigating
 - **BraTS-2019数据集**：10%标记数据时，Dice系数达85.27%，较第二名MLRP（84.29%）提升0.98%；20%标记数据时达86.69%。
 - **MSD-Lung数据集**：20%标记数据时，Dice系数达65.02%，较第二名MLRP（62.12%）提升2.9%；40%标记数据时达68.21%。
 
-![Snipaste_2025-12-15_15-43-25](https://pic1.imgdb.cn/item/693fbbfa4a4e4213d006698a.png)
+![Snipaste_2025-12-15_15-43-25](https://ss1.tupinayun.cn/autoupload/pzwl0/20261119/c9Bd/797X880/54bhk82E5z3Kz6SFjczx53.png)
 
 
 
 ## 实验（Ablation Experiments）​​
 
-![Snipaste_2025-12-15_15-43-55](https://pic1.imgdb.cn/item/693fbc164a4e4213d00669ba.png)
+![Snipaste_2025-12-15_15-43-55](https://ss1.tupinayun.cn/autoupload/pzwl0/20261119/ukHQ/782X687/2sPzHbQMSN79tGtshOwCOX.png)
 
 
 

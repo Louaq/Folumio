@@ -31,7 +31,7 @@ Because of the tumor with infiltrative growth, the **glioma boundary is usually 
 - **多模态 MRI 应用广泛**：多模态 MRI 图像能从多角度保留脑疾病结构特征，在脑肿瘤检测中发挥重要作用，如 FLAIR、T1、T2 和 T1c 图像各具优势，为脑肿瘤检测和诊断提供了丰富信息。
 - **深度学习模型不断改进**：传统深度学习模型在脑肿瘤分割领域取得显著进展，如 CNN、FCN、Unet、DenseNet 和 FPN 等网络模型。这些模型在提取肿瘤特征和分割肿瘤方面各有特点，但也存在一些不足。
 
-![Snipaste_2025-07-20_11-07-51](https://pic1.imgdb.cn/i/0343OUMqEMVAr1ImHzqryu.webp)
+![Snipaste_2025-07-20_11-07-51](https://ss1.tupinayun.cn/autoupload/pzwl0/20261119/ZECK/0X0/0343OUMqEMVAr1ImHzqryu.webp)
 
 ## 提出的模型
 

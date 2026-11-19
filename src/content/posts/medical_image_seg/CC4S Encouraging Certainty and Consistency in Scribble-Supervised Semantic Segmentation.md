@@ -4,7 +4,7 @@ published: 2025-03-20 12:00:00
 expires: 2025-08-21 23:59:59
 mathjax: true
 excerpt: "云想衣裳花想容，春风拂槛露华浓"
-cover: "https://pic1.imgdb.cn/i/0343Oc1IVcaZZAx9vnALV9.jpg"
+cover: "https://ss1.tupinayun.cn/autoupload/pzwl0/20261119/2Ste/4000X2328/0343Oc1IVcaZZAx9vnALV9.jpg"
 categories: 涂鸦监督语义分割
 tags: [Scribble-Supervised Semantic Segmentation, CC4S]
 ---
@@ -35,7 +35,7 @@ achieves comparable performance to those from fully supervised methods and shows
 - **弱监督方法兴起**：为缓解数据标注压力，多种弱监督标注策略应运而生，如**图像级监督、边界框监督、点监督和涂鸦监督**等。其中，涂鸦监督因**标注方式友好**且能提供有效监督信息，受到越来越多关注。
 - **涂鸦监督现存问题**：尽管涂鸦监督语义分割取得了一定进展，但仍存在预测结果不确定和不一致的问题。标注稀疏会导致预测结果不确定，而标注的多样性会使网络难以学习到稳定一致的分割模式，从而产生不一致的预测结果。 基于以上背景，作者提出了CC4S方法，以提高涂鸦监督语义分割的确定性和一致性，减少标注稀疏和多样性带来的影响。 
 
-![Snipaste_2025-03-20_16-12-13](https://pic1.imgdb.cn/i/0343OUXXa9BR1q1i9O3zkH.webp)
+![Snipaste_2025-03-20_16-12-13](https://ss1.tupinayun.cn/autoupload/pzwl0/20261119/vIYa/0X0/0343OUXXa9BR1q1i9O3zkH.webp)
 
 ## 研究现状
 

@@ -46,7 +46,7 @@ strategy. To reduce the negative impact of modality differences on cross-modal f
 
 ## 提出的模型
 
-![Snipaste_2025-06-28_19-58-20](https://pic1.imgdb.cn/i/0343OUSlExHYuKaeNuaIWT.webp)
+![Snipaste_2025-06-28_19-58-20](https://ss1.tupinayun.cn/autoupload/pzwl0/20261119/Ic1Y/0X0/0343OUSlExHYuKaeNuaIWT.webp)
 
 1. 无模态差异特征表示（Modality Discrepancy - Free Feature Representation，MDF - FR）：
    - **特征提取**：利用由Restormer和Transformer层组成的网络作为编码器，从输入的未对齐图像对中提取特征。输入图像经第一个Restormer层输出的浅层特征包含图像的底层细节，直接送入多模态特征融合层以保留融合结果中的边缘细节；经第二个Restormer层输出的特征再经过两个Transformer层，得到用于消除模态差异和预测变形场的特征。

@@ -3,7 +3,7 @@ import type { WatchlistItem } from "./types";
 export const animeItems: WatchlistItem[] = [
 	{
 		title: "仙逆",
-		cover: "https://pic1.imgdb.cn/item/694fc15e161224305eb307dc.webp",
+		cover: "https://ss1.tupinayun.cn/autoupload/pzwl0/20261119/OZPn/0X0/236rOCbFjyopEXftSzj25c.webp",
 		type: "anime",
 		status: "watching",
 		rating: 8.9,
@@ -13,7 +13,7 @@ export const animeItems: WatchlistItem[] = [
 	},
 	{
 		title: "吞噬星空 第5季",
-		cover: "https://pic1.imgdb.cn/item/694fc2a9161224305eb307e5.webp",
+		cover: "https://ss1.tupinayun.cn/autoupload/pzwl0/20261119/Sz8n/0X0/0DGuKhxAHWKfTx2igqgSvX.webp",
 		type: "anime",
 		status: "watching",
 		rating: 7.4,
@@ -23,7 +23,7 @@ export const animeItems: WatchlistItem[] = [
 	},
 	{
 		title: "遮天 年番3",
-		cover: "https://pic1.imgdb.cn/item/694fc435161224305eb307fc.webp",
+		cover: "https://ss1.tupinayun.cn/autoupload/pzwl0/20261119/pZP9/0X0/4ctG448mdQ3nWXgVtbg3nQ.webp",
 		type: "anime",
 		status: "watching",
 		rating: 0.0,
@@ -33,7 +33,7 @@ export const animeItems: WatchlistItem[] = [
 	},
 	{
 		title: "师兄啊师兄 年番2",
-		cover: "https://pic1.imgdb.cn/item/694fc4eb161224305eb30805.webp",
+		cover: "https://ss1.tupinayun.cn/autoupload/pzwl0/20261119/SWoP/0X0/52qd1tUcRFHLabEck3SGBs.webp",
 		type: "anime",
 		status: "watching",
 		rating: 0.0,
@@ -43,7 +43,7 @@ export const animeItems: WatchlistItem[] = [
 	},
 	{
 		title: "完美世界",
-		cover: "https://pic1.imgdb.cn/item/694fc690161224305eb30816.webp",
+		cover: "https://ss1.tupinayun.cn/autoupload/pzwl0/20261119/S52P/0X0/2eFyMb5eziG778caemsSva.webp",
 		type: "anime",
 		status: "watching",
 		rating: 7.9,
@@ -53,7 +53,7 @@ export const animeItems: WatchlistItem[] = [
 	},
 	{
 		title: "永生之太元仙府",
-		cover: "https://pic1.imgdb.cn/item/694fc768161224305eb3081e.webp",
+		cover: "https://ss1.tupinayun.cn/autoupload/pzwl0/20261119/Hobt/0X0/0zTWJUrquPEeu6RFr9oaDY.webp",
 		type: "anime",
 		status: "completed",
 		rating: 0.0,
@@ -63,7 +63,7 @@ export const animeItems: WatchlistItem[] = [
 	},
 	{
 		title: "凡人修仙传：外海风云",
-		cover: "https://pic1.imgdb.cn/i/034AJLyUzH4aZK1HNsRoIt.webp",
+		cover: "https://ss1.tupinayun.cn/autoupload/pzwl0/20261119/6v2A/0X0/034AJLyUzH4aZK1HNsRoIt.webp",
 		type: "anime",
 		status: "completed",
 		rating: 9.4,
@@ -74,7 +74,7 @@ export const animeItems: WatchlistItem[] = [
 	},
 	{
 		title: "凡人修仙传：重返天南",
-		cover: "https://pic1.imgdb.cn/item/694fc810161224305eb30829.webp",
+		cover: "https://ss1.tupinayun.cn/autoupload/pzwl0/20261119/EyIb/0X0/76vdb8uNtF3nyXAp13Fnku.webp",
 		type: "anime",
 		status: "completed",
 		rating: 9.6,
@@ -85,7 +85,7 @@ export const animeItems: WatchlistItem[] = [
 	},
 	{
 		title: "牧神记",
-		cover: "https://pic1.imgdb.cn/item/694fc8c3161224305eb30835.webp",
+		cover: "https://ss1.tupinayun.cn/autoupload/pzwl0/20261119/RxU0/0X0/6HvOh0qrzL4v72DB59ti2s.webp",
 		type: "anime",
 		status: "watching",
 		rating: 8.8,
@@ -95,7 +95,7 @@ export const animeItems: WatchlistItem[] = [
 	},
 	{
 		title: "剑来 第二季",
-		cover: "https://pic1.imgdb.cn/item/6950a083161224305eb3120e.webp",
+		cover: "https://ss1.tupinayun.cn/autoupload/pzwl0/20261119/y75x/0X0/3WGWZHIsZt7UG9pJKpPVFn.webp",
 		type: "anime",
 		status: "completed",
 		rating: 8.4,
@@ -105,7 +105,7 @@ export const animeItems: WatchlistItem[] = [
 	},
 	{
 		title: "沧元图2",
-		cover: "https://pic1.imgdb.cn/item/69509e22161224305eb311fb.webp",
+		cover: "https://ss1.tupinayun.cn/autoupload/pzwl0/20261119/8mtq/0X0/2yny4br3730Cn684ZAUhfb.webp",
 		type: "anime",
 		status: "completed",
 		rating: 8.3,
@@ -115,7 +115,7 @@ export const animeItems: WatchlistItem[] = [
 	},
 	{
 		title: "沧元图2 元初山番外篇",
-		cover: "https://pic1.imgdb.cn/item/69509e82161224305eb31201.webp",
+		cover: "https://ss1.tupinayun.cn/autoupload/pzwl0/20261119/y2EH/0X0/7alrsdYJjYyUxyua0uMT1x.webp",
 		type: "anime",
 		status: "completed",
 		rating: 8.1,
@@ -125,7 +125,7 @@ export const animeItems: WatchlistItem[] = [
 	},
 	{
 		title: "大道朝天",
-		cover: "https://pic1.imgdb.cn/item/69509f3e161224305eb31207.webp",
+		cover: "https://ss1.tupinayun.cn/autoupload/pzwl0/20261119/z6Z1/0X0/2f5eiSToXJGwTKcBP4QYo5.webp",
 		type: "anime",
 		status: "completed",
 		rating: 8.1,
@@ -135,7 +135,7 @@ export const animeItems: WatchlistItem[] = [
 	},
 	{
 		title: "雾山五行·犀川幻紫林",
-		cover: "https://pic1.imgdb.cn/item/69509fcc161224305eb31209.webp",
+		cover: "https://ss1.tupinayun.cn/autoupload/pzwl0/20261119/7r5J/0X0/3UVcfUDvdu350vvlA8jE7E.webp",
 		type: "anime",
 		status: "completed",
 		rating: 9.2,
@@ -146,7 +146,7 @@ export const animeItems: WatchlistItem[] = [
 	},
 	{
 		title: "紫川 第二季",
-		cover: "https://pic1.imgdb.cn/item/69511be1a0c391c56de5e537.webp",
+		cover: "https://ss1.tupinayun.cn/autoupload/pzwl0/20261119/SV0F/0X0/3sBJWVuAHeZkYV65PIyZD9.webp",
 		type: "anime",
 		status: "completed",
 		rating: 0.0,
@@ -156,7 +156,7 @@ export const animeItems: WatchlistItem[] = [
 	},
 	{
 		title: "武动乾坤 第六季",
-		cover: "https://pic1.imgdb.cn/item/69511d3ca0c391c56de5e574.webp",
+		cover: "https://ss1.tupinayun.cn/autoupload/pzwl0/20261119/oLHP/0X0/5iW2fXwsH8JfMgzfcLNKYR.webp",
 		type: "anime",
 		status: "completed",
 		rating: 0.0,
@@ -167,7 +167,7 @@ export const animeItems: WatchlistItem[] = [
 
 	{
 		title: "大主宰 年番2",
-		cover: "https://pic1.imgdb.cn/item/6961dc0d7488ce4061905c9e.webp",
+		cover: "https://ss1.tupinayun.cn/autoupload/pzwl0/20261119/mhFe/0X0/5LvZrF2t0lmKLG6xHUjcxg.webp",
 		type: "anime",
 		status: "watching",
 		rating: 0.0,
@@ -177,7 +177,7 @@ export const animeItems: WatchlistItem[] = [
 	},
 	{
 		title: "光阴之外",
-		cover: "https://pic1.imgdb.cn/item/6981d74e67f4587158b80773.webp",
+		cover: "https://ss1.tupinayun.cn/autoupload/pzwl0/20261119/l8Dj/0X0/32UOojcf2VEMNRiulQMexE.webp",
 		type: "anime",
 		status: "watching",
 		rating: 7.9,
@@ -187,7 +187,7 @@ export const animeItems: WatchlistItem[] = [
 	},
 	{
 		title: "深空彼岸",
-		cover: "https://pic1.imgdb.cn/item/6981d7c567f4587158b80805.webp",
+		cover: "https://ss1.tupinayun.cn/autoupload/pzwl0/20261119/z0Xg/0X0/779pn7aMnUs7SYLkhGnGj6.webp",
 		type: "anime",
 		status: "completed",
 		rating: 0.0,
@@ -197,7 +197,7 @@ export const animeItems: WatchlistItem[] = [
 	},
 	{
 		title: "神墓 年番 (2025)",
-		cover: "https://pic1.imgdb.cn/item/695108c5a0c391c56de5e331.webp",
+		cover: "https://ss1.tupinayun.cn/autoupload/pzwl0/20261119/bb3U/0X0/5RBEi2s6ZPPOMXOumsclSq.webp",
 		type: "anime",
 		status: "completed",
 		rating: 0.0,
@@ -207,7 +207,7 @@ export const animeItems: WatchlistItem[] = [
 	},
 	{
 		title: "沧元图 前传：东宁府的夏天",
-		cover: "https://pic1.imgdb.cn/item/69ce61ce38e406efb4374d50.webp",
+		cover: "https://ss1.tupinayun.cn/autoupload/pzwl0/20261119/WSwo/0X0/0I1IcDGnJQ4bCXRZ3hO8l7.webp",
 		type: "anime",
 		status: "completed",
 		rating: 0.0,
@@ -217,7 +217,7 @@ export const animeItems: WatchlistItem[] = [
 	},
 	{
 		title: "沧元图3",
-		cover: "https://pic1.imgdb.cn/item/69ce625d38e406efb4374d59.webp",
+		cover: "https://ss1.tupinayun.cn/autoupload/pzwl0/20261119/qrdK/0X0/0cmVxuHWMzXrKA3fIBdbxh.webp",
 		type: "anime",
 		status: "watching",
 		rating: 0.0,
@@ -227,7 +227,7 @@ export const animeItems: WatchlistItem[] = [
 	},
 	{
 		title: "遮天剧场版 背棺战王腾",
-		cover: "https://pic1.imgdb.cn/item/69d31810441d1611011352c8.webp",
+		cover: "https://ss1.tupinayun.cn/autoupload/pzwl0/20261119/mFtw/0X0/2JTaQteQYcWs7Y6DxsiGNi.webp",
 		type: "anime",
 		status: "completed",
 		rating: 0.0,
@@ -237,7 +237,7 @@ export const animeItems: WatchlistItem[] = [
 	},
 	{
 		title: "凡人修仙传 年番4",
-		cover: "https://pic1.imgdb.cn/i/034xGGVyz0tgYxxmuUZmdu.webp",
+		cover: "https://ss1.tupinayun.cn/autoupload/pzwl0/20261119/2v9M/0X0/034xGGVyz0tgYxxmuUZmdu.webp",
 		type: "anime",
 		status: "watching",
 		rating: 0.0,
@@ -248,7 +248,7 @@ export const animeItems: WatchlistItem[] = [
 	},
 	{
 		title: "逆天邪神 年番",
-		cover: "https://pic1.imgdb.cn/item/6a0ef08b2cb0eba86fb3549f.webp",
+		cover: "https://ss1.tupinayun.cn/autoupload/pzwl0/20261119/Off5/0X0/2LSntqmak14RxZKDNHJfGM.webp",
 		type: "anime",
 		status: "watching",
 		rating: 0.0,
@@ -258,7 +258,7 @@ export const animeItems: WatchlistItem[] = [
 	},
 	{
 		title: "将夜",
-		cover: "https://pic1.imgdb.cn/item/6a0fc4b7aea0248f527eb739.webp",
+		cover: "https://ss1.tupinayun.cn/autoupload/pzwl0/20261119/2cFH/0X0/77Zww4mE5f9GLiif0twGL3.webp",
 		type: "anime",
 		status: "watching",
 		rating: 0.0,
@@ -268,7 +268,7 @@ export const animeItems: WatchlistItem[] = [
 	},
 	{
 		title: "一念永恒 完结季",
-		cover: "https://pic1.imgdb.cn/i/033yyRtPrYbHZXTpunchzq.webp",
+		cover: "https://ss1.tupinayun.cn/autoupload/pzwl0/20261119/klin/0X0/033yyRtPrYbHZXTpunchzq.webp",
 		type: "anime",
 		status: "watching",
 		rating: 0.0,
@@ -278,7 +278,7 @@ export const animeItems: WatchlistItem[] = [
 	},
 	{
 		title: "镖人 第二季",
-		cover: "https://pic1.imgdb.cn/i/033vXQvDrCb2YNJsdOgsA8.webp",
+		cover: "https://ss1.tupinayun.cn/autoupload/pzwl0/20261119/J74K/0X0/033vXQvDrCb2YNJsdOgsA8.webp",
 		type: "anime",
 		status: "completed",
 		rating: 0.0,
@@ -288,7 +288,7 @@ export const animeItems: WatchlistItem[] = [
 	},
 	{
 		title: "择日飞升",
-		cover: "https://pic1.imgdb.cn/i/033vXMV8dFXiCNHbKAz8RL.webp",
+		cover: "https://ss1.tupinayun.cn/autoupload/pzwl0/20261119/UnX4/0X0/033vXMV8dFXiCNHbKAz8RL.webp",
 		type: "anime",
 		status: "watching",
 		rating: 0.0,
@@ -298,7 +298,7 @@ export const animeItems: WatchlistItem[] = [
 	},
 	{
 		title: "一斩苍穹",
-		cover: "https://pic1.imgdb.cn/i/033yuGhjGowtjpRArKZp62.webp",
+		cover: "https://ss1.tupinayun.cn/autoupload/pzwl0/20261119/Ffad/0X0/033yuGhjGowtjpRArKZp62.webp",
 		type: "anime",
 		status: "watching",
 		rating: 0.0,
@@ -308,7 +308,7 @@ export const animeItems: WatchlistItem[] = [
 	},
 	{
 		title: "完美世界剧场版 九劫焚天",
-		cover: "https://pic1.imgdb.cn/i/0346v2DQaA7Cl7KaoX4i9l.webp",
+		cover: "https://ss1.tupinayun.cn/autoupload/pzwl0/20261119/32SZ/0X0/0346v2DQaA7Cl7KaoX4i9l.webp",
 		type: "anime",
 		status: "completed",
 		rating: 0.0,
@@ -318,7 +318,7 @@ export const animeItems: WatchlistItem[] = [
 	},
 	{
 		title: "画江湖之不良人7",
-		cover: "https://pic1.imgdb.cn/i/0347YDHbY6GRprOEqM9w72.webp",
+		cover: "https://ss1.tupinayun.cn/autoupload/pzwl0/20261119/qjUB/0X0/0347YDHbY6GRprOEqM9w72.webp",
 		type: "anime",
 		status: "completed",
 		rating: 5.9,
@@ -329,7 +329,7 @@ export const animeItems: WatchlistItem[] = [
 	},
 	{
 		title: "画江湖之不良人6",
-		cover: "https://pic1.imgdb.cn/i/0347YAZ1jg5JJikpyLQIol.webp",
+		cover: "https://ss1.tupinayun.cn/autoupload/pzwl0/20261119/FrEk/0X0/0347YAZ1jg5JJikpyLQIol.webp",
 		type: "anime",
 		status: "completed",
 		rating: 9.4,
@@ -340,7 +340,7 @@ export const animeItems: WatchlistItem[] = [
 	},
 	{
 		title: "诛仙 第四季",
-		cover: "https://pic1.imgdb.cn/i/034ErC04N3ihrKwL7QcLxS.webp",
+		cover: "https://ss1.tupinayun.cn/autoupload/pzwl0/20261119/qCFn/0X0/034ErC04N3ihrKwL7QcLxS.webp",
 		type: "anime",
 		status: "watching",
 		rating: 0,
@@ -350,7 +350,7 @@ export const animeItems: WatchlistItem[] = [
 	},
 	{
 		title: "灵境行者",
-		cover: "https://pic1.imgdb.cn/i/034wrWaK1u4COLFyFL0MTR.webp",
+		cover: "https://ss1.tupinayun.cn/autoupload/pzwl0/20261119/BH9G/0X0/034wrWaK1u4COLFyFL0MTR.webp",
 		type: "anime",
 		status: "watching",
 		rating: 0,

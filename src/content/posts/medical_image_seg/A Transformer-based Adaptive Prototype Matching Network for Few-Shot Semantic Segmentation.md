@@ -4,7 +4,7 @@ published: 2025-04-02 12:00:00
 expires: 2025-08-21 23:59:59
 mathjax: true
 excerpt: "云想衣裳花想容，春风拂槛露华浓"
-cover: "https://pic1.imgdb.cn/i/0343Oc1IVcaZZAx9vnALV9.jpg"
+cover: "https://ss1.tupinayun.cn/autoupload/pzwl0/20261119/2Ste/4000X2328/0343Oc1IVcaZZAx9vnALV9.jpg"
 categories: 少样本语义分割
 tags: [Transformer, Few-Shot Semantic Segmentation]
 ---
@@ -51,7 +51,7 @@ FSS遵循元学习框架，执行过程分特征提取、匹配和分类三个�
 
 3. > **双分类模块（Dual Classification Module，DCM）**    **设计目的**：解决特征分类阶段的**空间感知偏差**问题。现有方法主要基于语义一致性进行预测，忽略了目标对象的空间一致性，导致难以准确定位目标类别。    **具体方法**：将分割任务解耦为语义对齐和空间对齐两个子任务。通过优化查询特征和类别原型生成基于语义相似度的掩码来识别目标类别；利用查询特征的内在引导，挖掘目标对象自身的空间一致性，得到基于空间分布概率的掩码用于精确的定位，最后将两个掩码相加得到最终的查询前景分割图。 实验结果表明，该模型在PASCAL - 5i和COCO - 20i两个基准数据集上取得了优于现有方法的性能，且参数数量较少。 
 
-![Snipaste_2025-03-08_10-36-07](https://pic1.imgdb.cn/i/0343OU79HJxZvBoGBCAvUr.webp)
+![Snipaste_2025-03-08_10-36-07](https://ss1.tupinayun.cn/autoupload/pzwl0/20261119/h8k5/0X0/0343OU79HJxZvBoGBCAvUr.webp)
 
 
 

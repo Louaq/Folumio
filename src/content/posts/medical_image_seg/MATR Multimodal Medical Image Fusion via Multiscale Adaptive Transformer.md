@@ -48,7 +48,7 @@ Owing to the limitations of imaging sensors, it is challenging to obtain a medic
 3. **损失函数**：由于多模态医学图像融合缺乏真实标签，损失函数从结构级和区域级两个角度设计。    
 3. **结构级损失$(L_{SSIM})$**：使用结构相似性指数测量（SSIM）来约束融合图像与源图像的相似性，确保融合结果具有足够的结构细节。
 
-![Snipaste_2025-07-26_15-16-58](https://pic1.imgdb.cn/i/0343OVNPq3ma7SmCW5QzWB.webp)
+![Snipaste_2025-07-26_15-16-58](https://ss1.tupinayun.cn/autoupload/pzwl0/20261119/YGUx/0X0/0343OVNPq3ma7SmCW5QzWB.webp)
 
 ## 数据集和训练细节
 

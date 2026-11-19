@@ -4,7 +4,7 @@ published: 2025-03-04 12:00:00
 expires: 2025-08-21 23:59:59
 mathjax: true
 excerpt: "云想衣裳花想容，春风拂槛露华浓"
-cover: "https://pic1.imgdb.cn/i/0343Oc1IVcaZZAx9vnALV9.jpg"
+cover: "https://ss1.tupinayun.cn/autoupload/pzwl0/20261119/2Ste/4000X2328/0343Oc1IVcaZZAx9vnALV9.jpg"
 categories: 夜间语义分割
 tags: [Illumination Disentanglement, Semantic Segmentation]
 ---
@@ -65,7 +65,7 @@ flectance component without being impeded by lighting, allowing the network to c
 3. 引入光照感知解析器（IAParser），利用光照组件作为线索，实现更精准预测。 
 4. 细化NightCity数据集，提出NightCity-fine，为夜间分割提供更可靠基准。 
 
-![Snipaste_2025-03-03_15-54-06](https://pic1.imgdb.cn/i/0343OUiWfjMXpIL3MtUJtK.webp)
+![Snipaste_2025-03-03_15-54-06](https://ss1.tupinayun.cn/autoupload/pzwl0/20261119/ZtWw/0X0/0343OUiWfjMXpIL3MtUJtK.webp)
 
 
 

@@ -37,7 +37,7 @@ performance. Code is available at: https://github.com/Jiawei0o0/mutual-learning-
 
 医学图像分割是计算机辅助诊断系统的关键组成部分，但深度卷积神经网络（CNN）的优异性能依赖于大量像素级标注数据。医学图像的密集标注成本高、耗时长，半监督学习通过结合少量标注数据和大量未标注数据缓解这一问题，成为研究热点。现有半监督分割方法主要集成一致性正则化与伪标签技术，但伪标签质量对模型性能至关重要。不可靠的伪标签会引入噪声，导致模型收敛到次优解。传统方法通过固定阈值筛选高置信度伪标签，但阈值选择困难：低阈值可能保留噪声，高阈值会限制未标注数据利用并偏向多数类。因此，本文针对两个核心问题展开研究：如何识别可靠伪标签，以及如何量化其可靠性，旨在通过可靠伪标签的互学习减少噪声影响，提升半监督医学图像分割性能。
 
-![Snipaste_2025-11-28_09-38-33](https://pic1.imgdb.cn/i/0343OVYNrJsrGTork1iFhU.webp)
+![Snipaste_2025-11-28_09-38-33](https://ss1.tupinayun.cn/autoupload/pzwl0/20261119/Qb0H/0X0/0343OVYNrJsrGTork1iFhU.webp)
 
 ## 研究现状
 
@@ -49,7 +49,7 @@ performance. Code is available at: https://github.com/Jiawei0o0/mutual-learning-
 
 ## 提出的模型
 
-![Snipaste_2025-11-28_09-41-21](https://pic1.imgdb.cn/item/6928fdeb3203f7be0039abc9.png)
+![Snipaste_2025-11-28_09-41-21](https://ss1.tupinayun.cn/autoupload/pzwl0/20261119/3REI/1220X686/1bjMhoT0Uf4iG4Ygy4PWu0.png)
 
 本文提出了一种基于可靠伪标签的互学习半监督医学图像分割模型，主要创新点包括双子网互学习框架及可靠性评估机制两方面： 
 ### 核心框架 
@@ -95,13 +95,13 @@ performance. Code is available at: https://github.com/Jiawei0o0/mutual-learning-
    - **Pancreas-CT数据集**：10%标记数据下Dice达75.93%，较URPC（73.53%）提升2.4%；20%标记数据时Dice达81.53%，较MC-Net+（79.37%）提升2.16%。
    - **Brats-2019数据集**：10%标记数据下Dice达84.29%，较AC-MT（83.77%）提升0.52%；20%标记数据时Dice达85.47%，较AC-MT（84.63%）提升0.84%。
 
-![Snipaste_2025-11-28_09-50-14](https://pic1.imgdb.cn/item/692900053203f7be0039ba42.png)
+![Snipaste_2025-11-28_09-50-14](https://ss1.tupinayun.cn/autoupload/pzwl0/20261119/elmj/1216X583/2TJdAadTdmXO0NHGHmn8se.png)
 
 
 
-![Snipaste_2025-11-28_09-50-04](https://pic1.imgdb.cn/item/692900073203f7be0039ba53.png)
+![Snipaste_2025-11-28_09-50-04](https://ss1.tupinayun.cn/autoupload/pzwl0/20261119/qSl8/1133X507/3eRhne6ncGwMN0h6AGrdN3.png)
 
-![Snipaste_2025-11-28_09-50-33](https://pic1.imgdb.cn/item/692900143203f7be0039baa9.png)
+![Snipaste_2025-11-28_09-50-33](https://ss1.tupinayun.cn/autoupload/pzwl0/20261119/bkFq/1224X589/4aND9ddsKEZDLcXKeUCtOB.png)
 
 ## 实验（Ablation Experiments）​​
 

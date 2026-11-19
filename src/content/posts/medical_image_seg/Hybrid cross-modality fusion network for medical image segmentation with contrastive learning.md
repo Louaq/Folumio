@@ -32,7 +32,7 @@ tags: [Medical Image Segmentation]
 
 ## 提出的模型
 
-![Snipaste_2025-07-25_11-08-58](https://pic1.imgdb.cn/i/0343OVCXNBDZ94h7gqD5Eg.webp)
+![Snipaste_2025-07-25_11-08-58](https://ss1.tupinayun.cn/autoupload/pzwl0/20261119/wQoG/0X0/0343OVCXNBDZ94h7gqD5Eg.webp)
 
 论文提出了一种基于对比学习的混合跨模态融合网络（Hybrid Cross-Modality Fusion Network，HCFNet）用于医学图像分割。
 
