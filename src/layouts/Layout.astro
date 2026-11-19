@@ -90,7 +90,13 @@ const collapsiblePreviewLines =
         }
       }
     </script>
-    <style is:inline>html.is-restoring-scroll { visibility: hidden; }</style>
+    <style is:inline>
+      html.is-restoring-scroll { visibility: hidden; }
+      /* Keep measured block sizes stable throughout a reloaded page. */
+      html.is-reload .custom-md :is(.expressive-code, .katex-display-container) {
+        content-visibility: visible;
+      }
+    </style>
     <style is:inline>@layer properties, theme, base, components, utilities;</style>
 
     <link rel="preconnect" href="https://pic1.imgdb.cn" crossorigin />
@@ -226,20 +232,34 @@ const collapsiblePreviewLines =
         }
 
         const root = document.documentElement;
+        function revealPage() {
+          // Match the restored viewport before revealing it.
+          updateNavbarHeroOverlap();
+          const navbar = document.getElementById("navbar");
+          if (navbar) {
+            // Commit the initial background before enabling scroll transitions.
+            getComputedStyle(navbar.firstElementChild).backgroundColor;
+            navbar.dataset.ready = "";
+          }
+          root.classList.remove("is-restoring-scroll");
+        }
         if (root.dataset.reloadScroll !== undefined) {
-          window.scrollTo({ top: Number(root.dataset.reloadScroll), behavior: "instant" });
-          delete root.dataset.reloadScroll;
-          history.scrollRestoration = "auto";
+          // Formula wrappers must be initialized before measuring the restored page.
+          document.addEventListener("folumio:page-features-ready", () => {
+            root.getBoundingClientRect();
+            document.fonts.ready.then(() => {
+              requestAnimationFrame(() => {
+                requestAnimationFrame(() => {
+                  window.scrollTo({ top: Number(root.dataset.reloadScroll), behavior: "instant" });
+                  delete root.dataset.reloadScroll;
+                  revealPage();
+                });
+              });
+            });
+          }, { once: true });
+        } else {
+          revealPage();
         }
-        // Match the restored viewport before revealing it or waiting for modules.
-        updateNavbarHeroOverlap();
-        const navbar = document.getElementById("navbar");
-        if (navbar) {
-          // Commit the initial background before enabling scroll transitions.
-          getComputedStyle(navbar.firstElementChild).backgroundColor;
-          navbar.dataset.ready = "";
-        }
-        root.classList.remove("is-restoring-scroll");
       }
     </script>
   </body>

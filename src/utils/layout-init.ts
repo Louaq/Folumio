@@ -38,7 +38,9 @@ if (navbar) {
 	document.addEventListener("swup:visit:abort", measureNavbarHeroOverlap);
 }
 
-initPageFeatures();
+initPageFeatures().then(() => {
+	document.dispatchEvent(new Event("folumio:page-features-ready"));
+});
 // Swup 导航和加密正文解锁共用同一入口，避免换页时重复初始化。
 document.addEventListener("astro:page-load", initPageFeatures);
 

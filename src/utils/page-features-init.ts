@@ -1,5 +1,5 @@
 /** 首载与 Swup 换页共用入口，仅导入当前页面需要的功能。 */
-export function initPageFeatures(): void {
+export async function initPageFeatures(): Promise<void> {
 	const archive = document.getElementById("archive-list");
 	if (archive) {
 		void import("./archive-init").then(({ initArchivePage }) => {
@@ -23,8 +23,7 @@ export function initPageFeatures(): void {
 
 	const post = document.getElementById("post-container");
 	if (post) {
-		void import("./post/index").then(({ initPostPage }) => {
-			if (post.isConnected) initPostPage(post);
-		});
+		const { initPostPage } = await import("./post/index");
+		if (post.isConnected) initPostPage(post);
 	}
 }
