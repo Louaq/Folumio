@@ -25,7 +25,7 @@ export const essaysConfig: {
 		{
 			date: "2026-11-07",
 			content: "立冬",
-			images: ["https://ss1.tupinayun.cn/autoupload/pzwl0/20261119/0uun/0X0/term-lidong-character-v1.webp"]
+			images: ["https://ss1.tupinayun.cn/autoupload/pzwl0/20261119/0uun/0X0/term-lidong-character-v1.webp?imageMogr2/thumbnail/300x"]
 		},
 	],
 };
