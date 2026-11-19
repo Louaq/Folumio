@@ -12,7 +12,6 @@ import { Icon } from "astro-icon/components";
 import qrcode from "qrcode-generator";
 import PostMetadata from "@/components/layout/PostMeta.astro";
 import PostStaleNoticeBanner from "@/components/layout/PostStaleNoticeBanner.astro";
-import EncryptedContent from "@/components/misc/EncryptedContent.astro";
 import { profileConfig } from "@/config/profileConfig";
 import { siteConfig } from "@/config/siteConfig";
 import { formatDateToYYYYMMDD } from "@/utils/date-utils";
@@ -97,7 +96,6 @@ const jsonLd = {
   />
   <div slot="banner-metadata" class="banner-post-information">
     <span>{entry.data.author || profileConfig.name}</span>
-    {entry.data.password && <Icon name="material-symbols:lock-outline" class="text-xl" aria-label="?????" />}
     <PostMetadata
       className="banner-post-meta"
       published={entry.data.published}
@@ -121,7 +119,7 @@ const jsonLd = {
 
 
 
-      {!entry.data.password && shouldShowOutdatedNotice && (
+      {shouldShowOutdatedNotice && (
         <PostStaleNoticeBanner
           title={i18n(I18nKey.lastModifiedNoticeTitle)}
           body={staleNoticeBody}
@@ -129,27 +127,9 @@ const jsonLd = {
       )}
 
 
-      {entry.data.password ? (
-        <div id="password-protection-wrapper">
-          <EncryptedContent
-            password={typeof entry.data.password === 'boolean' ? import.meta.env.PASSWORD : entry.data.password}
-          >
-            {shouldShowOutdatedNotice && (
-              <PostStaleNoticeBanner
-                title={i18n(I18nKey.lastModifiedNoticeTitle)}
-                body={staleNoticeBody}
-              />
-            )}
-            <Markdown class="mb-6 markdown-content onload-animation">
-              <Content />
-            </Markdown>
-          </EncryptedContent>
-        </div>
-      ) : (
-        <Markdown class="mb-6 markdown-content onload-animation">
-          <Content />
-        </Markdown>
-      )}
+      <Markdown class="mb-6 markdown-content onload-animation">
+        <Content />
+      </Markdown>
       
 
       {

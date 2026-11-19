@@ -90,13 +90,9 @@ export const GET: APIRoute = async () => {
 	const records: MeilisearchRecord[] = [];
 
 	for (const post of publishedPosts) {
-		const isProtected = Boolean(post.data.password);
-
 		const maxContentBytes = 8000;
 		const body = post.body ?? "";
-		const truncatedContent = isProtected
-			? ""
-			: truncateToBytes(body, maxContentBytes);
+		const truncatedContent = truncateToBytes(body, maxContentBytes);
 
 		let image = post.data.image;
 		if (image.startsWith("/")) {

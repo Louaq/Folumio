@@ -39,7 +39,6 @@ export type ArchivePost = {
 	published: Date;
 	tags: string[];
 	category: string;
-	password: boolean;
 };
 export async function getArchivePostsList(): Promise<ArchivePost[]> {
 	const posts = await getSortedPosts();
@@ -50,7 +49,6 @@ export async function getArchivePostsList(): Promise<ArchivePost[]> {
 		published: data.published,
 		tags: data.tags ?? [],
 		category: data.category?.trim() ?? "",
-		password: !!data.password,
 	}));
 }
 export type Tag = {

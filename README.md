@@ -70,7 +70,6 @@
 - 🎵 悬浮音乐播放器（唱片封面、播放列表、进度和音量控制，可展开收起，Swup 换页不中断）
 - 🏷️ 分类、标签、归档、RSS、站点地图
 - 🎬 追番 / 观影清单（动画、电影、剧集）、友链页面
-- 🔐 文章密码保护
 - 💬 Twikoo 评论
 - 🔍 Meilisearch 站内搜索
 - 🌗 明暗主题切换
@@ -127,7 +126,6 @@ category: 分类
 draft: false               # true 时不发布
 pinned: false              # 置顶
 slug: custom-path          # 自定义 URL，不填则按 siteConfig.postPathMode 生成短 hash
-password: "xxx"            # 文章密码；写 true 则使用环境变量 PASSWORD
 comment: true              # 是否开启评论
 author: ""                 # 转载文章的作者、来源与许可证
 sourceLink: ""
@@ -207,7 +205,6 @@ homeBanner: {
 
 | 变量 | 用途 |
 | --- | --- |
-| `PASSWORD` | `password: true` 的文章使用的统一密码 |
 | `MEILISEARCH_HOST` / `PUBLIC_MEILISEARCH_HOST` | Meilisearch 地址 |
 | `MEILISEARCH_ADMIN_KEY` | 构建时上传索引用的管理密钥 |
 | `MEILISEARCH_INDEX_NAME` / `PUBLIC_MEILISEARCH_INDEX_NAME` | 索引名 |
@@ -219,7 +216,7 @@ homeBanner: {
 
 推送到 `master` 分支后，`.github/workflows/deploy.yml` 会自动构建，并通过 rsync 把 `dist/` 同步到自己的服务器。仅修改 `README.md` 不会触发部署，也可在 GitHub Actions 中手动运行该工作流。需要在仓库 Secrets 中配置：
 
-- 构建：`PASSWORD`、`MEILISEARCH_ADMIN_KEY`、`MEILISEARCH_INDEX_NAME`、`PUBLIC_MEILISEARCH_SEARCH_KEY`、`PUBLIC_MEILISEARCH_INDEX_NAME`
+- 构建：`MEILISEARCH_ADMIN_KEY`、`MEILISEARCH_INDEX_NAME`、`PUBLIC_MEILISEARCH_SEARCH_KEY`、`PUBLIC_MEILISEARCH_INDEX_NAME`
 - 部署：`SSH_KEY`、`SSH_HOST`、`SSH_PORT`、`SSH_USER`、`DEPLOY_PATH`
 
 仓库里也有 `vercel.json`、`netlify.toml`，可以托管 `dist/` 静态页面。音乐功能还需要同源 `/ncm` 接口、`/music.json` 歌单及 `/assets/music` 封面资源；这两个托管配置未提供对应服务，需另行部署并配置代理。

@@ -113,7 +113,6 @@ pinned: false
 | `slug`、`lang` | 自定义文章路径段、文章语言 |
 | `author`、`sourceLink`、`licenseName`、`licenseUrl` | 来源信息和许可声明 |
 | `comment` | 默认允许评论；单篇可设为 `false` |
-| `password` | 字符串指定密码，`true` 使用 `PASSWORD` |
 
 ### 路径、封面和附件
 
@@ -325,7 +324,7 @@ PDF 支持 `src` 或 `url`。本例的文件位于 `public/assets/docs/`，引�
 ### 发布前自查
 
 - 打开文章确认摘要、封面、公式与嵌入内容均能正常渲染。
-- 搜索、RSS 和归档分别使用各自的内容逻辑。涉及私密内容时，不要将文章密码用作机密文件的访问控制。
+- 搜索、RSS 和归档分别使用各自的内容逻辑。
 - 文章正文中的相对链接和图片应以最终生成的页面地址检验。
 
 ## 3. 站点与外观
@@ -536,9 +535,7 @@ PUBLIC_MEILISEARCH_SEARCH_KEY=限指定索引的搜索密钥
 
 部署自己的博客时，请接入自有音乐服务，并在实际部署域名验证歌单、封面和音源能否加载。如果没有对应的代理与资源，可将 `floatingControls.music` 设为 `false` 隐藏播放器入口。
 
-### 密码和访客统计
-
-密码字段使用 `true` 时，在构建环境提供 `PASSWORD`，切勿把正式密码写入仓库。静态附件、站点索引和外部服务需分别核对可见性；需要身份认证的内容应使用带访问控制的服务。
+### 访客统计
 
 访客统计在 `footerConfig.ts` 中配置 `visitorCount`，使用 Vercount 接口。更换域名后检查统计归属，再决定是否显示站点 PV 和 UV。
 
@@ -605,7 +602,6 @@ jobs:
       - name: Build static files
         run: pnpm build
         env:
-          PASSWORD: ${{ secrets.PASSWORD }}
           MEILISEARCH_HOST: ${{ vars.MEILISEARCH_HOST }}
           MEILISEARCH_ADMIN_KEY: ${{ secrets.MEILISEARCH_ADMIN_KEY }}
           MEILISEARCH_INDEX_NAME: ${{ secrets.MEILISEARCH_INDEX_NAME }}
@@ -638,7 +634,6 @@ jobs:
 | `SSH_USER`、`SSH_KEY` | 部署用户和私钥 |
 | `SSH_KNOWN_HOSTS` | 预先核验的服务器主机公钥记录，使用 OpenSSH `known_hosts` 格式。非默认端口的主机字段使用 `[主机名]:端口` |
 | `DEPLOY_PATH` | Web 服务器实际读取的站点目录 |
-| `PASSWORD` | 仅为使用统一文章密码的站点提供 |
 | `MEILISEARCH_ADMIN_KEY`、`MEILISEARCH_INDEX_NAME` | 启用搜索索引写入时配置 |
 | `PUBLIC_MEILISEARCH_SEARCH_KEY`、`PUBLIC_MEILISEARCH_INDEX_NAME` | 访客查询所需的密钥和索引名 |
 

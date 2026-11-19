@@ -15,16 +15,17 @@ export const essaysConfig: {
 		{
 			date: "2026-11-16",
 			content: "双帝之战",
-			images: ["https://ss1.tupinayun.cn/autoupload/pzwl0/20261119/oHXB/0X0/034yRWiovDnULU5JLBYnnN.webp"],
+			images: ["https://ss1.tupinayun.cn/autoupload/pzwl0/20261119/oHXB/0X0/034yRWiovDnULU5JLBYnnN.webp?imageMogr2/thumbnail/300x"],
 		},
 		{
 			date: "2026-11-10",
 			content: "在这里写下一段随笔。\n也可以换行继续记录",
-			images: ["https://ss1.tupinayun.cn/autoupload/pzwl0/20261119/6Vpt/1920X1080/034ZMknGevJT4oWECLatyW.png"],
+			images: ["https://ss1.tupinayun.cn/autoupload/pzwl0/20261119/6Vpt/1920X1080/034ZMknGevJT4oWECLatyW.png?imageMogr2/thumbnail/300x"],
 		},
 		{
 			date: "2026-11-07",
 			content: "立冬",
+			images: ["https://ss1.tupinayun.cn/autoupload/pzwl0/20261119/0uun/0X0/term-lidong-character-v1.webp"]
 		},
 	],
 };

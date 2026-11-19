@@ -31,7 +31,6 @@ jobs:
 
       - run: pnpm build
         env:
-          PASSWORD: ${{ secrets.PASSWORD }}
           MEILISEARCH_ADMIN_KEY: ${{ secrets.MEILISEARCH_ADMIN_KEY }}
           MEILISEARCH_INDEX_NAME: ${{ secrets.MEILISEARCH_INDEX_NAME }}
           PUBLIC_MEILISEARCH_SEARCH_KEY: ${{ secrets.PUBLIC_MEILISEARCH_SEARCH_KEY }}

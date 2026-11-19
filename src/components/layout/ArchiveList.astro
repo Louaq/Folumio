@@ -89,11 +89,6 @@ const labelPlural = i18n(I18nKey.postsCount);
 								group-hover:text-(--primary)
 								text-75 pr-8 whitespace-nowrap text-ellipsis overflow-hidden flex items-center gap-1">
 								<span class="min-w-0 truncate">{post.title}</span>
-								{post.password && (
-									<Icon name="material-symbols:lock-outline"
-										class="inline text-xl align-middle -translate-y-px text-inherit shrink-0"
-										aria-label="加密" />
-								)}
 							</div>
 							<div class="hidden md:block md:w-[15%] text-left text-sm
 								whitespace-nowrap text-ellipsis overflow-hidden text-30">

@@ -4,7 +4,6 @@
 declare global {
 	interface ImportMetaEnv {
 		readonly MEILI_MASTER_KEY: string;
-		readonly PASSWORD: string;
 	}
 
 	interface Window {
