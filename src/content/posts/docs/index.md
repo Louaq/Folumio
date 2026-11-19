@@ -538,8 +538,8 @@ netease: {
 ```ts
 source: "custom",
 playlistTitle: "本地歌单",
-songsUrl: "/music.json",
-apiBase: "/ncm",
+songsUrl: "xxxxxxxxxxxxxxxx",
+apiBase: "xxxxxxxxxxxxxxxxx",
 audioQuality: "standard",
 ```
 

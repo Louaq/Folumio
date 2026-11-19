@@ -1,5 +1,4 @@
 import "@/utils/page-scrollbar-init";
-import { initIconLoader } from "@/utils/icon-loader";
 import { updateHomeBannerDescription } from "@/utils/home-banner-description";
 import { pathsEqual, url } from "@/utils/navigation";
 import { initPageFeatures } from "@/utils/page-features-init";
@@ -216,8 +215,6 @@ const setup = () => {
 		);
 		mainGrid.className = [...newClasses, ...gridClass.split(" ")].join(" ");
 		document.body.dataset.whiteBg = carrier.dataset.whiteBg;
-
-		initIconLoader();
 	});
 };
 if (window.swup?.hooks) setup();
@@ -225,14 +222,4 @@ else document.addEventListener("swup:enable", setup, { once: true });
 
 if (document.body.dataset.pageType === "home") {
 	updateHomeBannerDescription("", true);
-}
-const initOptionalRuntime = () => {
-	initIconLoader();
-};
-if (document.readyState === "loading") {
-	document.addEventListener("DOMContentLoaded", initOptionalRuntime, {
-		once: true,
-	});
-} else {
-	initOptionalRuntime();
 }

@@ -4,7 +4,6 @@ import LeftSideBar from "@components/layout/LeftSideBar.astro";
 import Navbar from "@components/layout/Navbar.astro";
 import HomeBanner from "@components/layout/HomeBanner.astro";
 import type { MarkdownHeading } from "astro";
-import IconifyLoader from "@/components/misc/IconifyLoader.astro";
 import { siteConfig } from "@/config";
 import { showSidebarOnMobile } from "@/utils/widget-manager";
 import Layout from "./Layout.astro";
@@ -45,9 +44,6 @@ const gridCols = isSingleColumnLayout
 ---
 
 <Layout title={title} description={description} lang={lang} setOGTypeArticle={setOGTypeArticle} postSlug={postSlug} whiteBackground={hideSidebar}>
-
-
-<IconifyLoader />
 
 
 <slot slot="head" name="head"></slot>

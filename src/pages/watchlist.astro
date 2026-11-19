@@ -1,6 +1,6 @@
 ---
 import ClientPagination from "@/components/common/ClientPagination.astro";
-import Icon from "@/components/common/Icon.astro";
+import { Icon } from "astro-icon/components";
 import TabNav from "@/components/common/TabNav.astro";
 import { siteConfig } from "@/config";
 import { type WatchlistItem, watchlistConfig } from "@/config/watchlist";
@@ -215,7 +215,7 @@ const statusColor = {
 													typeof item.rating === "number" &&
 													item.rating > 0 && (
 														<div class="watchlist-rating" aria-label={`评分 ${item.rating}`}>
-															<Icon icon="material-symbols:star-rounded" class="text-base text-yellow-400" />
+															<Icon name="material-symbols:star-rounded" class="text-base text-yellow-400" />
 															<span>{item.rating}</span>
 														</div>
 													)}
@@ -287,7 +287,7 @@ const statusColor = {
 					<div class="text-center py-16">
 						<div class="inline-flex items-center justify-center w-16 h-16 bg-(--btn-regular-bg) rounded-full mb-6 border border-(--line-divider)">
 							<Icon
-								icon="material-symbols:video-library"
+								name="material-symbols:video-library"
 								class="text-[2rem] text-(--btn-content)"
 							/>
 						</div>
