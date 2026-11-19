@@ -250,53 +250,7 @@ export default defineConfig({
 		}),
 	},
 	vite: {
-		plugins: [
-			tailwindcss(),
-			{
-				name: "ncm-dev-proxy",
-				enforce: "post",
-				configureServer(server) {
-					return () => {
-						server.middlewares.stack.unshift({
-							route: "/ncm",
-							handle: async (req, res) => {
-								const headers = new Headers({
-									Origin: siteConfig.site_url,
-									Referer: `${siteConfig.site_url}/`,
-								});
-								for (const name of ["cookie", "content-type"]) {
-									if (typeof req.headers[name] === "string")
-										headers.set(name, req.headers[name]);
-								}
-								const chunks = [];
-								if (req.method === "POST")
-									for await (const chunk of req) chunks.push(chunk);
-								const r = await fetch(`${siteConfig.site_url}/ncm${req.url}`, {
-									method: req.method,
-									headers,
-									body:
-										req.method === "POST" ? Buffer.concat(chunks) : undefined,
-								});
-								res.statusCode = r.status;
-								for (const name of ["content-type", "cache-control"]) {
-									if (r.headers.has(name))
-										res.setHeader(name, r.headers.get(name));
-								}
-								res.setHeader("set-cookie", r.headers.getSetCookie());
-								res.end(Buffer.from(await r.arrayBuffer()));
-							},
-						});
-					};
-				},
-			},
-		],
-		// 歌单 music.json 和封面 /assets/music 只在线上服务器，dev 下转发过去
-		server: {
-			proxy: {
-				"/music.json": { target: siteConfig.site_url, changeOrigin: true },
-				"/assets/music": { target: siteConfig.site_url, changeOrigin: true },
-			},
-		},
+		plugins: [tailwindcss()],
 		// 开发时预打包 Swup 子入口，减少 504 Outdated Optimize Dep（依赖变更后仍建议重启 dev）
 		optimizeDeps: {
 			include: [
