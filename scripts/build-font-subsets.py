@@ -14,7 +14,8 @@ from fontTools.ttLib import TTFont
 ROOT = Path(__file__).resolve().parent.parent
 SOURCE = ROOT / "public/font/chill-round"
 OUTPUT = ROOT / "dist/font/chill-round"
-SLICE_SIZE = 256
+# Smaller slices avoid downloading hundreds of unrelated glyphs per article.
+SLICE_SIZE = 64
 
 
 class PageText(HTMLParser):
