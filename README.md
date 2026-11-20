@@ -76,7 +76,7 @@
 
 **性能**
 - ⚡ Swup 页面过渡；KaTeX、评论、PDF / 视频播放器等按需懒加载
-- 🔤 正文中文字体按 unicode-range 加载切片
+- 🔤 正文中文字体使用 [cn-font-split](https://github.com/KonghaYao/cn-font-split) 生成切片，按 unicode-range 加载
 
 ## 技术栈
 
