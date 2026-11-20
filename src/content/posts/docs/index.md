@@ -1,9 +1,10 @@
 ---
 title: Folumio 主题完整使用指南
-published: 2026-11-18
+published: 2026-06-13
 category: Folumio 文档
 tags: [Folumio, Astro]
 description: 从克隆项目、发布第一篇文章，到配置首页、独立页面、搜索、评论与部署。
+pinned: true
 ---
 ## 1. 从零搭建
 
