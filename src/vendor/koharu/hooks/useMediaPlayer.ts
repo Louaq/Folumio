@@ -189,9 +189,10 @@ export function useMediaPlayer<T>({
 		const onPause = () => setState((s) => ({ ...s, playing: false }));
 		const onWaiting = () => setState((s) => ({ ...s, loading: true }));
 		const onError = () => {
-			const expired =
-				el.src &&
-				Number(new URL(el.src).searchParams.get("exp")) * 1000 <= Date.now();
+			const expiresAt = el.src
+				? Number(new URL(el.src).searchParams.get("exp")) * 1000
+				: 0;
+			const expired = expiresAt > 0 && expiresAt <= Date.now();
 			if (expired && stateRef.current.playing) {
 				loadAndPlayRef.current(
 					stateRef.current.currentIndex,
@@ -261,9 +262,10 @@ export function useMediaPlayer<T>({
 			const el = getElementRef.current();
 			if (!el || tracksRef.current.length === 0) return;
 			const targetIndex = index ?? state.currentIndex;
-			const expired =
-				el.src &&
-				Number(new URL(el.src).searchParams.get("exp")) * 1000 <= Date.now();
+			const expiresAt = el.src
+				? Number(new URL(el.src).searchParams.get("exp")) * 1000
+				: 0;
+			const expired = expiresAt > 0 && expiresAt <= Date.now();
 			if (index != null || !el.src || expired) {
 				loadAndPlay(targetIndex, 0, index == null ? el.currentTime : 0);
 			} else {
