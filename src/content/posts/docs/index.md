@@ -513,8 +513,6 @@ floatingControls: {
 
 歌单来源、名称和接口地址在 `src/config/musicConfig.ts` 中配置，推荐选择网易云音乐歌单模式，配置方便，无需后期维护。
 
-
-
 > 网易云音乐歌单
 
 将 `source` 改为 `"netease"`，并在 `netease.playlistId` 填写歌单链接中 `id=` 后的数字，保留字符串引号。以下示例中的 ID 需替换为自己的歌单 ID：
@@ -524,12 +522,11 @@ source: "netease",
 playlistTitle: "我的网易云歌单",
 netease: {
   playlistId: "2083845712",
-  apiUrl: "https://163.hyc.moe/",  //公共接口，不保证稳定性
+  apiUrl: "https://163.hyc.moe/",
 },
 ```
 
-此模式通过 `netease.apiUrl` 指定的 Meting API 获取歌单，并使用返回的音源、封面和歌词地址，不调用自有服务的 `/music.json`、`/ncm`。`songsUrl`、`apiBase` 和 `audioQuality` 仅在 `custom` 模式使用。可将 `apiUrl` 替换为自己部署或可用的兼容 Meting 服务地址。
-
+此模式通过 `netease.apiUrl` 指定的 Meting API 获取歌单，并使用返回的音源地址。`songsUrl`、`apiBase` 和 `audioQuality` 仅在 `custom` 模式使用。可将 `apiUrl` 替换为自己部署或可用的兼容 Meting 服务地址。
 
 > 自有服务
 
@@ -538,28 +535,39 @@ netease: {
 ```ts
 source: "custom",
 playlistTitle: "本地歌单",
-songsUrl: "xxxxxxxxxxxxxxxx",
-apiBase: "xxxxxxxxxxxxxxxxx",
+songsUrl: "https://music.example.com/music.json",
+apiBase: "https://music.example.com",
 audioQuality: "standard",
 ```
 
-`songsUrl` 是相对于站点根路径的歌单 JSON 地址。歌单为数组，每首歌包含数字 `id`、歌名 `name`、歌手 `artist` 和封面地址 `cover`，例如：
+`songsUrl` 支持完整的 HTTPS 地址，也支持站内路径。例如，将歌单放在 `public/assets/music/music.json`，可填写 `/assets/music/music.json`。歌单为数组，每首歌包含数字 `id`、歌名 `name` 和歌手 `artist`：
 
 ```json
 [
   {
     "id": 123456,
     "name": "歌曲名称",
-    "artist": "歌手名称",
-    "cover": "/assets/music/cover.webp"
+    "artist": "歌手名称"
   }
 ]
 ```
 
-示例中的歌曲 ID 和封面需替换为实际资源。`apiBase` 不带末尾斜杠；播放器通过该前缀下的 `/token` 完成认证，再请求 `/song/url/v1` 获取音源，`audioQuality` 对应接口的 `level` 参数。需要部署与现有认证和响应格式兼容的服务。当前自有服务歌单格式不包含歌词。
+示例中的歌曲 ID、歌名和歌手需替换为实际歌曲信息。
+
+`apiBase` 不带末尾斜杠。播放歌曲时直接请求 `${apiBase}/song/url/v1?id=歌曲ID&level=音质`，`audioQuality` 对应 `level` 参数。播放器不再请求 `/token`，也不携带跨域 Cookie；自有服务需允许浏览器直接访问该接口，并返回以下 JSON 格式：
+
+```json
+{
+  "data": [
+    { "url": "https://media.example.com/123456.mp3" }
+  ]
+}
+```
+
+播放器读取 `data[0].url`，并将其中的 `http:` 转为 `https:`，因此音源需要支持 HTTPS。返回 `null` 时自动尝试下一首，整张歌单均不可播放时显示「歌单暂无可播放曲目」。歌单 JSON 和音频接口若跨域提供，需要允许博客域名的跨域读取。
 
 > [!IMPORTANT]
-> Folumio 演示站的自有音乐 API 是作者自用的私有服务，不对外开放，请自行选择**网易云音乐歌单模式**
+> Folumio 演示站的自有音乐 API 是作者自用的私有服务，不稳定，建议选择**网易云音乐歌单模式**
 
 ### 访客统计
 
@@ -567,7 +575,7 @@ audioQuality: "standard",
 
 ## 6. 部署与故障排查
 
-### 生成并预览静态产物
+### 生成静态产物
 
 构建需要 Node.js、pnpm 与 Python。仓库的 CI 使用 Python 3.12，并从 `scripts/font-requirements.txt` 安装字体处理依赖。选好构建环境后，从项目根目录执行：
 
@@ -668,25 +676,6 @@ jobs:
 正式部署前核对 SSH 指纹，给部署用户分配站点目录权限，并确认 `DEPLOY_PATH` 指向专用目录。工作流使用 `rsync --delete`，目标目录中未出现在 `dist/` 的文件可能被删除，上传的附件和独立服务文件应放在其他目录。
 
 例如，若 Web 服务器读取 `/var/www/blog`，在仓库 Actions Secrets 中将 `DEPLOY_PATH` 设置为 `/var/www/blog`，确认 `SSH_USER` 有该目录的写权限。首次发布可在 GitHub Actions 的「Deploy」工作流中手动运行，检查构建与同步步骤均成功，再访问实际域名的 `/posts/docs/` 和 `/rss.xml`。如果同步成功后首页仍是旧版，核对 Web 服务器的站点根目录是否与 `DEPLOY_PATH` 一致。
-
-### 上线后逐项检查
-
-- 打开首页、文章、`/posts/docs/` 和一个不存在的地址，确认路由与 404 配置。
-- 检查图片、图标、RSS、站点地图中的域名，以及浏览器中是否有混合内容警告。
-- 用移动设备检查导航、Banner、长代码块和表格。
-- 若启用第三方服务，分别验证评论、搜索和音乐。静态 HTML 部署成功不会自动配置这些服务。
-
-### 常见故障
-
-| 症状 | 排查方向 |
-| --- | --- |
-| 依赖装不上 | 核对 Node.js、pnpm 版本以及锁文件所在目录 |
-| 首页能打开，刷新子页面 404 | 检查发布目录，确认服务器支持目录下的 `index.html`，核对尾斜杠 |
-| 中文字体构建失败 | 确认构建日志中的 Python 可执行文件及字体依赖 |
-| 新文章不显示 | 检查文件位置、`title`、日期和 `draft` |
-| 更新后样式或图片还是旧的 | 先确认部署日志与文件，再检查浏览器和 CDN 缓存 |
-| 本地能播音乐，线上不能 | 先核对 `musicConfig.ts` 的 `source`；自有服务检查 `songsUrl`、`apiBase` 和封面资源，网易云模式检查歌单 ID、Meting API 及其返回资源的访问情况 |
-| 搜索为空 | 核对前后端索引是否一致，检查 Meilisearch 构建日志 |
 
 ### 更新主题
 
