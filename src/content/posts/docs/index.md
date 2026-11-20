@@ -15,7 +15,7 @@ pinned: true
 | Git | 获取代码和保存自己的改动 |
 | Node.js 24.x | 运行 Astro |
 | pnpm | 安装依赖；版本以 `package.json` 的 `packageManager` 为准 |
-| Python 3.12 | 可参考仓库 CI 使用此版本，构建时生成中文字体子集 |
+| Python 3.12 | 可参考仓库 CI 使用此版本，构建时合并中文字体切片并重命名 |
 
 在终端运行 `git --version`、`node --version`、`pnpm --version` 确认。若系统还没有 pnpm，可先读取项目声明的版本，再用 `npm install -g pnpm@<声明的版本>` 安装。尖括号内需换成实际版本号。
 
@@ -587,7 +587,7 @@ pnpm build
 pnpm preview
 ```
 
-`pnpm build` 生成 `dist/` 后运行字体子集脚本。`pnpm preview` 用于预览最终产物。配置了 Meilisearch 管理密钥的构建可能写入线上索引，首次试跑使用独立索引或不注入管理密钥。
+`pnpm build` 生成 `dist/` 后运行字体子集脚本：Python 合并现有字体切片并重命名，再由 `cn-font-split` 的 WASM 实现生成 WOFF2 切片和 CSS。安装依赖时会从 GitHub Releases 下载其 WASM 库，构建环境需要能够访问该地址。`pnpm preview` 用于预览最终产物。配置了 Meilisearch 管理密钥的构建可能写入线上索引，首次试跑使用独立索引或不注入管理密钥。
 
 ### 方式一：托管在 Vercel 或 Netlify
 

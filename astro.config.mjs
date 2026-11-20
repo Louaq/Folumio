@@ -259,6 +259,10 @@ export default defineConfig({
 		optimizeDeps: {
 			include: [
 				"@swup/astro/client",
+				"@swup/astro/client/Swup",
+				"@swup/astro/client/SwupA11yPlugin",
+				"@swup/astro/client/SwupHeadPlugin",
+				"@swup/astro/client/SwupScrollPlugin",
 				"@swup/astro/serialise",
 				"@swup/astro/idle",
 			],

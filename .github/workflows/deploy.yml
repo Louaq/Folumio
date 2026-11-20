@@ -21,15 +21,20 @@ jobs:
           node-version: 24
           cache: pnpm
 
-      - run: pnpm install --frozen-lockfile
+      # postinstall 下载 cn-font-split 的 WASM 库
+      - name: Install dependencies and font WASM
+        run: pnpm install --frozen-lockfile --prod=false
 
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
 
-      - run: python -m pip install -r scripts/font-requirements.txt
+      # Python 负责合并源字体；切片由 cn-font-split WASM 完成
+      - name: Install font merge dependencies
+        run: python -m pip install -r scripts/font-requirements.txt
 
-      - run: pnpm build
+      - name: Build site and font subsets
+        run: pnpm build
         env:
           MEILISEARCH_ADMIN_KEY: ${{ secrets.MEILISEARCH_ADMIN_KEY }}
           MEILISEARCH_INDEX_NAME: ${{ secrets.MEILISEARCH_INDEX_NAME }}

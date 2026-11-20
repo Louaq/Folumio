@@ -13,14 +13,16 @@ Install its build dependencies with `python -m pip install -r scripts/font-requi
 before running `pnpm build` (Python 3.12 is used in CI).
 
 The original fonts in this directory remain the input for development and rebuilding.
-Only `dist/font/chill-round/result.css` is replaced; generated WOFF2 files live in
-`dist/font/chill-round/subsets` with content hashes in their filenames.
+Python merges the bundled WOFF2 files into temporary TTF inputs and renames them.
+`scripts/split-fonts.js` uses `cn-font-split@7.4.3` to split those inputs and generate
+CSS using its WASM implementation. The WASM library is downloaded by the project's
+postinstall script, which requires access to the upstream GitHub releases. Temporary
+TTF files are removed afterwards.
 
-For each weight (400 and 700), the shared subset contains homepage text, printable
-ASCII, and characters appearing on at least half of the rendered pages. Remaining
-site characters are grouped by page frequency into slices of up to 256 characters.
-Characters absent from the current site are preserved in separate supplementary
-slices, so newly encountered text can still use the font's original coverage.
-All slices use non-overlapping `unicode-range` declarations and `font-display: swap`;
-none are preloaded. Derived fonts use the internal name "Folumio Round" to respect
-the original font's reserved names. The original copyright and license are retained.
+The generated stylesheet replaces `dist/font/chill-round/result.css`; WOFF2 files
+live in `dist/font/chill-round/subsets/400` and `subsets/700`, with content hashes
+in their filenames. Both weights use the CSS family "寒蝉全圆体". Splitting uses
+cn-font-split's default grouping and preserves the original character coverage,
+with `unicode-range` declarations and `font-display: swap`; none are preloaded.
+Derived fonts use the internal name "Folumio Round" to respect the original font's
+reserved names. The original copyright and license are retained.
