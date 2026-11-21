@@ -1,6 +1,7 @@
 ## Folumio
 
 [![Deploy](https://github.com/Louaq/Folumio/actions/workflows/deploy.yml/badge.svg?branch=master)](https://github.com/Louaq/Folumio/actions/workflows/deploy.yml)
+[![Ask DeepWiki](https://deepwiki.com/badge.svg)](https://deepwiki.com/Louaq/Folumio)
 [![Astro](https://img.shields.io/badge/Astro-7-BC52EE?logo=astro&logoColor=white)](https://astro.build)
 [![Svelte](https://img.shields.io/badge/Svelte-5-FF3E00?logo=svelte&logoColor=white)](https://svelte.dev)
 [![React](https://img.shields.io/badge/React-19-149ECA?logo=react&logoColor=white)](https://react.dev)
