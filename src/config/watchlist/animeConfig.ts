@@ -358,4 +358,14 @@ export const animeItems: WatchlistItem[] = [
 		tags: ["动作", "动画", "奇幻"],
 		enabled: true,
 	},
+	{
+		title: "斗破苍穹剧场版 双帝之战",
+		cover: "https://ss1.tupinayun.cn/autoupload/pzwl0/20261121/W97J/0X0/p2937233183.webp",
+		type: "anime",
+		status: "watching",
+		rating: 0,
+		startDate: "2026-11-22",
+		tags: ["动作", "动画", "奇幻"],
+		enabled: true,
+	},
 ];
